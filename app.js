@@ -390,9 +390,9 @@
 
     const svAnnual = mapSVMonthly(a.q17) * 12;
 
-    const profitBeforeTax = revenue - fixAnnual - varAnnual - svAnnual;
+    const taxableProfit = revenue - support - fixAnnual - varAnnual - svAnnual;
     const taxRate = mapTaxRate(a.q18);
-    const taxes = Math.max(0, profitBeforeTax) * taxRate;
+    const taxes = Math.max(0, taxableProfit) * taxRate;
 
     const totalCosts = fixAnnual + varAnnual + svAnnual + taxes;
     const profitAfterTax = revenue - totalCosts;
