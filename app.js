@@ -1,5 +1,5 @@
 /* Framework-free implementation of the Curator Prognosis Tool
-   - Renders 21 questions (A–D)
+   - Renders 20 questions (A–D)
    - Computes revenue/cost/profit heuristics
    - Shows two pie charts via Chart.js (CDN)
 */
@@ -34,7 +34,6 @@
     q14: "B",
     q15: "B",
     q16: "B",
-    q17: "B",
     q18: "C",
     q19: "C",
     q20: "B",
@@ -208,16 +207,6 @@
       ],
     },
     {
-      key: "q17",
-      title: "Sozialversicherung & Vorsorge (Ø/Monat)?",
-      options: [
-        { k: "A", label: "<300 €" },
-        { k: "B", label: "300–500 €" },
-        { k: "C", label: "500–700 €" },
-        { k: "D", label: ">700 €" },
-      ],
-    },
-    {
       key: "q18",
       title: "Steuerliche Situation?",
       options: [
@@ -279,8 +268,6 @@
   const mapFixMonthly = (o) => ({ A: 200, B: 450, C: 800, D: 1200 })[o];
   const mapVarPerProject = (o) => ({ A: 150, B: 350, C: 750, D: 1200 })[o];
   const mapTravelCostShare = (o) => ({ A: 1.0, B: 0.6, C: 0.3, D: 0.1 })[o];
-
-  const mapSVMonthly = (o) => ({ A: 250, B: 400, C: 600, D: 800 })[o];
 
   const mapTaxRate = (o) => ({ A: 0.1, B: 0.18, C: 0.28, D: 0.38 })[o];
 
@@ -388,9 +375,10 @@
     const travelShare = mapTravelCostShare(a.q9);
     const varAnnual = paidProjects * mapVarPerProject(a.q16) * travelShare;
 
-    const svAnnual = mapSVMonthly(a.q17) * 12;
+    const profitBeforeSv = revenue - support - fixAnnual - varAnnual;
+    const svAnnual = Math.max(0, profitBeforeSv) * 0.26;
 
-    const taxableProfit = revenue - support - fixAnnual - varAnnual - svAnnual;
+    const taxableProfit = profitBeforeSv - svAnnual;
     const taxRate = mapTaxRate(a.q18);
     const taxes = Math.max(0, taxableProfit) * taxRate;
 
@@ -490,7 +478,9 @@
 
     sheetEl.appendChild(sheetRow("Fixkosten (jährlich)", EUR(c.fixAnnual)));
     sheetEl.appendChild(sheetRow("Variable Projektkosten", EUR(c.varAnnual)));
-    sheetEl.appendChild(sheetRow("Sozialversicherung & Vorsorge", EUR(c.svAnnual)));
+    sheetEl.appendChild(
+      sheetRow("Sozialversicherung & Vorsorge (26% vom Gewinn vor Steuern)", EUR(c.svAnnual)),
+    );
     sheetEl.appendChild(sheetRow("Steuern (Schätzung)", EUR(c.taxes)));
 
     sheetEl.appendChild(document.createElement("hr")).className = "sep";

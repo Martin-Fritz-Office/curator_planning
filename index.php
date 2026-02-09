@@ -35,7 +35,7 @@
 
           <p class="small muted">
             Kurzlogik: Projekte×Honorar (mit Stabilitätsfaktor) + Texte + Beratung + Förderungen + Unterstützung = Umsatz.
-            Fixkosten + variable Projektkosten (Reiseanteil) + SV/Vorsorge + heuristische Steuerquote = Kosten.
+            Fixkosten + variable Projektkosten (Reiseanteil) + SV/Vorsorge (26% vom Gewinn vor Steuern) + heuristische Steuerquote = Kosten.
             Rücklagenquote hängt am Risikoprofil.
           </p>
         </div>
