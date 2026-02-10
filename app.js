@@ -473,7 +473,6 @@
     sheetEl.appendChild(sheetRow("Texte & Publikationen", EUR(c.texts)));
     sheetEl.appendChild(sheetRow("Beratung / Jury", EUR(c.consulting)));
     sheetEl.appendChild(sheetRow("Förderungen / Stipendien", EUR(c.grants)));
-    sheetEl.appendChild(sheetRow("Zusätzliche Unterstützung", EUR(c.support)));
 
     sheetEl.appendChild(document.createElement("hr")).className = "sep";
 
@@ -499,6 +498,7 @@
     );
 
     sheetEl.appendChild(sheetRow("Gewinn nach Steuern", EUR(c.profitAfterTax), { strong: true }));
+    sheetEl.appendChild(sheetRow("Zusätzliche Unterstützung", EUR(c.support)));
     sheetEl.appendChild(sheetRow("Gesamtkosten", EUR(c.totalCosts), { strong: true }));
 
     sheetEl.appendChild(sheetRow(`Rücklagen (${Math.round(c.reserveRate * 100)}%)`, EUR(c.reserves)));
