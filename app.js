@@ -269,8 +269,6 @@
   const mapVarPerProject = (o) => ({ A: 150, B: 350, C: 750, D: 1200 })[o];
   const mapTravelCostShare = (o) => ({ A: 1.0, B: 0.6, C: 0.3, D: 0.1 })[o];
 
-  const mapTaxRate = (o) => ({ A: 0.1, B: 0.18, C: 0.28, D: 0.38 })[o];
-
   const mapStabilityFactor = (o) => ({ A: 0.82, B: 0.9, C: 0.95, D: 1.0 })[o];
 
   const mapTargetNet = (o) => ({ A: 18000, B: 26000, C: 37500, D: 52000 })[o];
@@ -293,6 +291,27 @@
   };
 
   const sum = (rows) => rows.reduce((acc, r) => acc + (Number(r.value) || 0), 0);
+
+  function calcAustrianIncomeTax2025(income) {
+    const taxableIncome = Math.max(0, Number(income) || 0);
+    const brackets = [
+      { lower: 0, upper: 13308, rate: 0 },
+      { lower: 13308, upper: 21617, rate: 0.2 },
+      { lower: 21617, upper: 35836, rate: 0.3 },
+      { lower: 35836, upper: 69166, rate: 0.4 },
+      { lower: 69166, upper: 103072, rate: 0.48 },
+      { lower: 103072, upper: 1000000, rate: 0.5 },
+      { lower: 1000000, upper: Number.POSITIVE_INFINITY, rate: 0.55 },
+    ];
+
+    let tax = 0;
+    for (const b of brackets) {
+      if (taxableIncome <= b.lower) continue;
+      const taxablePart = Math.min(taxableIncome, b.upper) - b.lower;
+      tax += taxablePart * b.rate;
+    }
+    return tax;
+  }
 
   // -------------------- state --------------------
   /** @type {Record<string, Opt>} */
@@ -379,8 +398,7 @@
     const svAnnual = Math.max(0, profitBeforeSv) * 0.26;
 
     const taxableProfit = profitBeforeSv - svAnnual;
-    const taxRate = mapTaxRate(a.q18);
-    const taxes = Math.max(0, taxableProfit) * taxRate;
+    const taxes = calcAustrianIncomeTax2025(taxableProfit);
 
     const totalCosts = fixAnnual + varAnnual + svAnnual + taxes;
     const profitAfterTax = revenue - totalCosts;
@@ -434,7 +452,6 @@
       incomePie,
       costPie,
       reserveRate,
-      taxRate,
       incomeTotal: sum(incomePie),
       costTotal: sum(costPie),
     };
@@ -481,7 +498,12 @@
     sheetEl.appendChild(
       sheetRow("Sozialversicherung & Vorsorge (26% vom Gewinn vor Steuern)", EUR(c.svAnnual)),
     );
-    sheetEl.appendChild(sheetRow("Steuern (Schätzung)", EUR(c.taxes)));
+    sheetEl.appendChild(
+      sheetRow(
+        "Einkommensteuer Österreich (0–13.308 €: 0%, 13.309–21.617 €: 20%, 21.618–35.836 €: 30%, 35.837–69.166 €: 40%, 69.167–103.072 €: 48%, 103.073–1 Mio. €: 50%, über 1 Mio. €: 55%)",
+        EUR(c.taxes),
+      ),
+    );
 
     sheetEl.appendChild(document.createElement("hr")).className = "sep";
 

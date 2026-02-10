@@ -35,7 +35,7 @@
 
           <p class="small muted">
             Kurzlogik: Projekte×Honorar (mit Stabilitätsfaktor) + Texte + Beratung + Förderungen + Unterstützung = Umsatz.
-            Fixkosten + variable Projektkosten (Reiseanteil) + SV/Vorsorge (26% vom Gewinn vor Steuern) + heuristische Steuerquote = Kosten.
+            Fixkosten + variable Projektkosten (Reiseanteil) + SV/Vorsorge (26% vom Gewinn vor Steuern) + Einkommensteuer Österreich (Tarif 2025: 0–13.308 € 0%, 13.309–21.617 € 20%, 21.618–35.836 € 30%, 35.837–69.166 € 40%, 69.167–103.072 € 48%, 103.073–1 Mio. € 50%, über 1 Mio. € 55%) = Kosten.
             Rücklagenquote hängt am Risikoprofil.
           </p>
         </div>
