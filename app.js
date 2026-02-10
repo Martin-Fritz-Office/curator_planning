@@ -394,7 +394,7 @@
 
     const reserveRate = mapReserveRate(a.q20);
     const reserves = Math.max(0, profitAfterTax) * reserveRate;
-    const available = profitAfterTax - reserves;
+    const available = profitAfterTax - reserves + support;
 
     const targetNet = mapTargetNet(a.q19);
     const gap = available - targetNet;
@@ -499,8 +499,6 @@
 
     sheetEl.appendChild(sheetRow("Gewinn nach Steuern und Sozialversicherung", EUR(c.profitAfterTax), { strong: true }));
     sheetEl.appendChild(sheetRow("Zusätzliche Unterstützung", EUR(c.support)));
-    sheetEl.appendChild(sheetRow("Gesamtkosten", EUR(c.totalCosts), { strong: true }));
-
     sheetEl.appendChild(sheetRow(`Rücklagen (${Math.round(c.reserveRate * 100)}%)`, EUR(c.reserves)));
 
     sheetEl.appendChild(sheetRow("Verfügbares Jahreseinkommen", EUR(c.available), { strong: true }));
