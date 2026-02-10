@@ -390,7 +390,7 @@
 
     const operatingCosts = fixAnnual + varAnnual;
     const totalCosts = operatingCosts + svAnnual + taxes;
-    const profitAfterTax = revenue - totalCosts;
+    const profitAfterTax = profitBeforeSv - svAnnual - taxes;
 
     const reserveRate = mapReserveRate(a.q20);
     const reserves = Math.max(0, profitAfterTax) * reserveRate;
@@ -497,7 +497,7 @@
       ),
     );
 
-    sheetEl.appendChild(sheetRow("Gewinn nach Steuern", EUR(c.profitAfterTax), { strong: true }));
+    sheetEl.appendChild(sheetRow("Gewinn nach Steuern und Sozialversicherung", EUR(c.profitAfterTax), { strong: true }));
     sheetEl.appendChild(sheetRow("Zusätzliche Unterstützung", EUR(c.support)));
     sheetEl.appendChild(sheetRow("Gesamtkosten", EUR(c.totalCosts), { strong: true }));
 
