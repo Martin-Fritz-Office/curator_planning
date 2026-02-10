@@ -388,7 +388,8 @@
     const taxableProfit = profitBeforeSv - svAnnual;
     const taxes = calcAustrianIncomeTax2025(taxableProfit);
 
-    const totalCosts = fixAnnual + varAnnual + svAnnual + taxes;
+    const operatingCosts = fixAnnual + varAnnual;
+    const totalCosts = operatingCosts + svAnnual + taxes;
     const profitAfterTax = revenue - totalCosts;
 
     const reserveRate = mapReserveRate(a.q20);
@@ -428,6 +429,8 @@
       revenue,
       fixAnnual,
       varAnnual,
+      operatingCosts,
+      profitBeforeSv,
       svAnnual,
       taxes,
       totalCosts,
@@ -483,6 +486,8 @@
 
     sheetEl.appendChild(sheetRow("Fixkosten (jährlich)", EUR(c.fixAnnual)));
     sheetEl.appendChild(sheetRow("Variable Projektkosten", EUR(c.varAnnual)));
+    sheetEl.appendChild(sheetRow("Kosten (Fixkosten + variable Projektkosten)", EUR(c.operatingCosts), { strong: true }));
+    sheetEl.appendChild(sheetRow("Gewinn vor Steuern und Sozialversicherung", EUR(c.profitBeforeSv), { strong: true }));
     sheetEl.appendChild(
       sheetRow("Sozialversicherung & Vorsorge (26% vom Gewinn vor Steuern)", EUR(c.svAnnual)),
     );
@@ -493,10 +498,8 @@
       ),
     );
 
-    sheetEl.appendChild(document.createElement("hr")).className = "sep";
-
-    sheetEl.appendChild(sheetRow("Gesamtkosten", EUR(c.totalCosts), { strong: true }));
     sheetEl.appendChild(sheetRow("Gewinn nach Steuern", EUR(c.profitAfterTax), { strong: true }));
+    sheetEl.appendChild(sheetRow("Gesamtkosten", EUR(c.totalCosts), { strong: true }));
 
     sheetEl.appendChild(sheetRow(`Rücklagen (${Math.round(c.reserveRate * 100)}%)`, EUR(c.reserves)));
 
