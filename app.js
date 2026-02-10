@@ -34,7 +34,6 @@
     q14: "B",
     q15: "B",
     q16: "B",
-    q18: "C",
     q19: "C",
     q20: "B",
     q21: "A",
@@ -205,17 +204,6 @@
         { k: "C", label: "500–1.000 €" },
         { k: "D", label: ">1.000 €" },
       ],
-    },
-    {
-      key: "q18",
-      title: "Steuerliche Situation?",
-      options: [
-        { k: "A", label: "Kleinunternehmer*in" },
-        { k: "B", label: "Regelbesteuerung, niedrige Steuerlast" },
-        { k: "C", label: "mittlere Steuerlast" },
-        { k: "D", label: "hohe Steuerlast" },
-      ],
-      hint: "Heuristik: Steuerquote auf positiven Gewinn vor Steuern.",
     },
     {
       key: "q19",
