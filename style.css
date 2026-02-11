@@ -1,8 +1,8 @@
 /* Minimal, framework-free styling */
 :root{
-  --bg:#0b0d10;
-  --panel:#11151b;
-  --panel2:#0f1318;
+  --bg:#2f343b;
+  --panel:#353c45;
+  --panel2:#313841;
   --border:#222a35;
   --text:#e7ecf3;
   --muted:#9aa6b2;
@@ -20,7 +20,7 @@ html,body{height:100%}
 body{
   margin:0;
   font-family:var(--font);
-  background: radial-gradient(1200px 700px at 20% 0%, #131a25 0%, var(--bg) 55%);
+  background: radial-gradient(1200px 700px at 20% 0%, #4f5865 0%, var(--bg) 55%);
   color:var(--text);
 }
 
