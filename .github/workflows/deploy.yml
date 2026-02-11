@@ -21,7 +21,8 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           server: ${{ secrets.HOST }}
           port: 22
-          local_path: "./"
+          # Upload only project files; avoid hidden directories like .git.
+          local_path: "./*"
           remote_path: ${{ secrets.REMOTE_PATH }}
           sftp_only: true
           delete_remote_files: true # optional: cleans remote before upload
