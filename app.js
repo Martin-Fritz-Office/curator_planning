@@ -1,5 +1,5 @@
 /* Framework-free implementation of the Curator Prognosis Tool
-   - Renders 20 questions (A–D)
+   - Renders the questionnaire (A–D)
    - Computes revenue/cost/profit heuristics
    - Shows two pie charts via Chart.js (CDN)
 */
@@ -34,6 +34,8 @@
     q14: "B",
     q15: "B",
     q16: "B",
+    q17: "B",
+    q18: "B",
     q19: "C",
     q20: "B",
     q21: "A",
@@ -206,6 +208,26 @@
       ],
     },
     {
+      key: "q17",
+      title: "Wie viele Lehraufträge hast du pro Jahr?",
+      options: [
+        { k: "A", label: "0" },
+        { k: "B", label: "1–2" },
+        { k: "C", label: "3–4" },
+        { k: "D", label: "5+" },
+      ],
+    },
+    {
+      key: "q18",
+      title: "Durchschnittliches Honorar pro Lehrauftrag (brutto)?",
+      options: [
+        { k: "A", label: "unter 500 €" },
+        { k: "B", label: "500–1.000 €" },
+        { k: "C", label: "1.000–2.000 €" },
+        { k: "D", label: "über 2.000 €" },
+      ],
+    },
+    {
       key: "q19",
       title: "Gewünschtes Jahresnettoeinkommen?",
       options: [
@@ -249,6 +271,8 @@
 
   const mapConsultCount = (o) => ({ A: 0, B: 1.5, C: 4, D: 7.5 })[o];
   const mapDayRate = (o) => ({ A: 250, B: 375, C: 550, D: 750 })[o];
+  const mapTeachingAssignments = (o) => ({ A: 0, B: 1.5, C: 3.5, D: 5.5 })[o];
+  const mapTeachingFee = (o) => ({ A: 400, B: 750, C: 1500, D: 2500 })[o];
 
   const mapGrants = (o) => ({ A: 0, B: 2500, C: 10000, D: 20000 })[o];
   const mapSupportIncome = (o) => ({ A: 0, B: 3600, C: 6000, D: 12000 })[o];
@@ -372,10 +396,14 @@
     const dayRate = mapDayRate(a.q7);
     const consulting = consultCount * dayRate * stability;
 
+    const teachingAssignments = mapTeachingAssignments(a.q17);
+    const teachingFee = mapTeachingFee(a.q18);
+    const teaching = teachingAssignments * teachingFee * stability;
+
     const grants = mapGrants(a.q10);
     const support = mapSupportIncome(a.q21);
 
-    const revenue = curatorial + texts + consulting + grants;
+    const revenue = curatorial + texts + consulting + teaching + grants;
 
     const fixAnnual = mapFixMonthly(a.q15) * 12;
 
@@ -406,6 +434,7 @@
       { name: "Kuratorische Honorare", value: Math.max(0, curatorial) },
       { name: "Texte & Publikationen", value: Math.max(0, texts) },
       { name: "Beratung / Jury", value: Math.max(0, consulting) },
+      { name: "Lehre", value: Math.max(0, teaching) },
       { name: "Förderungen / Stipendien", value: Math.max(0, grants) },
       { name: "Unterstützung", value: Math.max(0, support) },
     ].filter((d) => d.value > 0);
@@ -425,6 +454,7 @@
       curatorial,
       texts,
       consulting,
+      teaching,
       grants,
       support,
       revenue,
@@ -474,6 +504,7 @@
     sheetEl.appendChild(sheetRow("Kuratorische Honorare", EUR(c.curatorial)));
     sheetEl.appendChild(sheetRow("Texte & Publikationen", EUR(c.texts)));
     sheetEl.appendChild(sheetRow("Beratung / Jury", EUR(c.consulting)));
+    sheetEl.appendChild(sheetRow("Lehre", EUR(c.teaching)));
     sheetEl.appendChild(sheetRow("Förderungen / Stipendien", EUR(c.grants)));
 
     sheetEl.appendChild(document.createElement("hr")).className = "sep";
