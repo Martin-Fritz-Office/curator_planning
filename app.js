@@ -375,14 +375,14 @@
     const grants = mapGrants(a.q10);
     const support = mapSupportIncome(a.q21);
 
-    const revenue = curatorial + texts + consulting + grants + support;
+    const revenue = curatorial + texts + consulting + grants;
 
     const fixAnnual = mapFixMonthly(a.q15) * 12;
 
     const travelShare = mapTravelCostShare(a.q9);
     const varAnnual = paidProjects * mapVarPerProject(a.q16) * travelShare;
 
-    const profitBeforeSv = revenue - support - fixAnnual - varAnnual;
+    const profitBeforeSv = revenue - fixAnnual - varAnnual;
     const svAnnual = Math.max(0, profitBeforeSv) * 0.26;
 
     const taxableProfit = profitBeforeSv - svAnnual;
@@ -505,8 +505,8 @@
     );
 
     sheetEl.appendChild(sheetRow("Gewinn nach Steuern und Sozialversicherung", EUR(c.profitAfterTax), { strong: true }));
-    sheetEl.appendChild(sheetRow("Zusätzliche Unterstützung", EUR(c.support)));
     sheetEl.appendChild(sheetRow(`Rücklagen (${Math.round(c.reserveRate * 100)}%)`, EUR(c.reserves)));
+    sheetEl.appendChild(sheetRow("Zusätzliche Unterstützung", EUR(c.support)));
 
     sheetEl.appendChild(sheetRow("Verfügbares Jahreseinkommen", EUR(c.available), { strong: true }));
 
