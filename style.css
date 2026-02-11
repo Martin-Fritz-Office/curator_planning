@@ -1,11 +1,11 @@
 /* Minimal, framework-free styling */
 :root{
-  --bg:#2f343b;
-  --panel:#353c45;
-  --panel2:#313841;
-  --border:#222a35;
-  --text:#e7ecf3;
-  --muted:#9aa6b2;
+  --bg:#4a5563;
+  --panel:#5a6676;
+  --panel2:#556173;
+  --border:#3e4959;
+  --text:#f3f6fb;
+  --muted:#d0d8e3;
   --accent:#cbd5e1;
   --danger:#ff6b6b;
   --shadow: 0 1px 0 rgba(255,255,255,0.03), 0 12px 24px rgba(0,0,0,0.35);
@@ -20,7 +20,7 @@ html,body{height:100%}
 body{
   margin:0;
   font-family:var(--font);
-  background: radial-gradient(1200px 700px at 20% 0%, #4f5865 0%, var(--bg) 55%);
+  background: radial-gradient(1200px 700px at 20% 0%, #7a8697 0%, var(--bg) 55%);
   color:var(--text);
 }
 
@@ -55,7 +55,7 @@ body{
 
 .pill{
   border:1px solid var(--border);
-  background: rgba(255,255,255,0.02);
+  background: rgba(255,255,255,0.12);
   padding: 6px 10px;
   border-radius:999px;
   font-size: 13px;
@@ -99,7 +99,7 @@ body{
 }
 
 .card{
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.08));
   border:1px solid var(--border);
   border-radius: var(--radius2);
   box-shadow: var(--shadow);
@@ -108,7 +108,7 @@ body{
 .card-head{
   padding: 14px 16px;
   border-bottom:1px solid var(--border);
-  background: rgba(0,0,0,0.10);
+  background: rgba(255,255,255,0.08);
 }
 .card-head h2{
   margin:0;
@@ -156,7 +156,7 @@ select{
   padding: 9px 10px;
   border-radius: 12px;
   border:1px solid var(--border);
-  background: #0d1117;
+  background: #3f4b5c;
   color: var(--text);
   outline:none;
 }
