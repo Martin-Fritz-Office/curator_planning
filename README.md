@@ -34,5 +34,7 @@ The app sends a JSON payload to `submit_survey.php`, which inserts into `survey_
 ## Files added for persistence
 
 - `submit_survey.php` — POST endpoint that validates payload and inserts into MySQL.
+
+- `median_available_income.php` — GET endpoint that reads `available_income` values and returns the median for display in the UI.
 - `schema.sql` — table schema for saved survey submissions.
 - `db_config.php.example` — template config for DB connection.

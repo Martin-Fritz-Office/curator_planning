@@ -22,6 +22,7 @@
         <button id="saveBtn" class="btn" type="button">Save responses</button>
         <div id="saveStatus" class="pill" aria-live="polite">Not saved</div>
         <div class="pill">Type: <span id="typologyLabel" class="pill-strong">–</span></div>
+        <div class="pill">Median available income: <span id="medianAvailableIncome" class="pill-strong">loading …</span></div>
         <button id="resetBtn" class="btn btn-outline" type="button">Reset</button>
       </div>
     </header>
