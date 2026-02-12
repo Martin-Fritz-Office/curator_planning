@@ -41,6 +41,8 @@
     q21: "A",
   };
 
+  const DEFAULT_EMPLOYMENT_NET = 0;
+
   /** @type {{key:string,title:string,options:{k:Opt,label:string}[],hint?:string}[]} */
   const QUESTIONS = [
     {
@@ -328,6 +330,7 @@
   // -------------------- state --------------------
   /** @type {Record<string, Opt>} */
   let answers = { ...DEFAULT };
+  let employmentNetIncome = DEFAULT_EMPLOYMENT_NET;
 
   // -------------------- DOM --------------------
   const questionGrid = document.getElementById("questionGrid");
@@ -341,6 +344,36 @@
   // -------------------- render questions --------------------
   function renderQuestions() {
     questionGrid.innerHTML = "";
+
+    const employmentWrap = document.createElement("div");
+    employmentWrap.className = "q";
+
+    const employmentLabel = document.createElement("label");
+    employmentLabel.setAttribute("for", "employmentNetIncome");
+    employmentLabel.textContent =
+      "Bist du irgendwo fest angestellt? Wenn ja, wie hoch ist dein Nettojahreseinkommen?";
+    employmentWrap.appendChild(employmentLabel);
+
+    const employmentHint = document.createElement("div");
+    employmentHint.className = "hint";
+    employmentHint.textContent =
+      "Bitte Zahl eingeben. Dieser Betrag wird nur separat ausgewiesen (kein Umsatz, keine Sozialversicherung, keine Steuerlogik).";
+    employmentWrap.appendChild(employmentHint);
+
+    const employmentInput = document.createElement("input");
+    employmentInput.type = "number";
+    employmentInput.id = "employmentNetIncome";
+    employmentInput.min = "0";
+    employmentInput.step = "100";
+    employmentInput.value = String(employmentNetIncome);
+    employmentInput.addEventListener("input", (e) => {
+      const raw = Number(e.target.value);
+      employmentNetIncome = Number.isFinite(raw) ? Math.max(0, raw) : 0;
+      updateAll();
+    });
+    employmentWrap.appendChild(employmentInput);
+    questionGrid.appendChild(employmentWrap);
+
     for (const q of QUESTIONS) {
       const wrap = document.createElement("div");
       wrap.className = "q";
@@ -382,6 +415,7 @@
 
   // -------------------- calc --------------------
   function calcAll(a) {
+    const employmentIncome = Math.max(0, Number(employmentNetIncome) || 0);
     const projects = mapProjects(a.q2);
     const paidProjects = Math.max(0, projects * mapPaidShare(a.q12));
 
@@ -457,6 +491,7 @@
       teaching,
       grants,
       support,
+      employmentIncome,
       revenue,
       fixAnnual,
       varAnnual,
@@ -540,6 +575,7 @@
     sheetEl.appendChild(sheetRow("Gewinn nach Steuern und Sozialversicherung", EUR(c.profitAfterTax), { strong: true }));
     sheetEl.appendChild(sheetRow(`Rücklagen (${Math.round(c.reserveRate * 100)}%)`, EUR(c.reserves)));
     sheetEl.appendChild(sheetRow("Verfügbar vor Unterstützung", EUR(c.availableBeforeSupport), { strong: true }));
+    sheetEl.appendChild(sheetRow("Nettojahreseinkommen aus Festanstellung (separate Info)", EUR(c.employmentIncome)));
     sheetEl.appendChild(sheetRow("Zusätzliche Unterstützung", EUR(c.support)));
 
     sheetEl.appendChild(sheetRow("Verfügbares Jahreseinkommen", EUR(c.available), { strong: true }));
@@ -633,11 +669,14 @@
   // -------------------- reset --------------------
   resetBtn.addEventListener("click", () => {
     answers = { ...DEFAULT };
+    employmentNetIncome = DEFAULT_EMPLOYMENT_NET;
     // update selects
     document.querySelectorAll("select[data-key]").forEach((sel) => {
       const key = sel.getAttribute("data-key");
       sel.value = answers[key];
     });
+    const employmentInput = document.getElementById("employmentNetIncome");
+    if (employmentInput) employmentInput.value = String(employmentNetIncome);
     updateAll();
   });
 
