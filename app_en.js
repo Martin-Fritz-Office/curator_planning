@@ -264,6 +264,29 @@
     },
   ];
 
+  const QUESTION_GROUPS = [
+    {
+      title: "Profile & positioning",
+      description: "Your core setup as an independent curator.",
+      keys: ["q1", "q2", "q3", "q4"],
+    },
+    {
+      title: "Income streams",
+      description: "Additional revenue sources besides project fees.",
+      keys: ["q5", "q6", "q7", "q10", "q17", "q18", "q21"],
+    },
+    {
+      title: "Workload & predictability",
+      description: "How stable and plannable your year is.",
+      keys: ["q8", "q9", "q11", "q12", "q13", "q14"],
+    },
+    {
+      title: "Costs, risk & target",
+      description: "Cost structure, risk profile, and your target income.",
+      keys: ["q15", "q16", "q19", "q20"],
+    },
+  ];
+
   // -------------------- mapping --------------------
   const mapProjects = (o) => ({ A: 4, B: 6, C: 8, D: 11 })[o];
   const mapPaidShare = (o) => ({ A: 1.0, B: 0.85, C: 0.7, D: 0.55 })[o];
@@ -468,6 +491,8 @@
   function renderQuestions() {
     questionGrid.innerHTML = "";
 
+    const questionByKey = Object.fromEntries(QUESTIONS.map((q) => [q.key, q]));
+
     const employmentWrap = document.createElement("div");
     employmentWrap.className = "q";
 
@@ -495,44 +520,88 @@
       updateAll();
     });
     employmentWrap.appendChild(employmentInput);
-    questionGrid.appendChild(employmentWrap);
 
-    for (const q of QUESTIONS) {
-      const wrap = document.createElement("div");
-      wrap.className = "q";
+    const employmentSection = document.createElement("section");
+    employmentSection.className = "q-section q-section-full";
 
-      const label = document.createElement("label");
-      label.textContent = q.title;
+    const employmentHead = document.createElement("div");
+    employmentHead.className = "q-section-head";
 
-      wrap.appendChild(label);
+    const employmentTitle = document.createElement("h3");
+    employmentTitle.textContent = "Employment";
+    employmentHead.appendChild(employmentTitle);
 
-      if (q.hint) {
-        const hint = document.createElement("div");
-        hint.className = "hint";
-        hint.textContent = q.hint;
-        wrap.appendChild(hint);
+    const employmentDescription = document.createElement("p");
+    employmentDescription.textContent = "Optional amount outside your self-employed work.";
+    employmentHead.appendChild(employmentDescription);
+
+    employmentSection.appendChild(employmentHead);
+    employmentSection.appendChild(employmentWrap);
+    questionGrid.appendChild(employmentSection);
+
+    for (const group of QUESTION_GROUPS) {
+      const groupSection = document.createElement("section");
+      groupSection.className = "q-section q-section-full";
+
+      const groupHead = document.createElement("div");
+      groupHead.className = "q-section-head";
+
+      const groupTitle = document.createElement("h3");
+      groupTitle.textContent = group.title;
+      groupHead.appendChild(groupTitle);
+
+      const groupDescription = document.createElement("p");
+      groupDescription.textContent = group.description;
+      groupHead.appendChild(groupDescription);
+
+      groupSection.appendChild(groupHead);
+
+      const groupGrid = document.createElement("div");
+      groupGrid.className = "q-group-grid";
+
+      for (const key of group.keys) {
+        const q = questionByKey[key];
+        if (!q) continue;
+
+        const wrap = document.createElement("div");
+        wrap.className = "q";
+
+        const label = document.createElement("label");
+        label.textContent = q.title;
+
+        wrap.appendChild(label);
+
+        if (q.hint) {
+          const hint = document.createElement("div");
+          hint.className = "hint";
+          hint.textContent = q.hint;
+          wrap.appendChild(hint);
+        }
+
+        const sel = document.createElement("select");
+        sel.setAttribute("data-key", q.key);
+
+        for (const opt of q.options) {
+          const o = document.createElement("option");
+          o.value = opt.k;
+          o.textContent = `(${opt.k}) ${opt.label}`;
+          sel.appendChild(o);
+        }
+
+        sel.value = answers[q.key];
+
+        sel.addEventListener("change", (e) => {
+          const selectedKey = e.target.getAttribute("data-key");
+          answers[selectedKey] = e.target.value;
+          updateAll();
+        });
+
+        wrap.appendChild(sel);
+        groupGrid.appendChild(wrap);
       }
 
-      const sel = document.createElement("select");
-      sel.setAttribute("data-key", q.key);
-
-      for (const opt of q.options) {
-        const o = document.createElement("option");
-        o.value = opt.k;
-        o.textContent = `(${opt.k}) ${opt.label}`;
-        sel.appendChild(o);
-      }
-
-      sel.value = answers[q.key];
-
-      sel.addEventListener("change", (e) => {
-        const key = e.target.getAttribute("data-key");
-        answers[key] = e.target.value;
-        updateAll();
-      });
-
-      wrap.appendChild(sel);
-      questionGrid.appendChild(wrap);
+      groupSection.appendChild(groupGrid);
+      questionGrid.appendChild(groupSection);
     }
   }
 
