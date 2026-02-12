@@ -8,6 +8,9 @@ CREATE TABLE IF NOT EXISTS survey_submissions (
     income_gap DECIMAL(12,2) NOT NULL DEFAULT 0,
     typology_label VARCHAR(64) NOT NULL DEFAULT '',
     typology_score DECIMAL(5,4) NULL,
+    questionnaire_json JSON NULL,
+    computed_json JSON NULL,
+    prognosis_lines_json JSON NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_created_at (created_at),
     INDEX idx_locale_created_at (locale, created_at)

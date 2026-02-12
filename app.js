@@ -350,10 +350,80 @@
     if (tone) saveStatusEl.classList.add(tone);
   }
 
+  function getSelectedQuestionnaireData() {
+    return QUESTIONS.map((q) => {
+      const selectedKey = answers[q.key];
+      const selectedOption = q.options.find((opt) => opt.k === selectedKey) || null;
+      return {
+        key: q.key,
+        title: q.title,
+        hint: q.hint || "",
+        selectedKey,
+        selectedLabel: selectedOption ? selectedOption.label : "",
+        options: q.options,
+      };
+    });
+  }
+
+  function buildPrognosisLines(c) {
+    return [
+      { label: "Kuratorische Honorare", value: c.curatorial, formatted: EUR(c.curatorial) },
+      { label: "Texte & Publikationen", value: c.texts, formatted: EUR(c.texts) },
+      { label: "Beratung / Jury", value: c.consulting, formatted: EUR(c.consulting) },
+      { label: "Lehre", value: c.teaching, formatted: EUR(c.teaching) },
+      { label: "Förderungen / Stipendien", value: c.grants, formatted: EUR(c.grants) },
+      { label: "Gesamtumsatz", value: c.revenue, formatted: EUR(c.revenue) },
+      { label: "Fixkosten (jährlich)", value: c.fixAnnual, formatted: EUR(c.fixAnnual) },
+      { label: "Variable Projektkosten", value: c.varAnnual, formatted: EUR(c.varAnnual) },
+      { label: "Kosten (Fixkosten + variable Projektkosten)", value: c.operatingCosts, formatted: EUR(c.operatingCosts) },
+      {
+        label: "Gewinn vor Steuern und Sozialversicherung",
+        value: c.profitBeforeSv,
+        formatted: EUR(c.profitBeforeSv),
+      },
+      {
+        label: "Sozialversicherung & Vorsorge (26% vom Gewinn vor Steuern)",
+        value: c.svAnnual,
+        formatted: EUR(c.svAnnual),
+      },
+      {
+        label: "Gewinn nach Sozialversicherung vor Steuer",
+        value: c.revenue - c.operatingCosts - c.svAnnual,
+        formatted: EUR(c.revenue - c.operatingCosts - c.svAnnual),
+      },
+      {
+        label:
+          "Einkommensteuer Österreich (0–13.308 €: 0%, 13.309–21.617 €: 20%, 21.618–35.836 €: 30%, 35.837–69.166 €: 40%, 69.167–103.072 €: 48%, 103.073–1 Mio. €: 50%, über 1 Mio. €: 55%)",
+        value: c.taxes,
+        formatted: EUR(c.taxes),
+      },
+      {
+        label: "Gewinn nach Steuern und Sozialversicherung",
+        value: c.profitAfterTax,
+        formatted: EUR(c.profitAfterTax),
+      },
+      { label: `Rücklagen (${Math.round(c.reserveRate * 100)}%)`, value: c.reserves, formatted: EUR(c.reserves) },
+      {
+        label: "Verfügbar vor Unterstützung",
+        value: c.availableBeforeSupport,
+        formatted: EUR(c.availableBeforeSupport),
+      },
+      { label: "Nettoeinkommen aus der Anstellung", value: c.employmentIncome, formatted: EUR(c.employmentIncome) },
+      { label: "Zusätzliche Unterstützung", value: c.support, formatted: EUR(c.support) },
+      { label: "Verfügbares Jahreseinkommen", value: c.available, formatted: EUR(c.available) },
+      { label: "Ziel-Netto", value: c.targetNet, formatted: EUR(c.targetNet) },
+      { label: "Gap (verfügbar − Ziel)", value: c.gap, formatted: EUR(c.gap) },
+    ];
+  }
+
   function buildSurveyPayload(c) {
     return {
       locale: "de",
       answers,
+      questionnaire: {
+        employmentNetIncome,
+        questions: getSelectedQuestionnaireData(),
+      },
       employmentNetIncome,
       typology: c.typ,
       availableIncome: c.available,
@@ -366,6 +436,7 @@
         support: c.support,
         employmentIncome: c.employmentIncome,
       },
+      prognosisLines: buildPrognosisLines(c),
     };
   }
 
