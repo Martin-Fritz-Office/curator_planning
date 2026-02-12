@@ -78,6 +78,12 @@ body{
 
 .btn-outline{background:transparent}
 
+.btn:disabled{opacity:.65;cursor:not-allowed}
+
+.save-status-ok{border-color:#86efac;color:#166534;background:#f0fdf4}
+.save-status-error{border-color:#fca5a5;color:#991b1b;background:#fef2f2}
+.save-status-pending{border-color:#93c5fd;color:#1d4ed8;background:#eff6ff}
+
 .grid{
   display:grid;
   grid-template-columns:1fr;
