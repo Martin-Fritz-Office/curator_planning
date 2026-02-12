@@ -35,7 +35,7 @@
           <hr class="sep" />
 
           <p class="small muted">
-            Short logic: Projects×Fee (with stability factor) + Texts + Consulting + Grants = Revenue. Support is added only to the available annual income.
+            Short logic: Projects×Fee (with stability factor) + Texts + Consulting + Grants = Revenue. Support and net income from employment are added only to the available annual income.
             Fixed costs + variable project costs (travel share) + social insurance/provision (26% of pre-tax profit) + Austrian income tax (2025 brackets: 0–13,308 € 0%, 13,309–21,617 € 20%, 21,618–35,836 € 30%, 35,837–69,166 € 40%, 69,167–103,072 € 48%, 103,073–1 million € 50%, above 1 million € 55%) = costs.
             Reserve rate depends on risk profile.
           </p>
