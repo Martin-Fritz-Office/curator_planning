@@ -336,10 +336,62 @@
   const questionGrid = document.getElementById("questionGrid");
   const sheetEl = document.getElementById("sheet");
   const resetBtn = document.getElementById("resetBtn");
+  const saveBtn = document.getElementById("saveBtn");
+  const saveStatusEl = document.getElementById("saveStatus");
   const typologyLabelEl = document.getElementById("typologyLabel");
 
   const incomeEmpty = document.getElementById("incomeEmpty");
   const costEmpty = document.getElementById("costEmpty");
+
+  function setSaveStatus(text, tone) {
+    if (!saveStatusEl) return;
+    saveStatusEl.textContent = text;
+    saveStatusEl.classList.remove("save-status-ok", "save-status-error", "save-status-pending");
+    if (tone) saveStatusEl.classList.add(tone);
+  }
+
+  function buildSurveyPayload(c) {
+    return {
+      locale: "de",
+      answers,
+      employmentNetIncome,
+      typology: c.typ,
+      availableIncome: c.available,
+      targetIncome: c.targetNet,
+      gap: c.gap,
+      computed: {
+        revenue: c.revenue,
+        profitAfterTax: c.profitAfterTax,
+        reserves: c.reserves,
+        support: c.support,
+        employmentIncome: c.employmentIncome,
+      },
+    };
+  }
+
+  async function submitSurvey() {
+    const c = calcAll(answers);
+    setSaveStatus("Speichert …", "save-status-pending");
+    if (saveBtn) saveBtn.disabled = true;
+
+    try {
+      const res = await fetch("submit_survey.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(buildSurveyPayload(c)),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        const msg = data && data.error ? data.error : "Speichern fehlgeschlagen";
+        throw new Error(msg);
+      }
+      setSaveStatus(`Gespeichert (#${data.id})`, "save-status-ok");
+    } catch (err) {
+      setSaveStatus(`Fehler: ${err.message || "Speichern fehlgeschlagen"}`, "save-status-error");
+    } finally {
+      if (saveBtn) saveBtn.disabled = false;
+    }
+  }
 
   // -------------------- render questions --------------------
   function renderQuestions() {
@@ -664,6 +716,11 @@
     typologyLabelEl.textContent = c.typ.label;
     renderSheet(c);
     renderCharts(c);
+    setSaveStatus("Nicht gespeichert", null);
+  }
+
+  if (saveBtn) {
+    saveBtn.addEventListener("click", submitSurvey);
   }
 
   // -------------------- reset --------------------
@@ -683,6 +740,7 @@
   // -------------------- init --------------------
   function init() {
     renderQuestions();
+    setSaveStatus("Nicht gespeichert", null);
     updateAll();
   }
 

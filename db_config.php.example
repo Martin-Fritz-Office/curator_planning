@@ -1,0 +1,9 @@
+<?php
+
+return [
+    'host' => '127.0.0.1',
+    'port' => 3306,
+    'database' => 'curator_planning',
+    'user' => 'curator_user',
+    'password' => 'replace-with-strong-password',
+];

@@ -19,6 +19,8 @@
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index_en.php">English</a>
+        <button id="saveBtn" class="btn" type="button">Antworten speichern</button>
+        <div id="saveStatus" class="pill" aria-live="polite">Nicht gespeichert</div>
         <div class="pill">Typ: <span id="typologyLabel" class="pill-strong">–</span></div>
         <button id="resetBtn" class="btn btn-outline" type="button">Reset</button>
       </div>
