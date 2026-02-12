@@ -457,7 +457,7 @@
     const reserveRate = mapReserveRate(a.q20);
     const reserves = Math.max(0, profitAfterTax) * reserveRate;
     const availableBeforeSupport = profitAfterTax - reserves;
-    const available = availableBeforeSupport + support;
+    const available = availableBeforeSupport + support + employmentIncome;
 
     const targetNet = mapTargetNet(a.q19);
     const gap = available - targetNet;
@@ -575,7 +575,7 @@
     sheetEl.appendChild(sheetRow("Profit after taxes and social insurance", EUR(c.profitAfterTax), { strong: true }));
     sheetEl.appendChild(sheetRow(`Reserves (${Math.round(c.reserveRate * 100)}%)`, EUR(c.reserves)));
     sheetEl.appendChild(sheetRow("Available before support", EUR(c.availableBeforeSupport), { strong: true }));
-    sheetEl.appendChild(sheetRow("Annual net income from permanent employment (separate info)", EUR(c.employmentIncome)));
+    sheetEl.appendChild(sheetRow("Annual net income from employment", EUR(c.employmentIncome)));
     sheetEl.appendChild(sheetRow("Additional support", EUR(c.support)));
 
     sheetEl.appendChild(sheetRow("Available annual income", EUR(c.available), { strong: true }));
