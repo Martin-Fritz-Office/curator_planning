@@ -32,15 +32,56 @@ if (!is_array($data)) {
     exit;
 }
 
+/**
+ * @param array<string, mixed> $payload
+ * @param string[] $keys
+ * @return mixed
+ */
+function pickFirst(array $payload, array $keys)
+{
+    foreach ($keys as $key) {
+        if (array_key_exists($key, $payload)) {
+            return $payload[$key];
+        }
+    }
+
+    return null;
+}
+
+/**
+ * @param mixed $value
+ * @return array<mixed>|null
+ */
+function normalizeJsonArray($value): ?array
+{
+    if (is_array($value)) {
+        return $value;
+    }
+
+    if (is_string($value)) {
+        $decoded = json_decode($value, true);
+        if (is_array($decoded)) {
+            return $decoded;
+        }
+    }
+
+    return null;
+}
+
 $locale = isset($data['locale']) ? (string) $data['locale'] : 'de';
 $answers = $data['answers'] ?? null;
 $employmentNetIncome = (float) ($data['employmentNetIncome'] ?? 0);
 $availableIncome = (float) ($data['availableIncome'] ?? 0);
 $targetIncome = (float) ($data['targetIncome'] ?? 0);
 $gap = (float) ($data['gap'] ?? 0);
-$questionnaire = isset($data['questionnaire']) && is_array($data['questionnaire']) ? $data['questionnaire'] : [];
+$questionnaire = normalizeJsonArray(pickFirst($data, ['questionnaire', 'questionnaire_json', 'questionnaireJson'])) ?? [];
 $computed = isset($data['computed']) && is_array($data['computed']) ? $data['computed'] : [];
-$prognosisLines = isset($data['prognosisLines']) && is_array($data['prognosisLines']) ? $data['prognosisLines'] : [];
+$prognosisLines = normalizeJsonArray(
+    pickFirst(
+        $data,
+        ['prognosisLines', 'prognosis_lines', 'prognosis', 'prognosis_json', 'prognosisJson']
+    )
+) ?? [];
 $typologyLabel = '';
 $typologyScore = null;
 
