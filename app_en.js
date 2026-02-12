@@ -362,6 +362,7 @@
   const saveBtn = document.getElementById("saveBtn");
   const saveStatusEl = document.getElementById("saveStatus");
   const typologyLabelEl = document.getElementById("typologyLabel");
+  const medianAvailableIncomeEl = document.getElementById("medianAvailableIncome");
 
   const incomeEmpty = document.getElementById("incomeEmpty");
   const costEmpty = document.getElementById("costEmpty");
@@ -371,6 +372,27 @@
     saveStatusEl.textContent = text;
     saveStatusEl.classList.remove("save-status-ok", "save-status-error", "save-status-pending");
     if (tone) saveStatusEl.classList.add(tone);
+  }
+
+  async function loadMedianAvailableIncome() {
+    if (!medianAvailableIncomeEl) return;
+
+    try {
+      const res = await fetch("median_available_income.php");
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error((data && data.error) || "Failed to load median");
+      }
+
+      if (!data.count) {
+        medianAvailableIncomeEl.textContent = "No data";
+        return;
+      }
+
+      medianAvailableIncomeEl.textContent = data.formattedMedianAvailableIncome || EUR(data.medianAvailableIncome || 0);
+    } catch (err) {
+      medianAvailableIncomeEl.textContent = "Error";
+    }
   }
 
   function getSelectedQuestionnaireData() {
@@ -480,6 +502,7 @@
         throw new Error(msg);
       }
       setSaveStatus(`Saved (#${data.id})`, "save-status-ok");
+      await loadMedianAvailableIncome();
     } catch (err) {
       setSaveStatus(`Error: ${err.message || "Save failed"}`, "save-status-error");
     } finally {
@@ -881,7 +904,9 @@
   function init() {
     renderQuestions();
     setSaveStatus("Not saved", null);
+    if (medianAvailableIncomeEl) medianAvailableIncomeEl.textContent = "loading …";
     updateAll();
+    loadMedianAvailableIncome();
   }
 
   // Wait for Chart.js from CDN
