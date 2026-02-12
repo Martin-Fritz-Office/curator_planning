@@ -144,6 +144,36 @@ body{
 .q{display:flex;flex-direction:column;gap:6px}
 .q label{font-size:13px;font-weight:600}
 .hint{font-size:12px;color:var(--muted)}
+
+.q-section{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  background:var(--surface-soft);
+}
+.q-section-full{grid-column:1/-1}
+.q-section-head{margin-bottom:10px}
+.q-section-head h3{
+  margin:0;
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:.02em;
+  color:#374151;
+}
+.q-section-head p{
+  margin:4px 0 0;
+  font-size:12px;
+  color:var(--muted);
+}
+.q-group-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+}
+@media (min-width:760px){
+  .q-group-grid{grid-template-columns:1fr 1fr}
+}
+
 .select{display:flex;flex-direction:column}
 select{
   width:100%;
