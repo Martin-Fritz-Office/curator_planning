@@ -350,10 +350,80 @@
     if (tone) saveStatusEl.classList.add(tone);
   }
 
+  function getSelectedQuestionnaireData() {
+    return QUESTIONS.map((q) => {
+      const selectedKey = answers[q.key];
+      const selectedOption = q.options.find((opt) => opt.k === selectedKey) || null;
+      return {
+        key: q.key,
+        title: q.title,
+        hint: q.hint || "",
+        selectedKey,
+        selectedLabel: selectedOption ? selectedOption.label : "",
+        options: q.options,
+      };
+    });
+  }
+
+  function buildPrognosisLines(c) {
+    return [
+      { label: "Curatorial fees", value: c.curatorial, formatted: EUR(c.curatorial) },
+      { label: "Texts & publications", value: c.texts, formatted: EUR(c.texts) },
+      { label: "Consulting / jury", value: c.consulting, formatted: EUR(c.consulting) },
+      { label: "Teaching", value: c.teaching, formatted: EUR(c.teaching) },
+      { label: "Grants / scholarships", value: c.grants, formatted: EUR(c.grants) },
+      { label: "Total revenue", value: c.revenue, formatted: EUR(c.revenue) },
+      { label: "Fixed costs (annual)", value: c.fixAnnual, formatted: EUR(c.fixAnnual) },
+      { label: "Variable project costs", value: c.varAnnual, formatted: EUR(c.varAnnual) },
+      { label: "Costs (fixed + variable project costs)", value: c.operatingCosts, formatted: EUR(c.operatingCosts) },
+      {
+        label: "Profit before tax and social security",
+        value: c.profitBeforeSv,
+        formatted: EUR(c.profitBeforeSv),
+      },
+      {
+        label: "Social security & retirement (26% of pre-tax profit)",
+        value: c.svAnnual,
+        formatted: EUR(c.svAnnual),
+      },
+      {
+        label: "Profit after social security, before tax",
+        value: c.revenue - c.operatingCosts - c.svAnnual,
+        formatted: EUR(c.revenue - c.operatingCosts - c.svAnnual),
+      },
+      {
+        label:
+          "Austrian income tax (0–€13,308: 0%, €13,309–€21,617: 20%, €21,618–€35,836: 30%, €35,837–€69,166: 40%, €69,167–€103,072: 48%, €103,073–€1M: 50%, above €1M: 55%)",
+        value: c.taxes,
+        formatted: EUR(c.taxes),
+      },
+      {
+        label: "Profit after tax and social security",
+        value: c.profitAfterTax,
+        formatted: EUR(c.profitAfterTax),
+      },
+      { label: `Reserves (${Math.round(c.reserveRate * 100)}%)`, value: c.reserves, formatted: EUR(c.reserves) },
+      {
+        label: "Available before support",
+        value: c.availableBeforeSupport,
+        formatted: EUR(c.availableBeforeSupport),
+      },
+      { label: "Net income from employment", value: c.employmentIncome, formatted: EUR(c.employmentIncome) },
+      { label: "Additional support", value: c.support, formatted: EUR(c.support) },
+      { label: "Available annual income", value: c.available, formatted: EUR(c.available) },
+      { label: "Target net income", value: c.targetNet, formatted: EUR(c.targetNet) },
+      { label: "Gap (available − target)", value: c.gap, formatted: EUR(c.gap) },
+    ];
+  }
+
   function buildSurveyPayload(c) {
     return {
       locale: "en",
       answers,
+      questionnaire: {
+        employmentNetIncome,
+        questions: getSelectedQuestionnaireData(),
+      },
       employmentNetIncome,
       typology: c.typ,
       availableIncome: c.available,
@@ -366,6 +436,7 @@
         support: c.support,
         employmentIncome: c.employmentIncome,
       },
+      prognosisLines: buildPrognosisLines(c),
     };
   }
 

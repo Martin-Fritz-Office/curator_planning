@@ -38,6 +38,9 @@ $employmentNetIncome = (float) ($data['employmentNetIncome'] ?? 0);
 $availableIncome = (float) ($data['availableIncome'] ?? 0);
 $targetIncome = (float) ($data['targetIncome'] ?? 0);
 $gap = (float) ($data['gap'] ?? 0);
+$questionnaire = isset($data['questionnaire']) && is_array($data['questionnaire']) ? $data['questionnaire'] : [];
+$computed = isset($data['computed']) && is_array($data['computed']) ? $data['computed'] : [];
+$prognosisLines = isset($data['prognosisLines']) && is_array($data['prognosisLines']) ? $data['prognosisLines'] : [];
 $typologyLabel = '';
 $typologyScore = null;
 
@@ -76,7 +79,10 @@ try {
             target_income,
             income_gap,
             typology_label,
-            typology_score
+            typology_score,
+            questionnaire_json,
+            computed_json,
+            prognosis_lines_json
         ) VALUES (
             :locale,
             :answers_json,
@@ -85,7 +91,10 @@ try {
             :target_income,
             :income_gap,
             :typology_label,
-            :typology_score
+            :typology_score,
+            :questionnaire_json,
+            :computed_json,
+            :prognosis_lines_json
         )'
     );
 
@@ -98,6 +107,9 @@ try {
         ':income_gap' => $gap,
         ':typology_label' => $typologyLabel,
         ':typology_score' => $typologyScore,
+        ':questionnaire_json' => json_encode($questionnaire, JSON_UNESCAPED_UNICODE),
+        ':computed_json' => json_encode($computed, JSON_UNESCAPED_UNICODE),
+        ':prognosis_lines_json' => json_encode($prognosisLines, JSON_UNESCAPED_UNICODE),
     ]);
 
     echo json_encode([
