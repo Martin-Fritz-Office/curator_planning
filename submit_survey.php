@@ -68,6 +68,29 @@ function normalizeJsonArray($value): ?array
     return null;
 }
 
+/**
+ * @return array<string, bool>
+ */
+function getExistingColumns(PDO $pdo, string $tableName): array
+{
+    $stmt = $pdo->prepare(
+        'SELECT COLUMN_NAME
+         FROM information_schema.COLUMNS
+         WHERE TABLE_SCHEMA = DATABASE()
+           AND TABLE_NAME = :table_name'
+    );
+    $stmt->execute([':table_name' => $tableName]);
+
+    $columns = [];
+    foreach ($stmt->fetchAll(PDO::FETCH_COLUMN) as $columnName) {
+        if (is_string($columnName) && $columnName !== '') {
+            $columns[$columnName] = true;
+        }
+    }
+
+    return $columns;
+}
+
 $locale = isset($data['locale']) ? (string) $data['locale'] : 'de';
 $scenarioName = trim((string) ($data['scenarioName'] ?? $data['scenario_name'] ?? ''));
 $answers = $data['answers'] ?? null;
@@ -112,37 +135,7 @@ try {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ]);
 
-    $stmt = $pdo->prepare(
-        'INSERT INTO survey_submissions (
-            locale,
-            scenario_name,
-            answers_json,
-            employment_net_income,
-            available_income,
-            target_income,
-            income_gap,
-            typology_label,
-            typology_score,
-            questionnaire_json,
-            computed_json,
-            prognosis_lines_json
-        ) VALUES (
-            :locale,
-            :scenario_name,
-            :answers_json,
-            :employment_net_income,
-            :available_income,
-            :target_income,
-            :income_gap,
-            :typology_label,
-            :typology_score,
-            :questionnaire_json,
-            :computed_json,
-            :prognosis_lines_json
-        )'
-    );
-
-    $stmt->execute([
+    $columnValues = [
         ':locale' => $locale,
         ':scenario_name' => $scenarioName,
         ':answers_json' => json_encode($answers, JSON_UNESCAPED_UNICODE),
@@ -155,7 +148,37 @@ try {
         ':questionnaire_json' => json_encode($questionnaire, JSON_UNESCAPED_UNICODE),
         ':computed_json' => json_encode($computed, JSON_UNESCAPED_UNICODE),
         ':prognosis_lines_json' => json_encode($prognosisLines, JSON_UNESCAPED_UNICODE),
-    ]);
+    ];
+
+    $existingColumns = getExistingColumns($pdo, 'survey_submissions');
+    $insertColumns = [];
+    $insertPlaceholders = [];
+    $insertValues = [];
+
+    foreach ($columnValues as $placeholder => $value) {
+        $columnName = substr($placeholder, 1);
+        if (!isset($existingColumns[$columnName])) {
+            continue;
+        }
+
+        $insertColumns[] = $columnName;
+        $insertPlaceholders[] = $placeholder;
+        $insertValues[$placeholder] = $value;
+    }
+
+    if ($insertColumns === []) {
+        throw new RuntimeException('No matching columns available for insert');
+    }
+
+    $stmt = $pdo->prepare(
+        sprintf(
+            'INSERT INTO survey_submissions (%s) VALUES (%s)',
+            implode(', ', $insertColumns),
+            implode(', ', $insertPlaceholders)
+        )
+    );
+
+    $stmt->execute($insertValues);
 
     echo json_encode([
         'ok' => true,
