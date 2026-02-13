@@ -80,6 +80,21 @@ body{
 
 .btn:disabled{opacity:.65;cursor:not-allowed}
 
+.input-inline{
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--text);
+  padding:8px 10px;
+  border-radius:10px;
+  font-size:13px;
+  min-width:170px;
+}
+.input-inline:focus{
+  border-color:#9ca3af;
+  box-shadow:0 0 0 3px rgba(17,24,39,0.08);
+  outline:none;
+}
+
 .save-status-ok{border-color:#86efac;color:#166534;background:#f0fdf4}
 .save-status-error{border-color:#fca5a5;color:#991b1b;background:#fef2f2}
 .save-status-pending{border-color:#93c5fd;color:#1d4ed8;background:#eff6ff}
