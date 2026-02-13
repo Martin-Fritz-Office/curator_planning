@@ -69,6 +69,7 @@ function normalizeJsonArray($value): ?array
 }
 
 $locale = isset($data['locale']) ? (string) $data['locale'] : 'de';
+$scenarioName = trim((string) ($data['scenarioName'] ?? $data['scenario_name'] ?? ''));
 $answers = $data['answers'] ?? null;
 $employmentNetIncome = (float) ($data['employmentNetIncome'] ?? 0);
 $availableIncome = (float) ($data['availableIncome'] ?? 0);
@@ -114,6 +115,7 @@ try {
     $stmt = $pdo->prepare(
         'INSERT INTO survey_submissions (
             locale,
+            scenario_name,
             answers_json,
             employment_net_income,
             available_income,
@@ -126,6 +128,7 @@ try {
             prognosis_lines_json
         ) VALUES (
             :locale,
+            :scenario_name,
             :answers_json,
             :employment_net_income,
             :available_income,
@@ -141,6 +144,7 @@ try {
 
     $stmt->execute([
         ':locale' => $locale,
+        ':scenario_name' => $scenarioName,
         ':answers_json' => json_encode($answers, JSON_UNESCAPED_UNICODE),
         ':employment_net_income' => $employmentNetIncome,
         ':available_income' => $availableIncome,

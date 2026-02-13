@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS survey_submissions (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     locale VARCHAR(8) NOT NULL DEFAULT 'de',
+    scenario_name VARCHAR(120) NOT NULL DEFAULT '',
     answers_json JSON NOT NULL,
     employment_net_income DECIMAL(12,2) NOT NULL DEFAULT 0,
     available_income DECIMAL(12,2) NOT NULL DEFAULT 0,

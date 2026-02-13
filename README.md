@@ -30,10 +30,12 @@ Open either:
 
 Use the **Save responses** / **Antworten speichern** button in the header.
 The app sends a JSON payload to `submit_survey.php`, which inserts into `survey_submissions`.
+You can now assign a scenario name and load saved scenarios from a list that shows scenario name + total available income.
 
 ## Files added for persistence
 
 - `submit_survey.php` — POST endpoint that validates payload and inserts into MySQL.
+- `income_scenarios.php` — GET endpoint returning saved scenario names, total income, and answer payload for reloading.
 
 - `median_available_income.php` — GET endpoint that reads `available_income` values and returns the median for display in the UI.
 - `schema.sql` — table schema for saved survey submissions.

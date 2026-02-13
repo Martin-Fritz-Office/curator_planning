@@ -354,6 +354,7 @@
   /** @type {Record<string, Opt>} */
   let answers = { ...DEFAULT };
   let employmentNetIncome = DEFAULT_EMPLOYMENT_NET;
+  let selectedScenarioId = "";
 
   // -------------------- DOM --------------------
   const questionGrid = document.getElementById("questionGrid");
@@ -361,6 +362,9 @@
   const resetBtn = document.getElementById("resetBtn");
   const saveBtn = document.getElementById("saveBtn");
   const saveStatusEl = document.getElementById("saveStatus");
+  const scenarioNameInput = document.getElementById("scenarioName");
+  const scenarioListEl = document.getElementById("scenarioList");
+  const loadScenarioBtn = document.getElementById("loadScenarioBtn");
   const typologyLabelEl = document.getElementById("typologyLabel");
   const medianAvailableIncomeEl = document.getElementById("medianAvailableIncome");
 
@@ -392,6 +396,67 @@
       medianAvailableIncomeEl.textContent = data.formattedMedianAvailableIncome || EUR(data.medianAvailableIncome || 0);
     } catch (err) {
       medianAvailableIncomeEl.textContent = "Fehler";
+    }
+  }
+
+  async function loadIncomeScenarios() {
+    if (!scenarioListEl) return;
+
+    try {
+      const res = await fetch("income_scenarios.php");
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error((data && data.error) || "Failed to load scenarios");
+      }
+
+      scenarioListEl.innerHTML = "";
+
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = "Szenario laden …";
+      scenarioListEl.appendChild(placeholder);
+
+      for (const scenario of data.scenarios || []) {
+        const opt = document.createElement("option");
+        opt.value = String(scenario.id);
+        opt.textContent = `${scenario.name} (${scenario.totalIncomeFormatted || EUR(scenario.totalIncome || 0)})`;
+        opt.dataset.answers = JSON.stringify(scenario.answers || {});
+        opt.dataset.employmentNetIncome = String(scenario.employmentNetIncome || 0);
+        scenarioListEl.appendChild(opt);
+      }
+
+      scenarioListEl.value = selectedScenarioId;
+    } catch (err) {
+      scenarioListEl.innerHTML = '<option value="">Szenarien konnten nicht geladen werden</option>';
+    }
+  }
+
+  function loadSelectedScenario() {
+    if (!scenarioListEl) return;
+    const selectedOption = scenarioListEl.options[scenarioListEl.selectedIndex];
+    if (!selectedOption || !selectedOption.value) return;
+
+    try {
+      const loadedAnswers = JSON.parse(selectedOption.dataset.answers || "{}");
+      const mergedAnswers = { ...DEFAULT, ...loadedAnswers };
+      answers = mergedAnswers;
+      employmentNetIncome = Math.max(0, Number(selectedOption.dataset.employmentNetIncome || 0));
+      selectedScenarioId = selectedOption.value;
+
+      document.querySelectorAll("select[data-key]").forEach((sel) => {
+        const key = sel.getAttribute("data-key");
+        sel.value = answers[key] || DEFAULT[key];
+      });
+
+      const employmentInput = document.getElementById("employmentNetIncome");
+      if (employmentInput) employmentInput.value = String(employmentNetIncome);
+
+      if (scenarioNameInput) scenarioNameInput.value = selectedOption.textContent.split(" (")[0] || "";
+
+      updateAll();
+      setSaveStatus("Szenario geladen", "save-status-ok");
+    } catch (err) {
+      setSaveStatus("Szenario konnte nicht geladen werden", "save-status-error");
     }
   }
 
@@ -464,6 +529,7 @@
   function buildSurveyPayload(c) {
     return {
       locale: "de",
+      scenarioName: scenarioNameInput ? scenarioNameInput.value.trim() : "",
       answers,
       questionnaire: {
         employmentNetIncome,
@@ -503,6 +569,7 @@
       }
       setSaveStatus(`Gespeichert (#${data.id})`, "save-status-ok");
       await loadMedianAvailableIncome();
+      await loadIncomeScenarios();
     } catch (err) {
       setSaveStatus(`Fehler: ${err.message || "Speichern fehlgeschlagen"}`, "save-status-error");
     } finally {
@@ -885,10 +952,15 @@
     saveBtn.addEventListener("click", submitSurvey);
   }
 
+  if (loadScenarioBtn) {
+    loadScenarioBtn.addEventListener("click", loadSelectedScenario);
+  }
+
   // -------------------- reset --------------------
   resetBtn.addEventListener("click", () => {
     answers = { ...DEFAULT };
     employmentNetIncome = DEFAULT_EMPLOYMENT_NET;
+    selectedScenarioId = "";
     // update selects
     document.querySelectorAll("select[data-key]").forEach((sel) => {
       const key = sel.getAttribute("data-key");
@@ -896,6 +968,8 @@
     });
     const employmentInput = document.getElementById("employmentNetIncome");
     if (employmentInput) employmentInput.value = String(employmentNetIncome);
+    if (scenarioNameInput) scenarioNameInput.value = "";
+    if (scenarioListEl) scenarioListEl.value = "";
     updateAll();
   });
 
@@ -906,6 +980,7 @@
     if (medianAvailableIncomeEl) medianAvailableIncomeEl.textContent = "lädt …";
     updateAll();
     loadMedianAvailableIncome();
+    loadIncomeScenarios();
   }
 
   // Wait for Chart.js from CDN

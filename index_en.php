@@ -20,7 +20,12 @@
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php">Deutsch</a>
         <button id="saveBtn" class="btn" type="button">Save responses</button>
+        <input id="scenarioName" class="input-inline" type="text" maxlength="120" placeholder="Scenario name" aria-label="Scenario name" />
         <div id="saveStatus" class="pill" aria-live="polite">Not saved</div>
+        <select id="scenarioList" class="input-inline" aria-label="Saved scenarios">
+          <option value="">Load scenario …</option>
+        </select>
+        <button id="loadScenarioBtn" class="btn btn-outline" type="button">Load</button>
         <div class="pill">Type: <span id="typologyLabel" class="pill-strong">–</span></div>
         <div class="pill">Median available income: <span id="medianAvailableIncome" class="pill-strong">loading …</span></div>
         <button id="resetBtn" class="btn btn-outline" type="button">Reset</button>
