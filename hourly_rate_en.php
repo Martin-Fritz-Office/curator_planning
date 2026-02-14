@@ -13,7 +13,7 @@
     <header class="header">
       <div>
         <h1>Hourly Rate Calculator (Freelance Curator)</h1>
-        <p class="muted">6 questions to estimate a sustainable freelance hourly rate.</p>
+        <p class="muted">7 questions to estimate a sustainable freelance hourly rate.</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="hourly_rate.php">Deutsch</a>
@@ -37,19 +37,23 @@
               <input id="professionalCosts" type="number" min="0" step="50" value="1000" />
             </label>
             <label class="q">
-              <span>3) How many hours per week can you work?</span>
+              <span>3) Which multiplier do you use for social insurance &amp; taxes? (1.5 to 1.8)</span>
+              <input id="taxMultiplier" type="number" min="1.5" max="1.8" step="0.1" value="1.6" />
+            </label>
+            <label class="q">
+              <span>4) How many hours per week can you work?</span>
               <input id="weeklyHours" type="number" min="1" step="1" value="35" />
             </label>
             <label class="q">
-              <span>4) How many of those hours can you bill on average?</span>
+              <span>5) How many of those hours can you bill on average?</span>
               <input id="billableWeeklyHours" type="number" min="0" step="1" value="24" />
             </label>
             <label class="q">
-              <span>5) How many weeks per year do you want to take off?</span>
+              <span>6) How many weeks per year do you want to take off?</span>
               <input id="vacationWeeks" type="number" min="0" max="52" step="1" value="5" />
             </label>
             <label class="q">
-              <span>6) How many weeks per year are you sick?</span>
+              <span>7) How many weeks per year are you sick?</span>
               <input id="sickWeeks" type="number" min="0" max="52" step="1" value="2" />
             </label>
           </div>
@@ -62,7 +66,7 @@
         </div>
         <div class="card-body">
           <div class="sheet" id="hourlySheet"></div>
-          <p class="small muted">Note: Monthly living needs and monthly costs are converted to an annual target and divided by annual billable hours.</p>
+          <p class="small muted">Note: Monthly gross living need = monthly private net need × multiplier; hourly rate = (monthly gross need + monthly costs) ÷ monthly billable hours.</p>
         </div>
       </section>
     </main>

@@ -13,26 +13,33 @@
     de: {
       yearlyHours: "Jahresstunden (Wochenstunden × 52)",
       workingHours: "Arbeitsstunden nach Urlaub/Krankheit",
-      billableHours: "Verrechenbare Stunden/Jahr",
+      billableHoursYear: "Verrechenbare Stunden/Jahr",
+      billableHoursMonth: "Verrechenbare Stunden/Monat",
       billableRatio: "Verrechenbarkeitsquote",
-      annualNeed: "Jahresbedarf (Monat × 12)",
+      monthlyNeedNet: "Monatlicher Bedarf privat netto",
+      monthlyNeedGross: "Monatlicher Bedarf brutto",
+      monthlyTarget: "Monatliches Ziel (Bedarf brutto + Kosten)",
       recommendedHourly: "Empfohlener Stundenhonorar-Satz",
-      info: "Formel: Jahresstunden = Wochenstunden × 52; Arbeitsstunden = Jahresstunden − freie Wochen − Krankenwochen; Verrechenbare Stunden = Arbeitsstunden × (verrechenbare Stunden/Wochenstunden).",
+      info: "Formel: Bedarf brutto = Bedarf privat netto × Multiplikator; Stundenhonorar = (Bedarf brutto + monatliche Kosten) ÷ verrechenbare Stunden pro Monat.",
     },
     en: {
       yearlyHours: "Yearly hours (weekly hours × 52)",
       workingHours: "Working hours after vacation/sickness",
-      billableHours: "Billable hours per year",
+      billableHoursYear: "Billable hours per year",
+      billableHoursMonth: "Billable hours per month",
       billableRatio: "Billable share",
-      annualNeed: "Annual need (monthly × 12)",
+      monthlyNeedNet: "Monthly private net need",
+      monthlyNeedGross: "Monthly gross need",
+      monthlyTarget: "Monthly target (gross need + costs)",
       recommendedHourly: "Recommended hourly rate",
-      info: "Formula: Yearly hours = weekly hours × 52; Working hours = yearly hours − vacation weeks − sick weeks; Billable hours = working hours × (billable weekly hours/weekly hours).",
+      info: "Formula: Gross need = private net need × multiplier; Hourly rate = (gross monthly need + monthly costs) ÷ billable monthly hours.",
     },
   };
 
   const inputIds = [
     "monthlyNeed",
     "professionalCosts",
+    "taxMultiplier",
     "weeklyHours",
     "billableWeeklyHours",
     "vacationWeeks",
@@ -49,8 +56,9 @@
   }
 
   function recalc() {
-    const monthlyNeed = n("monthlyNeed");
+    const monthlyNeedNet = n("monthlyNeed");
     const professionalCosts = n("professionalCosts");
+    const taxMultiplier = Math.min(1.8, Math.max(1.5, n("taxMultiplier") || 1.6));
     const weeklyHours = Math.max(1, n("weeklyHours"));
     const billableWeeklyHours = Math.min(n("billableWeeklyHours"), weeklyHours);
     const vacationWeeks = n("vacationWeeks");
@@ -62,16 +70,21 @@
       yearlyHours - vacationWeeks * weeklyHours - sickWeeks * weeklyHours
     );
     const billableRatio = weeklyHours > 0 ? billableWeeklyHours / weeklyHours : 0;
-    const billableHours = Math.max(1, workingHours * billableRatio);
-    const annualNeed = (monthlyNeed + professionalCosts) * 12;
-    const hourlyRate = annualNeed / billableHours;
+    const billableHoursYear = Math.max(1, workingHours * billableRatio);
+    const billableHoursMonth = Math.max(1, billableHoursYear / 12);
+    const monthlyNeedGross = monthlyNeedNet * taxMultiplier;
+    const monthlyTarget = monthlyNeedGross + professionalCosts;
+    const hourlyRate = monthlyTarget / billableHoursMonth;
 
     sheet.innerHTML = `
       <div class="row"><span>${labels[lang].yearlyHours}</span><strong>${yearlyHours.toFixed(0)} h</strong></div>
       <div class="row"><span>${labels[lang].workingHours}</span><strong>${workingHours.toFixed(0)} h</strong></div>
-      <div class="row"><span>${labels[lang].billableHours}</span><strong>${billableHours.toFixed(0)} h</strong></div>
+      <div class="row"><span>${labels[lang].billableHoursYear}</span><strong>${billableHoursYear.toFixed(0)} h</strong></div>
+      <div class="row"><span>${labels[lang].billableHoursMonth}</span><strong>${billableHoursMonth.toFixed(1)} h</strong></div>
       <div class="row"><span>${labels[lang].billableRatio}</span><strong>${(billableRatio * 100).toFixed(1)}%</strong></div>
-      <div class="row"><span>${labels[lang].annualNeed}</span><strong>${EUR(annualNeed)}</strong></div>
+      <div class="row"><span>${labels[lang].monthlyNeedNet}</span><strong>${EUR(monthlyNeedNet)}</strong></div>
+      <div class="row"><span>${labels[lang].monthlyNeedGross}</span><strong>${EUR(monthlyNeedGross)}</strong></div>
+      <div class="row"><span>${labels[lang].monthlyTarget}</span><strong>${EUR(monthlyTarget)}</strong></div>
       <div class="row"><span>${labels[lang].recommendedHourly}</span><strong>${EUR(hourlyRate)}</strong></div>
       <p class="small muted">${labels[lang].info}</p>
     `;
