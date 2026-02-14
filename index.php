@@ -46,6 +46,14 @@
           <h3>Jahresnettoeinkommen Schritt für Schritt</h3>
           <p>Didaktische Serie zur nachvollziehbaren Netto-Berechnung.</p>
         </a>
+        <a class="tool-link" href="curator_viability_carousel.php">
+          <h3>Projekt-Check für freie Kurator*innen</h3>
+          <p>13 Fragen für die Entscheidung: zusagen, nachverhandeln oder absagen.</p>
+        </a>
+        <a class="tool-link" href="gallery_contract_reality_check.php">
+          <h3>Gallery Contract Reality Check</h3>
+          <p>12 Fragen zum finanziellen Realitätscheck von Galerieverträgen.</p>
+        </a>
       </div>
     </main>
   </div>
