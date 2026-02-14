@@ -327,7 +327,7 @@
         return;
       }
 
-      medianAvailableIncomeEl.textContent = data.formattedMedianAvailableIncome || EUR(data.medianAvailableIncome || 0);
+      medianAvailableIncomeEl.textContent = EUR(data.medianAvailableIncome || 0);
     } catch (err) {
       medianAvailableIncomeEl.textContent = "Error";
     }
@@ -353,7 +353,7 @@
       for (const scenario of data.scenarios || []) {
         const opt = document.createElement("option");
         opt.value = String(scenario.id);
-        opt.textContent = `${scenario.name} (${scenario.totalIncomeFormatted || EUR(scenario.totalIncome || 0)})`;
+        opt.textContent = `${scenario.name} (${EUR(scenario.totalIncome || 0)})`;
         opt.dataset.answers = JSON.stringify(scenario.answers || {});
         opt.dataset.employmentNetIncome = String(scenario.employmentNetIncome || 0);
         scenarioListEl.appendChild(opt);
