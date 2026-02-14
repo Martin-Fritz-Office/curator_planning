@@ -231,3 +231,57 @@ input[type="number"]:focus{
   padding-top:10px;
   border-top:1px solid var(--border);
 }
+
+.tutorial-card{
+  max-width:920px;
+  margin:0 auto;
+}
+
+.carousel-progress{
+  margin-bottom:10px;
+}
+
+.carousel-stage{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  background:var(--surface-soft);
+  min-height:280px;
+}
+
+.didactic-step h3{
+  margin:0 0 8px;
+  font-size:1.1rem;
+}
+
+.didactic-step p{
+  margin:0 0 10px;
+}
+
+.didactic-step ul{
+  margin:0;
+  padding-left:20px;
+}
+
+.carousel-actions{
+  display:flex;
+  justify-content:space-between;
+  margin-top:14px;
+}
+
+.tax-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+}
+
+.tax-table th,
+.tax-table td{
+  border:1px solid var(--border);
+  padding:8px;
+  text-align:left;
+}
+
+.tax-table th{
+  background:#f3f4f6;
+}
