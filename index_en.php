@@ -19,6 +19,7 @@
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php">Deutsch</a>
+        <a class="btn btn-outline" href="hourly_rate_en.php">Hourly rate calculator</a>
         <button id="saveBtn" class="btn" type="button">Save responses</button>
         <input id="scenarioName" class="input-inline" type="text" maxlength="120" placeholder="Scenario name" aria-label="Scenario name" />
         <div id="saveStatus" class="pill" aria-live="polite">Not saved</div>
