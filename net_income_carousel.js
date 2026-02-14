@@ -30,6 +30,21 @@
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
 
+  const stepIcons = [
+    "<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M4 4h16v16H4z' fill='none' stroke='currentColor' stroke-width='1.6'/><path d='M8 9h8M8 12h8M8 15h5' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round'/></svg>",
+    "<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M3 6h18M6 10h12M8 14h8M10 18h4' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round'/><path d='M4 4h16v16H4z' fill='none' stroke='currentColor' stroke-width='1.6'/></svg>",
+    "<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M5 12l4 4 10-10' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/><circle cx='12' cy='12' r='9' fill='none' stroke='currentColor' stroke-width='1.6'/></svg>",
+    "<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M4 7h16v10H4z' fill='none' stroke='currentColor' stroke-width='1.6'/><path d='M4 10h16M8 14h3' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round'/></svg>",
+    "<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M20 7H8' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round'/><path d='M13 3l-5 4 5 4' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/><rect x='4' y='12' width='16' height='8' fill='none' stroke='currentColor' stroke-width='1.6'/></svg>",
+    "<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M5 19V5M9 19v-8M13 19V9M17 19V7' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round'/><path d='M3 19h18' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round'/></svg>",
+    "<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M12 3v18M5 7h14M6 12h12M7 17h10' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round'/></svg>",
+    "<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M7 17h10M6 12h12M5 7h14' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round'/><circle cx='12' cy='12' r='9' fill='none' stroke='currentColor' stroke-width='1.6'/></svg>",
+    "<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M12 5v14M5 12h14' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round'/><circle cx='12' cy='12' r='9' fill='none' stroke='currentColor' stroke-width='1.6'/></svg>",
+    "<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M4 4h16v16H4z' fill='none' stroke='currentColor' stroke-width='1.6'/><path d='M8 8h8M8 12h8M8 16h4' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round'/></svg>",
+    "<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M12 3v10l4 2' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/><circle cx='12' cy='12' r='9' fill='none' stroke='currentColor' stroke-width='1.6'/></svg>",
+    "<svg viewBox='0 0 24 24' aria-hidden='true'><path d='M5 12l4 4 10-10' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/><path d='M3 20h18' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round'/></svg>",
+  ];
+
   const socials = (profitBeforeSocials) => {
     const base = Math.max(0, profitBeforeSocials);
     const health = base * 0.068;
@@ -148,7 +163,12 @@
       `,
     ];
 
-    stage.innerHTML = `<article class="didactic-step">${steps[state.step]}</article>`;
+    stage.innerHTML = `
+      <article class="didactic-step">
+        <div class="step-icon" aria-hidden="true">${stepIcons[state.step]}</div>
+        ${steps[state.step]}
+      </article>
+    `;
     progressLabel.textContent = `Schritt ${state.step + 1} von ${steps.length}`;
     prevBtn.disabled = state.step === 0;
     nextBtn.textContent = state.step === steps.length - 1 ? "Von vorne" : "Weiter";
