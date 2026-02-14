@@ -11,7 +11,16 @@
   <div class="page landing-page">
     <header class="header landing-header">
       <div>
-        <p class="eyebrow">artbackstage</p>
+        <p class="eyebrow brand-mark">
+          <span class="brand-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <rect x="2.5" y="2.5" width="19" height="19" rx="5"></rect>
+              <circle cx="9" cy="9" r="1.6"></circle>
+              <path d="M5.8 17.3h12.4l-4.1-4.7-2.8 2.9-2-2.1z"></path>
+            </svg>
+          </span>
+          <span>artbackstage</span>
+        </p>
         <h1>artbackstage | Money</h1>
         <p class="muted">Choose a calculator to plan your finances as a freelance curator.</p>
       </div>
