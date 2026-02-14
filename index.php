@@ -19,6 +19,7 @@
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index_en.php">English</a>
+        <a class="btn btn-outline" href="hourly_rate.php">Stundensatz-Rechner</a>
         <button id="saveBtn" class="btn" type="button">Antworten speichern</button>
         <input id="scenarioName" class="input-inline" type="text" maxlength="120" placeholder="Szenario-Name" aria-label="Szenario-Name" />
         <div id="saveStatus" class="pill" aria-live="polite">Nicht gespeichert</div>
