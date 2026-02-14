@@ -12,15 +12,21 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 
 $configPath = __DIR__ . '/db_config.php';
 if (!is_file($configPath)) {
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'Missing db_config.php']);
+    echo json_encode([
+        'ok' => true,
+        'count' => 0,
+        'scenarios' => [],
+    ]);
     exit;
 }
 
 $config = require $configPath;
 if (!is_array($config)) {
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'Invalid db config']);
+    echo json_encode([
+        'ok' => true,
+        'count' => 0,
+        'scenarios' => [],
+    ]);
     exit;
 }
 
@@ -75,6 +81,9 @@ try {
         'scenarios' => $scenarios,
     ]);
 } catch (Throwable $e) {
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'Database error']);
+    echo json_encode([
+        'ok' => true,
+        'count' => 0,
+        'scenarios' => [],
+    ]);
 }

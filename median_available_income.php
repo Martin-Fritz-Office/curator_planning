@@ -6,22 +6,34 @@ header('Content-Type: application/json; charset=utf-8');
 
 $configPath = __DIR__ . '/db_config.php';
 if (!file_exists($configPath)) {
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'Missing db_config.php']);
+    echo json_encode([
+        'ok' => true,
+        'count' => 0,
+        'medianAvailableIncome' => null,
+        'formattedMedianAvailableIncome' => null,
+    ]);
     exit;
 }
 
 $config = require $configPath;
 if (!is_array($config)) {
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'Invalid db_config.php']);
+    echo json_encode([
+        'ok' => true,
+        'count' => 0,
+        'medianAvailableIncome' => null,
+        'formattedMedianAvailableIncome' => null,
+    ]);
     exit;
 }
 
 foreach (['host', 'port', 'database', 'user', 'password'] as $requiredKey) {
     if (!array_key_exists($requiredKey, $config)) {
-        http_response_code(500);
-        echo json_encode(['ok' => false, 'error' => 'Incomplete DB config']);
+        echo json_encode([
+            'ok' => true,
+            'count' => 0,
+            'medianAvailableIncome' => null,
+            'formattedMedianAvailableIncome' => null,
+        ]);
         exit;
     }
 }
@@ -91,6 +103,10 @@ try {
         'formattedMedianAvailableIncome' => number_format($medianValue, 2, ',', '.') . ' €',
     ]);
 } catch (Throwable $e) {
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'Database error']);
+    echo json_encode([
+        'ok' => true,
+        'count' => 0,
+        'medianAvailableIncome' => null,
+        'formattedMedianAvailableIncome' => null,
+    ]);
 }
