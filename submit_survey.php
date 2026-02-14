@@ -4,33 +4,11 @@ declare(strict_types=1);
 
 header('Content-Type: application/json; charset=utf-8');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['ok' => false, 'error' => 'Method not allowed']);
-    exit;
-}
-
-$configPath = __DIR__ . '/db_config.php';
-if (!is_file($configPath)) {
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'Missing db_config.php']);
-    exit;
-}
-
-$config = require $configPath;
-if (!is_array($config)) {
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'Invalid db config']);
-    exit;
-}
-
-$raw = file_get_contents('php://input');
-$data = json_decode($raw ?: '', true);
-if (!is_array($data)) {
-    http_response_code(400);
-    echo json_encode(['ok' => false, 'error' => 'Invalid JSON payload']);
-    exit;
-}
+const MAX_PAYLOAD_BYTES = 200000;
+const MAX_SCENARIO_NAME_LENGTH = 120;
+const MAX_COMPUTED_KEYS = 50;
+const MAX_PROGNOSIS_LINES = 60;
+const MAX_QUESTIONNAIRE_QUESTIONS = 30;
 
 /**
  * @param array<string, mixed> $payload
@@ -91,35 +69,131 @@ function getExistingColumns(PDO $pdo, string $tableName): array
     return $columns;
 }
 
-$locale = isset($data['locale']) ? (string) $data['locale'] : 'de';
+function logApiError(string $code, Throwable $e): void
+{
+    error_log(sprintf('[submit_survey] code=%s message=%s', $code, $e->getMessage()));
+}
+
+/**
+ * @param array<string, mixed> $extra
+ */
+function fail(int $statusCode, string $code, string $message, array $extra = []): void
+{
+    http_response_code($statusCode);
+    echo json_encode(array_merge([
+        'ok' => false,
+        'error' => $message,
+        'code' => $code,
+    ], $extra));
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    fail(405, 'method_not_allowed', 'Method not allowed');
+}
+
+$configPath = __DIR__ . '/db_config.php';
+if (!is_file($configPath)) {
+    fail(500, 'missing_db_config', 'Missing db_config.php');
+}
+
+$config = require $configPath;
+if (!is_array($config)) {
+    fail(500, 'invalid_db_config', 'Invalid db config');
+}
+
+$raw = file_get_contents('php://input');
+if ($raw === false) {
+    fail(400, 'invalid_payload', 'Invalid request body');
+}
+
+if (strlen($raw) > MAX_PAYLOAD_BYTES) {
+    fail(413, 'payload_too_large', 'Payload exceeds maximum size', ['maxBytes' => MAX_PAYLOAD_BYTES]);
+}
+
+$data = json_decode($raw, true);
+if (!is_array($data)) {
+    fail(400, 'invalid_json', 'Invalid JSON payload');
+}
+
+$locale = isset($data['locale']) ? strtolower(trim((string) $data['locale'])) : 'de';
+if (!in_array($locale, ['de', 'en'], true)) {
+    fail(400, 'invalid_locale', 'Locale must be one of: de, en');
+}
+
 $scenarioName = trim((string) ($data['scenarioName'] ?? $data['scenario_name'] ?? ''));
+if (mb_strlen($scenarioName) > MAX_SCENARIO_NAME_LENGTH) {
+    fail(400, 'scenario_name_too_long', 'Scenario name exceeds maximum length');
+}
+
 $answers = $data['answers'] ?? null;
+if (!is_array($answers)) {
+    fail(400, 'missing_answers', 'Missing answers object');
+}
+
+$allowedAnswerKeys = [];
+for ($i = 1; $i <= 21; $i++) {
+    $allowedAnswerKeys['q' . $i] = true;
+}
+
+foreach ($answers as $key => $value) {
+    if (!is_string($key) || !isset($allowedAnswerKeys[$key])) {
+        fail(400, 'invalid_answers_shape', 'Answers contain unsupported question keys');
+    }
+
+    if (!is_string($value) || !in_array($value, ['A', 'B', 'C', 'D'], true)) {
+        fail(400, 'invalid_answer_value', 'Answers must use A/B/C/D values');
+    }
+}
+
+$requiredAnswerCount = count($allowedAnswerKeys);
+if (count($answers) !== $requiredAnswerCount) {
+    fail(400, 'invalid_answers_count', 'Answers must contain all questionnaire keys');
+}
+
 $employmentNetIncome = (float) ($data['employmentNetIncome'] ?? 0);
 $availableIncome = (float) ($data['availableIncome'] ?? 0);
 $targetIncome = (float) ($data['targetIncome'] ?? 0);
 $gap = (float) ($data['gap'] ?? 0);
+
 $questionnaire = normalizeJsonArray(pickFirst($data, ['questionnaire', 'questionnaire_json', 'questionnaireJson'])) ?? [];
+if (count($questionnaire) > MAX_QUESTIONNAIRE_QUESTIONS) {
+    fail(400, 'questionnaire_too_large', 'Questionnaire payload too large');
+}
+
 $computed = isset($data['computed']) && is_array($data['computed']) ? $data['computed'] : [];
+if (count($computed) > MAX_COMPUTED_KEYS) {
+    fail(400, 'computed_too_large', 'Computed payload too large');
+}
+
 $prognosisLines = normalizeJsonArray(
     pickFirst(
         $data,
         ['prognosisLines', 'prognosis_lines', 'prognosis', 'prognosis_json', 'prognosisJson']
     )
 ) ?? [];
-$typologyLabel = '';
-$typologyScore = null;
-
-if (isset($data['typology']) && is_array($data['typology'])) {
-    $typologyLabel = (string) ($data['typology']['label'] ?? '');
-    if (isset($data['typology']['score']) && is_numeric($data['typology']['score'])) {
-        $typologyScore = (float) $data['typology']['score'];
-    }
+if (count($prognosisLines) > MAX_PROGNOSIS_LINES) {
+    fail(400, 'prognosis_too_large', 'Prognosis payload too large');
 }
 
-if (!is_array($answers)) {
-    http_response_code(400);
-    echo json_encode(['ok' => false, 'error' => 'Missing answers object']);
-    exit;
+$typologyLabel = '';
+$typologyScore = null;
+if (isset($data['typology']) && is_array($data['typology'])) {
+    $typologyLabel = trim((string) ($data['typology']['label'] ?? ''));
+    if (mb_strlen($typologyLabel) > 64) {
+        fail(400, 'typology_label_too_long', 'Typology label exceeds maximum length');
+    }
+
+    if (isset($data['typology']['score'])) {
+        if (!is_numeric($data['typology']['score'])) {
+            fail(400, 'invalid_typology_score', 'Typology score must be numeric');
+        }
+
+        $typologyScore = (float) $data['typology']['score'];
+        if ($typologyScore < 0 || $typologyScore > 1) {
+            fail(400, 'invalid_typology_score', 'Typology score must be between 0 and 1');
+        }
+    }
 }
 
 $dsn = sprintf(
@@ -185,6 +259,6 @@ try {
         'id' => (int) $pdo->lastInsertId(),
     ]);
 } catch (Throwable $e) {
-    http_response_code(500);
-    echo json_encode(['ok' => false, 'error' => 'Database error']);
+    logApiError('database_error', $e);
+    fail(500, 'database_error', 'Database error');
 }

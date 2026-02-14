@@ -4,37 +4,35 @@ declare(strict_types=1);
 
 header('Content-Type: application/json; charset=utf-8');
 
-$configPath = __DIR__ . '/db_config.php';
-if (!file_exists($configPath)) {
+function logApiError(string $code, Throwable $e): void
+{
+    error_log(sprintf('[median_available_income] code=%s message=%s', $code, $e->getMessage()));
+}
+
+function fail(int $statusCode, string $code, string $message): void
+{
+    http_response_code($statusCode);
     echo json_encode([
-        'ok' => true,
-        'count' => 0,
-        'medianAvailableIncome' => null,
-        'formattedMedianAvailableIncome' => null,
+        'ok' => false,
+        'error' => $message,
+        'code' => $code,
     ]);
     exit;
+}
+
+$configPath = __DIR__ . '/db_config.php';
+if (!file_exists($configPath)) {
+    fail(500, 'missing_db_config', 'Missing db_config.php');
 }
 
 $config = require $configPath;
 if (!is_array($config)) {
-    echo json_encode([
-        'ok' => true,
-        'count' => 0,
-        'medianAvailableIncome' => null,
-        'formattedMedianAvailableIncome' => null,
-    ]);
-    exit;
+    fail(500, 'invalid_db_config', 'Invalid db config');
 }
 
 foreach (['host', 'port', 'database', 'user', 'password'] as $requiredKey) {
     if (!array_key_exists($requiredKey, $config)) {
-        echo json_encode([
-            'ok' => true,
-            'count' => 0,
-            'medianAvailableIncome' => null,
-            'formattedMedianAvailableIncome' => null,
-        ]);
-        exit;
+        fail(500, 'invalid_db_config', 'Invalid db config');
     }
 }
 
@@ -65,7 +63,6 @@ try {
             'ok' => true,
             'count' => 0,
             'medianAvailableIncome' => null,
-            'formattedMedianAvailableIncome' => null,
         ]);
         exit;
     }
@@ -80,7 +77,6 @@ try {
         $medianValue = (float) ($medianStmt->fetch()['available_income'] ?? 0);
     } else {
         $offsetA = ($count / 2) - 1;
-        $offsetB = $count / 2;
 
         $evenStmt = $pdo->prepare(
             'SELECT available_income FROM survey_submissions WHERE available_income IS NOT NULL ORDER BY available_income LIMIT 2 OFFSET :offset'
@@ -100,13 +96,8 @@ try {
         'ok' => true,
         'count' => $count,
         'medianAvailableIncome' => $medianValue,
-        'formattedMedianAvailableIncome' => number_format($medianValue, 2, ',', '.') . ' €',
     ]);
 } catch (Throwable $e) {
-    echo json_encode([
-        'ok' => true,
-        'count' => 0,
-        'medianAvailableIncome' => null,
-        'formattedMedianAvailableIncome' => null,
-    ]);
+    logApiError('database_error', $e);
+    fail(500, 'database_error', 'Could not load median available income');
 }

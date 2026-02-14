@@ -4,30 +4,34 @@ declare(strict_types=1);
 
 header('Content-Type: application/json; charset=utf-8');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
-    http_response_code(405);
-    echo json_encode(['ok' => false, 'error' => 'Method not allowed']);
+function logApiError(string $code, Throwable $e): void
+{
+    error_log(sprintf('[income_scenarios] code=%s message=%s', $code, $e->getMessage()));
+}
+
+function fail(int $statusCode, string $code, string $message): void
+{
+    http_response_code($statusCode);
+    echo json_encode([
+        'ok' => false,
+        'error' => $message,
+        'code' => $code,
+    ]);
     exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    fail(405, 'method_not_allowed', 'Method not allowed');
 }
 
 $configPath = __DIR__ . '/db_config.php';
 if (!is_file($configPath)) {
-    echo json_encode([
-        'ok' => true,
-        'count' => 0,
-        'scenarios' => [],
-    ]);
-    exit;
+    fail(500, 'missing_db_config', 'Missing db_config.php');
 }
 
 $config = require $configPath;
 if (!is_array($config)) {
-    echo json_encode([
-        'ok' => true,
-        'count' => 0,
-        'scenarios' => [],
-    ]);
-    exit;
+    fail(500, 'invalid_db_config', 'Invalid db config');
 }
 
 $dsn = sprintf(
@@ -60,7 +64,7 @@ try {
 
         $name = trim((string) ($row['scenario_name'] ?? ''));
         if ($name === '') {
-            $name = 'Szenario #' . (string) ($row['id'] ?? '');
+            $name = 'Scenario #' . (string) ($row['id'] ?? '');
         }
 
         $totalIncome = (float) ($row['available_income'] ?? 0);
@@ -68,7 +72,6 @@ try {
             'id' => (int) ($row['id'] ?? 0),
             'name' => $name,
             'totalIncome' => $totalIncome,
-            'totalIncomeFormatted' => number_format($totalIncome, 2, ',', '.') . ' €',
             'employmentNetIncome' => (float) ($row['employment_net_income'] ?? 0),
             'answers' => $answers,
             'createdAt' => (string) ($row['created_at'] ?? ''),
@@ -81,9 +84,6 @@ try {
         'scenarios' => $scenarios,
     ]);
 } catch (Throwable $e) {
-    echo json_encode([
-        'ok' => true,
-        'count' => 0,
-        'scenarios' => [],
-    ]);
+    logApiError('database_error', $e);
+    fail(500, 'database_error', 'Could not load scenarios');
 }

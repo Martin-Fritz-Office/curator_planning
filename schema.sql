@@ -14,5 +14,6 @@ CREATE TABLE IF NOT EXISTS survey_submissions (
     prognosis_lines_json JSON NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_created_at (created_at),
-    INDEX idx_locale_created_at (locale, created_at)
+    INDEX idx_locale_created_at (locale, created_at),
+    INDEX idx_available_income (available_income)
 );
