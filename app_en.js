@@ -17,29 +17,7 @@
   /** @typedef {"A"|"B"|"C"|"D"} Opt */
 
   /** @type {Record<string, Opt>} */
-  const DEFAULT = {
-    q1: "B",
-    q2: "B",
-    q3: "C",
-    q4: "B",
-    q5: "B",
-    q6: "B",
-    q7: "C",
-    q8: "B",
-    q9: "B",
-    q10: "B",
-    q11: "B",
-    q12: "B",
-    q13: "C",
-    q14: "B",
-    q15: "B",
-    q16: "B",
-    q17: "B",
-    q18: "B",
-    q19: "C",
-    q20: "B",
-    q21: "A",
-  };
+  const DEFAULT = { ...window.CuratorCalcCore.DEFAULT_ANSWERS };
 
   const DEFAULT_EMPLOYMENT_NET = 0;
 
@@ -287,68 +265,24 @@
     },
   ];
 
-  // -------------------- mapping --------------------
-  const mapProjects = (o) => ({ A: 4, B: 6, C: 8, D: 11 })[o];
-  const mapPaidShare = (o) => ({ A: 1.0, B: 0.85, C: 0.7, D: 0.55 })[o];
-
-  const mapFeePerProject = (o) => ({ A: 2500, B: 4000, C: 6500, D: 9000 })[o];
-  const mapTextIncome = (o) => ({ A: 0, B: 1200, C: 4000, D: 8000 })[o];
-
-  const mapConsultCount = (o) => ({ A: 0, B: 1.5, C: 4, D: 7.5 })[o];
-  const mapDayRate = (o) => ({ A: 250, B: 375, C: 550, D: 750 })[o];
-  const mapTeachingAssignments = (o) => ({ A: 0, B: 1.5, C: 3.5, D: 5.5 })[o];
-  const mapTeachingFee = (o) => ({ A: 400, B: 750, C: 1500, D: 2500 })[o];
-
-  const mapGrants = (o) => ({ A: 0, B: 2500, C: 10000, D: 20000 })[o];
-  const mapSupportIncome = (o) => ({ A: 0, B: 3600, C: 6000, D: 12000 })[o];
-
-  const mapFixMonthly = (o) => ({ A: 200, B: 450, C: 800, D: 1200 })[o];
-  const mapVarPerProject = (o) => ({ A: 150, B: 350, C: 750, D: 1200 })[o];
-  const mapTravelCostShare = (o) => ({ A: 1.0, B: 0.6, C: 0.3, D: 0.1 })[o];
-
-  const mapStabilityFactor = (o) => ({ A: 0.82, B: 0.9, C: 0.95, D: 1.0 })[o];
-
-  const mapTargetNet = (o) => ({ A: 18000, B: 26000, C: 37500, D: 52000 })[o];
-
-  const mapReserveRate = (o) => ({ A: 0.15, B: 0.12, C: 0.1, D: 0.08 })[o];
-
-  const clamp01 = (n) => Math.max(0, Math.min(1, n));
-
-  const scoreTypology = (a) => {
-    const v =
-      (mapFeePerProject(a.q3) / 9000) * 0.35 +
-      ({ A: 0.1, B: 0.35, C: 0.7, D: 1.0 })[a.q11] * 0.35 +
-      (mapProjects(a.q2) / 11) * 0.2 +
-      (mapConsultCount(a.q6) / 7.5) * 0.1;
-
-    const s = clamp01(v);
-    if (s < 0.33) return { label: "precarious", score: s };
-    if (s < 0.66) return { label: "stable", score: s };
-    return { label: "highly professionalized", score: s };
+  // -------------------- shared calc core --------------------
+  const calcCore = window.CuratorCalcCore;
+  const CALC_LABELS = {
+    income: [
+      "Curatorial fees",
+      "Texts & publications",
+      "Consulting / jury",
+      "Teaching",
+      "Grants / scholarships",
+      "Support",
+    ],
+    costs: ["Fixed costs", "Variable project costs", "Social insurance & provision", "Taxes"],
+    typology: {
+      precarious: "precarious",
+      stable: "stable",
+      highlyProfessionalized: "highly professionalized",
+    },
   };
-
-  const sum = (rows) => rows.reduce((acc, r) => acc + (Number(r.value) || 0), 0);
-
-  function calcAustrianIncomeTax2025(income) {
-    const taxableIncome = Math.max(0, Number(income) || 0);
-    const brackets = [
-      { lower: 0, upper: 13308, rate: 0 },
-      { lower: 13308, upper: 21617, rate: 0.2 },
-      { lower: 21617, upper: 35836, rate: 0.3 },
-      { lower: 35836, upper: 69166, rate: 0.4 },
-      { lower: 69166, upper: 103072, rate: 0.48 },
-      { lower: 103072, upper: 1000000, rate: 0.5 },
-      { lower: 1000000, upper: Number.POSITIVE_INFINITY, rate: 0.55 },
-    ];
-
-    let tax = 0;
-    for (const b of brackets) {
-      if (taxableIncome <= b.lower) continue;
-      const taxablePart = Math.min(taxableIncome, b.upper) - b.lower;
-      tax += taxablePart * b.rate;
-    }
-    return tax;
-  }
 
   // -------------------- state --------------------
   /** @type {Record<string, Opt>} */
@@ -697,104 +631,7 @@
 
   // -------------------- calc --------------------
   function calcAll(a) {
-    const employmentIncome = Math.max(0, Number(employmentNetIncome) || 0);
-    const projects = mapProjects(a.q2);
-    const paidProjects = Math.max(0, projects * mapPaidShare(a.q12));
-
-    const feePerProject = mapFeePerProject(a.q3);
-
-    const stability = mapStabilityFactor(a.q11);
-    const curatorial = paidProjects * feePerProject * stability;
-
-    const texts = mapTextIncome(a.q5) * stability;
-
-    const consultCount = mapConsultCount(a.q6);
-    const dayRate = mapDayRate(a.q7);
-    const consulting = consultCount * dayRate * stability;
-
-    const teachingAssignments = mapTeachingAssignments(a.q17);
-    const teachingFee = mapTeachingFee(a.q18);
-    const teaching = teachingAssignments * teachingFee * stability;
-
-    const grants = mapGrants(a.q10);
-    const support = mapSupportIncome(a.q21);
-
-    const revenue = curatorial + texts + consulting + teaching + grants;
-
-    const fixAnnual = mapFixMonthly(a.q15) * 12;
-
-    const travelShare = mapTravelCostShare(a.q9);
-    const varAnnual = paidProjects * mapVarPerProject(a.q16) * travelShare;
-
-    const profitBeforeSv = revenue - fixAnnual - varAnnual;
-    const svAnnual = Math.max(0, profitBeforeSv) * 0.26;
-
-    const taxableProfit = profitBeforeSv - svAnnual;
-    const taxes = calcAustrianIncomeTax2025(taxableProfit);
-
-    const operatingCosts = fixAnnual + varAnnual;
-    const totalCosts = operatingCosts + svAnnual + taxes;
-    const profitAfterTax = profitBeforeSv - svAnnual - taxes;
-
-    const reserveRate = mapReserveRate(a.q20);
-    const reserves = Math.max(0, profitAfterTax) * reserveRate;
-    const availableBeforeSupport = profitAfterTax - reserves;
-    const available = availableBeforeSupport + support + employmentIncome;
-
-    const targetNet = mapTargetNet(a.q19);
-    const gap = available - targetNet;
-
-    const typ = scoreTypology(a);
-
-    const incomePie = [
-      { name: "Curatorial fees", value: Math.max(0, curatorial) },
-      { name: "Texts & publications", value: Math.max(0, texts) },
-      { name: "Consulting / jury", value: Math.max(0, consulting) },
-      { name: "Teaching", value: Math.max(0, teaching) },
-      { name: "Grants / scholarships", value: Math.max(0, grants) },
-      { name: "Support", value: Math.max(0, support) },
-    ].filter((d) => d.value > 0);
-
-    const costPie = [
-      { name: "Fixed costs", value: Math.max(0, fixAnnual) },
-      { name: "Variable project costs", value: Math.max(0, varAnnual) },
-      { name: "Social insurance & provision", value: Math.max(0, svAnnual) },
-      { name: "Taxes", value: Math.max(0, taxes) },
-    ].filter((d) => d.value > 0);
-
-    return {
-      projects,
-      paidProjects,
-      feePerProject,
-      stability,
-      curatorial,
-      texts,
-      consulting,
-      teaching,
-      grants,
-      support,
-      employmentIncome,
-      revenue,
-      fixAnnual,
-      varAnnual,
-      operatingCosts,
-      profitBeforeSv,
-      svAnnual,
-      taxes,
-      totalCosts,
-      profitAfterTax,
-      reserves,
-      availableBeforeSupport,
-      available,
-      targetNet,
-      gap,
-      typ,
-      incomePie,
-      costPie,
-      reserveRate,
-      incomeTotal: sum(incomePie),
-      costTotal: sum(costPie),
-    };
+    return calcCore.calculateForecast(a, employmentNetIncome, { labels: CALC_LABELS });
   }
 
   // -------------------- sheet --------------------

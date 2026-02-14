@@ -8,6 +8,7 @@
   <title>Annual Revenue & Profit Forecast (Curator)</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script defer src="calc_core.js"></script>
   <script defer src="app_en.js"></script>
 </head>
 <body>
