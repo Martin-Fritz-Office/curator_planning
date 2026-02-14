@@ -25,8 +25,12 @@ Your PHP runtime needs `pdo_mysql` enabled.
 ### 4) Save from the UI
 
 Open either:
-- `index.php` (German)
-- `index_en.php` (English)
+- `forecast.php` (German forecast tool)
+- `forecast_en.php` (English forecast tool)
+
+Entry pages are now:
+- `index.php` (German landing page)
+- `index_en.php` (English landing page)
 
 Use the **Save responses** / **Antworten speichern** button in the header.
 The app sends a JSON payload to `submit_survey.php`, which inserts into `survey_submissions`.

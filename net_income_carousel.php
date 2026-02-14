@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Didaktische Serie: Jahresnettoeinkommen</title>
+  <title>artbackstage | Money – Jahresnettoeinkommen</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="net_income_carousel.js"></script>
 </head>
@@ -16,7 +16,8 @@
         <p class="muted">Interaktive Lernserie zur Berechnung deines Jahresnettoeinkommens als Selbständige*r.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index.php">Zurück zum Haupttool</a>
+        <a class="btn btn-outline" href="index.php">Zur Startseite</a>
+        <a class="btn btn-outline" href="forecast.php">Zur Prognose</a>
       </div>
     </header>
 
