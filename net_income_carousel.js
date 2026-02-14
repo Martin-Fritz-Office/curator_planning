@@ -144,6 +144,7 @@
       `
         <h3>12) Jahresnettoeinkommen</h3>
         <p>Somit beträgt dein Jahresnettoeinkommen: <strong>${EUR(yearlyNet)}</strong>.</p>
+        <p>Von deinem Umsatz <strong>${EUR(revenue)}</strong> bleiben dir also <strong>${EUR(yearlyNet / 12)}</strong> pro Monat für deinen Lebensunterhalt.</p>
       `,
     ];
 
