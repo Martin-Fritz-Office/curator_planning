@@ -46,6 +46,14 @@
           <h3>Step-by-step yearly net income</h3>
           <p>Interactive walkthrough to understand the net-income calculation.</p>
         </a>
+        <a class="tool-link" href="curator_viability_carousel.php">
+          <h3>Curator Freelance Project Viability</h3>
+          <p>13 questions to decide: go, renegotiate, or decline.</p>
+        </a>
+        <a class="tool-link" href="gallery_contract_reality_check.php">
+          <h3>Gallery Contract Reality Check</h3>
+          <p>12 questions to stress-test gallery deal terms.</p>
+        </a>
       </div>
     </main>
   </div>

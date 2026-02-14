@@ -32,6 +32,10 @@ Entry pages are now:
 - `index.php` (German landing page)
 - `index_en.php` (English landing page)
 
+Additional learning carousels:
+- `curator_viability_carousel.php` — 13-question project viability check for freelance curators.
+- `gallery_contract_reality_check.php` — 12-question gallery contract reality check.
+
 Use the **Save responses** / **Antworten speichern** button in the header.
 The app sends a JSON payload to `submit_survey.php`, which inserts into `survey_submissions`.
 You can now assign a scenario name and load saved scenarios from a list that shows scenario name + total available income.
