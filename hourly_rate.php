@@ -16,8 +16,9 @@
         <p class="muted">7 Fragen zur Abschätzung eines tragfähigen Stundenhonorars.</p>
       </div>
       <div class="header-actions">
+        <a class="btn btn-outline" href="index.php">Startseite</a>
         <a class="btn btn-outline" href="hourly_rate_en.php">English</a>
-        <a class="btn btn-outline" href="index.php">Zur Prognose</a>
+        <a class="btn btn-outline" href="forecast.php">Zur Prognose</a>
       </div>
     </header>
 
