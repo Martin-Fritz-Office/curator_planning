@@ -13,7 +13,7 @@
     <header class="header">
       <div>
         <h1>Hourly Rate Calculator (Freelance Curator)</h1>
-        <p class="muted">10 questions to estimate a sustainable freelance hourly rate.</p>
+        <p class="muted">6 questions to estimate a sustainable freelance hourly rate.</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="hourly_rate.php">Deutsch</a>
@@ -29,45 +29,28 @@
         <div class="card-body">
           <div class="qgrid hourly-grid">
             <label class="q">
-              <span>1) Target annual net income (€)</span>
-              <input id="targetNetIncome" type="number" min="0" step="100" value="36000" />
+              <span>1) How much money do you need per month to live? (€)</span>
+              <input id="monthlyNeed" type="number" min="0" step="100" value="3000" />
             </label>
             <label class="q">
-              <span>2) Social security + tax factor (for net basis)</span>
-              <input id="taxSocialFactor" type="number" min="1" step="0.01" value="1.65" />
-              <span class="hint">Often around 1.5–1.9 depending on country and setup.</span>
+              <span>2) What are your monthly professional costs? (€)</span>
+              <input id="professionalCosts" type="number" min="0" step="50" value="1000" />
             </label>
             <label class="q">
-              <span>3) Annual fixed costs (€)</span>
-              <input id="fixedCosts" type="number" min="0" step="100" value="7200" />
+              <span>3) How many hours per week can you work?</span>
+              <input id="weeklyHours" type="number" min="1" step="1" value="35" />
             </label>
             <label class="q">
-              <span>4) Annual variable costs (€)</span>
-              <input id="variableCosts" type="number" min="0" step="100" value="4800" />
+              <span>4) How many of those hours can you bill on average?</span>
+              <input id="billableWeeklyHours" type="number" min="0" step="1" value="24" />
             </label>
             <label class="q">
-              <span>5) Billable hours per year</span>
-              <input id="billableHours" type="number" min="1" step="10" value="900" />
+              <span>5) How many weeks per year do you want to take off?</span>
+              <input id="vacationWeeks" type="number" min="0" max="52" step="1" value="5" />
             </label>
             <label class="q">
-              <span>6) Non-billable hours per year</span>
-              <input id="nonBillableHours" type="number" min="0" step="10" value="550" />
-            </label>
-            <label class="q">
-              <span>7) Vacation weeks per year</span>
-              <input id="vacationWeeks" type="number" min="0" max="20" step="1" value="5" />
-            </label>
-            <label class="q">
-              <span>8) Buffer for sickness/downtime (days/year)</span>
-              <input id="bufferDays" type="number" min="0" step="1" value="12" />
-            </label>
-            <label class="q">
-              <span>9) Profit/reserve margin (%)</span>
-              <input id="profitMargin" type="number" min="0" step="1" value="10" />
-            </label>
-            <label class="q">
-              <span>10) Risk margin for write-offs/discounts (%)</span>
-              <input id="riskMargin" type="number" min="0" step="1" value="5" />
+              <span>6) How many weeks per year are you sick?</span>
+              <input id="sickWeeks" type="number" min="0" max="52" step="1" value="2" />
             </label>
           </div>
         </div>
@@ -79,7 +62,7 @@
         </div>
         <div class="card-body">
           <div class="sheet" id="hourlySheet"></div>
-          <p class="small muted">Note: If your income target is entered on a net basis, the social/tax factor inflates it to required turnover before costs and safety margins.</p>
+          <p class="small muted">Note: Monthly living needs and monthly costs are converted to an annual target and divided by annual billable hours.</p>
         </div>
       </section>
     </main>

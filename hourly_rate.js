@@ -11,34 +11,32 @@
 
   const labels = {
     de: {
-      netToGross: "Nettoziel × SV/Steuerfaktor",
-      requiredTurnover: "Benötigter Jahresumsatz",
+      yearlyHours: "Jahresstunden (Wochenstunden × 52)",
+      workingHours: "Arbeitsstunden nach Urlaub/Krankheit",
+      billableHours: "Verrechenbare Stunden/Jahr",
+      billableRatio: "Verrechenbarkeitsquote",
+      annualNeed: "Jahresbedarf (Monat × 12)",
       recommendedHourly: "Empfohlener Stundenhonorar-Satz",
-      billability: "Verrechenbarkeitsquote",
-      workingDays: "Arbeitstage nach Urlaub/Puffer",
-      info: "Annahme: 8 h/Arbeitstag; Verrechenbarkeit via billable/non-billable Stunden.",
+      info: "Formel: Jahresstunden = Wochenstunden × 52; Arbeitsstunden = Jahresstunden − freie Wochen − Krankenwochen; Verrechenbare Stunden = Arbeitsstunden × (verrechenbare Stunden/Wochenstunden).",
     },
     en: {
-      netToGross: "Net target × social/tax factor",
-      requiredTurnover: "Required annual turnover",
+      yearlyHours: "Yearly hours (weekly hours × 52)",
+      workingHours: "Working hours after vacation/sickness",
+      billableHours: "Billable hours per year",
+      billableRatio: "Billable share",
+      annualNeed: "Annual need (monthly × 12)",
       recommendedHourly: "Recommended hourly rate",
-      billability: "Billable share",
-      workingDays: "Working days after vacation/buffer",
-      info: "Assumption: 8 h/working day; billability derived from billable/non-billable hours.",
+      info: "Formula: Yearly hours = weekly hours × 52; Working hours = yearly hours − vacation weeks − sick weeks; Billable hours = working hours × (billable weekly hours/weekly hours).",
     },
   };
 
   const inputIds = [
-    "targetNetIncome",
-    "taxSocialFactor",
-    "fixedCosts",
-    "variableCosts",
-    "billableHours",
-    "nonBillableHours",
+    "monthlyNeed",
+    "professionalCosts",
+    "weeklyHours",
+    "billableWeeklyHours",
     "vacationWeeks",
-    "bufferDays",
-    "profitMargin",
-    "riskMargin",
+    "sickWeeks",
   ];
 
   const inputs = Object.fromEntries(
@@ -51,32 +49,30 @@
   }
 
   function recalc() {
-    const targetNetIncome = n("targetNetIncome");
-    const taxSocialFactor = Math.max(1, n("taxSocialFactor"));
-    const fixedCosts = n("fixedCosts");
-    const variableCosts = n("variableCosts");
-    const billableHours = Math.max(1, n("billableHours"));
-    const nonBillableHours = n("nonBillableHours");
+    const monthlyNeed = n("monthlyNeed");
+    const professionalCosts = n("professionalCosts");
+    const weeklyHours = Math.max(1, n("weeklyHours"));
+    const billableWeeklyHours = Math.min(n("billableWeeklyHours"), weeklyHours);
     const vacationWeeks = n("vacationWeeks");
-    const bufferDays = n("bufferDays");
-    const profitMargin = n("profitMargin") / 100;
-    const riskMargin = n("riskMargin") / 100;
+    const sickWeeks = n("sickWeeks");
 
-    const netToGrossIncome = targetNetIncome * taxSocialFactor;
-    const baseRevenueNeed = netToGrossIncome + fixedCosts + variableCosts;
-    const requiredTurnover = baseRevenueNeed * (1 + profitMargin) * (1 + riskMargin);
-    const hourlyRate = requiredTurnover / billableHours;
-
-    const totalHours = billableHours + nonBillableHours;
-    const billability = totalHours > 0 ? billableHours / totalHours : 0;
-    const workingDays = Math.max(0, 260 - vacationWeeks * 5 - bufferDays);
+    const yearlyHours = weeklyHours * 52;
+    const workingHours = Math.max(
+      0,
+      yearlyHours - vacationWeeks * weeklyHours - sickWeeks * weeklyHours
+    );
+    const billableRatio = weeklyHours > 0 ? billableWeeklyHours / weeklyHours : 0;
+    const billableHours = Math.max(1, workingHours * billableRatio);
+    const annualNeed = (monthlyNeed + professionalCosts) * 12;
+    const hourlyRate = annualNeed / billableHours;
 
     sheet.innerHTML = `
-      <div class="row"><span>${labels[lang].netToGross}</span><strong>${EUR(netToGrossIncome)}</strong></div>
-      <div class="row"><span>${labels[lang].requiredTurnover}</span><strong>${EUR(requiredTurnover)}</strong></div>
+      <div class="row"><span>${labels[lang].yearlyHours}</span><strong>${yearlyHours.toFixed(0)} h</strong></div>
+      <div class="row"><span>${labels[lang].workingHours}</span><strong>${workingHours.toFixed(0)} h</strong></div>
+      <div class="row"><span>${labels[lang].billableHours}</span><strong>${billableHours.toFixed(0)} h</strong></div>
+      <div class="row"><span>${labels[lang].billableRatio}</span><strong>${(billableRatio * 100).toFixed(1)}%</strong></div>
+      <div class="row"><span>${labels[lang].annualNeed}</span><strong>${EUR(annualNeed)}</strong></div>
       <div class="row"><span>${labels[lang].recommendedHourly}</span><strong>${EUR(hourlyRate)}</strong></div>
-      <div class="row"><span>${labels[lang].billability}</span><strong>${(billability * 100).toFixed(1)}%</strong></div>
-      <div class="row"><span>${labels[lang].workingDays}</span><strong>${workingDays}</strong></div>
       <p class="small muted">${labels[lang].info}</p>
     `;
   }
