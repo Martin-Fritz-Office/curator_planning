@@ -457,3 +457,56 @@ input[type="number"]:focus{
   justify-content:space-between;
   gap:10px;
 }
+
+.didactic-page{
+  max-width:1260px;
+}
+
+.didactic-main{
+  display:flex;
+  flex-direction:column;
+  gap:var(--gap);
+}
+
+.didactic-intro .card-body{
+  display:grid;
+  gap:12px;
+}
+
+.didactic-steps{
+  grid-template-columns:1fr;
+}
+
+.didactic-steps article{
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 12px;
+  background:#fff;
+}
+
+.didactic-steps p{margin:4px 0 0}
+
+.didactic-toolbar{
+  justify-content:flex-start;
+}
+
+.didactic-layout{
+  display:grid;
+  gap:var(--gap);
+  grid-template-columns:1fr;
+}
+
+@media (min-width:1050px){
+  .didactic-layout{
+    grid-template-columns:1.15fr .85fr;
+    align-items:start;
+  }
+
+  .didactic-page .qgrid{
+    grid-template-columns:1fr;
+  }
+
+  .didactic-page .q-group-grid{
+    grid-template-columns:1fr;
+  }
+}

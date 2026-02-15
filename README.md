@@ -27,6 +27,8 @@ Your PHP runtime needs `pdo_mysql` enabled.
 Open either:
 - `forecast.php` (German forecast tool)
 - `forecast_en.php` (English forecast tool)
+- `forecast_didactic.php` (German didactic layout, same logic/data)
+- `forecast_en_didactic.php` (English didactic layout, same logic/data)
 
 Entry pages are now:
 - `index.php` (German landing page)

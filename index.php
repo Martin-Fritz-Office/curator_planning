@@ -38,6 +38,10 @@
           <h3>Jahresumsatz- & Gewinnprognose</h3>
           <p>Vollständige Prognose mit Fragen, Sheet und Diagrammen.</p>
         </a>
+        <a class="tool-link" href="forecast_didactic.php">
+          <h3>Jahresumsatz- & Gewinnprognose (didaktisch)</h3>
+          <p>Alternative Oberfläche mit geführter, verständlicher Reihenfolge.</p>
+        </a>
         <a class="tool-link" href="hourly_rate.php">
           <h3>Stundensatz-Rechner</h3>
           <p>Berechne ein tragfähiges Stundenhonorar in 7 Fragen.</p>

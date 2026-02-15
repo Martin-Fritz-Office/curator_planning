@@ -23,6 +23,7 @@
         <a class="btn btn-outline" href="forecast_en.php">English</a>
         <a class="btn btn-outline" href="hourly_rate.php">Stundensatz-Rechner</a>
         <a class="btn btn-outline" href="net_income_carousel.php">Nettoeinkommen Schritt für Schritt</a>
+        <a class="btn btn-outline" href="forecast_didactic.php">Didaktische Ansicht</a>
         <a class="btn btn-outline" href="#scenarioComparison">Zum Szenariovergleich</a>
         <button id="saveBtn" class="btn" type="button">Antworten speichern</button>
         <input id="scenarioName" class="input-inline" type="text" maxlength="120" placeholder="Szenario-Name" aria-label="Szenario-Name" />

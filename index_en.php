@@ -38,6 +38,10 @@
           <h3>Annual Revenue & Profit Forecast</h3>
           <p>Full forecast with questionnaire, result sheet, and charts.</p>
         </a>
+        <a class="tool-link" href="forecast_en_didactic.php">
+          <h3>Annual Revenue & Profit Forecast (didactic)</h3>
+          <p>Alternative UI with a guided and easier-to-follow flow.</p>
+        </a>
         <a class="tool-link" href="hourly_rate_en.php">
           <h3>Hourly Rate Calculator</h3>
           <p>Estimate a sustainable hourly fee with 7 questions.</p>
