@@ -52,6 +52,12 @@
 
   const planRows = [];
 
+  function parseNumericInput(value) {
+    if (typeof value === "number") return value;
+    if (typeof value !== "string") return Number(value);
+    return Number(value.trim().replace(",", "."));
+  }
+
   function yearsToStageIndex(years) {
     const y = Math.max(1, Number(years) || 1);
     if (y <= 2) return 0;
@@ -216,8 +222,11 @@
 
   function bindRowEvents() {
     nodes.livePlanTable.querySelectorAll("[data-field]").forEach((input) => {
-      input.addEventListener("input", onFieldChange);
       input.addEventListener("change", onFieldChange);
+
+      if (input.getAttribute("data-field") === "title") {
+        input.addEventListener("input", onFieldChange);
+      }
     });
 
     nodes.livePlanTable.querySelectorAll("[data-remove-index]").forEach((btn) => {
@@ -238,15 +247,15 @@
     const row = planRows[index];
 
     if (field === "group") {
-      row.group = Math.max(1, Math.min(8, Number(event.target.value) || 1));
+      row.group = Math.max(1, Math.min(8, parseNumericInput(event.target.value) || 1));
       const availableExamples = GROUP_EXAMPLES[row.group] || [];
       if (!availableExamples.includes(row.example)) {
         row.example = "";
       }
     } else if (field === "years") {
-      row.years = Math.max(1, Number(event.target.value) || 1);
+      row.years = Math.max(1, parseNumericInput(event.target.value) || 1);
     } else if (field === "hours") {
-      row.hours = Math.max(0, Number(event.target.value) || 0);
+      row.hours = Math.max(0, parseNumericInput(event.target.value) || 0);
     } else if (field === "title") {
       row[field] = event.target.value || "";
       renderSummary();
