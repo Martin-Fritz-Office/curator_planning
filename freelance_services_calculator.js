@@ -18,7 +18,8 @@
 
   const state = Object.fromEntries(services.map((service) => [service.id, {
     selected: false,
-    hours: 0,
+    persons: 0,
+    hoursPerPerson: 0,
     rate: getDefaultRate(service)
   }]));
 
@@ -56,8 +57,12 @@
           </label>
           <div class="qgrid">
             <label class="q">
-              <span>Stunden</span>
-              <input type="number" min="0" step="0.5" data-hours-id="${service.id}" value="${serviceState.hours}" ${disabled} />
+              <span>Personen</span>
+              <input type="number" min="0" step="1" data-persons-id="${service.id}" value="${serviceState.persons}" ${disabled} />
+            </label>
+            <label class="q">
+              <span>Stunden pro Person</span>
+              <input type="number" min="0" step="0.5" data-hours-per-person-id="${service.id}" value="${serviceState.hoursPerPerson}" ${disabled} />
             </label>
             <label class="q">
               <span>Stundensatz (€)</span>
@@ -73,8 +78,9 @@
       .filter((service) => state[service.id].selected)
       .map((service) => {
         const entry = state[service.id];
-        const total = entry.hours * entry.rate;
-        return { service, hours: entry.hours, rate: entry.rate, total };
+        const hours = entry.persons * entry.hoursPerPerson;
+        const total = hours * entry.rate;
+        return { service, persons: entry.persons, hoursPerPerson: entry.hoursPerPerson, hours, rate: entry.rate, total };
       });
 
     resultBody.innerHTML = selectedRows.length
@@ -82,12 +88,14 @@
         <tr>
           <td>${row.service.name}</td>
           <td>${row.service.group}</td>
+          <td>${euro(row.persons)}</td>
+          <td>${euro(row.hoursPerPerson)}</td>
           <td>${euro(row.hours)}</td>
           <td>${euro(row.rate)}</td>
           <td>${euro(row.total)}</td>
         </tr>
       `).join('')
-      : '<tr><td colspan="5" class="muted">Noch keine Services ausgewählt.</td></tr>';
+      : '<tr><td colspan="7" class="muted">Noch keine Services ausgewählt.</td></tr>';
 
     const grandTotal = selectedRows.reduce((sum, row) => sum + row.total, 0);
     grandTotalCell.textContent = euro(grandTotal);
@@ -104,16 +112,24 @@
       const serviceId = toggle.getAttribute('data-id');
       state[serviceId].selected = toggle.checked;
       if (!toggle.checked) {
-        state[serviceId].hours = 0;
+        state[serviceId].persons = 0;
+        state[serviceId].hoursPerPerson = 0;
       }
       renderServiceList();
       renderResult();
       return;
     }
 
-    const hoursId = event.target.getAttribute('data-hours-id');
-    if (hoursId) {
-      state[hoursId].hours = parseInputNumber(event.target.value);
+    const personsId = event.target.getAttribute('data-persons-id');
+    if (personsId) {
+      state[personsId].persons = parseInputNumber(event.target.value);
+      renderResult();
+      return;
+    }
+
+    const hoursPerPersonId = event.target.getAttribute('data-hours-per-person-id');
+    if (hoursPerPersonId) {
+      state[hoursPerPersonId].hoursPerPerson = parseInputNumber(event.target.value);
       renderResult();
       return;
     }
@@ -129,23 +145,26 @@
   }
 
   function buildCsv(){
-    const header = ['Leistung', 'Gruppe', 'Stunden', 'Stundensatz_EUR', 'Gesamt_EUR'];
+    const header = ['Leistung', 'Gruppe', 'Personen', 'Stunden_pro_Person', 'Stunden_gesamt', 'Stundensatz_EUR', 'Gesamt_EUR'];
     const rows = services
       .filter((service) => state[service.id].selected)
       .map((service) => {
         const entry = state[service.id];
-        const total = entry.hours * entry.rate;
+        const hours = entry.persons * entry.hoursPerPerson;
+        const total = hours * entry.rate;
         return [
           service.name,
           service.group,
-          entry.hours.toFixed(2),
+          entry.persons.toFixed(2),
+          entry.hoursPerPerson.toFixed(2),
+          hours.toFixed(2),
           entry.rate.toFixed(2),
           total.toFixed(2)
         ];
       });
 
-    const sum = rows.reduce((acc, row) => acc + Number(row[4]), 0);
-    rows.push(['SUMME', '', '', '', sum.toFixed(2)]);
+    const sum = rows.reduce((acc, row) => acc + Number(row[6]), 0);
+    rows.push(['SUMME', '', '', '', '', '', sum.toFixed(2)]);
 
     return [header].concat(rows)
       .map((cols) => cols.map((value) => `"${String(value).replace(/"/g, '""')}"`).join(';'))
