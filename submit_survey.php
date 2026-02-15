@@ -173,7 +173,7 @@ if (count($answers) !== $requiredAnswerCount) {
 }
 
 $employmentNetIncome = parseNumericField($data, 'employmentNetIncome');
-$availableIncome = parseNumericField($data, 'availableIncome');
+$availableIncome = parseNumericField($data, 'availableIncome', true);
 $targetIncome = parseNumericField($data, 'targetIncome');
 $gap = parseNumericField($data, 'gap', true);
 
