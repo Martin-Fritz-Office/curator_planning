@@ -138,8 +138,13 @@
     if (rateId) {
       const service = services.find((item) => item.id === rateId);
       const value = parseInputNumber(event.target.value);
-      state[rateId].rate = Math.min(service.maxRate, Math.max(service.minRate, value));
-      event.target.value = state[rateId].rate;
+      const isCommitEvent = event.type === 'change';
+      state[rateId].rate = isCommitEvent
+        ? Math.min(service.maxRate, Math.max(service.minRate, value))
+        : value;
+      if (isCommitEvent) {
+        event.target.value = state[rateId].rate;
+      }
       renderResult();
     }
   }
