@@ -235,6 +235,53 @@ input[type="number"]:focus{
   border-top:1px solid var(--border);
 }
 
+
+.comparison-controls{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.comparison-controls select[multiple]{
+  min-width:260px;
+  min-height:130px;
+}
+
+.comparison-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.comparison-table-wrap{
+  overflow-x:auto;
+}
+
+.comparison-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
+}
+
+.comparison-table th,
+.comparison-table td{
+  border:1px solid var(--border);
+  padding:8px;
+  text-align:left;
+  white-space:nowrap;
+}
+
+.comparison-table th{
+  background:#f3f4f6;
+}
+
+.comparison-table td.neg{
+  color:var(--danger);
+  font-weight:700;
+}
+
 .tutorial-card{
   max-width:920px;
   margin:0 auto;

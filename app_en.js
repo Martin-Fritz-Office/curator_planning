@@ -289,6 +289,7 @@
   let answers = { ...DEFAULT };
   let employmentNetIncome = DEFAULT_EMPLOYMENT_NET;
   let selectedScenarioId = "";
+  let scenariosCache = [];
 
   // -------------------- DOM --------------------
   const questionGrid = document.getElementById("questionGrid");
@@ -298,7 +299,12 @@
   const saveStatusEl = document.getElementById("saveStatus");
   const scenarioNameInput = document.getElementById("scenarioName");
   const scenarioListEl = document.getElementById("scenarioList");
+  const compareScenarioListEl = document.getElementById("compareScenarioList");
   const loadScenarioBtn = document.getElementById("loadScenarioBtn");
+  const compareSelectedBtn = document.getElementById("compareSelectedBtn");
+  const clearCompareBtn = document.getElementById("clearCompareBtn");
+  const compareTableBodyEl = document.getElementById("compareTableBody");
+  const compareEmptyEl = document.getElementById("compareEmpty");
   const typologyLabelEl = document.getElementById("typologyLabel");
   const medianAvailableIncomeEl = document.getElementById("medianAvailableIncome");
 
@@ -310,6 +316,78 @@
     saveStatusEl.textContent = text;
     saveStatusEl.classList.remove("save-status-ok", "save-status-error", "save-status-pending");
     if (tone) saveStatusEl.classList.add(tone);
+  }
+
+  function formatDelta(value) {
+    const n = Number(value) || 0;
+    if (n === 0) return `±${EUR(0)}`;
+    return `${n > 0 ? "+" : "−"}${EUR(Math.abs(n))}`;
+  }
+
+  function getScenarioMetrics(rawScenario) {
+    const loadedAnswers = { ...DEFAULT, ...(rawScenario.answers || {}) };
+    const loadedEmploymentIncome = Math.max(0, Number(rawScenario.employmentNetIncome || 0));
+    const c = calcCore.calculateForecast(loadedAnswers, loadedEmploymentIncome, { labels: CALC_LABELS });
+
+    return {
+      id: String(rawScenario.id),
+      name: rawScenario.name || `Scenario ${rawScenario.id}`,
+      calc: c,
+    };
+  }
+
+  function renderScenarioComparison() {
+    if (!compareTableBodyEl || !compareEmptyEl) return;
+
+    compareTableBodyEl.innerHTML = "";
+    const current = calcAll(answers);
+
+    const selectedIds = compareScenarioListEl
+      ? Array.from(compareScenarioListEl.selectedOptions).map((opt) => opt.value).filter(Boolean)
+      : [];
+
+    const rows = [
+      {
+        name: "Current draft",
+        calc: current,
+      },
+    ];
+
+    for (const selectedId of selectedIds) {
+      const scenario = scenariosCache.find((item) => item.id === selectedId);
+      if (scenario) rows.push(scenario);
+    }
+
+    if (rows.length === 1) {
+      compareEmptyEl.style.display = "block";
+      return;
+    }
+
+    compareEmptyEl.style.display = "none";
+
+    for (const rowData of rows) {
+      const tr = document.createElement("tr");
+      const deltaAvailable = rowData.calc.available - current.available;
+
+      const cells = [
+        rowData.name,
+        EUR(rowData.calc.available),
+        formatDelta(deltaAvailable),
+        EUR(rowData.calc.gap),
+        EUR(rowData.calc.revenue),
+        EUR(rowData.calc.profitAfterTax),
+        rowData.calc.typ.label,
+      ];
+
+      cells.forEach((value, idx) => {
+        const td = document.createElement("td");
+        td.textContent = value;
+        if (idx === 2 && deltaAvailable < 0) td.className = "neg";
+        tr.appendChild(td);
+      });
+
+      compareTableBodyEl.appendChild(tr);
+    }
   }
 
   async function loadMedianAvailableIncome() {
@@ -344,6 +422,8 @@
       }
 
       scenarioListEl.innerHTML = "";
+      if (compareScenarioListEl) compareScenarioListEl.innerHTML = "";
+      scenariosCache = (data.scenarios || []).map(getScenarioMetrics);
 
       const placeholder = document.createElement("option");
       placeholder.value = "";
@@ -357,11 +437,22 @@
         opt.dataset.answers = JSON.stringify(scenario.answers || {});
         opt.dataset.employmentNetIncome = String(scenario.employmentNetIncome || 0);
         scenarioListEl.appendChild(opt);
+
+        if (compareScenarioListEl) {
+          const compareOpt = document.createElement("option");
+          compareOpt.value = String(scenario.id);
+          compareOpt.textContent = `${scenario.name} (${EUR(scenario.totalIncome || 0)})`;
+          compareScenarioListEl.appendChild(compareOpt);
+        }
       }
 
       scenarioListEl.value = selectedScenarioId;
+      renderScenarioComparison();
     } catch (err) {
       scenarioListEl.innerHTML = '<option value="">Scenarios could not be loaded</option>';
+      if (compareScenarioListEl) compareScenarioListEl.innerHTML = "";
+      scenariosCache = [];
+      renderScenarioComparison();
     }
   }
 
@@ -783,6 +874,7 @@
     typologyLabelEl.textContent = c.typ.label;
     renderSheet(c);
     renderCharts(c);
+    renderScenarioComparison();
     setSaveStatus("Not saved", null);
   }
 
@@ -792,6 +884,23 @@
 
   if (loadScenarioBtn) {
     loadScenarioBtn.addEventListener("click", loadSelectedScenario);
+  }
+
+  if (compareSelectedBtn) {
+    compareSelectedBtn.addEventListener("click", renderScenarioComparison);
+  }
+
+  if (compareScenarioListEl) {
+    compareScenarioListEl.addEventListener("change", renderScenarioComparison);
+  }
+
+  if (clearCompareBtn && compareScenarioListEl) {
+    clearCompareBtn.addEventListener("click", () => {
+      Array.from(compareScenarioListEl.options).forEach((opt) => {
+        opt.selected = false;
+      });
+      renderScenarioComparison();
+    });
   }
 
   // -------------------- reset --------------------
@@ -808,6 +917,11 @@
     if (employmentInput) employmentInput.value = String(employmentNetIncome);
     if (scenarioNameInput) scenarioNameInput.value = "";
     if (scenarioListEl) scenarioListEl.value = "";
+    if (compareScenarioListEl) {
+      Array.from(compareScenarioListEl.options).forEach((opt) => {
+        opt.selected = false;
+      });
+    }
     updateAll();
   });
 
