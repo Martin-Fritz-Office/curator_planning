@@ -97,6 +97,8 @@
   }
 
   function renderScaleTable() {
+    if (!nodes.salaryScaleTable) return;
+
     const head = `
       <thead>
         <tr>
@@ -253,6 +255,10 @@
       row.years = Math.max(1, Number(event.target.value) || 1);
     } else if (field === "hours") {
       row.hours = Math.max(0, Number(event.target.value) || 0);
+    } else if (field === "title") {
+      row[field] = event.target.value || "";
+      renderSummary();
+      return;
     } else {
       row[field] = event.target.value || "";
     }
