@@ -100,6 +100,19 @@
             <p>13 Fragen für die Entscheidung: zusagen, nachverhandeln oder absagen.</p>
           </span>
         </a>
+        <a class="tool-link" href="fair_use_questionnaire.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <path d="M12 3.8 4.8 7.1v4.8c0 4.3 2.9 7.5 7.2 8.7 4.3-1.2 7.2-4.4 7.2-8.7V7.1z"></path>
+              <path d="M9.3 12.2h5.4"></path>
+              <path d="M12 9.5v5.4"></path>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>Honorar-Fragebogen (Leitfaden 2026)</h3>
+            <p>Ermittelt einen fairen Richtwert für künstlerische Honorare.</p>
+          </span>
+        </a>
         <a class="tool-link" href="gallery_contract_reality_check.php">
           <span class="tool-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img" focusable="false">
