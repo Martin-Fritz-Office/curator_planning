@@ -180,11 +180,13 @@
     const totalActual = planRows.reduce((sum, row) => sum + row.actualSalary, 0);
     const totalFullTime = planRows.reduce((sum, row) => sum + row.fullTimeSalary, 0);
     const totalHours = planRows.reduce((sum, row) => sum + row.hours, 0);
+    const yearlyTotalCosts = totalActual * 18.01;
 
     nodes.teamSummary.innerHTML = `
       <div class="row"><span>Gesamte Wochenstunden</span><strong>${totalHours.toFixed(1)} h</strong></div>
       <div class="row"><span>Summe Vollzeit-Monatsgehälter (laut Skala)</span><strong>${EUR(totalFullTime)}</strong></div>
       <div class="row"><span>Summe Ist-Monatsgehälter (Stufengehalt ÷ 38 × Stunden)</span><strong>${EUR(totalActual)}</strong></div>
+      <div class="row"><span>Jahresgesamtkosten (Monatsbrutto × 18,01)</span><strong>${EUR(yearlyTotalCosts)}</strong></div>
     `;
 
     nodes.planTable.querySelectorAll("[data-remove-index]").forEach((btn) => {
