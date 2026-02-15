@@ -37,7 +37,8 @@ Entry pages are now:
 Additional learning carousels:
 - `curator_viability_carousel.php` — 13-question project viability check for freelance curators.
 - `gallery_contract_reality_check.php` — 12-question gallery contract reality check.
-- `fair_use_questionnaire.php` — 7-question fair-use self-check for artists.
+- `honorarium_questionnaire.php` — German guided honorarium questionnaire (Leitfaden 2026).
+- `fair_use_questionnaire.php` — legacy URL that redirects to `index_en.php` to preserve the English flow.
 
 Use the **Save responses** / **Antworten speichern** button in the header.
 The app sends a JSON payload to `submit_survey.php`, which inserts into `survey_submissions`.

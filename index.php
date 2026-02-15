@@ -114,7 +114,7 @@
             <p>13 Fragen für die Entscheidung: zusagen, nachverhandeln oder absagen.</p>
           </span>
         </a>
-        <a class="tool-link" href="fair_use_questionnaire.php">
+        <a class="tool-link" href="honorarium_questionnaire.php">
           <span class="tool-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img" focusable="false">
               <path d="M12 3.8 4.8 7.1v4.8c0 4.3 2.9 7.5 7.2 8.7 4.3-1.2 7.2-4.4 7.2-8.7V7.1z"></path>

@@ -128,7 +128,7 @@
             <p>12 questions to stress-test gallery deal terms.</p>
           </span>
         </a>
-        <a class="tool-link" href="fair_use_questionnaire.php">
+        <a class="tool-link" href="honorarium_questionnaire.php">
           <span class="tool-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img" focusable="false">
               <circle cx="12" cy="12" r="8"></circle>
@@ -137,8 +137,8 @@
             </svg>
           </span>
           <span class="tool-link-content">
-            <h3>Fair Use Check for Artists</h3>
-            <p>7 questions to estimate whether your use of existing work may qualify as fair use.</p>
+            <h3>Honorarium Questionnaire (German)</h3>
+            <p>Guided German-only questionnaire for estimating fair artist honoraria.</p>
           </span>
         </a>
       </div>
