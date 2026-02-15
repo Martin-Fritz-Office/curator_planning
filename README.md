@@ -37,6 +37,7 @@ Entry pages are now:
 Additional learning carousels:
 - `curator_viability_carousel.php` — 13-question project viability check for freelance curators.
 - `gallery_contract_reality_check.php` — 12-question gallery contract reality check.
+- `fair_use_questionnaire.php` — 7-question fair-use self-check for artists.
 
 Use the **Save responses** / **Antworten speichern** button in the header.
 The app sends a JSON payload to `submit_survey.php`, which inserts into `survey_submissions`.
