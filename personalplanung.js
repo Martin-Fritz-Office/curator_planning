@@ -120,15 +120,7 @@
     nodes.salaryScaleTable.innerHTML = `${head}<tbody>${body}</tbody>`;
   }
 
-  function ensureRows() {
-    if (!planRows.length) {
-      planRows.push({ group: 1, example: "", title: "", years: 1, hours: 38.5 });
-    }
-  }
-
   function renderLiveTable() {
-    ensureRows();
-
     const rowsHtml = planRows
       .map((row, index) => {
         const salary = salaryFor(row.group, row.years, row.hours);
@@ -272,6 +264,7 @@
   }
 
   function init() {
+    planRows.push({ group: 1, example: "", title: "", years: 1, hours: 38.5 });
     renderScaleTable();
     renderLiveTable();
     nodes.addRowBtn.addEventListener("click", addRow);
