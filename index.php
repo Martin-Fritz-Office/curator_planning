@@ -74,6 +74,20 @@
             <p>Berechne ein tragfähiges Stundenhonorar in 7 Fragen.</p>
           </span>
         </a>
+        <a class="tool-link" href="freelance_services_calculator.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <path d="M4.5 6.5h15"></path>
+              <path d="M4.5 12h15"></path>
+              <path d="M4.5 17.5h9"></path>
+              <circle cx="18.5" cy="17.5" r="1.3"></circle>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>Freelance-Service-Rechner</h3>
+            <p>Leistungen wählen, Stunden kalkulieren und als CSV exportieren.</p>
+          </span>
+        </a>
         <a class="tool-link" href="net_income_carousel.php">
           <span class="tool-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img" focusable="false">
