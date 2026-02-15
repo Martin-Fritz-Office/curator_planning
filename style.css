@@ -539,3 +539,42 @@ input[type="number"]:focus{
     grid-template-columns:1fr;
   }
 }
+
+input[type="text"]{
+  width:100%;
+  padding:9px 10px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--text);
+  outline:none;
+}
+input[type="text"]:focus{
+  border-color:#9ca3af;
+  box-shadow:0 0 0 3px rgba(17,24,39,0.08);
+}
+
+.example-block{
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 12px;
+  background:#fff;
+  margin-bottom:10px;
+}
+
+.example-block h3{
+  margin:0 0 6px;
+  font-size:14px;
+  color:var(--headline);
+}
+
+.example-block ul{
+  margin:0;
+  padding-left:18px;
+}
+
+.team-summary{
+  margin-top:14px;
+  border-top:1px solid var(--border);
+  padding-top:12px;
+}
