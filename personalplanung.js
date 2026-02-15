@@ -45,13 +45,8 @@
 
   const nodes = {
     salaryScaleTable: document.getElementById("salaryScaleTable"),
-    groupExamples: document.getElementById("groupExamples"),
-    jobTitle: document.getElementById("jobTitle"),
-    jobGroup: document.getElementById("jobGroup"),
-    jobYears: document.getElementById("jobYears"),
-    jobHours: document.getElementById("jobHours"),
-    addJobBtn: document.getElementById("addJobBtn"),
-    planTable: document.getElementById("planTable"),
+    livePlanTable: document.getElementById("livePlanTable"),
+    addRowBtn: document.getElementById("addRowBtn"),
     teamSummary: document.getElementById("teamSummary"),
   };
 
@@ -69,6 +64,36 @@
     if (y <= 16) return 7;
     if (y <= 18) return 8;
     return 9;
+  }
+
+  function salaryFor(groupNo, years, hours) {
+    const group = SALARY_SCALE.find((item) => item.bg === groupNo);
+    if (!group) return { fullTime: 0, actual: 0, stage: "-" };
+    const stageIndex = yearsToStageIndex(years);
+    const fullTimeSalary = group.salaries[stageIndex];
+    const actualSalary = (fullTimeSalary / 38) * Math.max(0, Number(hours) || 0);
+
+    return {
+      fullTime: fullTimeSalary,
+      actual: actualSalary,
+      stage: STAGES[stageIndex].key,
+    };
+  }
+
+  function groupOptions(selectedBg) {
+    return SALARY_SCALE.map(
+      (group) => `<option value="${group.bg}" ${group.bg === selectedBg ? "selected" : ""}>BG ${group.bg}</option>`
+    ).join("");
+  }
+
+  function exampleOptions(groupNo, selectedExample) {
+    const examples = GROUP_EXAMPLES[groupNo] || [];
+    return ["", ...examples]
+      .map((example) => {
+        const label = example || "Beispiel wählen";
+        return `<option value="${example}" ${example === selectedExample ? "selected" : ""}>${label}</option>`;
+      })
+      .join("");
   }
 
   function renderScaleTable() {
@@ -93,140 +118,157 @@
     nodes.salaryScaleTable.innerHTML = `${head}<tbody>${body}</tbody>`;
   }
 
-  function renderExamples() {
-    nodes.groupExamples.innerHTML = SALARY_SCALE.map((group) => {
-      const examples = GROUP_EXAMPLES[group.bg] || [];
-      return `
-        <article class="example-block">
-          <h3>BG ${group.bg}: ${group.name}</h3>
-          <ul>
-            ${examples.map((example) => `<li>${example}</li>`).join("")}
-          </ul>
-        </article>
-      `;
-    }).join("");
-  }
-
-  function buildGroupSelect() {
-    nodes.jobGroup.innerHTML = SALARY_SCALE.map(
-      (group) => `<option value="${group.bg}">BG ${group.bg} – ${group.name}</option>`
-    ).join("");
-  }
-
-  function stageLabelByYears(years) {
-    return STAGES[yearsToStageIndex(years)].label;
-  }
-
-  function salaryFor(groupNo, years, hours) {
-    const group = SALARY_SCALE.find((item) => item.bg === groupNo);
-    if (!group) return { fullTime: 0, actual: 0, stage: "-" };
-    const stageIndex = yearsToStageIndex(years);
-    const fullTimeSalary = group.salaries[stageIndex];
-    const actualSalary = (fullTimeSalary / 38) * Math.max(0, Number(hours) || 0);
-
-    return {
-      fullTime: fullTimeSalary,
-      actual: actualSalary,
-      stage: STAGES[stageIndex].key,
-    };
-  }
-
-  function renderPlanTable() {
+  function ensureRows() {
     if (!planRows.length) {
-      nodes.planTable.innerHTML = `
-        <thead>
-          <tr>
-            <th>Jobtitel</th><th>BG</th><th>Berufsjahre</th><th>Stufe</th><th>Wochenstunden</th><th>VZ-Gehalt</th><th>Ist-Gehalt</th><th></th>
-          </tr>
-        </thead>
-        <tbody><tr><td colspan="8" class="muted">Noch keine Stellen erfasst.</td></tr></tbody>
-      `;
-      nodes.teamSummary.innerHTML = "";
-      return;
+      planRows.push({ group: 1, example: "", title: "", years: 1, hours: 38.5 });
     }
+  }
 
-    nodes.planTable.innerHTML = `
+  function renderLiveTable() {
+    ensureRows();
+
+    const rowsHtml = planRows
+      .map((row, index) => {
+        const salary = salaryFor(row.group, row.years, row.hours);
+        const yearlyCosts = salary.actual * 18.01;
+
+        return `
+          <tr>
+            <td>
+              <select data-field="group" data-index="${index}">
+                ${groupOptions(row.group)}
+              </select>
+            </td>
+            <td>
+              <select data-field="example" data-index="${index}">
+                ${exampleOptions(row.group, row.example)}
+              </select>
+            </td>
+            <td>
+              <input type="text" data-field="title" data-index="${index}" value="${row.title}" placeholder="Eigener Jobtitel" />
+            </td>
+            <td>
+              <input type="number" min="1" step="1" data-field="years" data-index="${index}" value="${row.years}" />
+            </td>
+            <td>
+              <input type="number" min="0" step="0.5" data-field="hours" data-index="${index}" value="${row.hours}" />
+            </td>
+            <td><strong>${salary.stage}</strong></td>
+            <td>${EUR(salary.fullTime)}</td>
+            <td><strong>${EUR(salary.actual)}</strong></td>
+            <td><strong>${EUR(yearlyCosts)}</strong></td>
+            <td><button class="btn btn-outline" type="button" data-remove-index="${index}">×</button></td>
+          </tr>
+        `;
+      })
+      .join("");
+
+    nodes.livePlanTable.innerHTML = `
       <thead>
         <tr>
-          <th>Jobtitel</th>
           <th>BG</th>
-          <th>Berufsjahre</th>
+          <th>Beispiel-Funktion</th>
+          <th>Eigener Titel</th>
+          <th>Jahre</th>
+          <th>Stunden/Woche</th>
           <th>Stufe</th>
-          <th>Wochenstunden</th>
-          <th>VZ-Gehalt (Monat)</th>
-          <th>Ist-Gehalt (Monat)</th>
-          <th>Aktion</th>
+          <th>Vollzeit-Gehalt</th>
+          <th>Ist-Gehalt</th>
+          <th>Jahresgesamtkosten</th>
+          <th></th>
         </tr>
       </thead>
-      <tbody>
-        ${planRows
-          .map(
-            (row, index) => `
-          <tr>
-            <td>${row.title}</td>
-            <td>BG ${row.group}</td>
-            <td>${row.years}</td>
-            <td>${row.stage}</td>
-            <td>${row.hours.toFixed(1)} h</td>
-            <td>${EUR(row.fullTimeSalary)}</td>
-            <td><strong>${EUR(row.actualSalary)}</strong></td>
-            <td><button type="button" class="btn btn-outline" data-remove-index="${index}">Entfernen</button></td>
-          </tr>`
-          )
-          .join("")}
-      </tbody>
+      <tbody>${rowsHtml}</tbody>
     `;
 
-    const totalActual = planRows.reduce((sum, row) => sum + row.actualSalary, 0);
-    const totalFullTime = planRows.reduce((sum, row) => sum + row.fullTimeSalary, 0);
-    const totalHours = planRows.reduce((sum, row) => sum + row.hours, 0);
-    const yearlyTotalCosts = totalActual * 18.01;
+    bindRowEvents();
+    renderSummary();
+  }
+
+  function rowLabel(row) {
+    return (row.title || row.example || "Unbenannte Stelle").trim();
+  }
+
+  function renderSummary() {
+    const totals = planRows.reduce(
+      (acc, row) => {
+        const salary = salaryFor(row.group, row.years, row.hours);
+        acc.hours += Math.max(0, Number(row.hours) || 0);
+        acc.fullTime += salary.fullTime;
+        acc.actual += salary.actual;
+        return acc;
+      },
+      { hours: 0, fullTime: 0, actual: 0 }
+    );
+
+    const yearly = totals.actual * 18.01;
+
+    const compactRows = planRows
+      .map((row) => {
+        const salary = salaryFor(row.group, row.years, row.hours);
+        return `<div class="row"><span>${rowLabel(row)} (BG ${row.group})</span><strong>${EUR(salary.actual)} / Monat</strong></div>`;
+      })
+      .join("");
 
     nodes.teamSummary.innerHTML = `
-      <div class="row"><span>Gesamte Wochenstunden</span><strong>${totalHours.toFixed(1)} h</strong></div>
-      <div class="row"><span>Summe Vollzeit-Monatsgehälter (laut Skala)</span><strong>${EUR(totalFullTime)}</strong></div>
-      <div class="row"><span>Summe Ist-Monatsgehälter (Stufengehalt ÷ 38 × Stunden)</span><strong>${EUR(totalActual)}</strong></div>
-      <div class="row"><span>Jahresgesamtkosten (Monatsbrutto × 18,01)</span><strong>${EUR(yearlyTotalCosts)}</strong></div>
+      <div class="row"><span>Gesamte Wochenstunden</span><strong>${totals.hours.toFixed(1)} h</strong></div>
+      <div class="row"><span>Summe Vollzeit-Monatsgehälter</span><strong>${EUR(totals.fullTime)}</strong></div>
+      <div class="row"><span>Summe Ist-Monatsgehälter</span><strong>${EUR(totals.actual)}</strong></div>
+      <div class="row"><span>Jahresgesamtkosten gesamt</span><strong>${EUR(yearly)}</strong></div>
+      <hr class="sep" />
+      ${compactRows}
     `;
+  }
 
-    nodes.planTable.querySelectorAll("[data-remove-index]").forEach((btn) => {
+  function bindRowEvents() {
+    nodes.livePlanTable.querySelectorAll("[data-field]").forEach((input) => {
+      input.addEventListener("input", onFieldChange);
+      input.addEventListener("change", onFieldChange);
+    });
+
+    nodes.livePlanTable.querySelectorAll("[data-remove-index]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const idx = Number(btn.getAttribute("data-remove-index"));
-        if (!Number.isNaN(idx)) {
-          planRows.splice(idx, 1);
-          renderPlanTable();
-        }
+        if (Number.isNaN(idx)) return;
+        planRows.splice(idx, 1);
+        renderLiveTable();
       });
     });
   }
 
-  function addJob() {
-    const title = (nodes.jobTitle.value || "").trim() || "Unbenannte Stelle";
-    const group = Number(nodes.jobGroup.value || 1);
-    const years = Math.max(1, Number(nodes.jobYears.value || 1));
-    const hours = Math.max(0, Number(nodes.jobHours.value || 0));
-    const salary = salaryFor(group, years, hours);
+  function onFieldChange(event) {
+    const field = event.target.getAttribute("data-field");
+    const index = Number(event.target.getAttribute("data-index"));
+    if (!field || Number.isNaN(index) || !planRows[index]) return;
 
-    planRows.push({
-      title,
-      group,
-      years,
-      stage: `${salary.stage} (${stageLabelByYears(years)})`,
-      hours,
-      fullTimeSalary: salary.fullTime,
-      actualSalary: salary.actual,
-    });
+    const row = planRows[index];
 
-    nodes.jobTitle.value = "";
-    renderPlanTable();
+    if (field === "group") {
+      row.group = Math.max(1, Math.min(8, Number(event.target.value) || 1));
+      const availableExamples = GROUP_EXAMPLES[row.group] || [];
+      if (!availableExamples.includes(row.example)) {
+        row.example = "";
+      }
+    } else if (field === "years") {
+      row.years = Math.max(1, Number(event.target.value) || 1);
+    } else if (field === "hours") {
+      row.hours = Math.max(0, Number(event.target.value) || 0);
+    } else {
+      row[field] = event.target.value || "";
+    }
+
+    renderLiveTable();
+  }
+
+  function addRow() {
+    planRows.push({ group: 1, example: "", title: "", years: 1, hours: 38.5 });
+    renderLiveTable();
   }
 
   function init() {
     renderScaleTable();
-    renderExamples();
-    buildGroupSelect();
-    renderPlanTable();
-    nodes.addJobBtn.addEventListener("click", addJob);
+    renderLiveTable();
+    nodes.addRowBtn.addEventListener("click", addRow);
   }
 
   init();
