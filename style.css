@@ -593,7 +593,7 @@ input[type="text"]:focus{
 }
 
 .planning-wide{
-  max-width:1500px;
+  max-width:none;
 }
 
 .planning-grid{
@@ -625,11 +625,11 @@ input[type="text"]:focus{
 
 @media (min-width:1280px){
   .planning-grid{
-    grid-template-columns:minmax(0, 2.4fr) minmax(0, 1fr);
+    grid-template-columns:1fr;
     align-items:start;
   }
   .planning-card-wide{
-    grid-column:auto;
+    grid-column:1 / -1;
   }
   .planning-card-side{
     grid-column:auto;
