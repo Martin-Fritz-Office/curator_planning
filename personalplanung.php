@@ -9,75 +9,42 @@
   <script defer src="personalplanung.js"></script>
 </head>
 <body>
-  <div class="page">
+  <div class="page planning-wide">
     <header class="header">
       <div>
-        <h1>Personalplanungstool (FAIR PAY 2026)</h1>
-        <p class="muted">Zeigt Beschäftigungsgruppen, Tätigkeiten und Beispiele. Ergänze eigene Jobtitel, Wochenstunden und Berufsjahre für die Gehaltsberechnung.</p>
+        <h1>Personalplanungstool (Alternative Ansicht)</h1>
+        <p class="muted">Beschäftigungsgruppe links wählen, Funktion aus Beispielen auswählen, eigenen Titel und Stunden ergänzen – Gehälter und Jahresgesamtkosten werden sofort berechnet.</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php">Startseite</a>
       </div>
     </header>
 
-    <main class="grid">
-      <section class="card">
+    <main class="grid planning-grid">
+      <section class="card planning-card-wide">
         <div class="card-head">
-          <h2>FAIR PAY Gehaltsschema (ab 1.1.2026)</h2>
+          <h2>Live-Planung nach Beschäftigungsgruppe</h2>
         </div>
         <div class="card-body">
-          <p class="small muted">Mindestbruttogehalt für Vollzeit (14 Gehälter). Vollzeit laut Vorgabe: 38,5 Stunden/Woche. Berechnung für Teilzeit im Tool: Stufengehalt ÷ 38 × tatsächliche Stunden.</p>
+          <p class="small muted">Teilzeitberechnung: Stufengehalt ÷ 38 × Wochenstunden. Jahresgesamtkosten: Ist-Monatsgehalt × 18,01.</p>
+          <div class="comparison-table-wrap">
+            <table class="comparison-table planning-live-table" id="livePlanTable"></table>
+          </div>
+          <div class="footer">
+            <button class="btn" id="addRowBtn" type="button">Zeile hinzufügen</button>
+          </div>
+          <div class="sheet team-summary" id="teamSummary"></div>
+        </div>
+      </section>
+
+      <section class="card planning-card-side">
+        <div class="card-head">
+          <h2>Gehaltsschema (FAIR PAY 2026)</h2>
+        </div>
+        <div class="card-body">
           <div class="comparison-table-wrap">
             <table class="comparison-table" id="salaryScaleTable"></table>
           </div>
-        </div>
-      </section>
-
-      <section class="card">
-        <div class="card-head">
-          <h2>Beschäftigungsgruppen: Tätigkeiten &amp; Beispiele</h2>
-        </div>
-        <div class="card-body" id="groupExamples"></div>
-      </section>
-
-      <section class="card">
-        <div class="card-head">
-          <h2>Stelle hinzufügen</h2>
-        </div>
-        <div class="card-body">
-          <div class="qgrid">
-            <label class="q">
-              <span>Jobtitel (frei wählbar)</span>
-              <input id="jobTitle" type="text" placeholder="z. B. Produktionsleitung" />
-            </label>
-            <label class="q">
-              <span>Beschäftigungsgruppe</span>
-              <select id="jobGroup"></select>
-            </label>
-            <label class="q">
-              <span>Berufsjahre</span>
-              <input id="jobYears" type="number" min="1" step="1" value="1" />
-            </label>
-            <label class="q">
-              <span>Wochenstunden (individuell)</span>
-              <input id="jobHours" type="number" min="1" step="0.5" value="38.5" />
-            </label>
-          </div>
-          <div class="footer">
-            <button class="btn" id="addJobBtn" type="button">Zur Planung hinzufügen</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="card">
-        <div class="card-head">
-          <h2>Teamplanung</h2>
-        </div>
-        <div class="card-body">
-          <div class="comparison-table-wrap">
-            <table class="comparison-table" id="planTable"></table>
-          </div>
-          <div class="sheet team-summary" id="teamSummary"></div>
         </div>
       </section>
     </main>

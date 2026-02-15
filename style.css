@@ -211,11 +211,24 @@ input[type="number"]{
   color:var(--text);
   outline:none;
 }
+input[type="text"]{
+  width:100%;
+  padding:9px 10px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--text);
+  outline:none;
+}
 select:focus{
   border-color:#9ca3af;
   box-shadow:0 0 0 3px rgba(17,24,39,0.08);
 }
 input[type="number"]:focus{
+  border-color:#9ca3af;
+  box-shadow:0 0 0 3px rgba(17,24,39,0.08);
+}
+input[type="text"]:focus{
   border-color:#9ca3af;
   box-shadow:0 0 0 3px rgba(17,24,39,0.08);
 }
@@ -577,4 +590,48 @@ input[type="text"]:focus{
   margin-top:14px;
   border-top:1px solid var(--border);
   padding-top:12px;
+}
+
+.planning-wide{
+  max-width:1500px;
+}
+
+.planning-grid{
+  grid-template-columns:1fr;
+}
+
+.planning-card-wide{
+  grid-column:1 / -1;
+}
+
+.planning-live-table th,
+.planning-live-table td{
+  white-space:nowrap;
+  vertical-align:middle;
+}
+
+.planning-live-table select,
+.planning-live-table input[type="text"],
+.planning-live-table input[type="number"]{
+  min-width:120px;
+  width:100%;
+}
+
+.planning-live-table td:nth-child(1){min-width:84px}
+.planning-live-table td:nth-child(2){min-width:220px}
+.planning-live-table td:nth-child(3){min-width:220px}
+.planning-live-table td:nth-child(4){min-width:88px}
+.planning-live-table td:nth-child(5){min-width:110px}
+
+@media (min-width:1280px){
+  .planning-grid{
+    grid-template-columns:minmax(0, 2.4fr) minmax(0, 1fr);
+    align-items:start;
+  }
+  .planning-card-wide{
+    grid-column:auto;
+  }
+  .planning-card-side{
+    grid-column:auto;
+  }
 }
