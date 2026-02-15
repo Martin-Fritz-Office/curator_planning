@@ -23,6 +23,7 @@
         <a class="btn btn-outline" href="forecast_en.php">English</a>
         <a class="btn btn-outline" href="hourly_rate.php">Stundensatz-Rechner</a>
         <a class="btn btn-outline" href="net_income_carousel.php">Nettoeinkommen Schritt für Schritt</a>
+        <a class="btn btn-outline" href="#scenarioComparison">Zum Szenariovergleich</a>
         <button id="saveBtn" class="btn" type="button">Antworten speichern</button>
         <input id="scenarioName" class="input-inline" type="text" maxlength="120" placeholder="Szenario-Name" aria-label="Szenario-Name" />
         <div id="saveStatus" class="pill" aria-live="polite">Nicht gespeichert</div>
@@ -64,11 +65,12 @@
           </div>
         </section>
 
-        <section class="card">
+        <section class="card" id="scenarioComparison">
           <div class="card-head">
             <h2>Szenariovergleich</h2>
           </div>
           <div class="card-body">
+            <p class="small muted">Hinweis: Der Vergleich erscheint hier, sobald mindestens ein Szenario gespeichert wurde.</p>
             <div class="comparison-controls">
               <select id="compareScenarioList" class="input-inline" aria-label="Szenarien für Vergleich auswählen" multiple size="5"></select>
               <div class="comparison-actions">
