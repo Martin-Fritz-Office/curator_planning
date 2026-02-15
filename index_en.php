@@ -141,6 +141,20 @@
             <p>Guided German-only questionnaire for estimating fair artist honoraria.</p>
           </span>
         </a>
+        <a class="tool-link" href="budget_planner.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <path d="M4.5 18.5h15"></path>
+              <path d="M7 15.5v-7"></path>
+              <path d="M12 15.5V9"></path>
+              <path d="M17 15.5v-4"></path>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>Budget & Staff Planner</h3>
+            <p>New tool for annual venue budgeting including staff planning.</p>
+          </span>
+        </a>
       </div>
     </main>
   </div>
