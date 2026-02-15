@@ -141,6 +141,21 @@
             <p>Guided German-only questionnaire for estimating fair artist honoraria.</p>
           </span>
         </a>
+        <a class="tool-link" href="personalplanung.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <path d="M4.5 19.5h15"></path>
+              <path d="M6 7.5h12"></path>
+              <path d="M8.5 12h2"></path>
+              <path d="M13.5 12h2"></path>
+              <path d="M8.5 15.5h7"></path>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>Staff planning tool (FAIR PAY 2026)</h3>
+            <p>View scale groups/examples and calculate actual salaries by custom hours.</p>
+          </span>
+        </a>
       </div>
     </main>
   </div>
