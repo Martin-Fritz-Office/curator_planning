@@ -114,6 +114,19 @@
             <p>12 questions to stress-test gallery deal terms.</p>
           </span>
         </a>
+        <a class="tool-link" href="fair_use_questionnaire.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <circle cx="12" cy="12" r="8"></circle>
+              <path d="M9.3 9.7a2.7 2.7 0 1 1 5.1 1.4c-.6.9-1.5 1.3-1.9 2.3"></path>
+              <circle cx="12" cy="16.9" r=".8"></circle>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>Fair Use Check for Artists</h3>
+            <p>7 questions to estimate whether your use of existing work may qualify as fair use.</p>
+          </span>
+        </a>
       </div>
     </main>
   </div>
