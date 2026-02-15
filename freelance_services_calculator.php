@@ -48,6 +48,8 @@
                 <tr>
                   <th>Leistung</th>
                   <th>Gruppe</th>
+                  <th>Personen</th>
+                  <th>Stunden pro Person</th>
                   <th>Stunden</th>
                   <th>Stundensatz (€)</th>
                   <th>Gesamt (€)</th>
@@ -56,7 +58,7 @@
               <tbody></tbody>
               <tfoot>
                 <tr>
-                  <th colspan="4">Summe aller Services</th>
+                  <th colspan="6">Summe aller Services</th>
                   <th id="grandTotal">0,00</th>
                 </tr>
               </tfoot>
