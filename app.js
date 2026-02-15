@@ -20,6 +20,7 @@
   const DEFAULT = { ...window.CuratorCalcCore.DEFAULT_ANSWERS };
 
   const DEFAULT_EMPLOYMENT_NET = 0;
+  const DEFAULT_HOUSEHOLD_PERSONS = 1;
 
   /** @type {{key:string,title:string,options:{k:Opt,label:string}[],hint?:string}[]} */
   const QUESTIONS = [
@@ -288,6 +289,7 @@
   /** @type {Record<string, Opt>} */
   let answers = { ...DEFAULT };
   let employmentNetIncome = DEFAULT_EMPLOYMENT_NET;
+  let householdPersons = DEFAULT_HOUSEHOLD_PERSONS;
   let selectedScenarioId = "";
   let scenariosCache = [];
 
@@ -466,6 +468,7 @@
       const mergedAnswers = { ...DEFAULT, ...loadedAnswers };
       answers = mergedAnswers;
       employmentNetIncome = Math.max(0, Number(selectedOption.dataset.employmentNetIncome || 0));
+      householdPersons = DEFAULT_HOUSEHOLD_PERSONS;
       selectedScenarioId = selectedOption.value;
 
       document.querySelectorAll("select[data-key]").forEach((sel) => {
@@ -475,6 +478,9 @@
 
       const employmentInput = document.getElementById("employmentNetIncome");
       if (employmentInput) employmentInput.value = String(employmentNetIncome);
+
+      const householdInput = document.getElementById("householdPersons");
+      if (householdInput) householdInput.value = String(householdPersons);
 
       if (scenarioNameInput) scenarioNameInput.value = selectedOption.textContent.split(" (")[0] || "";
 
@@ -558,6 +564,7 @@
       answers,
       questionnaire: {
         employmentNetIncome,
+        householdPersons,
         questions: getSelectedQuestionnaireData(),
       },
       employmentNetIncome,
@@ -635,6 +642,32 @@
       updateAll();
     });
     employmentWrap.appendChild(employmentInput);
+
+    const householdWrap = document.createElement("div");
+    householdWrap.className = "q";
+
+    const householdLabel = document.createElement("label");
+    householdLabel.setAttribute("for", "householdPersons");
+    householdLabel.textContent = "Für wie viele Personen soll gerechnet werden?";
+    householdWrap.appendChild(householdLabel);
+
+    const householdHint = document.createElement("div");
+    householdHint.className = "hint";
+    householdHint.textContent = "Optional für deine Dokumentation im Fragebogen (ohne Einfluss auf die Berechnung).";
+    householdWrap.appendChild(householdHint);
+
+    const householdInput = document.createElement("input");
+    householdInput.type = "number";
+    householdInput.id = "householdPersons";
+    householdInput.min = "1";
+    householdInput.step = "1";
+    householdInput.value = String(householdPersons);
+    householdInput.addEventListener("input", (e) => {
+      const raw = Number(e.target.value);
+      householdPersons = Number.isFinite(raw) ? Math.max(1, Math.round(raw)) : DEFAULT_HOUSEHOLD_PERSONS;
+      updateAll();
+    });
+    householdWrap.appendChild(householdInput);
     const employmentSection = document.createElement("section");
     employmentSection.className = "q-section q-section-full";
 
@@ -651,6 +684,7 @@
 
     employmentSection.appendChild(employmentHead);
     employmentSection.appendChild(employmentWrap);
+    employmentSection.appendChild(householdWrap);
     questionGrid.appendChild(employmentSection);
 
     for (const group of QUESTION_GROUPS) {
@@ -906,6 +940,7 @@
   resetBtn.addEventListener("click", () => {
     answers = { ...DEFAULT };
     employmentNetIncome = DEFAULT_EMPLOYMENT_NET;
+    householdPersons = DEFAULT_HOUSEHOLD_PERSONS;
     selectedScenarioId = "";
     // update selects
     document.querySelectorAll("select[data-key]").forEach((sel) => {
@@ -914,6 +949,8 @@
     });
     const employmentInput = document.getElementById("employmentNetIncome");
     if (employmentInput) employmentInput.value = String(employmentNetIncome);
+    const householdInput = document.getElementById("householdPersons");
+    if (householdInput) householdInput.value = String(householdPersons);
     if (scenarioNameInput) scenarioNameInput.value = "";
     if (scenarioListEl) scenarioListEl.value = "";
     if (compareScenarioListEl) {
