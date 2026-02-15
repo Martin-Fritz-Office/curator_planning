@@ -37,16 +37,6 @@
         </div>
       </section>
 
-      <section class="card planning-card-side">
-        <div class="card-head">
-          <h2>Gehaltsschema (FAIR PAY 2026)</h2>
-        </div>
-        <div class="card-body">
-          <div class="comparison-table-wrap">
-            <table class="comparison-table" id="salaryScaleTable"></table>
-          </div>
-        </div>
-      </section>
     </main>
   </div>
 </body>
