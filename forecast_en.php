@@ -64,6 +64,38 @@
           </div>
         </section>
 
+        <section class="card">
+          <div class="card-head">
+            <h2>Scenario comparison</h2>
+          </div>
+          <div class="card-body">
+            <div class="comparison-controls">
+              <select id="compareScenarioList" class="input-inline" aria-label="Choose scenarios for comparison" multiple size="5"></select>
+              <div class="comparison-actions">
+                <button id="compareSelectedBtn" class="btn btn-outline" type="button">Compare selected</button>
+                <button id="clearCompareBtn" class="btn btn-outline" type="button">Clear</button>
+              </div>
+            </div>
+            <div class="comparison-table-wrap">
+              <table class="comparison-table" id="comparisonTable">
+                <thead>
+                  <tr>
+                    <th>Scenario</th>
+                    <th>Available income</th>
+                    <th>Δ vs current</th>
+                    <th>Gap</th>
+                    <th>Revenue</th>
+                    <th>Profit after tax</th>
+                    <th>Type</th>
+                  </tr>
+                </thead>
+                <tbody id="compareTableBody"></tbody>
+              </table>
+              <p id="compareEmpty" class="small muted">Save scenarios and select one or more entries to compare them with your current draft.</p>
+            </div>
+          </div>
+        </section>
+
         <section class="grid2">
           <section class="card">
             <div class="card-head">
