@@ -3,6 +3,9 @@
 declare(strict_types=1);
 
 header('Content-Type: application/json; charset=utf-8');
+header('X-Content-Type-Options: nosniff');
+header('Cache-Control: no-store, max-age=0');
+header('Referrer-Policy: no-referrer');
 
 const MAX_PAYLOAD_BYTES = 200000;
 const MAX_SCENARIO_NAME_LENGTH = 120;
@@ -72,6 +75,24 @@ function getExistingColumns(PDO $pdo, string $tableName): array
 function logApiError(string $code, Throwable $e): void
 {
     error_log(sprintf('[submit_survey] code=%s message=%s', $code, $e->getMessage()));
+}
+
+function parseNumericField(array $data, string $key, bool $allowNegative = false): float
+{
+    if (!array_key_exists($key, $data) || !is_numeric($data[$key])) {
+        fail(400, 'invalid_numeric_field', sprintf('Field %s must be numeric', $key));
+    }
+
+    $value = (float) $data[$key];
+    if (!is_finite($value)) {
+        fail(400, 'invalid_numeric_field', sprintf('Field %s must be finite', $key));
+    }
+
+    if (!$allowNegative && $value < 0) {
+        fail(400, 'invalid_numeric_field', sprintf('Field %s must be >= 0', $key));
+    }
+
+    return $value;
 }
 
 /**
@@ -151,10 +172,10 @@ if (count($answers) !== $requiredAnswerCount) {
     fail(400, 'invalid_answers_count', 'Answers must contain all questionnaire keys');
 }
 
-$employmentNetIncome = (float) ($data['employmentNetIncome'] ?? 0);
-$availableIncome = (float) ($data['availableIncome'] ?? 0);
-$targetIncome = (float) ($data['targetIncome'] ?? 0);
-$gap = (float) ($data['gap'] ?? 0);
+$employmentNetIncome = parseNumericField($data, 'employmentNetIncome');
+$availableIncome = parseNumericField($data, 'availableIncome');
+$targetIncome = parseNumericField($data, 'targetIncome');
+$gap = parseNumericField($data, 'gap', true);
 
 $questionnaire = normalizeJsonArray(pickFirst($data, ['questionnaire', 'questionnaire_json', 'questionnaireJson'])) ?? [];
 if (count($questionnaire) > MAX_QUESTIONNAIRE_QUESTIONS) {
@@ -207,21 +228,22 @@ try {
     $pdo = new PDO($dsn, (string) ($config['user'] ?? ''), (string) ($config['password'] ?? ''), [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
     ]);
 
     $columnValues = [
         ':locale' => $locale,
         ':scenario_name' => $scenarioName,
-        ':answers_json' => json_encode($answers, JSON_UNESCAPED_UNICODE),
+        ':answers_json' => json_encode($answers, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR),
         ':employment_net_income' => $employmentNetIncome,
         ':available_income' => $availableIncome,
         ':target_income' => $targetIncome,
         ':income_gap' => $gap,
         ':typology_label' => $typologyLabel,
         ':typology_score' => $typologyScore,
-        ':questionnaire_json' => json_encode($questionnaire, JSON_UNESCAPED_UNICODE),
-        ':computed_json' => json_encode($computed, JSON_UNESCAPED_UNICODE),
-        ':prognosis_lines_json' => json_encode($prognosisLines, JSON_UNESCAPED_UNICODE),
+        ':questionnaire_json' => json_encode($questionnaire, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR),
+        ':computed_json' => json_encode($computed, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR),
+        ':prognosis_lines_json' => json_encode($prognosisLines, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR),
     ];
 
     $existingColumns = getExistingColumns($pdo, 'survey_submissions');

@@ -3,6 +3,9 @@
 declare(strict_types=1);
 
 header('Content-Type: application/json; charset=utf-8');
+header('X-Content-Type-Options: nosniff');
+header('Cache-Control: no-store, max-age=0');
+header('Referrer-Policy: no-referrer');
 
 function logApiError(string $code, Throwable $e): void
 {
@@ -20,6 +23,10 @@ function fail(int $statusCode, string $code, string $message): void
     exit;
 }
 
+
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    fail(405, 'method_not_allowed', 'Method not allowed');
+}
 $configPath = __DIR__ . '/db_config.php';
 if (!file_exists($configPath)) {
     fail(500, 'missing_db_config', 'Missing db_config.php');
