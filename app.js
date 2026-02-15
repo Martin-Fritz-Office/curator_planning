@@ -866,6 +866,22 @@
   }
 
   function renderCharts(c) {
+    if (typeof window.Chart !== "function") {
+      incomeEmpty.textContent = "Charts unavailable (Chart.js failed to load).";
+      costEmpty.textContent = "Charts unavailable (Chart.js failed to load).";
+      incomeEmpty.style.display = "block";
+      costEmpty.style.display = "block";
+      if (incomeChart) {
+        incomeChart.destroy();
+        incomeChart = null;
+      }
+      if (costChart) {
+        costChart.destroy();
+        costChart = null;
+      }
+      return;
+    }
+
     const incomeLabels = c.incomePie.map((r) => r.name);
     const incomeValues = c.incomePie.map((r) => r.value);
 
