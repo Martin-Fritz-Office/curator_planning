@@ -168,7 +168,7 @@
           </span>
           <span class="tool-link-content">
             <h3>Abgemacht? 25-Punkte-Checkliste</h3>
-            <p>Interaktive Vertrags- und Projekt-Checkliste mit Status, Notizen und Copy-Summary.</p>
+            <p>Interaktiver 25-Punkte-Fragebogen mit Detail-Check, Kontext-Popups und Zusammenfassung.</p>
           </span>
         </a>
       </div>
