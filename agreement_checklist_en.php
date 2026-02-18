@@ -1,39 +1,39 @@
 <?php
 ?><!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>artbackstage | Ausstellungs-Fragebogen (25 Punkte)</title>
+  <title>artbackstage | Exhibition Questionnaire (25 points)</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="agreement_checklist.js"></script>
 </head>
-<body data-lang="de">
+<body data-lang="en">
   <div class="page">
     <header class="header">
       <div>
-        <h1>Ausstellungs-Fragebogen (25 Punkte)</h1>
-        <p class="muted">Interaktiver Fragebogen nach Martin Fritz: Beantworte alle Punkte für die Vorbereitung einer Ausstellung und prüfe, wie viele Antworten bereits ausreichend detailliert sind.</p>
+        <h1>Exhibition Questionnaire (25 points)</h1>
+        <p class="muted">Interactive questionnaire based on Martin Fritz's 25 points: prepare exhibition agreements and track how many answers are already detailed enough.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index.php">Home</a>
+        <a class="btn btn-outline" href="index_en.php">Home</a>
       </div>
     </header>
 
     <main class="card tutorial-card">
       <div class="card-head">
-        <h2>Checkliste mit Detail-Check</h2>
+        <h2>Checklist with detail check</h2>
       </div>
       <div class="card-body">
         <div class="agreement-toolbar">
-          <span id="agreementProgress" class="pill">0 / 25 ausreichend detailliert</span>
-          <button type="button" id="showIncompleteBtn" class="btn btn-outline">Nur unvollständige Antworten</button>
-          <button type="button" id="copySummaryBtn" class="btn">Zusammenfassung kopieren</button>
+          <span id="agreementProgress" class="pill">0 / 25 answered in enough detail</span>
+          <button type="button" id="showIncompleteBtn" class="btn btn-outline">Show only incomplete answers</button>
+          <button type="button" id="copySummaryBtn" class="btn">Copy summary</button>
         </div>
 
         <section class="agreement-visual" aria-live="polite">
           <div class="agreement-bars" id="agreementBars"></div>
-          <p id="agreementLegend" class="muted">Noch keine Antworten.</p>
+          <p id="agreementLegend" class="muted">No answers yet.</p>
         </section>
 
         <section id="agreementList" class="agreement-list" aria-live="polite"></section>
@@ -43,10 +43,10 @@
 
   <dialog id="contextDialog" class="agreement-dialog">
     <form method="dialog" class="agreement-dialog-form">
-      <h3 id="contextDialogTitle">Mehr Kontext</h3>
+      <h3 id="contextDialogTitle">More context</h3>
       <p id="contextDialogText"></p>
       <div class="agreement-dialog-actions">
-        <button class="btn" value="close">Schließen</button>
+        <button class="btn" value="close">Close</button>
       </div>
     </form>
   </dialog>
