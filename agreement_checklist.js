@@ -111,6 +111,158 @@
         ["Additional obligations", "Who else expects a counter-performance?", "Are there other stakeholders (funders, sponsors, rights holders) toward whom obligations exist? This can occur, for example, in artist-in-residence programs when accommodation providers also expect an artistic contribution in addition to the organizer."],
         ["And then?", "How do I want to look back on this project in one year?", "Last but not least: consider how you want to review the project after one year. Where should your works ideally be by then? How much money should you have earned through the project? Which artistic or critical outcomes should have occurred? Who should own newly created works? Which credits and revenues do stakeholders expect in the future? Define these expectations and discuss them as openly and clearly as possible with your counterpart. Exchange experiences on these questions regularly with colleagues, gallerists, curators, organizers, and other participants."]
       ]
+  const minDetailedLength = 180;
+
+  const points = [
+    {
+      title: "Wer?",
+      question: "Mit wem habe ich es konkret zu tun und wer entscheidet tatsächlich?",
+      context:
+        "Klären Sie frühzeitig mit wem Sie es zu tun haben. Führen Sie – wenn notwendig – Recherchen durch. Finden Sie heraus, ob die Person für die Einhaltung der Zusagen selbst verantwortlich sein wird, oder ob Ihr Gegenüber für jemand anderen (Sammler/in, Programmbetreiber/in, Sponsor/in, Agentur etc.) handelt."
+    },
+    {
+      title: "Wann?",
+      question: "Welche zeitlichen Rahmenbedingungen gelten bis zum echten Projektabschluss?",
+      context:
+        "Klären Sie alle terminlichen Rahmenbedingungen. Beachten Sie, dass das Projekt nicht mit der Eröffnung abgeschlossen sein wird, sondern erst mit der Rückgabe der Arbeiten, der Fertigstellung des Katalogs, der Bezahlung aller Rechnungen, der Abrechnung, der Übergabe der Dokumentation oder anderer notwendiger Nachbearbeitungen abgeschlossen ist."
+    },
+    {
+      title: "Was?",
+      question: "Was wird von mir erwartet und welche Nutzungen sind vorgesehen?",
+      context:
+        "Was wird von mir erwartet? Künstlerische Arbeit kann beschrieben werden. Auch wenn es sich um neue Arbeiten handelt, empfiehlt es sich, die gegenseitigen Vorstellungen über Medium, Technik, Größe und Aufwand in den Verhandlungen abzuklären, um etwaigen unrealistischen Erwartungen bereits frühzeitig entgegenwirken zu können. Hier spielen auch zum ersten Mal Verwertungsrechte eine Rolle. Will der Veranstalter / die Veranstalterin Ihre Arbeiten „nur“ ausstellen oder auch für andere Zwecke (Werbung, Imagefolder, Grußkarten, Poster, Souvenirs etc. etc.) nutzen. Theoretisch muss jede Nutzung separat und ausdrücklich vereinbart – und gegebenenfalls honoriert – werden."
+    },
+    {
+      title: "Wie viel?",
+      question: "Wie hoch sind Produktionsbudget und Honorar?",
+      context:
+        "Klären Sie, ob ein Produktionsbudget zur Verfügung steht oder nicht. Wird – unabhängig von etwaigen Produktionskosten – ein Honorar bezahlt? Wenn ja, wie hoch ist dieses? Vereinbaren Sie eine Mindestgrößenordnung oder eine variable Summe, wenn das Gesamtbudget wegen laufender Finanzierungsbemühungen noch nicht feststeht."
+    },
+    {
+      title: "Was will ich machen?",
+      question: "Was möchte ich im Rahmen des Projekts realisieren und wo liegen meine Grenzen?",
+      context:
+        "Reflektieren Sie regelmäßig ihre eigenen Projekt- und Produktionsprioritäten. Welche Vorhaben könnten im Rahmen der aktuellen Ausstellung / des aktuellen Projekts sinnvoll realisiert werden? Verfügen Sie über unrealisierte Konzepte in verschiedenen Größenordnungen, mit denen Sie auf die jeweilige Einladung reagieren können? Reflektieren Sie regelmäßig die künstlerischen, konzeptuellen, ethischen, politischen und ökonomischen Rahmenbedingungen ihrer Arbeit. Definieren Sie die Grenzen dessen, was Sie bereit sind zu tun, bzw. welchen Situationen Sie sich lieber nicht aussetzen würden."
+    },
+    {
+      title: "Budgetumfang",
+      question: "Welche Kosten müssen aus dem Produktions-/Projektbudget bezahlt werden?",
+      context:
+        "Geben Sie sich nicht mit der Nennung eines Produktionsbudgets zufrieden, ohne zu besprechen, welche Kosten mit dem genannten Betrag bestritten werden müssen. Dieser Punkt führt häufig zu Konflikten, da manchmal auch institutionelle Fixkosten, Werbekosten, Reise- und Aufenthaltskosten in das Projektbudget eingerechnet werden."
+    },
+    {
+      title: "Nutzungen / Verwertungsrechte",
+      question: "Welche Verwertungsrechte werden wann und wofür übertragen?",
+      context:
+        "Wer verfügt nach Abschluss des Projekts über welche Verwertungsrechte? Beachten Sie, dass Verwertungsrechte und physisches Eigentum in verschiedenen Händen liegen können, und dass mit einem Verkauf nicht automatisch sämtliche Verwertungsrechte übertragen werden. Im Zweifel gelten nur jene Rechte als übertragen, die für den jeweiligen Zweck notwendig sind. Stellen Sie also etwa Fotos „für den Katalog“ zur Verfügung, so können diese nicht automatisch für Merchandisingartikel verwendet werden. Verhandeln Sie diesen Punkt insbesondere bei reproduzierbaren Werken besonders sorgfältig. Weisen Sie den Veranstalter / die Veranstalterin auf eine etwaige Mitgliedschaft bei einer Verwertungsgesellschaft (z.B.: Bildrecht) hin."
+    },
+    {
+      title: "Förderung",
+      question: "Was passiert, wenn das Projekt gefördert wird?",
+      context:
+        "Klären Sie vorab, ob eine projektspezifische Förderung zu einer Erhöhung des Produktionsbudgets führt, oder ob diese Förderung bereits Grundlage für das vereinbarte Produktionsbudget gewesen ist. Häufig liegen den Projektkalkulationen der Veranstalter/innen bereits Förderungserwartungen zu Grunde."
+    },
+    {
+      title: "Transport Werke",
+      question: "Wer organisiert und bezahlt Hin- und Rücktransport meiner Arbeiten?",
+      context:
+        "Wer organisiert und bezahlt den Transport der vereinbarten Arbeiten zum Ausstellungsort und wieder zurück? Welche Standards gelten dafür als vereinbart (Kunsttransport?, Kurierdienste?, Privattransporte?, Mitnahme durch Kolleg/innen? Bis zu welchem Datum erfolgt der Rücktransport? Besteht sowohl für den Hin- wie auch für den Rücktransport ausreichender Versicherungsschutz? Kann verlangt werden, die Arbeiten an einen anderen als den Abholort zurückzustellen? Wenn ja, zu welchen Kosten? Auf wessen Rechnung?"
+    },
+    {
+      title: "Reise & Aufenthalt",
+      question: "Wie komme ich hin, wo wohne ich und was wird übernommen?",
+      context:
+        "Übernimmt der Veranstalter / die Veranstalterin die Reisekosten zum Veranstaltungsort und zurück? Welche Verkehrsmittel können dafür verwendet werden? Welche Kostenlimits bestehen? In welchem Umfang werden Übernachtungs- und Aufenthaltskosten am Veranstaltungsort übernommen? Kann mein Partner mit dem Kind mitkommen? Privatunterkunft? Hotel? Pension? Wohnung? Wohngemeinschaft? Besteht vor Ort eine Möglichkeit zur Kinderbetreuung? Werden Taggelder zur Bestreitung des erhöhten Verpflegungsaufwands bezahlt?"
+    },
+    {
+      title: "Werbung",
+      question: "Wie wird die Veranstaltung beworben und wer trägt die Kosten?",
+      context:
+        "In welcher Form und auf wessen Kosten wird für die Veranstaltung geworben? Wird eine Einladungskarte gedruckt? Ist ein Postversand geplant? Wenn ja, auf wessen Kosten und an wie viele Adressen? Wer übernimmt die Bewerbung der Veranstaltung in Social-Media Kanälen? Welche anderen Werbe- und Informationsmaßnahmen sind geplant? Welche Erwartungen bestehen seitens des Veranstalters / der Veranstalterin hinsichtlich der Mitwirkung des Künstlers/ der Künstlerin an diesen Maßnahmen?"
+    },
+    {
+      title: "Mindestvoraussetzungen",
+      question: "Was brauche ich unbedingt für die künstlerische Qualität?",
+      context:
+        "Definieren Sie eindeutig die wichtigsten – für die künstlerische Qualität Ihres Vorhabens unabdingbaren – Voraussetzungen: Korrekte Installation, Raum, Equipment, technische und personelle Ausstattung, räumliche Gegebenheiten, Werkzeuge, Bühnen-, Licht- und Tonanlagen und andere Voraussetzungen. Legen Sie besonderen Wert auf diesen Punkt, wenn Sie selbst nicht am Aufbau beteiligt sein können, oder wenn ein enger Zeitplan vor Ort keine Möglichkeit zur Anpassung der Gegebenheiten bietet. Erstellen Sie für diese Punkte möglichst eindeutige und leicht verständliche Pläne, Skizzen und Installationsanweisungen."
+    },
+    {
+      title: "Unterstützung",
+      question: "Welche Unterstützung brauche ich und wie wird sie bezahlt?",
+      context:
+        "Klären Sie frühzeitig welche Unterstützung Sie benötigen und welche Ressourcen für diese Unterstützung zur Verfügung stehen. Besprechen Sie, ob und in welcher Höhe eine Entlohnung für die von Ihnen oder Ihren Assistent/innen, Freund/innen oder Helfer/innen geleistete Arbeit vorgesehen ist. Beachten Sie, dass Sie auch selbst für Ihre eigenen Kollaborateur/innen Verantwortung tragen."
+    },
+    {
+      title: "Versicherung",
+      question: "Welcher Versicherungsschutz besteht während Transport, Aufbau und Ausstellung?",
+      context:
+        "Sind die ausgestellten Arbeiten während des Transports, des Aufbaus und während der Ausstellung versichert? Wenn ja, in welchem Umfang und mit welchem Versicherungswert? Beachten Sie, dass es auch nicht versicherbare Situationen gibt. (Öffentlicher Raum, bei Benützbarkeit, an „schwierigen“ Orten u.ä.)."
+    },
+    {
+      title: "Eigene Rechte",
+      question: "Habe ich selbst alle erforderlichen Rechte und Freigaben?",
+      context:
+        "Verfügen Sie selbst über alle Rechte, die Sie benötigen? Verwenden Sie geschützte Materialien? Haben Sie die Idee alleine entwickelt oder gibt es Co-Autor/innen? Haben Sie selbst alle Beteiligten korrekt genannt? Verfügen Sie über die notwendigen Genehmigungen und Freigaben? Gehören Ihnen die verwendeten Materialien?"
+    },
+    {
+      title: "Weitere Bedingungen",
+      question: "Welche anderen Bedingungen sind mir wichtig?",
+      context:
+        "Deklarieren Sie etwaige andere Bedingungen, auch wenn sich diese nicht direkt auf ihre eigene Beteiligung beziehen. Welche spezifische Erwartungen bestehen an den Veranstalter/ die Veranstalterin?"
+    },
+    {
+      title: "Nach Projektende",
+      question: "Was passiert danach mit der produzierten Arbeit?",
+      context:
+        "Häufig entstehen Konflikte über das Schicksal von neu produzierten Arbeiten. Beachten Sie, dass neu geschaffene Arbeiten unter Umständen bereits im Eigentum des Veranstalters / der Veranstalterin stehen, wenn das Material direkt vom Veranstalter / der Veranstalterin bestellt und bezahlt wurde. Vereinbaren Sie unbedingt, ob bzw. zu welchen Bedingungen die Arbeit nach Abschluss des Projekts in ihr Eigentum übergeht. Vereinbaren Sie die Zerstörung der Arbeit, wenn Sie verhindern wollen, dass eine Arbeit gegen ihren Willen dauerhaft präsentiert wird, oder wenn Sie befürchten, dass damit unerwünschter Handel betrieben werden könnte. Ebenso gut können Sie jedoch eine bestimmte „Lebensdauer“ mit entsprechenden Wartungs- und Reparaturpflichten vereinbaren. Klären Sie, ob für den Fall eines späteren Verkaufs eine (teilweise) Rückerstattung der Produktionskosten erwartet wird. Klären Sie, ob ihr Honorar erhöht wird, wenn die Arbeit dauerhaft verbleibt. Für diese Szenarien eignen sich einfache „Wenn-Dann“ Formulierungen."
+    },
+    {
+      title: "Verkauf",
+      question: "Was passiert, wenn ein Verkauf zustande kommt?",
+      context:
+        "Besprechen und vereinbaren Sie, ob und in welcher Höhe eine Beteiligung des Veranstalters / der Veranstalterin an erfolgten Verkäufen vorgesehen ist. Klären Sie, ob dies auch der Fall ist, wenn die Arbeit nach Abschluss der Ausstellung verkauft wird."
+    },
+    {
+      title: "Dokumentation / Archiv",
+      question: "Wie wird die Veranstaltung dokumentiert und archiviert?",
+      context:
+        "In welcher Form ist eine Dokumentation geplant? Wird ein Katalog gedruckt? Wenn ja, auf wessen Kosten? Wer übernimmt dafür die inhaltliche und gestalterische Verantwortung? Welche anderen Dokumentationsformate sind geplant? Welche Onlineaktivitäten sind geplant? Ist geplant, die Dokumentation dauerhaft online verfügbar zu machen. Wenn ja, wollen Sie das oder wollen Sie das nicht? Zu welchen Bedingungen? Wollen Sie dafür alle Verwertungsrechte zeitlich unbefristet einräumen?"
+    },
+    {
+      title: "Nennung",
+      question: "Wer wird wo und wie genannt?",
+      context:
+        "Vereinbaren Sie möglichst präzise die Nennung aller Beteiligten mit einer genauen Bezeichnung ihrer Funktionen. Beachten Sie, dass Sie als Künstler/in auch für die Nennung ihrer Kollaborateur/innen Verantwortung tragen. Klären Sie, ob diese Nennungen auch nach Abschluss des Projekts (z.B. als Videocredits) erfolgen müssen oder erfolgen sollen."
+    },
+    {
+      title: "Belegexemplare",
+      question: "Wie viele Belegexemplare erhalte ich kostenfrei?",
+      context:
+        "Wie viele Exemplare der für das Projekt produzierten DVDs, Drucksorten oder Kataloge bekommen Sie kostenfrei? Welcher Preis wird für zusätzliche Exemplare vereinbart?"
+    },
+    {
+      title: "Texte/Fotos/Videos/Online",
+      question: "Wer erstellt Materialien und mit welchen Freigaben/Nutzungsrechten?",
+      context:
+        "Wer verfasst zu welchen Bedingungen die für das Projekt notwendigen Texte? Vereinbaren Sie, ob ihnen sämtliche Texte vor Abdruck vorgelegt werden müssen oder nicht. Wer übernimmt die fotografische oder audiovisuelle Dokumentation des Projekts? Wem stehen die dabei gemachten Aufnahmen zu welchen Bedingungen zur Verfügung? Werden alle Materialien kostenfrei übergeben oder nur eine Auswahl? Welche Verpflichtungen bestehen über die Projektdauer hinaus gegenüber Fotograf/innen, Filmemacher/innen oder anderen Beteiligten?"
+    },
+    {
+      title: "Langzeitarchivierung",
+      question: "Ist dauerhafte (digitale) Archivierung geplant und akzeptiert?",
+      context:
+        "Ist eine dauerhafte Verwendung des Materials im Internet oder eine andere Form von (digitaler) Langzeitarchivierung vorgesehen? Bin ich damit einverstanden? Ist es mir wichtig, diese Materialien auszuwählen und nachbearbeiten zu können? Wollen Sie dafür alle Verwertungsrechte zeitlich unbefristet einräumen?"
+    },
+    {
+      title: "Weitere Gegenleistungen",
+      question: "Wer erwartet noch eine Gegenleistung?",
+      context:
+        "Gibt es andere Projektbeteiligte (Finanziers, Sponsor/innen, Rechteinhaber/innen) gegenüber denen Verpflichtungen bestehen? Diese Frage stellt sich zum Beispiel hin und wieder bei Artist in Residence Programmen, wenn sich neben dem Veranstalter / der Veranstalterin auch Unterkunftgeber/innen eine künstlerische Gegenleistung erwarten."
+    },
+    {
+      title: "Und dann?",
+      question: "Wie möchte ich in einem Jahr auf das Projekt zurückblicken?",
+      context:
+        "Last but not least: Überlegen Sie sich, wie Sie nach einem Jahr auf das Projekt zurückblicken wollen. Wo sollen ihre Arbeiten idealerweise zu diesem Zeitpunkt sein? Wie viel Geld wollen Sie mit dem Projekt verdient haben? Welche künstlerischen oder kritischen „Erfolge“ sollten eingetreten sein? In welchem Besitz sollen neu geschaffene Werke sein? Welche Nennungen und welche Einnahmen erwarten sich die Beteiligten auch in Zukunft? Definieren Sie Ihre diesbezüglichen Erwartungen und besprechen Sie diese möglichst offen und klar mit ihrem Gegenüber. Tauschen Sie sich mit über diese Fragen und ihre Erfahrungen regelmäßig mit KollegInnen, aber auch mit GaleristInnen, KuratorInnen, VeranstalterInnen und anderen Beteiligten aus."
     }
   };
 
@@ -120,6 +272,14 @@
   const state = {
     showIncomplete: false,
     items: points.map((point) => ({ ...point, answer: "" }))
+  const STORAGE_KEY = "agreementChecklistQuestionnaireV2";
+
+  const state = {
+    showIncomplete: false,
+    items: points.map((point) => ({
+      ...point,
+      answer: ""
+    }))
   };
 
   const listEl = document.getElementById("agreementList");
@@ -155,6 +315,12 @@
 
   const save = () => {
     localStorage.setItem(i18n.storageKey, JSON.stringify(state.items.map((item) => item.answer)));
+    if (normalized.length >= minDetailedLength) return "detailed";
+    return "started";
+  };
+
+  const save = () => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items.map((item) => item.answer)));
   };
 
   const load = () => {
@@ -165,6 +331,9 @@
       if (!Array.isArray(parsed)) return;
       parsed.forEach((answer, index) => {
         if (typeof answer === "string" && state.items[index]) state.items[index].answer = answer;
+        if (typeof answer === "string" && state.items[index]) {
+          state.items[index].answer = answer;
+        }
       });
     } catch (_) {
       // ignore corrupted local state
@@ -196,6 +365,33 @@
     `;
 
     legendEl.textContent = i18n.detailedRule(i18n.minDetailedLength);
+    const counts = state.items.reduce(
+      (acc, item) => {
+        acc[getAnswerClass(item.answer)] += 1;
+        return acc;
+      },
+      { detailed: 0, started: 0, open: 0 }
+    );
+
+    progressEl.textContent = `${counts.detailed} / ${state.items.length} ausreichend detailliert`;
+
+    const toPct = (value) => (value / state.items.length) * 100;
+    barsEl.innerHTML = `
+      <div class="agreement-bar">
+        <span class="agreement-bar-label">Ausreichend detailliert (${counts.detailed})</span>
+        <div class="agreement-bar-track"><span class="agreement-bar-fill agreement-bar-fill-detailed" style="width:${toPct(counts.detailed)}%"></span></div>
+      </div>
+      <div class="agreement-bar">
+        <span class="agreement-bar-label">Teilweise beantwortet (${counts.started})</span>
+        <div class="agreement-bar-track"><span class="agreement-bar-fill agreement-bar-fill-started" style="width:${toPct(counts.started)}%"></span></div>
+      </div>
+      <div class="agreement-bar">
+        <span class="agreement-bar-label">Noch offen (${counts.open})</span>
+        <div class="agreement-bar-track"><span class="agreement-bar-fill agreement-bar-fill-open" style="width:${toPct(counts.open)}%"></span></div>
+      </div>
+    `;
+
+    legendEl.textContent = `Als "ausreichend detailliert" zählt aktuell eine Antwort mit mindestens ${minDetailedLength} Zeichen.`;
   };
 
   const render = () => {
@@ -225,6 +421,35 @@
         </article>
       `;
     }).join("");
+    listEl.innerHTML = visibleItems
+      .map(({ item, index }) => {
+        const answerClass = getAnswerClass(item.answer);
+        const charCount = item.answer.trim().length;
+        const statusText =
+          answerClass === "detailed"
+            ? "Ausreichend detailliert"
+            : answerClass === "started"
+              ? "Teilweise beantwortet"
+              : "Noch offen";
+
+        return `
+          <article class="agreement-item agreement-answer-${answerClass}">
+            <div class="agreement-head">
+              <h3>${index + 1}) ${escapeHtml(item.title)} – ${escapeHtml(item.question)}</h3>
+              <span class="pill">${statusText}</span>
+            </div>
+            <div class="agreement-question-actions">
+              <button type="button" class="btn btn-outline more-context-btn" data-context-index="${index}">Mehr Kontext</button>
+              <span class="muted">${charCount} Zeichen</span>
+            </div>
+            <label class="q">
+              <span class="hint">Deine Antwort / Vereinbarung</span>
+              <textarea data-answer-index="${index}" rows="4" placeholder="Formuliere hier konkret: Zuständigkeiten, Budget, Fristen, Rechte, Bedingungen …">${escapeHtml(item.answer)}</textarea>
+            </label>
+          </article>
+        `;
+      })
+      .join("");
 
     listEl.querySelectorAll("textarea[data-answer-index]").forEach((textarea) => {
       textarea.addEventListener("input", (event) => {
@@ -245,6 +470,17 @@
 
         const pillEl = card.querySelector(".pill");
         if (pillEl) pillEl.textContent = getStatusText(answerClass);
+        const card = event.target.closest(".agreement-item");
+        if (!card) return;
+        const answerClass = getAnswerClass(state.items[index].answer);
+        card.classList.remove("agreement-answer-open", "agreement-answer-started", "agreement-answer-detailed");
+        card.classList.add(`agreement-answer-${answerClass}`);
+        const countEl = card.querySelector(".agreement-question-actions .muted");
+        if (countEl) countEl.textContent = `${state.items[index].answer.trim().length} Zeichen`;
+        const pillEl = card.querySelector(".pill");
+        if (pillEl) {
+          pillEl.textContent = answerClass === "detailed" ? "Ausreichend detailliert" : answerClass === "started" ? "Teilweise beantwortet" : "Noch offen";
+        }
       });
     });
 
@@ -253,12 +489,14 @@
         const index = Number(btn.getAttribute("data-context-index"));
         const item = state.items[index];
         dialogTitleEl.textContent = `${index + 1}) ${item.title} – ${i18n.contextTitleSuffix}`;
+        dialogTitleEl.textContent = `${index + 1}) ${item.title} – Mehr Kontext`;
         dialogTextEl.textContent = item.context;
         dialogEl.showModal();
       });
     });
 
     showIncompleteBtn.textContent = state.showIncomplete ? i18n.showAll : i18n.showIncomplete;
+    showIncompleteBtn.textContent = state.showIncomplete ? "Alle Fragen zeigen" : "Nur unvollständige Antworten";
   };
 
   showIncompleteBtn.addEventListener("click", () => {
@@ -274,6 +512,16 @@
     }).join("\n\n");
 
     const payload = `${i18n.summaryTitle}\n\n${summary}`;
+    const summary = state.items
+      .map((item, index) => {
+        const answerClass = getAnswerClass(item.answer);
+        const statusText = answerClass === "detailed" ? "ausreichend detailliert" : answerClass === "started" ? "teilweise" : "offen";
+        const answer = item.answer.trim() || "(keine Antwort)";
+        return `${index + 1}) ${item.title}\nStatus: ${statusText}\nAntwort: ${answer}`;
+      })
+      .join("\n\n");
+
+    const payload = `Ausstellungs-Fragebogen (25 Punkte)\n\n${summary}`;
 
     try {
       await navigator.clipboard.writeText(payload);
@@ -295,6 +543,14 @@
 
   copySummaryBtn.textContent = i18n.copySummary;
   showIncompleteBtn.textContent = i18n.showIncomplete;
+
+    const clickedOutside =
+      event.clientX < rect.left ||
+      event.clientX > rect.right ||
+      event.clientY < rect.top ||
+      event.clientY > rect.bottom;
+    if (clickedOutside) dialogEl.close();
+  });
 
   load();
   render();
