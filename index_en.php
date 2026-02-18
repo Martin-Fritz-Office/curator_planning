@@ -142,7 +142,7 @@
             <p>Guided German-only questionnaire for estimating fair artist honoraria.</p>
           </span>
         </a>
-        <a class="tool-link" href="personalplanung.php">
+        <a class="tool-link" href="personalplanung_en.php">
           <span class="tool-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img" focusable="false">
               <path d="M4.5 19.5h15"></path>
