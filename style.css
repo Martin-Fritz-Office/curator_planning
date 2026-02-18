@@ -233,6 +233,36 @@ input[type="text"]:focus{
   box-shadow:0 0 0 3px rgba(17,24,39,0.08);
 }
 
+input[type="date"],
+textarea{
+  width:100%;
+  padding:9px 10px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--text);
+  outline:none;
+}
+input[type="date"]:focus,
+textarea:focus{
+  border-color:#9ca3af;
+  box-shadow:0 0 0 3px rgba(17,24,39,0.08);
+}
+
+.q-full{
+  grid-column:1 / -1;
+}
+
+.proposal-card{
+  grid-column:1 / -1;
+}
+
+.proposal-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
 .sheet{display:flex;flex-direction:column;gap:10px;font-size:14px}
 .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .row strong{font-weight:700}

@@ -70,6 +70,52 @@
           <p class="small muted">Richtwerte: Euro exkl. USt. aus dem Fair-Pay-Schema für Kulturarbeit; die vorgeschlagenen Stundensätze sind als Mittelwert der jeweiligen Bandbreite vorbelegt und anpassbar.</p>
         </div>
       </section>
+
+      <section class="card proposal-card">
+        <div class="card-head">
+          <h2>Angebot & Proposal Builder</h2>
+        </div>
+        <div class="card-body">
+          <div class="qgrid">
+            <label class="q">
+              <span>Projektname</span>
+              <input type="text" id="proposalProjectName" placeholder="z. B. Ausstellungskonzept 2026" />
+            </label>
+            <label class="q">
+              <span>Kund:in / Auftraggeber:in</span>
+              <input type="text" id="proposalClientName" placeholder="z. B. Kunstverein Musterstadt" />
+            </label>
+            <label class="q">
+              <span>Projektstart</span>
+              <input type="date" id="proposalStartDate" />
+            </label>
+            <label class="q">
+              <span>Projektende</span>
+              <input type="date" id="proposalEndDate" />
+            </label>
+          </div>
+          <hr class="sep" />
+          <div class="qgrid">
+            <label class="q q-full">
+              <span>Timeline / Meilensteine</span>
+              <textarea id="proposalTimeline" rows="4" placeholder="z. B. Woche 1: Kick-off & Briefing&#10;Woche 2–4: Recherche, Künstler:innen-Auswahl&#10;Woche 5: Produktionsplanung"></textarea>
+            </label>
+            <label class="q q-full">
+              <span>Deliverables</span>
+              <textarea id="proposalDeliverables" rows="4" placeholder="z. B. Kuratorisches Konzept, Budgetentwurf, Produktionsfahrplan"></textarea>
+            </label>
+            <label class="q q-full">
+              <span>Annahmen / Scope</span>
+              <textarea id="proposalAssumptions" rows="4" placeholder="z. B. Max. 2 Feedbackschleifen, Materialkosten exkl., Reisekosten nach Aufwand"></textarea>
+            </label>
+          </div>
+          <div class="footer proposal-actions">
+            <button class="btn" id="copyShareLinkBtn" type="button">Shareable Link kopieren</button>
+            <button class="btn" id="downloadProposalPdfBtn" type="button">Proposal als PDF exportieren</button>
+          </div>
+          <p class="small muted" id="proposalStatus">Der Proposal-Entwurf übernimmt ausgewählte Services, Stunden und Stundensätze automatisch.</p>
+        </div>
+      </section>
     </main>
   </div>
 </body>
