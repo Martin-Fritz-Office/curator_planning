@@ -31,6 +31,8 @@
           <button type="button" id="copySummaryBtn" class="btn">Zusammenfassung kopieren</button>
         </div>
 
+        <p class="small muted">Quelle: Martin Fritz, Handout „Abgemacht! Verträge und andere Vereinbarungen“, IG Bildende Kunst Wien, 6. April 2016.</p>
+
         <section id="agreementList" class="agreement-list" aria-live="polite"></section>
       </div>
     </main>
