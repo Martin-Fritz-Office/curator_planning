@@ -157,7 +157,7 @@
             <p>View scale groups/examples and calculate actual salaries by custom hours.</p>
           </span>
         </a>
-        <a class="tool-link" href="agreement_checklist.php">
+        <a class="tool-link" href="agreement_checklist_en.php">
           <span class="tool-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img" focusable="false">
               <path d="M6 5.5h12"></path>
@@ -168,7 +168,7 @@
           </span>
           <span class="tool-link-content">
             <h3>Agreement Checklist (25 points)</h3>
-            <p>Interactive checklist to track open issues, risks, and next steps before you commit.</p>
+            <p>Interactive 25-point questionnaire with answer quality tracking and full-context popups.</p>
           </span>
         </a>
       </div>
