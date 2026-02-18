@@ -665,3 +665,41 @@ input[type="text"]:focus{
     grid-column:auto;
   }
 }
+
+.guide-page{
+  max-width:980px;
+}
+
+.guide-content{
+  display:grid;
+  gap:14px;
+}
+
+.guide-section{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px;
+  background:#fff;
+}
+
+.guide-section h3{
+  margin:0 0 10px;
+  font-size:1rem;
+  color:var(--headline);
+}
+
+.guide-section p{
+  margin:0 0 10px;
+}
+
+.guide-section ol{
+  margin:0;
+  padding-left:20px;
+  display:grid;
+  gap:8px;
+}
+
+.guide-section a{
+  color:#7c2d6a;
+  font-weight:600;
+}
