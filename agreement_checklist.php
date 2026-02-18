@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>artbackstage | Vereinbarungs-Checkliste (25 Punkte)</title>
+  <title>artbackstage | Ausstellungs-Fragebogen (25 Punkte)</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="agreement_checklist.js"></script>
 </head>
@@ -14,6 +15,8 @@
       <div>
         <h1>Vereinbarungs-Checkliste (25 Punkte)</h1>
         <p class="muted">Interaktive Version der 25 Punkte aus Martin Fritz' Handout – zum Durchgehen, Priorisieren und Teilen vor Projektstart.</p>
+        <h1>Ausstellungs-Fragebogen (25 Punkte)</h1>
+        <p class="muted">Interaktiver Fragebogen nach Martin Fritz: Beantworte alle Punkte für die Vorbereitung einer Ausstellung und prüfe, wie viele Antworten bereits ausreichend detailliert sind.</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php">Home</a>
@@ -32,6 +35,19 @@
         </div>
 
         <p class="small muted">Quelle: Martin Fritz, Handout „Abgemacht! Verträge und andere Vereinbarungen“, IG Bildende Kunst Wien, 6. April 2016.</p>
+        <h2>Checkliste mit Detail-Check</h2>
+      </div>
+      <div class="card-body">
+        <div class="agreement-toolbar">
+          <span id="agreementProgress" class="pill">0 / 25 ausreichend detailliert</span>
+          <button type="button" id="showIncompleteBtn" class="btn btn-outline">Nur unvollständige Antworten</button>
+          <button type="button" id="copySummaryBtn" class="btn">Zusammenfassung kopieren</button>
+        </div>
+
+        <section class="agreement-visual" aria-live="polite">
+          <div class="agreement-bars" id="agreementBars"></div>
+          <p id="agreementLegend" class="muted">Noch keine Antworten.</p>
+        </section>
 
         <section id="agreementList" class="agreement-list" aria-live="polite"></section>
       </div>
@@ -48,5 +64,14 @@
       <p id="contextModalBody" class="agreement-modal__body"></p>
     </article>
   </div>
+  <dialog id="contextDialog" class="agreement-dialog">
+    <form method="dialog" class="agreement-dialog-form">
+      <h3 id="contextDialogTitle">Mehr Kontext</h3>
+      <p id="contextDialogText"></p>
+      <div class="agreement-dialog-actions">
+        <button class="btn" value="close">Schließen</button>
+      </div>
+    </form>
+  </dialog>
 </body>
 </html>
