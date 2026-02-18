@@ -703,3 +703,136 @@ input[type="text"]:focus{
   color:#7c2d6a;
   font-weight:600;
 }
+
+.agreement-toolbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.agreement-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.agreement-item{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  background:#fff;
+}
+
+.agreement-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.agreement-head h3{
+  margin:0;
+  font-size:14px;
+  color:var(--headline);
+}
+
+.agreement-tooltip{
+  display:inline-flex;
+  width:18px;
+  height:18px;
+  margin-left:6px;
+  border-radius:50%;
+  border:1px solid #cbd5e1;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  color:#475569;
+  background:#fff;
+  cursor:help;
+  vertical-align:middle;
+}
+
+.agreement-tooltip:focus{
+  outline:2px solid rgba(124,45,106,.25);
+  outline-offset:1px;
+}
+
+.agreement-controls{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:8px;
+}
+
+.agreement-option{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-size:13px;
+}
+
+.agreement-status-done{border-color:#86efac;background:#f0fdf4}
+.agreement-status-risk{border-color:#fca5a5;background:#fef2f2}
+.agreement-status-n_a{border-color:#cbd5e1;background:#f8fafc}
+
+.agreement-head-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.agreement-context-btn{
+  padding:5px 9px;
+  font-size:12px;
+}
+
+.agreement-modal{
+  position:fixed;
+  inset:0;
+  z-index:50;
+}
+
+.agreement-modal__backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(15,23,42,0.45);
+}
+
+.agreement-modal__dialog{
+  position:relative;
+  width:min(760px, calc(100% - 24px));
+  margin:8vh auto 0;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  box-shadow:0 16px 38px rgba(15,23,42,0.25);
+  padding:14px;
+}
+
+.agreement-modal__header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.agreement-modal__header h3{
+  margin:0;
+  color:var(--headline);
+  font-size:1rem;
+}
+
+.agreement-modal__body{
+  margin:0;
+  white-space:pre-wrap;
+}
+
+body.modal-open{
+  overflow:hidden;
+}
