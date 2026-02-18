@@ -157,6 +157,20 @@
             <p>Beschäftigungsgruppen, Beispiele und Gehaltsplanung mit individuellen Stunden.</p>
           </span>
         </a>
+        <a class="tool-link" href="agreement_checklist.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <path d="M6 5.5h12"></path>
+              <path d="M6 10h12"></path>
+              <path d="M6 14.5h8"></path>
+              <path d="m17.2 17.6 1.8 1.8 3-3"></path>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>Abgemacht? 25-Punkte-Checkliste</h3>
+            <p>Interaktive Vertrags- und Projekt-Checkliste mit Status, Notizen und Copy-Summary.</p>
+          </span>
+        </a>
       </div>
     </main>
   </div>
