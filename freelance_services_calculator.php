@@ -109,6 +109,17 @@
               <textarea id="proposalAssumptions" rows="4" placeholder="z. B. Max. 2 Feedbackschleifen, Materialkosten exkl., Reisekosten nach Aufwand"></textarea>
             </label>
           </div>
+          <hr class="sep" />
+          <div class="qgrid">
+            <div class="q q-full">
+              <span>Zahlungsplan</span>
+              <p class="small muted">Erfasse Zahlungstermine über Datum und/oder Meilenstein plus Anteil am Gesamthonorar. Diese Angaben werden im PDF ausgewiesen.</p>
+              <div id="paymentPlanList" class="sheet"></div>
+              <div class="footer">
+                <button class="btn btn-outline" id="addPaymentPlanRowBtn" type="button">Zahlungsposition hinzufügen</button>
+              </div>
+            </div>
+          </div>
           <div class="footer proposal-actions">
             <button class="btn" id="copyShareLinkBtn" type="button">Shareable Link kopieren</button>
             <button class="btn" id="downloadProposalPdfBtn" type="button">Proposal als PDF exportieren</button>

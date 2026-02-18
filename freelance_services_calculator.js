@@ -18,6 +18,8 @@
   const copyShareLinkBtn = document.getElementById('copyShareLinkBtn');
   const downloadProposalPdfBtn = document.getElementById('downloadProposalPdfBtn');
   const proposalStatus = document.getElementById('proposalStatus');
+  const paymentPlanList = document.getElementById('paymentPlanList');
+  const addPaymentPlanRowBtn = document.getElementById('addPaymentPlanRowBtn');
 
   const proposalFields = {
     projectName: document.getElementById('proposalProjectName'),
@@ -35,6 +37,8 @@
     hoursPerPerson: 0,
     rate: getDefaultRate(service)
   }]));
+
+  const paymentPlanRows = [];
 
   function euro(value){
     return Number(value || 0).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -210,9 +214,110 @@
     return Object.fromEntries(Object.entries(proposalFields).map(([key, input]) => [key, input.value.trim()]));
   }
 
+  function normalizePaymentEntry(entry){
+    const data = entry || {};
+    return {
+      date: typeof data.date === 'string' ? data.date : '',
+      milestone: typeof data.milestone === 'string' ? data.milestone : '',
+      percentage: parseInputNumber(data.percentage)
+    };
+  }
+
+  function hasPaymentEntryContent(entry){
+    return Boolean(entry.date || entry.milestone || entry.percentage > 0);
+  }
+
+  function renderPaymentPlanRows(){
+    if (!paymentPlanList) return;
+
+    paymentPlanList.innerHTML = paymentPlanRows.map((entry, index) => `
+      <div class="q-section">
+        <div class="qgrid">
+          <label class="q">
+            <span>Datum</span>
+            <input type="date" data-payment-date-index="${index}" value="${esc(entry.date)}" />
+          </label>
+          <label class="q">
+            <span>Meilenstein</span>
+            <input type="text" data-payment-milestone-index="${index}" value="${esc(entry.milestone)}" placeholder="z. B. Freigabe Konzept" />
+          </label>
+          <label class="q">
+            <span>Anteil (%)</span>
+            <input type="number" min="0" max="100" step="0.1" data-payment-percentage-index="${index}" value="${entry.percentage}" />
+          </label>
+        </div>
+        <div class="footer">
+          <button class="btn btn-outline" type="button" data-remove-payment-index="${index}">Entfernen</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function addPaymentPlanRow(entry){
+    paymentPlanRows.push(normalizePaymentEntry(entry));
+    renderPaymentPlanRows();
+  }
+
+  function collectPaymentPlanEntries(){
+    return paymentPlanRows
+      .map((entry) => normalizePaymentEntry(entry))
+      .filter((entry) => hasPaymentEntryContent(entry));
+  }
+
+  function setPaymentPlanRows(entries){
+    paymentPlanRows.splice(0, paymentPlanRows.length);
+    const normalized = Array.isArray(entries) ? entries.map((entry) => normalizePaymentEntry(entry)) : [];
+    if (normalized.length) {
+      normalized.forEach((entry) => paymentPlanRows.push(entry));
+    } else {
+      paymentPlanRows.push(normalizePaymentEntry({}));
+    }
+    renderPaymentPlanRows();
+  }
+
+  function handlePaymentPlanChange(event){
+    const removeButton = event.target.closest('[data-remove-payment-index]');
+    if (removeButton) {
+      const removeIndex = Number(removeButton.getAttribute('data-remove-payment-index'));
+      if (Number.isFinite(removeIndex) && paymentPlanRows.length > 1) {
+        paymentPlanRows.splice(removeIndex, 1);
+      } else if (Number.isFinite(removeIndex) && paymentPlanRows.length === 1) {
+        paymentPlanRows[0] = normalizePaymentEntry({});
+      }
+      renderPaymentPlanRows();
+      setStatus('Proposal aktualisiert. Du kannst jetzt Link oder PDF exportieren.');
+      return;
+    }
+
+    const dateIndex = event.target.getAttribute('data-payment-date-index');
+    if (dateIndex !== null) {
+      paymentPlanRows[Number(dateIndex)].date = event.target.value;
+      setStatus('Proposal aktualisiert. Du kannst jetzt Link oder PDF exportieren.');
+      return;
+    }
+
+    const milestoneIndex = event.target.getAttribute('data-payment-milestone-index');
+    if (milestoneIndex !== null) {
+      paymentPlanRows[Number(milestoneIndex)].milestone = event.target.value;
+      setStatus('Proposal aktualisiert. Du kannst jetzt Link oder PDF exportieren.');
+      return;
+    }
+
+    const percentageIndex = event.target.getAttribute('data-payment-percentage-index');
+    if (percentageIndex !== null) {
+      const value = parseInputNumber(event.target.value);
+      paymentPlanRows[Number(percentageIndex)].percentage = Math.min(100, value);
+      if (event.type === 'change') {
+        event.target.value = paymentPlanRows[Number(percentageIndex)].percentage;
+      }
+      setStatus('Proposal aktualisiert. Du kannst jetzt Link oder PDF exportieren.');
+    }
+  }
+
   function getProposalPayload(){
     return {
       meta: collectProposalMeta(),
+      paymentPlan: collectPaymentPlanEntries(),
       items: services.reduce((acc, service) => {
         const entry = state[service.id];
         if (entry.selected) {
@@ -250,6 +355,8 @@
       const safeRate = parseInputNumber(incoming.rate);
       state[service.id].rate = Math.min(service.maxRate, Math.max(service.minRate, safeRate || getDefaultRate(service)));
     });
+
+    setPaymentPlanRows(payload && Array.isArray(payload.paymentPlan) ? payload.paymentPlan : []);
   }
 
   function encodePayload(payload){
@@ -293,6 +400,7 @@
     const rows = collectSelectedRows();
     const total = rows.reduce((sum, row) => sum + row.total, 0);
     const meta = collectProposalMeta();
+    const paymentPlan = collectPaymentPlanEntries();
 
     const serviceRows = rows.length
       ? rows.map((row) => `
@@ -307,6 +415,20 @@
           </tr>
         `).join('')
       : '<tr><td colspan="7">Keine Leistungen ausgewählt.</td></tr>';
+
+    const paymentPlanRowsHtml = paymentPlan.length
+      ? paymentPlan.map((entry) => {
+        const descriptor = [entry.date, entry.milestone].filter(Boolean).join(' · ') || 'Ohne Terminangabe';
+        const amount = total * (entry.percentage / 100);
+        return `
+          <tr>
+            <td>${esc(descriptor)}</td>
+            <td>${euro(entry.percentage)} %</td>
+            <td>${euro(amount)}</td>
+          </tr>
+        `;
+      }).join('')
+      : '<tr><td colspan="3">Kein Zahlungsplan hinterlegt.</td></tr>';
 
     return `<!doctype html>
 <html lang="de">
@@ -355,6 +477,20 @@
       </tr>
     </tfoot>
   </table>
+
+  <section>
+    <h2>Zahlungsplan</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Termin / Meilenstein</th>
+          <th>Anteil (%)</th>
+          <th>Betrag (€)</th>
+        </tr>
+      </thead>
+      <tbody>${paymentPlanRowsHtml}</tbody>
+    </table>
+  </section>
 
   <section>
     <h2>Timeline</h2>
@@ -418,6 +554,12 @@
   categorySelect.addEventListener('change', renderServiceList);
   serviceList.addEventListener('input', handleListChange);
   serviceList.addEventListener('change', handleListChange);
+  paymentPlanList.addEventListener('input', handlePaymentPlanChange);
+  paymentPlanList.addEventListener('change', handlePaymentPlanChange);
+  addPaymentPlanRowBtn.addEventListener('click', () => {
+    addPaymentPlanRow({});
+    setStatus('Zahlungsposition hinzugefügt.');
+  });
   downloadBtn.addEventListener('click', downloadCsv);
   copyShareLinkBtn.addEventListener('click', copyShareLink);
   downloadProposalPdfBtn.addEventListener('click', downloadProposalPdf);
@@ -427,6 +569,7 @@
   });
 
   buildCategoryOptions();
+  setPaymentPlanRows([]);
   loadFromHash();
   categorySelect.value = 'all';
   renderServiceList();
