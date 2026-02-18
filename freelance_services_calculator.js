@@ -556,6 +556,7 @@
   serviceList.addEventListener('change', handleListChange);
   paymentPlanList.addEventListener('input', handlePaymentPlanChange);
   paymentPlanList.addEventListener('change', handlePaymentPlanChange);
+  paymentPlanList.addEventListener('click', handlePaymentPlanChange);
   addPaymentPlanRowBtn.addEventListener('click', () => {
     addPaymentPlanRow({});
     setStatus('Zahlungsposition hinzugefügt.');
