@@ -27,6 +27,7 @@
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index_en.php">English</a>
+              <a class="btn btn-outline" href="how_can_i_use_this_site.php">So nutzt du die Rechner</a>
       </div>
     </header>
 

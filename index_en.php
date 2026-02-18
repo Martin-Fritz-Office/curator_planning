@@ -27,6 +27,7 @@
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php">Deutsch</a>
+              <a class="btn btn-outline" href="how_can_i_use_this_site.php">How canI use this site</a>
       </div>
     </header>
 
