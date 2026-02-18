@@ -38,6 +38,7 @@ Additional learning carousels:
 - `curator_viability_carousel.php` — 13-question project viability check for freelance curators.
 - `gallery_contract_reality_check.php` — 12-question gallery contract reality check.
 - `honorarium_questionnaire.php` — German guided honorarium questionnaire (Leitfaden 2026).
+- `honorarium_questionnaire_en.php` — English guided honorarium questionnaire with the same fee logic.
 - `personalplanung.php` — Personalplanungstool mit FAIR PAY 2026 Gehaltsschema, BG-Beispielen und individueller Stundenberechnung.
 - `personalplanung_en.php` — English staff planning tool with FAIR PAY 2026 pay scale groups, sample roles, and custom-hours salary calculations.
 - `agreement_checklist.php` — Interaktive 25-Punkte-Checkliste (nach Martin Fritz) für Vertrags- und Projektvereinbarungen mit Notizen und Status.

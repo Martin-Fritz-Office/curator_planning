@@ -129,7 +129,7 @@
             <p>12 questions to stress-test gallery deal terms.</p>
           </span>
         </a>
-        <a class="tool-link" href="honorarium_questionnaire.php">
+        <a class="tool-link" href="honorarium_questionnaire_en.php">
           <span class="tool-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img" focusable="false">
               <circle cx="12" cy="12" r="8"></circle>
@@ -138,8 +138,8 @@
             </svg>
           </span>
           <span class="tool-link-content">
-            <h3>Honorarium Questionnaire (German)</h3>
-            <p>Guided German-only questionnaire for estimating fair artist honoraria.</p>
+            <h3>Honorarium Questionnaire</h3>
+            <p>Guided questionnaire in English for estimating fair artist honoraria.</p>
           </span>
         </a>
         <a class="tool-link" href="personalplanung_en.php">
