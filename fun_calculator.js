@@ -1,60 +1,131 @@
 (function () {
-  const labels = ["energy", "risk", "time", "support"];
-  const inputs = Array.from(document.querySelectorAll('#spark-inputs input[type="range"]'));
-  const valueSlots = Object.fromEntries(labels.map((k) => [k, document.querySelector(`[data-value="${k}"]`)]));
-  const sparkShape = document.getElementById("spark-shape");
-  const sparkPoints = document.getElementById("spark-points");
-  const sparkScore = document.getElementById("spark-score");
-  const sparkMessage = document.getElementById("spark-message");
+  const dimensions = [
+    { key: "financial", label: "Financial" },
+    { key: "reputational", label: "Reputational" },
+    { key: "collaborative", label: "Collaborative" },
+    { key: "professional", label: "Professional" },
+    { key: "ethical", label: "Ethical" }
+  ];
+
+  const root = document.getElementById("spark-inputs");
+  if (!root) {
+    return;
+  }
+
+  const inputs = Array.from(root.querySelectorAll('input[type="range"]'));
+  const valueSlots = Object.fromEntries(
+    dimensions.map((d) => [d.key, document.querySelector(`[data-value="${d.key}"]`)])
+  );
+
+  const rings = document.getElementById("spark-rings");
+  const axes = document.getElementById("spark-axes");
+  const labels = document.getElementById("spark-labels");
+  const shape = document.getElementById("spark-shape");
+  const pointsLayer = document.getElementById("spark-points");
+  const scoreEl = document.getElementById("spark-score");
+  const lowestEl = document.getElementById("spark-lowest");
+  const messageEl = document.getElementById("spark-message");
+
+  const center = 170;
+  const maxRadius = 120;
+
+  function polarPoint(index, value, count) {
+    const angle = (-Math.PI / 2) + (index * Math.PI * 2 / count);
+    const radius = (value / 100) * maxRadius;
+    return {
+      x: center + Math.cos(angle) * radius,
+      y: center + Math.sin(angle) * radius,
+      angle
+    };
+  }
+
+  function drawStaticGrid() {
+    rings.innerHTML = "";
+    axes.innerHTML = "";
+    labels.innerHTML = "";
+
+    [25, 50, 75, 100].forEach((step) => {
+      const ring = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      ring.setAttribute("cx", String(center));
+      ring.setAttribute("cy", String(center));
+      ring.setAttribute("r", String((step / 100) * maxRadius));
+      ring.setAttribute("class", "spark-grid");
+      rings.appendChild(ring);
+    });
+
+    dimensions.forEach((dimension, index) => {
+      const p = polarPoint(index, 100, dimensions.length);
+
+      const axis = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      axis.setAttribute("x1", String(center));
+      axis.setAttribute("y1", String(center));
+      axis.setAttribute("x2", String(p.x));
+      axis.setAttribute("y2", String(p.y));
+      axis.setAttribute("class", "spark-axis");
+      axes.appendChild(axis);
+
+      const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      text.setAttribute("x", String(center + Math.cos(p.angle) * (maxRadius + 18)));
+      text.setAttribute("y", String(center + Math.sin(p.angle) * (maxRadius + 18)));
+      text.setAttribute("text-anchor", "middle");
+      text.setAttribute("dominant-baseline", "middle");
+      text.setAttribute("class", "spark-label");
+      text.textContent = dimension.label;
+      labels.appendChild(text);
+    });
+  }
 
   function readValues() {
     const values = {};
     inputs.forEach((input) => {
-      values[input.dataset.key] = Number(input.value);
-      valueSlots[input.dataset.key].textContent = input.value;
+      const value = Number(input.value);
+      values[input.dataset.key] = value;
+      if (valueSlots[input.dataset.key]) {
+        valueSlots[input.dataset.key].textContent = String(value);
+      }
     });
     return values;
   }
 
-  function axisPoint(index, value) {
-    const center = 160;
-    const angle = (-Math.PI / 2) + (index * Math.PI * 2 / labels.length);
-    const radius = 20 + value;
-    return {
-      x: center + Math.cos(angle) * radius,
-      y: center + Math.sin(angle) * radius
-    };
-  }
-
-  function messageFor(score, values) {
-    if (score >= 78) {
-      return "Launch a bold public experiment this month. You have enough momentum for a visible prototype.";
+  function messageFor(score, lowest) {
+    if (score >= 75) {
+      return "Strong overall fit: this looks like a green-light project with good balance across dimensions.";
     }
-    if (score >= 58) {
-      return "Perfect time for a collaborative pop-up concept: medium risk, high learning, quick feedback.";
+    if (score >= 55) {
+      return `Promising, but clarify the ${lowest.label.toLowerCase()} dimension before committing.`;
     }
-    if (values.support < 35) {
-      return "Try a solo mini-format first (1-day micro-exhibition) before scaling with partners.";
-    }
-    return "Build a low-stakes sketch phase: 3 tiny tests, one trusted collaborator, zero perfection pressure.";
+    return `Proceed carefully: the ${lowest.label.toLowerCase()} dimension is currently too weak.`;
   }
 
   function render() {
     const values = readValues();
-    const ordered = labels.map((k) => values[k]);
-    const score = Math.round((values.energy * 0.35) + (values.risk * 0.2) + (values.time * 0.25) + (values.support * 0.2));
+    const ordered = dimensions.map((d) => values[d.key] ?? 1);
+    const score = Math.round(ordered.reduce((sum, value) => sum + value, 0) / ordered.length);
 
-    const points = ordered.map((value, index) => axisPoint(index, value));
-    sparkShape.setAttribute("points", points.map((p) => `${p.x},${p.y}`).join(" "));
+    const lowest = dimensions.reduce((current, d) => {
+      const val = values[d.key] ?? 1;
+      if (!current || val < current.value) {
+        return { label: d.label, value: val };
+      }
+      return current;
+    }, null);
 
-    sparkPoints.innerHTML = points
-      .map((p, index) => `<circle cx="${p.x}" cy="${p.y}" r="4.5" class="spark-node"><title>${labels[index]}: ${ordered[index]}</title></circle>`)
+    const coordinates = ordered.map((value, index) => polarPoint(index, value, dimensions.length));
+    shape.setAttribute("points", coordinates.map((p) => `${p.x},${p.y}`).join(" "));
+
+    pointsLayer.innerHTML = coordinates
+      .map((p, index) => `
+        <circle cx="${p.x}" cy="${p.y}" r="4.5" class="spark-node">
+          <title>${dimensions[index].label}: ${ordered[index]}</title>
+        </circle>`)
       .join("");
 
-    sparkScore.textContent = String(score);
-    sparkMessage.textContent = messageFor(score, values);
+    scoreEl.textContent = String(score);
+    lowestEl.textContent = `${lowest.label} (${lowest.value})`;
+    messageEl.textContent = messageFor(score, lowest);
   }
 
+  drawStaticGrid();
   inputs.forEach((input) => input.addEventListener("input", render));
   render();
 })();

@@ -909,6 +909,18 @@ input[type="text"]:focus{
   stroke-width:1.4;
 }
 
+
+.spark-axis{
+  stroke:#d1d5db;
+  stroke-width:1.2;
+}
+
+.spark-label{
+  fill:var(--headline);
+  font-size:10px;
+  font-weight:600;
+}
+
 .spark-shape{
   fill:rgba(124,45,106,0.28);
   stroke:#7c2d6a;

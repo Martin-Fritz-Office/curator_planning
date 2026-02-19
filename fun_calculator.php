@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Creative Spark Calculator</title>
+  <title>Project Dimensions Calculator</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -12,9 +12,9 @@
   <div class="page">
     <header class="header">
       <div>
-        <p class="eyebrow">Playful tool</p>
-        <h1>Creative Spark Calculator</h1>
-        <p class="muted">Dial in your project mood and get a playful recommendation with a live constellation diagram.</p>
+        <p class="eyebrow">Project assessment tool</p>
+        <h1>Project Dimensions Calculator</h1>
+        <p class="muted">Rate each dimension from 1 to 100 and inspect the radar diagram to see whether a project is balanced for you.</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index_en.php">Back to calculators</a>
@@ -24,44 +24,49 @@
     <main class="grid">
       <section class="card">
         <div class="card-head">
-          <h2>Your inputs</h2>
+          <h2>Dimension scores (1–100)</h2>
         </div>
         <div class="card-body qgrid" id="spark-inputs">
-          <label class="q q-full">Creative energy
-            <input type="range" min="0" max="100" value="70" data-key="energy" />
-            <span class="hint" data-value="energy">70</span>
+          <label class="q q-full">Financial dimension (is it paid sufficiently?)
+            <input type="range" min="1" max="100" value="60" data-key="financial" />
+            <span class="hint" data-value="financial">60</span>
           </label>
-          <label class="q q-full">Risk appetite
-            <input type="range" min="0" max="100" value="55" data-key="risk" />
-            <span class="hint" data-value="risk">55</span>
+          <label class="q q-full">Reputational dimension (will it help my development/career?)
+            <input type="range" min="1" max="100" value="55" data-key="reputational" />
+            <span class="hint" data-value="reputational">55</span>
           </label>
-          <label class="q q-full">Time available
-            <input type="range" min="0" max="100" value="65" data-key="time" />
-            <span class="hint" data-value="time">65</span>
+          <label class="q q-full">Collaborative dimension (am I working with interesting people?)
+            <input type="range" min="1" max="100" value="70" data-key="collaborative" />
+            <span class="hint" data-value="collaborative">70</span>
           </label>
-          <label class="q q-full">Collaborator support
-            <input type="range" min="0" max="100" value="40" data-key="support" />
-            <span class="hint" data-value="support">40</span>
+          <label class="q q-full">Professional dimension (will it be challenging and/or satisfactory?)
+            <input type="range" min="1" max="100" value="65" data-key="professional" />
+            <span class="hint" data-value="professional">65</span>
+          </label>
+          <label class="q q-full">Ethical dimension (is it a worthy cause?)
+            <input type="range" min="1" max="100" value="75" data-key="ethical" />
+            <span class="hint" data-value="ethical">75</span>
           </label>
         </div>
       </section>
 
       <section class="card spark-results-card">
         <div class="card-head">
-          <h2>Fancy diagram + suggestion</h2>
+          <h2>Radar diagram + recommendation</h2>
         </div>
         <div class="card-body">
-          <svg id="spark-diagram" class="spark-diagram" viewBox="0 0 320 320" role="img" aria-label="Creative spark constellation diagram">
-            <circle cx="160" cy="160" r="120" class="spark-grid"></circle>
-            <circle cx="160" cy="160" r="80" class="spark-grid"></circle>
-            <circle cx="160" cy="160" r="40" class="spark-grid"></circle>
+          <svg id="spark-diagram" class="spark-diagram" viewBox="0 0 340 340" role="img" aria-label="Project dimensions radar diagram">
+            <g id="spark-rings"></g>
+            <g id="spark-axes"></g>
             <polygon id="spark-shape" points="" class="spark-shape"></polygon>
             <g id="spark-points"></g>
+            <g id="spark-labels"></g>
           </svg>
 
           <div class="spark-summary">
-            <p class="spark-score-line">Spark score: <strong id="spark-score">0</strong> / 100</p>
-            <p id="spark-message">Tune the sliders to reveal your next experiment.</p>
+            <p class="spark-score-line">Overall fit score: <strong id="spark-score">0</strong> / 100</p>
+            <p class="hint">Lowest dimension: <strong id="spark-lowest">-</strong></p>
+            <p id="spark-message">Move the sliders to generate your assessment.</p>
           </div>
         </div>
       </section>

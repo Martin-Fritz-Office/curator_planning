@@ -184,8 +184,8 @@
             </svg>
           </span>
           <span class="tool-link-content">
-            <h3>Creative Spark Calculator</h3>
-            <p>Spielerischer Mini-Rechner mit Live-Konstellationsdiagramm.</p>
+            <h3>Project Dimensions Calculator</h3>
+            <p>Radarbasierte Projektbewertung über 5 Dimensionen (1–100).</p>
           </span>
         </a>
       </div>

@@ -184,8 +184,8 @@
             </svg>
           </span>
           <span class="tool-link-content">
-            <h3>Creative Spark Calculator</h3>
-            <p>A playful slider-based calculator with a live constellation diagram.</p>
+            <h3>Project Dimensions Calculator</h3>
+            <p>A radar-based project assessment across 5 dimensions (1–100).</p>
           </span>
         </a>
       </div>
