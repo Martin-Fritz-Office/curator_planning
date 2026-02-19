@@ -27,7 +27,8 @@
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php">Deutsch</a>
-              <a class="btn btn-outline" href="how_can_i_use_this_site.php">How canI use this site</a>
+        <a class="btn" href="beginner_path_en.php">I'm just starting — guide me</a>
+        <a class="btn btn-outline" href="how_can_i_use_this_site.php">How can I use this site</a>
       </div>
     </header>
 
@@ -36,6 +37,18 @@
         <h2>Choose a calculator</h2>
       </div>
       <div class="card-body landing-links">
+        <a class="tool-link tool-link-highlight" href="beginner_path_en.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <path d="M12 4.5v15"></path>
+              <path d="m6.5 10.5 5.5-6 5.5 6"></path>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>New here? Start with the 4-step beginner path</h3>
+            <p>A clear route for sustainability, pricing confidence, project decisions, and contract safety.</p>
+          </span>
+        </a>
         <a class="tool-link" href="forecast_en.php">
           <span class="tool-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img" focusable="false">

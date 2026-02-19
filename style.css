@@ -523,6 +523,56 @@ textarea:focus{
   }
 }
 
+
+.tool-link-highlight{
+  border-color:#d8b4d8;
+  background:linear-gradient(180deg,#fff 0%,#fdf4ff 100%);
+}
+
+.tool-link-highlight:hover{
+  border-color:#c084c0;
+}
+
+.beginner-steps{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+  margin-top:14px;
+}
+
+.beginner-step{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px;
+  background:#fff;
+}
+
+.beginner-step h3{
+  margin:0 0 8px;
+  color:var(--headline);
+  font-size:1.02rem;
+}
+
+.beginner-step p{
+  margin:0 0 12px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.step-badge{
+  margin:0 0 8px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.02em;
+  color:var(--headline-soft);
+}
+
+@media (min-width:760px){
+  .beginner-steps{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
 .carousel-actions{
   margin-top:14px;
   display:flex;
