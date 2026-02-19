@@ -171,6 +171,23 @@
             <p>Interactive 25-point questionnaire with answer quality tracking and full-context popups.</p>
           </span>
         </a>
+        <a class="tool-link" href="fun_calculator.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <path d="M12 4.5v3"></path>
+              <path d="M12 16.5v3"></path>
+              <path d="m6.3 6.3 2.1 2.1"></path>
+              <path d="m15.6 15.6 2.1 2.1"></path>
+              <path d="M4.5 12h3"></path>
+              <path d="M16.5 12h3"></path>
+              <circle cx="12" cy="12" r="3.5"></circle>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>Project Dimensions Calculator</h3>
+            <p>A radar-based project assessment across 6 dimensions (1–100).</p>
+          </span>
+        </a>
       </div>
     </main>
   </div>
