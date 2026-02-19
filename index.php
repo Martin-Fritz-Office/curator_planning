@@ -23,7 +23,7 @@
           <span>artbackstage</span>
         </p>
         <h1>artbackstage | Money</h1>
-        <p class="muted">Wähle ein Tool für deine Finanzplanung als freie*r Kurator*in.</p>
+        <p class="muted">Wähle ein Tool für deine Finanzplanung.</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index_en.php">English</a>
