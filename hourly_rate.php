@@ -72,5 +72,8 @@
       </section>
     </main>
   </div>
+  <footer class="site-footer" role="contentinfo">
+    Die artbackstage Toolsammlung ist in laufender BETA-Entwicklung als Teil des Lehrauftrags "Kunst im Kontext (Recht, Geld und Fairness) an der Kunstuniversität Linz. Es werden keine personalisierten Daten gespeichert.
+  </footer>
 </body>
 </html>
