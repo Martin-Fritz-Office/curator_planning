@@ -9,7 +9,7 @@
   <script defer src="freelance_services_calculator.js"></script>
 </head>
 <body>
-  <div class="page">
+  <div class="page planning-wide freelance-page">
     <header class="header">
       <div>
         <h1>Freelance-Service-Rechner</h1>
@@ -20,8 +20,8 @@
       </div>
     </header>
 
-    <main class="grid">
-      <section class="card">
+    <main class="grid planning-grid freelance-grid">
+      <section class="card planning-card-wide freelance-card-wide">
         <div class="card-head">
           <h2>Leistungen auswählen</h2>
         </div>
@@ -37,7 +37,7 @@
         </div>
       </section>
 
-      <section class="card">
+      <section class="card planning-card-wide freelance-card-wide">
         <div class="card-head">
           <h2>Ergebnis</h2>
         </div>
@@ -71,7 +71,7 @@
         </div>
       </section>
 
-      <section class="card proposal-card">
+      <section class="card proposal-card planning-card-wide freelance-card-wide">
         <div class="card-head">
           <h2>Angebot & Proposal Builder</h2>
         </div>

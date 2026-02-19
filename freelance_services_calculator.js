@@ -64,24 +64,24 @@
       const checked = serviceState.selected ? 'checked' : '';
       const disabled = serviceState.selected ? '' : 'disabled';
       return `
-        <div class="q-section">
-          <label class="q">
+        <div class="q-section freelance-service-row">
+          <label class="q freelance-service-title">
             <span>
               <input type="checkbox" data-id="${service.id}" class="service-toggle" ${checked} />
               <strong>${service.name}</strong> (Gruppe ${service.group}, Richtwert: ${service.minRate}–${service.maxRate} €/h)
             </span>
             <span class="hint">${service.details}</span>
           </label>
-          <div class="qgrid">
-            <label class="q">
+          <div class="qgrid freelance-service-params-row">
+            <label class="q freelance-service-param">
               <span>Personen</span>
               <input type="number" min="0" step="1" data-persons-id="${service.id}" value="${serviceState.persons}" ${disabled} />
             </label>
-            <label class="q">
+            <label class="q freelance-service-param">
               <span>Stunden pro Person</span>
               <input type="number" min="0" step="0.5" data-hours-per-person-id="${service.id}" value="${serviceState.hoursPerPerson}" ${disabled} />
             </label>
-            <label class="q">
+            <label class="q freelance-service-param">
               <span>Stundensatz (€)</span>
               <input type="number" min="${service.minRate}" max="${service.maxRate}" step="1" data-rate-id="${service.id}" value="${serviceState.rate}" ${disabled} />
             </label>
