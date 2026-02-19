@@ -185,7 +185,7 @@
           </span>
           <span class="tool-link-content">
             <h3>Project Dimensions Calculator</h3>
-            <p>Radarbasierte Projektbewertung über 5 Dimensionen (1–100).</p>
+            <p>Radarbasierte Projektbewertung über 6 Dimensionen (1–100).</p>
           </span>
         </a>
       </div>

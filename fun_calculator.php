@@ -14,7 +14,7 @@
       <div>
         <p class="eyebrow">Project assessment tool</p>
         <h1>Project Dimensions Calculator</h1>
-        <p class="muted">Rate each dimension from 1 to 100 and inspect the radar diagram to see whether a project is balanced for you.</p>
+        <p class="muted">Rate each dimension from 1 to 100 and inspect the radar diagram to see whether a project is balanced and feasible for you.</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index_en.php">Back to calculators</a>
@@ -47,6 +47,10 @@
             <input type="range" min="1" max="100" value="75" data-key="ethical" />
             <span class="hint" data-value="ethical">75</span>
           </label>
+          <label class="q q-full">Capacity dimension (can I realistically deliver this with my current time and resources?)
+            <input type="range" min="1" max="100" value="50" data-key="capacity" />
+            <span class="hint" data-value="capacity">50</span>
+          </label>
         </div>
       </section>
 
@@ -55,7 +59,7 @@
           <h2>Radar diagram + recommendation</h2>
         </div>
         <div class="card-body">
-          <svg id="spark-diagram" class="spark-diagram" viewBox="0 0 340 340" role="img" aria-label="Project dimensions radar diagram">
+          <svg id="spark-diagram" class="spark-diagram" viewBox="0 0 340 340" role="img" aria-label="Project dimensions radar diagram with capacity axis">
             <g id="spark-rings"></g>
             <g id="spark-axes"></g>
             <polygon id="spark-shape" points="" class="spark-shape"></polygon>

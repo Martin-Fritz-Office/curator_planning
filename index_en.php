@@ -185,7 +185,7 @@
           </span>
           <span class="tool-link-content">
             <h3>Project Dimensions Calculator</h3>
-            <p>A radar-based project assessment across 5 dimensions (1–100).</p>
+            <p>A radar-based project assessment across 6 dimensions (1–100).</p>
           </span>
         </a>
       </div>

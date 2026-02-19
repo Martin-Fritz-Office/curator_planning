@@ -4,7 +4,8 @@
     { key: "reputational", label: "Reputational" },
     { key: "collaborative", label: "Collaborative" },
     { key: "professional", label: "Professional" },
-    { key: "ethical", label: "Ethical" }
+    { key: "ethical", label: "Ethical" },
+    { key: "capacity", label: "Capacity" }
   ];
 
   const root = document.getElementById("spark-inputs");
