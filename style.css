@@ -622,6 +622,31 @@ input[type="text"]:focus{
   padding-top:12px;
 }
 
+
+.freelance-grid{
+  grid-template-columns:1fr;
+}
+
+.freelance-card-wide{
+  grid-column:1 / -1;
+}
+
+.freelance-service-row{
+  display:grid;
+  gap:12px;
+}
+
+.freelance-service-title{
+  margin:0;
+}
+
+@media (min-width:1080px){
+  .freelance-service-params-row{
+    grid-template-columns:repeat(3, minmax(180px, 1fr));
+    align-items:end;
+  }
+}
+
 .planning-wide{
   max-width:none;
 }
