@@ -87,7 +87,10 @@
     return values;
   }
 
-  function messageFor(score, lowest) {
+  function messageFor(score, lowest, hasLowDimension) {
+    if (hasLowDimension) {
+      return `Warning: at least one dimension is below 50. Strengthen the ${lowest.label.toLowerCase()} dimension before committing.`;
+    }
     if (score >= 75) {
       return "Strong overall fit: this looks like a green-light project with good balance across dimensions.";
     }
@@ -110,6 +113,8 @@
       return current;
     }, null);
 
+    const hasLowDimension = ordered.some((value) => value < 50);
+
     const coordinates = ordered.map((value, index) => polarPoint(index, value, dimensions.length));
     shape.setAttribute("points", coordinates.map((p) => `${p.x},${p.y}`).join(" "));
 
@@ -122,7 +127,7 @@
 
     scoreEl.textContent = String(score);
     lowestEl.textContent = `${lowest.label} (${lowest.value})`;
-    messageEl.textContent = messageFor(score, lowest);
+    messageEl.textContent = messageFor(score, lowest, hasLowDimension);
   }
 
   drawStaticGrid();
