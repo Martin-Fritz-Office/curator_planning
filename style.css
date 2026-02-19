@@ -888,3 +888,57 @@ input[type="text"]:focus{
   display:flex;
   justify-content:flex-end;
 }
+
+.spark-results-card .card-body{
+  display:grid;
+  gap:14px;
+}
+
+.spark-diagram{
+  width:100%;
+  max-width:360px;
+  margin:0 auto;
+  display:block;
+  background:radial-gradient(circle at 50% 50%, rgba(124,45,106,0.12) 0%, rgba(124,45,106,0.02) 45%, transparent 70%);
+  border-radius:14px;
+}
+
+.spark-grid{
+  fill:none;
+  stroke:#e5e7eb;
+  stroke-width:1.4;
+}
+
+
+.spark-axis{
+  stroke:#d1d5db;
+  stroke-width:1.2;
+}
+
+.spark-label{
+  fill:var(--headline);
+  font-size:10px;
+  font-weight:600;
+}
+
+.spark-shape{
+  fill:rgba(124,45,106,0.28);
+  stroke:#7c2d6a;
+  stroke-width:2;
+}
+
+.spark-node{
+  fill:#7c2d6a;
+}
+
+.spark-summary{
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:linear-gradient(180deg,#fcfcfd 0%,#f9fafb 100%);
+  padding:12px;
+}
+
+.spark-score-line{
+  margin:0 0 6px;
+  font-size:1.05rem;
+}
