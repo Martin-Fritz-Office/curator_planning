@@ -27,7 +27,8 @@
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index_en.php">English</a>
-              <a class="btn btn-outline" href="how_can_i_use_this_site.php">So nutzt du die Rechner</a>
+        <a class="btn" href="beginner_path.php">Ich starte gerade — bitte führen</a>
+        <a class="btn btn-outline" href="how_can_i_use_this_site.php">So nutzt du die Rechner</a>
       </div>
     </header>
 
@@ -36,6 +37,18 @@
         <h2>Rechner auswählen</h2>
       </div>
       <div class="card-body landing-links">
+        <a class="tool-link tool-link-highlight" href="beginner_path.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <path d="M12 4.5v15"></path>
+              <path d="m6.5 10.5 5.5-6 5.5 6"></path>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>Neu hier? Starte mit dem 4-Schritte-Einstieg</h3>
+            <p>Ein klarer Pfad für Orientierung, Stundensatz, Projektentscheidung und Vertragssicherheit.</p>
+          </span>
+        </a>
         <a class="tool-link" href="forecast.php">
           <span class="tool-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img" focusable="false">
