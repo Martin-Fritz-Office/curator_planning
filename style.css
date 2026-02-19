@@ -992,3 +992,12 @@ input[type="text"]:focus{
   margin:0 0 6px;
   font-size:1.05rem;
 }
+
+.site-footer{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 20px 24px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+}
