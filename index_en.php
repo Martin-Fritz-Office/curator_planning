@@ -23,7 +23,7 @@
           <span>artbackstage</span>
         </p>
         <h1>artbackstage | Money</h1>
-        <p class="muted">Choose a calculator to plan your finances as a freelance curator.</p>
+        <p class="muted">Choose a calculator to plan your finances</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php">Deutsch</a>
