@@ -22,7 +22,7 @@
           </span>
           <span>artbackstage</span>
         </p>
-        <h1>How canI use this site</h1>
+        <h1>How can I use this site</h1>
         <p class="muted">A short roadmap to move from one calculator to the next — in German and English.</p>
       </div>
       <div class="header-actions">
