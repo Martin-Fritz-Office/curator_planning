@@ -453,6 +453,75 @@ textarea:focus{
   background:#f6f8fb;
 }
 
+
+.story-intro{
+  margin-bottom:24px;
+  padding:14px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#fff;
+}
+
+.story-intro h2{
+  margin:0 0 8px;
+  font-size:1.08rem;
+  color:var(--headline);
+}
+
+.story-intro p{
+  margin:0;
+  color:var(--muted);
+}
+
+.situation-section{
+  margin-bottom:20px;
+}
+
+.situation-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+}
+
+.situation-card{
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#fff;
+  padding:14px;
+}
+
+.situation-icon{
+  margin-bottom:10px;
+}
+
+.situation-card h3{
+  margin:0 0 8px;
+  color:var(--headline);
+  font-size:1rem;
+}
+
+.situation-card p{
+  margin:0 0 10px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.situation-tools{
+  margin:0;
+  padding-left:18px;
+  display:grid;
+  gap:6px;
+}
+
+.situation-tools a{
+  color:#204c7c;
+  font-weight:600;
+  text-decoration:none;
+}
+
+.situation-tools a:hover{
+  text-decoration:underline;
+}
 .landing-links{
   display:grid;
   grid-template-columns:1fr;
@@ -520,6 +589,10 @@ textarea:focus{
 @media (min-width:720px){
   .landing-links{
     grid-template-columns:repeat(3,1fr);
+  }
+
+  .situation-grid{
+    grid-template-columns:repeat(2,1fr);
   }
 }
 
