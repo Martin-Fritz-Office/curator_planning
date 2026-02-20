@@ -2,7 +2,7 @@
 $landingPage = [
   'lang' => 'en',
   'subtitle' => 'A scenario-based guide for early-career art professionals',
-  'language_switch' => ['href' => 'index.php', 'label' => 'Deutsch'],
+  'language_switch' => ['href' => 'index_situationen.php', 'label' => 'Deutsch'],
   'primary_cta' => ['href' => 'beginner_path_en.php', 'label' => "I'm just starting — guide me"],
   'secondary_cta' => ['href' => 'index_en.php', 'label' => 'Back to standard tool overview'],
   'story_intro_title' => 'A different way to start: pick the situation that feels like your week',
