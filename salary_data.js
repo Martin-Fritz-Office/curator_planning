@@ -61,16 +61,26 @@
     });
   }
 
-  function maxFromRange(range) {
+  function rangeFrom(range) {
     const parts = String(range || '').split('-').map((x) => Number(x.trim())).filter(Boolean);
-    return parts.length ? Math.max(...parts) : 0;
+    const min = parts.length ? Math.min(...parts) : 0;
+    const max = parts.length ? Math.max(...parts) : 0;
+    return { min, max };
   }
 
   function parseSources(links) {
     return String(links || '')
       .split('|')
       .map((x) => x.trim())
-      .filter(Boolean);
+      .filter(Boolean)
+      .map((url) => {
+        try {
+          const host = new URL(url).hostname.replace(/^www\./, '');
+          return { url, host };
+        } catch (_) {
+          return { url, host: url };
+        }
+      });
   }
 
   function fillSelect(select, values) {
@@ -82,7 +92,7 @@
   function renderTable(rows) {
     nodes.table.innerHTML = rows.map((r) => {
       const links = parseSources(r.recommended_source_links)
-        .map((url, idx) => `<a href="${url}" target="_blank" rel="noopener noreferrer">Source ${idx + 1}</a>`)
+        .map((source) => `<a href="${source.url}" target="_blank" rel="noopener noreferrer" title="${source.host}">${source.host}</a>`)
         .join(' · ');
       return `
         <tr>
@@ -100,18 +110,18 @@
 
   function renderPyramid(rows) {
     const sorted = [...rows]
-      .sort((a, b) => maxFromRange(b.gross_salary_eur_per_year_range) - maxFromRange(a.gross_salary_eur_per_year_range));
+      .sort((a, b) => rangeFrom(b.gross_salary_eur_per_year_range).min - rangeFrom(a.gross_salary_eur_per_year_range).min);
     const top = sorted.slice(0, 12);
-    const maxSalary = maxFromRange(top[0]?.gross_salary_eur_per_year_range || 0) || 1;
+    const maxMinSalary = rangeFrom(top[0]?.gross_salary_eur_per_year_range || 0).min || 1;
 
     nodes.pyramid.innerHTML = top.map((r, idx) => {
-      const salaryMax = maxFromRange(r.gross_salary_eur_per_year_range);
-      const width = Math.max(24, Math.round((salaryMax / maxSalary) * 100));
+      const salaryRange = rangeFrom(r.gross_salary_eur_per_year_range);
+      const width = Math.max(24, Math.round((salaryRange.min / maxMinSalary) * 100));
       return `
         <div class="pyramid-row" style="width:${width}%">
           <span class="pyramid-rank">${idx + 1}</span>
           <span class="pyramid-title">${r.job_title}</span>
-          <span class="pyramid-salary">${EUR(salaryMax)}</span>
+          <span class="pyramid-salary">${EUR(salaryRange.min)}–${EUR(salaryRange.max)}</span>
         </div>
       `;
     }).join('');
@@ -134,7 +144,7 @@
         return (!q || haystack.includes(q))
           && (!category || r.category === category)
           && (!contract || r.typical_contract === contract)
-          && (maxFromRange(r.gross_salary_eur_per_year_range) >= min);
+          && (rangeFrom(r.gross_salary_eur_per_year_range).max >= min);
       });
 
       nodes.count.textContent = `${filtered.length} matching roles`;
