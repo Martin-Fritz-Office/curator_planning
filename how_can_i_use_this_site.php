@@ -53,7 +53,7 @@
               Falls ihr eure private Planung schärfen wollt, ergänzt den Ablauf mit <a href="net_income_carousel.php">Jahresnettoeinkommen Schritt für Schritt</a>.
             </li>
             <li>
-              Bei Projekt- oder Vertragsentscheidungen ergänzt ihr mit dem <a href="curator_viability_carousel.php">Projekt-Check</a> und dem <a href="gallery_contract_reality_check.php">Gallery Contract Reality Check</a>.
+              Bei Projekt- oder Vertragsentscheidungen ergänzt ihr mit dem <a href="curator_viability_carousel_en.php">Projekt-Check</a> und dem <a href="gallery_contract_reality_check_en.php">Gallery Contract Reality Check</a>.
             </li>
           </ol>
           <p class="muted">Empfehlung: Speichert pro Auftrag oder Projekt ein eigenes Szenario, damit ihr später sauber vergleichen könnt.</p>
@@ -73,10 +73,10 @@
               Then use the <a href="freelance_services_calculator.php">Freelance Service Calculator</a> to structure concrete services and export a client-ready CSV.
             </li>
             <li>
-              If you want a clearer personal picture, add <a href="net_income_carousel.php">Step-by-step yearly net income</a>.
+              If you want a clearer personal picture, add <a href="net_income_carousel_en.php">Step-by-step yearly net income</a>.
             </li>
             <li>
-              For project and contract decisions, continue with the <a href="curator_viability_carousel.php">Curator Freelance Project Viability</a> and <a href="gallery_contract_reality_check.php">Gallery Contract Reality Check</a>.
+              For project and contract decisions, continue with the <a href="curator_viability_carousel_en.php">Curator Freelance Project Viability</a> and <a href="gallery_contract_reality_check_en.php">Gallery Contract Reality Check</a>.
             </li>
           </ol>
           <p class="muted">Tip: Save one scenario per project or client so you can compare options with confidence.</p>

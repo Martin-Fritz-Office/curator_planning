@@ -1,39 +1,39 @@
 <?php
 ?><!doctype html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>artbackstage | Curator Freelance Project Viability</title>
+  <title>artbackstage | Projekt-Check für freie Kurator*innen</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="curator_viability_carousel.js"></script>
 </head>
-<body data-lang="en">
+<body data-lang="de">
   <div class="page">
     <header class="header">
       <div>
-        <h1>Curator Freelance Project Viability</h1>
-        <p class="muted">13 guided questions to decide whether to go, renegotiate, or decline a project.</p>
+        <h1>Projekt-Check für freie Kurator*innen</h1>
+        <p class="muted">13 geführte Fragen, um zu entscheiden: zusagen, nachverhandeln oder absagen.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index.php">Startseite</a>
       </div>
     </header>
 
     <main class="card tutorial-card">
       <div class="card-head">
-        <h2>Viability Carousel</h2>
+        <h2>Projekt-Check</h2>
       </div>
       <div class="card-body">
         <div class="carousel-progress">
-          <span id="progressLabel" class="pill">Question 1 of 13</span>
+          <span id="progressLabel" class="pill">Frage 1 von 13</span>
         </div>
 
         <section class="carousel-stage" id="carouselStage" aria-live="polite"></section>
 
         <div class="carousel-actions">
-          <button type="button" id="prevBtn" class="btn btn-outline">Back</button>
-          <button type="button" id="nextBtn" class="btn">Next</button>
+          <button type="button" id="prevBtn" class="btn btn-outline">Zurück</button>
+          <button type="button" id="nextBtn" class="btn">Weiter</button>
         </div>
       </div>
     </main>

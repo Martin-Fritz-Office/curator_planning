@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="style.css" />
   <script defer src="net_income_carousel.js"></script>
 </head>
-<body>
+<body data-lang="de">
   <div class="page">
     <header class="header">
       <div>

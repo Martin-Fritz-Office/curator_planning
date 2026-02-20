@@ -1,5 +1,13 @@
 (function () {
-  const dimensions = [
+  const lang = document.body?.dataset?.lang === "de" ? "de" : "en";
+  const dimensions = lang === "de" ? [
+    { key: "financial", label: "Finanziell" },
+    { key: "reputational", label: "Reputation" },
+    { key: "collaborative", label: "Kollaboration" },
+    { key: "professional", label: "Professionell" },
+    { key: "ethical", label: "Ethisch" },
+    { key: "capacity", label: "Kapazität" }
+  ] : [
     { key: "financial", label: "Financial" },
     { key: "reputational", label: "Reputational" },
     { key: "collaborative", label: "Collaborative" },
@@ -90,15 +98,23 @@
 
   function messageFor(score, lowest, hasLowDimension) {
     if (hasLowDimension) {
-      return `Warning: at least one dimension is below 50. Strengthen the ${lowest.label.toLowerCase()} dimension before committing.`;
+      return lang === "de"
+      ? `Warnung: Mindestens eine Dimension liegt unter 50. Stärke die Dimension ${lowest.label.toLowerCase()}, bevor du zusagst.`
+      : `Warning: at least one dimension is below 50. Strengthen the ${lowest.label.toLowerCase()} dimension before committing.`;
     }
     if (score >= 75) {
-      return "Strong overall fit: this looks like a green-light project with good balance across dimensions.";
+      return lang === "de"
+      ? "Starker Gesamt-Fit: Das wirkt wie ein grünes Licht mit guter Balance über alle Dimensionen."
+      : "Strong overall fit: this looks like a green-light project with good balance across dimensions.";
     }
     if (score >= 55) {
-      return `Promising, but clarify the ${lowest.label.toLowerCase()} dimension before committing.`;
+      return lang === "de"
+      ? `Vielversprechend, aber kläre die Dimension ${lowest.label.toLowerCase()} bevor du zusagst.`
+      : `Promising, but clarify the ${lowest.label.toLowerCase()} dimension before committing.`;
     }
-    return `Proceed carefully: the ${lowest.label.toLowerCase()} dimension is currently too weak.`;
+    return lang === "de"
+      ? `Vorsichtig weitermachen: Die Dimension ${lowest.label.toLowerCase()} ist aktuell zu schwach.`
+      : `Proceed carefully: the ${lowest.label.toLowerCase()} dimension is currently too weak.`;
   }
 
   function render() {
