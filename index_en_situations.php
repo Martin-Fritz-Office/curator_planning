@@ -1,11 +1,51 @@
 <?php
 $landingPage = [
   'lang' => 'en',
-  'subtitle' => 'Choose a calculator to plan your finances',
-  'language_switch' => ['href' => 'index.php', 'label' => 'Deutsch'],
+  'subtitle' => 'A scenario-based guide for early-career art professionals',
+  'language_switch' => ['href' => 'index_situationen.php', 'label' => 'Deutsch'],
   'primary_cta' => ['href' => 'beginner_path_en.php', 'label' => "I'm just starting — guide me"],
-  'secondary_cta' => ['href' => 'how_can_i_use_this_site.php', 'label' => 'How can I use this site'],
-  'alternate_cta' => ['href' => 'index_en_situations.php', 'label' => 'Try scenario-based start'],
+  'secondary_cta' => ['href' => 'index_en.php', 'label' => 'Back to standard tool overview'],
+  'story_intro_title' => 'A different way to start: pick the situation that feels like your week',
+  'story_intro' => 'You are a young curator-producer balancing unstable gig income, new collaborations, and pressure to stay fair to yourself and your team. Start from your real situation and jump straight into tools that help.',
+  'situations_title' => 'Professional situations and best-fit tools',
+  'situations' => [
+    [
+      'title' => 'First independent project after graduation',
+      'description' => 'You have your first paid project, but your quote still feels like a guess and you are unsure if the total budget can cover your time.',
+      'icon' => '<path d="M12 3.8v4.7"></path><path d="M7.1 7.1 4.6 4.6"></path><path d="M16.9 7.1l2.5-2.5"></path><circle cx="12" cy="13" r="5"></circle><path d="M12 11.3v3.1l2 1.2"></path>',
+      'tools' => [
+        ['href' => 'hourly_rate_en.php', 'label' => 'Hourly Rate Calculator'],
+        ['href' => 'forecast_en_didactic.php', 'label' => 'Annual Forecast (didactic)'],
+      ],
+    ],
+    [
+      'title' => 'Too many asks, not enough paid hours',
+      'description' => 'You are juggling artist support, admin, production calls, and social posts. You need to scope tasks and protect your paid time.',
+      'icon' => '<rect x="4" y="5" width="16" height="14" rx="3"></rect><path d="M8 9h8"></path><path d="M8 12h5"></path><path d="M8 15h3"></path><circle cx="17" cy="14.8" r="2.4"></circle><path d="M17 13.8v1.1l.8.6"></path>',
+      'tools' => [
+        ['href' => 'freelance_services_calculator.php', 'label' => 'Freelance Service Calculator'],
+        ['href' => 'fun_calculator_en.php', 'label' => 'Project Dimensions Calculator'],
+      ],
+    ],
+    [
+      'title' => 'A promising project, but risky deal terms',
+      'description' => 'An institution or gallery invites you in, but contract language, rights, and payment timing feel unclear. You want a confident response.',
+      'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="m9.2 15 2.1 2.1 3.8-4"></path>',
+      'tools' => [
+        ['href' => 'agreement_checklist_en.php', 'label' => 'Agreement Checklist (25 points)'],
+        ['href' => 'gallery_contract_reality_check_en.php', 'label' => 'Gallery Contract Reality Check'],
+      ],
+    ],
+    [
+      'title' => 'Trying to pay artists and collaborators fairly',
+      'description' => 'You care about fair remuneration but need concrete fee logic and staff-cost clarity before confirming your proposal.',
+      'icon' => '<circle cx="12" cy="12" r="7.8"></circle><path d="M12 7.8v8.4"></path><path d="M8.7 10.2c0-1.1 1.3-2 3.3-2s3.3.9 3.3 2-1.3 2-3.3 2-3.3.9-3.3 2 1.3 2 3.3 2 3.3-.9 3.3-2"></path>',
+      'tools' => [
+        ['href' => 'honorarium_questionnaire_en.php', 'label' => 'Honorarium Questionnaire'],
+        ['href' => 'personalplanung_en.php', 'label' => 'Staff planning tool (FAIR PAY 2026)'],
+      ],
+    ],
+  ],
   'section_title' => 'Choose a calculator',
   'footer' => 'The artbackstage tool collection is in ongoing BETA development as part of the teaching assignment "Art in Context (Law, Money and Fairness)" at Kunstuniversität Linz. No personalized data is stored.',
   'tools' => [

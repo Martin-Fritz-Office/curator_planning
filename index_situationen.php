@@ -1,11 +1,51 @@
 <?php
 $landingPage = [
   'lang' => 'de',
-  'subtitle' => 'Wähle ein Tool für deine Finanzplanung.',
-  'language_switch' => ['href' => 'index_en.php', 'label' => 'English'],
+  'subtitle' => 'Ein szenario-basierter Einstieg für frühe Karrierephasen im Kunstfeld',
+  'language_switch' => ['href' => 'index_en_situations.php', 'label' => 'English'],
   'primary_cta' => ['href' => 'beginner_path.php', 'label' => 'Ich starte gerade — bitte führen'],
-  'secondary_cta' => ['href' => 'how_can_i_use_this_site.php', 'label' => 'So nutzt du die Rechner'],
-  'alternate_cta' => ['href' => 'index_situationen.php', 'label' => 'Szenario-basierter Einstieg'],
+  'secondary_cta' => ['href' => 'index.php', 'label' => 'Zur Standard-Toolübersicht'],
+  'story_intro_title' => 'Anderer Einstieg: Wähle die Situation, die sich nach deiner Woche anfühlt',
+  'story_intro' => 'Du bist eine junge Kurator*in oder Kulturarbeiter*in zwischen unregelmäßigem Einkommen, neuen Kollaborationen und dem Anspruch, fair mit dir und anderen umzugehen. Starte bei deiner realen Situation und geh direkt zu passenden Tools.',
+  'situations_title' => 'Berufssituationen und passende Tools',
+  'situations' => [
+    [
+      'title' => 'Erstes unabhängiges Projekt nach dem Studium',
+      'description' => 'Du hast dein erstes bezahltes Projekt, aber dein Angebot fühlt sich noch nach Schätzung an und du bist unsicher, ob das Budget deine Zeit deckt.',
+      'icon' => '<path d="M12 3.8v4.7"></path><path d="M7.1 7.1 4.6 4.6"></path><path d="M16.9 7.1l2.5-2.5"></path><circle cx="12" cy="13" r="5"></circle><path d="M12 11.3v3.1l2 1.2"></path>',
+      'tools' => [
+        ['href' => 'hourly_rate.php', 'label' => 'Stundensatz-Rechner'],
+        ['href' => 'forecast_didactic.php', 'label' => 'Jahresprognose (didaktisch)'],
+      ],
+    ],
+    [
+      'title' => 'Zu viele Aufgaben, zu wenig bezahlte Stunden',
+      'description' => 'Du jonglierst Künstler*innenbetreuung, Administration, Produktionsabsprachen und Kommunikation. Du musst Aufgaben klären und bezahlte Zeit schützen.',
+      'icon' => '<rect x="4" y="5" width="16" height="14" rx="3"></rect><path d="M8 9h8"></path><path d="M8 12h5"></path><path d="M8 15h3"></path><circle cx="17" cy="14.8" r="2.4"></circle><path d="M17 13.8v1.1l.8.6"></path>',
+      'tools' => [
+        ['href' => 'freelance_services_calculator.php', 'label' => 'Freelance-Service-Rechner'],
+        ['href' => 'fun_calculator.php', 'label' => 'Project Dimensions Calculator'],
+      ],
+    ],
+    [
+      'title' => 'Spannendes Projekt, aber riskante Vertragslage',
+      'description' => 'Eine Institution oder Galerie lädt dich ein, aber Vertragsklauseln, Rechte und Zahlungszeitpunkte sind unklar. Du willst sicher reagieren.',
+      'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="m9.2 15 2.1 2.1 3.8-4"></path>',
+      'tools' => [
+        ['href' => 'agreement_checklist.php', 'label' => 'Abgemacht? 25-Punkte-Checkliste'],
+        ['href' => 'gallery_contract_reality_check.php', 'label' => 'Gallery Contract Reality Check'],
+      ],
+    ],
+    [
+      'title' => 'Faire Bezahlung für Künstler*innen und Team planen',
+      'description' => 'Dir ist faire Vergütung wichtig, aber vor einer Zusage brauchst du belastbare Honorarlinien und Klarheit bei Personalkosten.',
+      'icon' => '<circle cx="12" cy="12" r="7.8"></circle><path d="M12 7.8v8.4"></path><path d="M8.7 10.2c0-1.1 1.3-2 3.3-2s3.3.9 3.3 2-1.3 2-3.3 2-3.3.9-3.3 2 1.3 2 3.3 2 3.3-.9 3.3-2"></path>',
+      'tools' => [
+        ['href' => 'honorarium_questionnaire.php', 'label' => 'Honorar-Fragebogen (Leitfaden 2026)'],
+        ['href' => 'personalplanung.php', 'label' => 'Personalplanung (FAIR PAY 2026)'],
+      ],
+    ],
+  ],
   'section_title' => 'Rechner auswählen',
   'footer' => 'Die artbackstage Toolsammlung ist in laufender BETA-Entwicklung als Teil des Lehrauftrags "Kunst im Kontext (Recht, Geld und Fairness) an der Kunstuniversität Linz. Es werden keine personalisierten Daten gespeichert.',
   'tools' => [
