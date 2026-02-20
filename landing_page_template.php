@@ -34,10 +34,54 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
         <a class="btn btn-outline" href="<?= $e($landingPage['language_switch']['href']) ?>"><?= $e($landingPage['language_switch']['label']) ?></a>
         <a class="btn" href="<?= $e($landingPage['primary_cta']['href']) ?>"><?= $e($landingPage['primary_cta']['label']) ?></a>
         <a class="btn btn-outline" href="<?= $e($landingPage['secondary_cta']['href']) ?>"><?= $e($landingPage['secondary_cta']['label']) ?></a>
+        <?php if (!empty($landingPage['alternate_cta'])): ?>
+          <a class="btn btn-outline" href="<?= $e($landingPage['alternate_cta']['href']) ?>"><?= $e($landingPage['alternate_cta']['label']) ?></a>
+        <?php endif; ?>
       </div>
     </header>
 
     <main class="card landing-card">
+      <?php if (!empty($landingPage['story_intro_title']) || !empty($landingPage['story_intro'])): ?>
+        <section class="story-intro" aria-labelledby="story-intro-title">
+          <?php if (!empty($landingPage['story_intro_title'])): ?>
+            <h2 id="story-intro-title"><?= $e($landingPage['story_intro_title']) ?></h2>
+          <?php endif; ?>
+          <?php if (!empty($landingPage['story_intro'])): ?>
+            <p><?= $e($landingPage['story_intro']) ?></p>
+          <?php endif; ?>
+        </section>
+      <?php endif; ?>
+
+      <?php if (!empty($landingPage['situations']) && is_array($landingPage['situations'])): ?>
+        <section class="situation-section" aria-labelledby="situation-title">
+          <div class="card-head">
+            <h2 id="situation-title"><?= $e($landingPage['situations_title'] ?? 'Situations') ?></h2>
+          </div>
+          <div class="situation-grid">
+            <?php foreach ($landingPage['situations'] as $situation): ?>
+              <article class="situation-card">
+                <span class="tool-icon situation-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="img" focusable="false">
+                    <?= $situation['icon'] ?? '' ?>
+                  </svg>
+                </span>
+                <h3><?= $e($situation['title'] ?? '') ?></h3>
+                <p><?= $e($situation['description'] ?? '') ?></p>
+                <?php if (!empty($situation['tools']) && is_array($situation['tools'])): ?>
+                  <ul class="situation-tools">
+                    <?php foreach ($situation['tools'] as $situationTool): ?>
+                      <li>
+                        <a href="<?= $e($situationTool['href'] ?? '#') ?>"><?= $e($situationTool['label'] ?? '') ?></a>
+                      </li>
+                    <?php endforeach; ?>
+                  </ul>
+                <?php endif; ?>
+              </article>
+            <?php endforeach; ?>
+          </div>
+        </section>
+      <?php endif; ?>
+
       <div class="card-head">
         <h2><?= $e($landingPage['section_title']) ?></h2>
       </div>
