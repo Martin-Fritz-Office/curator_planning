@@ -34,7 +34,15 @@ $landingPage = [
       ],
     ],
     [
-      'badge' => 'Block 2 · Vertiefen',
+      'badge' => 'Block 2 · Orientierung',
+      'title' => 'Verwertungsgesellschaften verstehen',
+      'description' => 'Sieh nach, welche Gesellschaft für Musik, Bild, Text oder audiovisuelle Werke zuständig ist.',
+      'tools' => [
+        ['href' => 'verwertungsgesellschaften_at.php', 'label' => 'Überblick Verwertungsgesellschaften'],
+      ],
+    ],
+    [
+      'badge' => 'Block 3 · Vertiefen',
       'title' => 'Gesetzestext nachlesen',
       'description' => 'Nutze die RIS-Fassungen, um Details und Ausnahmen nachzuvollziehen.',
       'tools' => [
