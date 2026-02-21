@@ -82,6 +82,35 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
         </section>
       <?php endif; ?>
 
+      <?php if (!empty($landingPage['guide_steps']) && is_array($landingPage['guide_steps'])): ?>
+        <section class="guide-section" aria-labelledby="guide-title">
+          <div class="card-head">
+            <h2 id="guide-title"><?= $e($landingPage['guide_title'] ?? 'Geführter Ablauf') ?></h2>
+          </div>
+          <div class="card-body">
+            <?php if (!empty($landingPage['guide_intro'])): ?>
+              <p class="muted"><?= $e($landingPage['guide_intro']) ?></p>
+            <?php endif; ?>
+            <div class="beginner-steps">
+              <?php foreach ($landingPage['guide_steps'] as $step): ?>
+                <article class="beginner-step">
+                  <?php if (!empty($step['badge'])): ?><p class="step-badge"><?= $e($step['badge']) ?></p><?php endif; ?>
+                  <h3><?= $e($step['title'] ?? '') ?></h3>
+                  <p><?= $e($step['description'] ?? '') ?></p>
+                  <?php if (!empty($step['tools']) && is_array($step['tools'])): ?>
+                    <ul class="situation-tools">
+                      <?php foreach ($step['tools'] as $stepTool): ?>
+                        <li><a href="<?= $e($stepTool['href'] ?? '#') ?>"><?= $e($stepTool['label'] ?? '') ?></a></li>
+                      <?php endforeach; ?>
+                    </ul>
+                  <?php endif; ?>
+                </article>
+              <?php endforeach; ?>
+            </div>
+          </div>
+        </section>
+      <?php endif; ?>
+
       <div class="card-head">
         <h2><?= $e($landingPage['section_title']) ?></h2>
       </div>
