@@ -30,7 +30,7 @@ $landingPage = [
       'description' => 'Prüfe dein Wissen zu UrhG und ergänzend zur kollektiven Rechtewahrnehmung (Gesetzesnr. 20009532).',
       'tools' => [
         ['href' => 'law_quiz.php', 'label' => 'UrhG-Quiz (20 Fragen)'],
-        ['href' => 'vgg_quiz.php', 'label' => 'Quiz Gesetzesnr. 20009532'],
+        ['href' => 'vgg_quiz.php', 'label' => 'Verwertungsgesellschaftengesetz-Quiz'],
       ],
     ],
     [
@@ -47,7 +47,7 @@ $landingPage = [
       'description' => 'Nutze die RIS-Fassungen, um Details und Ausnahmen nachzuvollziehen.',
       'tools' => [
         ['href' => 'https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10001848', 'label' => 'UrhG im RIS'],
-        ['href' => 'https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20009532', 'label' => 'Gesetz 20009532 im RIS'],
+        ['href' => 'https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20009532', 'label' => 'Verwertungsgesellschaftengesetz im RIS'],
       ],
     ],
   ],
