@@ -18,7 +18,6 @@
       <div class="header-actions">
         <a class="btn btn-outline" href="index_en.php">Home</a>
         <a class="btn btn-outline" href="hourly_rate.php">Deutsch</a>
-        <a class="btn btn-outline" href="forecast_en.php">Back to forecast</a>
       </div>
     </header>
 
