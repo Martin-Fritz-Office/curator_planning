@@ -17,7 +17,7 @@ $landingPage = [
         ['href' => 'law_quiz.php', 'label' => 'Urheberrechtsgesetz-Quiz (20 Fragen)'],
         ['href' => 'vgg_quiz.php', 'label' => 'Verwertungsgesellschaftengesetz Quiz'],
         ['href' => 'https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10001848', 'label' => 'UrhG im RIS (Quelle)'],
-        ['href' => 'https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20009532', 'label' => 'Gesetz 20009532 im RIS (Quelle)'],
+        ['href' => 'https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20009532', 'label' => 'Verwertungsgesellschaftengesetz im RIS (Quelle)'],
       ],
     ],
   ],
