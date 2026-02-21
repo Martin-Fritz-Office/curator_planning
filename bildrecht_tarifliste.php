@@ -28,7 +28,7 @@
         <div class="card-body">
           <div class="qgrid">
             <label class="q">
-              <span>Suche (Kategorie, Abschnitt, Eintrag)</span>
+              <span>Suche (Kategorie, Abschnitt, Auflage/Einheit)</span>
               <input id="tarifSearch" type="text" placeholder="z.B. Online, Werbung, 1. Monat" />
             </label>
             <label class="q">
@@ -55,7 +55,7 @@
                 <tr>
                   <th>Kategorie</th>
                   <th>Abschnitt</th>
-                  <th>Eintrag</th>
+                  <th>Auflage/Einheit</th>
                   <th>Betrag (€)</th>
                   <th>Einheit</th>
                   <th>Quelle</th>
