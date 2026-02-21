@@ -1141,3 +1141,51 @@ input[type="text"]:focus{
   color:#254836;
   font-weight:700;
 }
+
+.law-page{
+  max-width:980px;
+}
+
+.law-quiz{
+  display:grid;
+  gap:12px;
+}
+
+.law-question{
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#fff;
+  padding:14px;
+}
+
+.law-question h3{
+  margin:0 0 10px;
+  font-size:1rem;
+  color:var(--headline);
+}
+
+.law-options{
+  margin:0 0 10px;
+  padding-left:22px;
+  color:var(--muted);
+  display:grid;
+  gap:4px;
+  font-size:13px;
+}
+
+.law-question details{
+  border-top:1px dashed var(--border);
+  padding-top:10px;
+}
+
+.law-question summary{
+  cursor:pointer;
+  color:#2b6c49;
+  font-weight:600;
+}
+
+.law-question details p{
+  margin:8px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
