@@ -5,120 +5,140 @@ $quizQuestions = [
     'options' => ['Jede Idee ohne konkrete Form', 'Eigentümliche geistige Schöpfungen auf den Gebieten der Literatur, Tonkunst, bildenden Künste und Filmkunst', 'Nur veröffentlichte Texte'],
     'answer' => 1,
     'explanation' => 'Der Werkbegriff in § 1 setzt eine persönliche, eigentümliche geistige Schöpfung voraus.',
+    'quote' => '"Eigentümliche geistige Schöpfungen ..."',
   ],
   [
     'question' => '§ 2 UrhG: Wie werden Bearbeitungen (z. B. Übersetzungen) behandelt?',
     'options' => ['Sie sind nie geschützt', 'Sie können als eigene Werke geschützt sein, sofern eine eigentümliche geistige Schöpfung vorliegt', 'Sie sind automatisch gemeinfrei'],
     'answer' => 1,
     'explanation' => 'Bearbeitungen können eigene Schutzfähigkeit erlangen, ohne die Rechte am Originalwerk aufzuheben.',
+    'quote' => '"Übersetzungen und andere Bearbeitungen ... werden unbeschadet des am bearbeiteten Werke bestehenden Urheberrechts geschützt."',
   ],
   [
     'question' => '§ 3 UrhG: Welche Werkart behandelt das Gesetz ausdrücklich?',
     'options' => ['Sammlungen und Datenbankwerke mit schöpferischer Auswahl oder Anordnung', 'Nur Computerspiele', 'Nur technische Zeichnungen für Patente'],
     'answer' => 0,
     'explanation' => 'Das UrhG nennt u. a. Sammelwerke und deren kreative Struktur als schutzfähig.',
+    'quote' => '"Sammlungen ... die infolge der Zusammenstellung eigentümliche geistige Schöpfungen sind."',
   ],
   [
     'question' => '§ 10 UrhG: Wer wird bis zum Gegenbeweis als Urheber:in vermutet?',
     'options' => ['Die Druckerei', 'Die Person, die auf Werkstücken oder bei Veröffentlichung als Urheber:in bezeichnet ist', 'Die erste Käuferin bzw. der erste Käufer'],
     'answer' => 1,
     'explanation' => 'Die Urhebervermutung erleichtert die Rechtsdurchsetzung in der Praxis.',
+    'quote' => '"Bis zum Beweise des Gegenteiles gilt als Urheber, wer ... als solcher bezeichnet wird."',
   ],
   [
     'question' => '§ 11 UrhG: Wie ist das Verhältnis zwischen Urheber:in und Werk?',
     'options' => ['Das Werk ist frei von persönlichen Bindungen', 'Urheberrecht schützt die geistigen Interessen am Werk', 'Nur wirtschaftliche Interessen zählen'],
     'answer' => 1,
     'explanation' => 'Das Urheberrecht verbindet ideelle und wirtschaftliche Interessen mit der schöpferischen Person.',
+    'quote' => '"Das Urheberrecht schützt den Urheber ..."',
   ],
   [
     'question' => '§ 14 UrhG: Was umfasst das Vervielfältigungsrecht?',
     'options' => ['Nur Kopien auf Papier', 'Das ausschließliche Recht, Vervielfältigungen des Werkes herzustellen', 'Nur private Backups durch Dritte'],
     'answer' => 1,
     'explanation' => 'Jede Form der Reproduktion ist grundsätzlich vom Vervielfältigungsrecht erfasst.',
+    'quote' => '"Der Urheber hat das ausschließliche Recht, das Werk zu vervielfältigen."',
   ],
   [
     'question' => '§ 15 UrhG: Was bedeutet Verbreitungsrecht?',
     'options' => ['Nur Werbung in sozialen Medien', 'Das Recht, Werkstücke in Verkehr zu bringen', 'Das Recht auf Ausstellung in Museen'],
     'answer' => 1,
     'explanation' => 'Verbreitung betrifft das Inverkehrbringen körperlicher Werkexemplare.',
+    'quote' => '"... Werkstücke in Verkehr zu bringen."',
   ],
   [
     'question' => '§ 16 UrhG: Worauf bezieht sich das Senderecht?',
     'options' => ['Auf Rundfunk-/Funksendungen des Werkes', 'Auf Newsletter-Versand', 'Nur auf private E-Mails'],
     'answer' => 0,
     'explanation' => 'Sendung meint die öffentliche Übertragung über Rundfunktechniken.',
+    'quote' => '"Der Urheber hat das ausschließliche Recht, das Werk durch Rundfunk zu senden."',
   ],
   [
     'question' => '§ 18a UrhG: Was regelt das Recht der Zurverfügungstellung?',
     'options' => ['Online-Zugänglichmachen für die Öffentlichkeit zu Zeit und Ort ihrer Wahl', 'Nur CD-Verkäufe', 'Nur analoge Ausstellungen'],
     'answer' => 0,
     'explanation' => 'Dieser Paragraph ist zentral für Plattformen, Websites und Streaming.',
+    'quote' => '"... der Öffentlichkeit ... von Orten und zu Zeiten ihrer Wahl zugänglich zu machen."',
   ],
   [
     'question' => '§ 19 UrhG: Worum geht es beim Vortrags-, Aufführungs- und Vorführungsrecht?',
     'options' => ['Um öffentliche Wiedergabe in Form von Vortrag, Aufführung oder Vorführung', 'Nur um Schulnoten', 'Nur um interne Proben'],
     'answer' => 0,
     'explanation' => 'Öffentliche Live- oder sonstige Wiedergabeformen sind urheberrechtlich relevant.',
+    'quote' => '"... öffentlich vorzutragen, aufzuführen und vorzuführen."',
   ],
   [
     'question' => '§ 20 UrhG: Was regelt das Recht der öffentlichen Wiedergabe durch Lautsprecher etc.?',
     'options' => ['Wiedergabe über technische Einrichtungen für ein Publikum', 'Nur Kopfhörergebrauch zuhause', 'Nur Radioverkauf'],
     'answer' => 0,
     'explanation' => 'Auch mittelbare Wiedergabe über technische Übertragung kann lizenzpflichtig sein.',
+    'quote' => '"... durch Lautsprecher oder andere technische Einrichtungen öffentlich wiederzugeben."',
   ],
   [
     'question' => '§ 21 UrhG: Was ist das Bearbeitungsrecht des Urhebers?',
     'options' => ['Bearbeitungen sind immer frei', 'Bearbeitungen/Umgestaltungen bedürfen grundsätzlich der Zustimmung', 'Nur orthografische Korrekturen sind verboten'],
     'answer' => 1,
     'explanation' => 'Substantielle Umgestaltungen setzen regelmäßig eine Rechteklärung voraus.',
+    'quote' => '"Bearbeitungen und Umgestaltungen ... dürfen nur mit Einwilligung des Urhebers verwertet werden."',
   ],
   [
     'question' => '§ 42 UrhG: Welche Rolle spielt die freie Werknutzung?',
     'options' => ['Sie enthält bestimmte gesetzliche Ausnahmen vom Zustimmungserfordernis', 'Sie schafft einen pauschalen Freifahrtschein', 'Sie gilt nur für Behörden'],
     'answer' => 0,
     'explanation' => 'Ausnahmen sind eng auszulegen und an konkrete Voraussetzungen gebunden.',
+    'quote' => '"Zulässig sind ... freie Werknutzungen ..."',
   ],
   [
     'question' => '§ 42f UrhG (Parodie/Karikatur/Pastiche): Was ist der Kern?',
     'options' => ['Parodien sind ausnahmslos verboten', 'Unter bestimmten Bedingungen sind diese Nutzungsformen ohne Einwilligung zulässig', 'Gilt nur für Musik'],
     'answer' => 1,
     'explanation' => 'Der Paragraph schafft einen wichtigen Ausgleich zwischen Kunstfreiheit und Urheberrecht.',
+    'quote' => '"Zulässig ist die Nutzung zum Zweck von Karikatur, Parodie oder Pastiche ..."',
   ],
   [
     'question' => '§ 45 UrhG: Welche Nutzung ist für Rechtspflege/Verwaltung relevant?',
     'options' => ['Nutzungen für Verfahren und amtliche Zwecke in gesetzlich vorgesehenem Rahmen', 'Jegliche private Archivierung', 'Nur Werbung für Kanzleien'],
     'answer' => 0,
     'explanation' => 'Bestimmte Nutzungen in Verfahren können privilegiert sein.',
+    'quote' => '"Für Zwecke der Rechtspflege und der öffentlichen Sicherheit ..."',
   ],
   [
     'question' => '§ 57 UrhG: Was meint „unwesentliches Beiwerk“?',
     'options' => ['Werkteile, die zufällig und nebensächlich mit erfasst werden', 'Jedes prominente Hauptmotiv', 'Nur Wasserzeichen'],
     'answer' => 0,
     'explanation' => 'Beiwerk darf das eigentliche Hauptthema nicht prägen.',
+    'quote' => '"Zulässig ist die Vervielfältigung, wenn das Werk nur als unwesentliches Beiwerk erscheint."',
   ],
   [
     'question' => '§ 60 UrhG: Was schützt das Zitatrecht grundsätzlich?',
     'options' => ['Übernahme fremder Werke ohne Zweckbezug', 'Nutzung von Zitaten mit gerechtfertigtem Zweck und Quellenangabe', 'Nur wörtliche Zitate aus Büchern'],
     'answer' => 1,
     'explanation' => 'Ein Zitat braucht einen inhaltlichen Bezug und angemessenen Umfang.',
+    'quote' => '"Zitate sind in ihrem durch den Zweck gebotenen Umfang zulässig."',
   ],
   [
     'question' => '§ 74 UrhG: Welche Leistungsschutzrechte sind hier wichtig?',
     'options' => ['Rechte ausübender Künstler:innen an ihren Darbietungen', 'Nur Rechte von Ticketplattformen', 'Ausschließlich Markenrechte'],
     'answer' => 0,
     'explanation' => 'Neben dem Urheberrecht schützt das Gesetz auch ausübende Künstler:innen.',
+    'quote' => '"Der ausübende Künstler hat das ausschließliche Recht ..."',
   ],
   [
     'question' => '§ 76 UrhG: Wer hat Schutz an Lichtbildern (Fotos ohne Werkhöhe)?',
     'options' => ['Niemand', 'Die Herstellerin bzw. der Hersteller des Lichtbildes', 'Nur staatliche Archive'],
     'answer' => 1,
     'explanation' => 'Auch einfache Fotos genießen eigenen gesetzlichen Schutz.',
+    'quote' => '"Lichtbilder sind geschützt ..."',
   ],
   [
     'question' => '§ 91 UrhG: Was kann bei Rechtsverletzungen verlangt werden?',
     'options' => ['Unterlassung und Beseitigung bei widerrechtlicher Nutzung', 'Nur eine mündliche Entschuldigung', 'Automatisch Freiheitsstrafe'],
     'answer' => 0,
     'explanation' => 'Zivilrechtliche Ansprüche auf Unterlassung/Beseitigung sind ein zentraler Rechtsbehelf.',
+    'quote' => '"Wer in ein Urheberrecht eingreift, kann auf Unterlassung und Beseitigung geklagt werden."',
   ],
 ];
 ?><!doctype html>
@@ -166,6 +186,7 @@ $quizQuestions = [
               <summary>Antwort anzeigen</summary>
               <p><strong>Richtig:</strong> <?= htmlspecialchars($quiz['options'][$quiz['answer']], ENT_QUOTES, 'UTF-8') ?></p>
               <p><?= htmlspecialchars($quiz['explanation'], ENT_QUOTES, 'UTF-8') ?></p>
+              <p><em>Kernzitat:</em> <?= htmlspecialchars($quiz['quote'], ENT_QUOTES, 'UTF-8') ?></p>
             </details>
           </article>
         <?php endforeach; ?>
