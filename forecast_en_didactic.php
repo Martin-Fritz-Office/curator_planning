@@ -19,7 +19,6 @@
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index_en.php">Home</a>
-        <a class="btn btn-outline" href="forecast_en.php">Standard layout</a>
         <a class="btn btn-outline" href="forecast_didactic.php">Deutsch</a>
       </div>
     </header>

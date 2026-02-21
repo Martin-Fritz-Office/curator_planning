@@ -2,9 +2,8 @@
 $landingPage = [
   'lang' => 'de',
   'subtitle' => 'Einfacher Einstieg: Situationen verstehen, passende Rechner wählen, sichere Entscheidungen treffen.',
+  'home' => ['href' => 'index.php', 'label' => 'Startseite'],
   'language_switch' => ['href' => 'index_en.php', 'label' => 'English'],
-  'primary_cta' => ['href' => 'forecast_didactic.php', 'label' => 'Mit der Jahresprognose starten'],
-  'secondary_cta' => ['href' => 'hourly_rate.php', 'label' => 'Zum Stundensatz-Rechner'],
   'story_intro_title' => 'Dein Einstieg in die Tool-Sammlung',
   'story_intro' => 'Wähle zuerst deine Situation, folge danach dem empfohlenen Ablauf und springe anschließend direkt in die passenden Tools.',
   'situations_title' => 'Typische Situationen und direkte Tool-Empfehlungen',

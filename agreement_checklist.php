@@ -17,6 +17,7 @@
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php">Home</a>
+        <a class="btn btn-outline" href="agreement_checklist_en.php">English</a>
       </div>
     </header>
 

@@ -2,9 +2,8 @@
 $landingPage = [
   'lang' => 'en',
   'subtitle' => 'A scenario-based guide for early-career art professionals',
+  'home' => ['href' => 'index_en.php', 'label' => 'Home'],
   'language_switch' => ['href' => 'index.php', 'label' => 'Deutsch'],
-  'primary_cta' => ['href' => 'forecast_en_didactic.php', 'label' => 'Start with annual forecast'],
-  'secondary_cta' => ['href' => 'hourly_rate_en.php', 'label' => 'Open hourly rate calculator'],
   'story_intro_title' => 'Start from your current situation',
   'story_intro' => 'Pick the situation that matches your work right now, follow the recommended sequence, and jump directly into the right tools.',
   'situations_title' => 'Professional situations and best-fit tools',

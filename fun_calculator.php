@@ -17,7 +17,8 @@
         <p class="muted">Bewerte jede Dimension von 1 bis 100 und nutze das Radardiagramm, um zu sehen, ob ein Projekt für dich ausgewogen und machbar ist.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index.php">Zurück zu den Rechnern</a>
+        <a class="btn btn-outline" href="index.php">Startseite</a>
+        <a class="btn btn-outline" href="fun_calculator_en.php">English</a>
       </div>
     </header>
 

@@ -21,9 +21,6 @@
       <div class="header-actions">
         <a class="btn btn-outline" href="index_en.php">Home</a>
         <a class="btn btn-outline" href="forecast.php">Deutsch</a>
-        <a class="btn btn-outline" href="hourly_rate_en.php">Hourly rate calculator</a>
-        <a class="btn btn-outline" href="net_income_carousel.php">Net income step by step</a>
-        <a class="btn btn-outline" href="forecast_en_didactic.php">Didactic layout</a>
         <button id="saveBtn" class="btn" type="button">Save responses</button>
         <input id="scenarioName" class="input-inline" type="text" maxlength="120" placeholder="Scenario name" aria-label="Scenario name" />
         <div id="saveStatus" class="pill" aria-live="polite">Not saved</div>

@@ -31,12 +31,8 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
         <p class="muted"><?= $e($landingPage['subtitle']) ?></p>
       </div>
       <div class="header-actions">
+        <a class="btn btn-outline" href="<?= $e($landingPage['home']['href']) ?>"><?= $e($landingPage['home']['label']) ?></a>
         <a class="btn btn-outline" href="<?= $e($landingPage['language_switch']['href']) ?>"><?= $e($landingPage['language_switch']['label']) ?></a>
-        <a class="btn" href="<?= $e($landingPage['primary_cta']['href']) ?>"><?= $e($landingPage['primary_cta']['label']) ?></a>
-        <a class="btn btn-outline" href="<?= $e($landingPage['secondary_cta']['href']) ?>"><?= $e($landingPage['secondary_cta']['label']) ?></a>
-        <?php if (!empty($landingPage['alternate_cta'])): ?>
-          <a class="btn btn-outline" href="<?= $e($landingPage['alternate_cta']['href']) ?>"><?= $e($landingPage['alternate_cta']['label']) ?></a>
-        <?php endif; ?>
       </div>
     </header>
 
