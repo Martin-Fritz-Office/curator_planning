@@ -65,7 +65,7 @@
 
         <hr class="sep" />
         <p><strong>Source (English):</strong> Federal Ministry of Housing, Arts, Culture, Media and Sport (BMWKMS), “Summary Gender Report in the Fields of Arts and Culture”. <a href="https://www.bmwkms.gv.at/dam/jcr:a9e39f2f-2879-4651-8d05-b8ea0b6f0c2d/Summary_Gender_Report_in_the_Fields_of_Arts_and_Culture_english.pdf" target="_blank" rel="noopener noreferrer">Open original PDF</a>.</p>
-        <p><strong>Source (German):</strong> BMWKMS, „Zusammenfassung Gender Report im Bereich Kunst und Kultur 2017–2021“. <a href="https://www.bmwkms.gv.at/dam/jcr:06423a90-f720-4712-ac84-b3c54b3a6817/Zusammenfassung_Gender_Report_im_Bereich_Kunst_und_Kultur_2017-2021_deutsch.pdf" target="_blank" rel="noopener noreferrer">Original-PDF öffnen</a>.</p>
+        <p><strong>Source (German):</strong> BMWKMS, „Gender Report im Bereich Kunst und Kultur 2017–2021“. <a href="https://www.bmwkms.gv.at/dam/jcr:edd38dda-d743-49cc-95a0-552139f7eb25/Gender_Report_im_Bereich_Kunst_und_Kultur_2017-2021.pdf" target="_blank" rel="noopener noreferrer">Open full report</a>.</p>
         <p class="hint">Note: This page is a plain-language paraphrase and does not replace the full source document.</p>
       </div>
     </main>
