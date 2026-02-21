@@ -10,12 +10,12 @@ $landingPage = [
   'situations_title' => 'Typische Situationen im Rechtskontext',
   'situations' => [
     [
-      'title' => 'Ich brauche einen schnellen Rechts-Check',
+      'title' => 'Ich brauche Grundbegriffe des Urheberrechts und zu Verwertungsgesellschaften',
       'description' => 'Du willst Grundbegriffe wie Werk, Bearbeitung, Zitat oder freie Werknutzung sicher unterscheiden können.',
       'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="M9.2 15 11.3 17.1 15.1 13.1"></path>',
       'tools' => [
-        ['href' => 'law_quiz.php', 'label' => 'UrhG-Quiz (20 Fragen)'],
-        ['href' => 'vgg_quiz.php', 'label' => 'Quiz Gesetzesnr. 20009532'],
+        ['href' => 'law_quiz.php', 'label' => 'Urheberrechtsgesetz-Quiz (20 Fragen)'],
+        ['href' => 'vgg_quiz.php', 'label' => 'Verwertungsgesellschaftengesetz Quiz'],
         ['href' => 'https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10001848', 'label' => 'UrhG im RIS (Quelle)'],
         ['href' => 'https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20009532', 'label' => 'Gesetz 20009532 im RIS (Quelle)'],
       ],
