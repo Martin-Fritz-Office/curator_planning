@@ -17,7 +17,8 @@
         <p class="muted">Rate each dimension from 1 to 100 and inspect the radar diagram to see whether a project is balanced and feasible for you.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Back to calculators</a>
+        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="fun_calculator.php">Deutsch</a>
       </div>
     </header>
 

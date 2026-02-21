@@ -17,8 +17,8 @@
         <p class="muted">If you're just starting out or feeling overwhelmed, follow these 4 steps first. You don't need to solve everything at once.</p>
       </div>
       <div class="header-actions">
+        <a class="btn btn-outline" href="index_en.php">Home</a>
         <a class="btn btn-outline" href="beginner_path.php">Deutsch</a>
-        <a class="btn btn-outline" href="index_en.php">All tools</a>
       </div>
     </header>
 

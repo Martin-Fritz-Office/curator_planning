@@ -17,7 +17,7 @@
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index_en.php">Home</a>
-        <a class="btn btn-outline" href="forecast_en.php">Forecast</a>
+        <a class="btn btn-outline" href="net_income_carousel.php">Deutsch</a>
       </div>
     </header>
 

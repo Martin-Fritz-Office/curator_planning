@@ -17,6 +17,7 @@
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php">Startseite</a>
+        <a class="btn btn-outline" href="curator_viability_carousel_en.php">English</a>
       </div>
     </header>
 

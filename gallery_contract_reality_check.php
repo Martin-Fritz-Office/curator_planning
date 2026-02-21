@@ -17,6 +17,7 @@
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php">Startseite</a>
+        <a class="btn btn-outline" href="gallery_contract_reality_check_en.php">English</a>
       </div>
     </header>
 
