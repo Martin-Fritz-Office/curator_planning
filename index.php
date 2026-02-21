@@ -13,7 +13,7 @@
       <div>
         <p class="eyebrow brand-mark">artbackstage</p>
         <h1>Wähle deinen Einstieg</h1>
-        <p class="muted">Zwei Bereiche, ein Werkzeugkasten: Finanzen und Urheberrecht für Kunst- und Kulturpraxis.</p>
+        <p class="muted">Drei Bereiche, ein Werkzeugkasten: Finanzen, Urheberrecht und Soziales für Kunst- und Kulturpraxis.</p>
       </div>
     </header>
 
@@ -47,8 +47,23 @@
             <p>Landingpage mit Einstieg ins UrhG-Quiz und Rechtsgrundlagen.</p>
           </span>
         </a>
+
+        <a class="tool-link" href="index_soziales.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <circle cx="12" cy="8.2" r="3"></circle><path d="M5.5 18.8a6.5 6.5 0 0 1 13 0"></path><path d="M12 12.8v5.7"></path>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>artbackstage | Soziales</h3>
+            <p>Landingpage mit Story-Einstieg zu sozialer Absicherung, Einkommen und Fair-Pay-Planung.</p>
+          </span>
+        </a>
       </div>
     </main>
   </div>
+  <footer class="site-footer" role="contentinfo">
+    Die artbackstage Toolsammlung ist in laufender BETA-Entwicklung als Teil des Lehrauftrags "Kunst im Kontext (Recht, Geld und Fairness)" an der Kunstuniversität Linz. Es werden keine personalisierten Daten gespeichert. Teilweise KI generiert. Keine Haftung.
+  </footer>
 </body>
 </html>

@@ -46,7 +46,7 @@ $landingPage = [
     ],
   ],
   'section_title' => 'Choose a calculator',
-  'footer' => 'The artbackstage tool collection is in ongoing BETA development as part of the teaching assignment "Art in Context (Law, Money and Fairness)" at Kunstuniversität Linz. No personalized data is stored.',
+  'footer' => 'The artbackstage tool collection is in ongoing BETA development as part of the teaching assignment "Art in Context (Law, Money and Fairness)" at Kunstuniversität Linz. No personalized data is stored. Teilweise KI generiert. Keine Haftung.',
   'tools' => [
     ['href' => 'forecast_en.php', 'title' => 'Annual Revenue & Profit Forecast', 'description' => 'Full forecast with questionnaire, result sheet, and charts.', 'icon' => '<path d="M4 19.5h16"></path><path d="M6 16l3.2-3.2 2.7 2.6 5-5"></path><circle cx="17" cy="8" r="1.2"></circle>'],
     ['href' => 'forecast_en_didactic.php', 'title' => 'Annual Revenue & Profit Forecast (didactic)', 'description' => 'Alternative UI with a guided and easier-to-follow flow.', 'icon' => '<rect x="4" y="4" width="16" height="16" rx="2.5"></rect><path d="M8 9.2h8"></path><path d="M8 12h8"></path><path d="M8 14.8h5.2"></path>'],

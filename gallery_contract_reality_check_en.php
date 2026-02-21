@@ -40,7 +40,7 @@
     </main>
   </div>
   <footer class="site-footer" role="contentinfo">
-    The artbackstage tool collection is in ongoing BETA development as part of the teaching assignment "Art in Context (Law, Money and Fairness)" at Kunstuniversität Linz. No personalized data is stored.
+    The artbackstage tool collection is in ongoing BETA development as part of the teaching assignment "Art in Context (Law, Money and Fairness)" at Kunstuniversität Linz. No personalized data is stored. Teilweise KI generiert. Keine Haftung.
   </footer>
 </body>
 </html>
