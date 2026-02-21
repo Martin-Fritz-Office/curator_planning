@@ -98,7 +98,7 @@
         </ol>
         <p>
           Offiziellen Gesamtüberblick inkl. Aufsicht findest du bei der
-          <a href="https://www.patentamt.at/urheberrecht/verwertungsgesellschaften" target="_blank" rel="noopener noreferrer">Aufsichtsbehörde für Verwertungsgesellschaften (Österreichisches Patentamt)</a>.
+          <a href="https://www.justiz.gv.at/aufsichtsbehoerde/aufsichtsbehoerde-fuer-verwertungsgesellschaften.275.de.html" target="_blank" rel="noopener noreferrer">Aufsichtsbehörde für Verwertungsgesellschaften </a>.
         </p>
       </section>
     </main>
