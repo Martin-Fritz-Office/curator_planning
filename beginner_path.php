@@ -1,3 +1,3 @@
 <?php
-header('Location: index_situationen.php', true, 302);
+header('Location: index.php', true, 302);
 exit;

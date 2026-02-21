@@ -1,15 +1,102 @@
 <?php
 $landingPage = [
   'lang' => 'de',
-  'subtitle' => 'Wähle ein Tool für deine Finanzplanung.',
+  'subtitle' => 'Geführter Einstieg: Situationen verstehen, passende Rechner wählen, sichere Entscheidungen treffen.',
   'language_switch' => ['href' => 'index_en.php', 'label' => 'English'],
-  'primary_cta' => ['href' => 'index_situationen.php', 'label' => 'Geführter Einstieg nach Situation'],
-  'secondary_cta' => ['href' => 'index_situationen.php', 'label' => 'Einstiegs-Guide & Tool-Kompass'],
-  'alternate_cta' => ['href' => 'index_situationen.php', 'label' => 'Alle Situationen im Überblick'],
-  'section_title' => 'Rechner auswählen',
+  'primary_cta' => ['href' => 'forecast_didactic.php', 'label' => 'Mit der Jahresprognose starten'],
+  'secondary_cta' => ['href' => 'hourly_rate.php', 'label' => 'Zum Stundensatz-Rechner'],
+  'story_intro_title' => 'Dein Einstieg in die Tool-Sammlung',
+  'story_intro' => 'Wähle zuerst deine Situation, folge danach dem empfohlenen Ablauf und springe anschließend direkt in die passenden Tools.',
+  'situations_title' => 'Typische Situationen und direkte Tool-Empfehlungen',
+  'situations' => [
+    [
+      'title' => 'Ich starte gerade in die Selbstständigkeit',
+      'description' => 'Du willst schnell wissen, ob dein Setup tragfähig ist und welcher Stundensatz realistisch ist.',
+      'icon' => '<path d="M12 3.8v4.7"></path><path d="M7.1 7.1 4.6 4.6"></path><path d="M16.9 7.1l2.5-2.5"></path><circle cx="12" cy="13" r="5"></circle><path d="M12 11.3v3.1l2 1.2"></path>',
+      'tools' => [
+        ['href' => 'forecast_didactic.php', 'label' => 'Jahresprognose (didaktisch)'],
+        ['href' => 'forecast.php', 'label' => 'Jahresumsatz- & Gewinnprognose'],
+        ['href' => 'hourly_rate.php', 'label' => 'Stundensatz-Rechner'],
+      ],
+    ],
+    [
+      'title' => 'Ich plane Angebote, Leistungen und laufende Arbeit',
+      'description' => 'Du musst Aufgaben in klare Services übersetzen, Aufwand bewerten und Einnahmen mit Netto-Bedarf abgleichen.',
+      'icon' => '<rect x="4" y="5" width="16" height="14" rx="3"></rect><path d="M8 9h8"></path><path d="M8 12h5"></path><path d="M8 15h3"></path><circle cx="17" cy="14.8" r="2.4"></circle><path d="M17 13.8v1.1l.8.6"></path>',
+      'tools' => [
+        ['href' => 'freelance_services_calculator.php', 'label' => 'Freelance-Service-Rechner'],
+        ['href' => 'net_income_carousel.php', 'label' => 'Jahresnettoeinkommen Schritt für Schritt'],
+        ['href' => 'fun_calculator.php', 'label' => 'Project Dimensions Calculator'],
+      ],
+    ],
+    [
+      'title' => 'Ich entscheide über Projekte und Verträge',
+      'description' => 'Du willst vor Zusagen Risiken, Verhandlungsspielräume und finanzielle Folgen schnell prüfen.',
+      'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="m9.2 15 2.1 2.1 3.8-4"></path>',
+      'tools' => [
+        ['href' => 'curator_viability_carousel.php', 'label' => 'Projekt-Check für freie Kurator*innen'],
+        ['href' => 'agreement_checklist.php', 'label' => 'Abgemacht? 25-Punkte-Checkliste'],
+        ['href' => 'gallery_contract_reality_check.php', 'label' => 'Gallery Contract Reality Check'],
+      ],
+    ],
+    [
+      'title' => 'Ich plane faire Budgets für Künstler*innen und Teams',
+      'description' => 'Du brauchst belastbare Richtwerte für Honorare, Gehälter und Rollen in Kulturprojekten.',
+      'icon' => '<circle cx="12" cy="12" r="7.8"></circle><path d="M12 7.8v8.4"></path><path d="M8.7 10.2c0-1.1 1.3-2 3.3-2s3.3.9 3.3 2-1.3 2-3.3 2-3.3.9-3.3 2 1.3 2 3.3 2 3.3-.9 3.3-2"></path>',
+      'tools' => [
+        ['href' => 'honorarium_questionnaire.php', 'label' => 'Honorar-Fragebogen (Leitfaden 2026)'],
+        ['href' => 'personalplanung.php', 'label' => 'Personalplanung (FAIR PAY 2026)'],
+        ['href' => 'salary_data_en.php', 'label' => 'Gehalts- & Honorar-Daten Explorer'],
+      ],
+    ],
+  ],
+  'guide_title' => 'Empfohlener Ablauf',
+  'guide_intro' => 'Wenn du nicht weißt, wo du anfangen sollst: Gehe diese vier Blöcke nacheinander durch. So deckst du Orientierung, Kalkulation, Projektentscheidung und Vertrags-/Fairnessfragen ab.',
+  'guide_steps' => [
+    [
+      'badge' => 'Block 1 · Finanzrahmen',
+      'title' => 'Erst Überblick schaffen',
+      'description' => 'Starte mit einer Jahresprognose und übersetze den Zielwert in einen realistischen Stundensatz.',
+      'tools' => [
+        ['href' => 'forecast_didactic.php', 'label' => 'Jahresprognose (didaktisch)'],
+        ['href' => 'forecast.php', 'label' => 'Jahresumsatz- & Gewinnprognose'],
+        ['href' => 'hourly_rate.php', 'label' => 'Stundensatz-Rechner'],
+      ],
+    ],
+    [
+      'badge' => 'Block 2 · Angebot & Machbarkeit',
+      'title' => 'Leistungen konkret machen',
+      'description' => 'Formuliere Services, plane Aufwände und prüfe, wie sich Projektentscheidungen auf dein Netto auswirken.',
+      'tools' => [
+        ['href' => 'freelance_services_calculator.php', 'label' => 'Freelance-Service-Rechner'],
+        ['href' => 'net_income_carousel.php', 'label' => 'Jahresnettoeinkommen Schritt für Schritt'],
+        ['href' => 'fun_calculator.php', 'label' => 'Project Dimensions Calculator'],
+      ],
+    ],
+    [
+      'badge' => 'Block 3 · Zusage oder Nachverhandlung',
+      'title' => 'Projekte und Verträge absichern',
+      'description' => 'Beurteile Projektviabilität und sichere zentrale Vertragsklauseln vor der Zusage.',
+      'tools' => [
+        ['href' => 'curator_viability_carousel.php', 'label' => 'Projekt-Check für freie Kurator*innen'],
+        ['href' => 'agreement_checklist.php', 'label' => 'Abgemacht? 25-Punkte-Checkliste'],
+        ['href' => 'gallery_contract_reality_check.php', 'label' => 'Gallery Contract Reality Check'],
+      ],
+    ],
+    [
+      'badge' => 'Block 4 · Fair Pay & Teamplanung',
+      'title' => 'Faire Vergütung belastbar planen',
+      'description' => 'Nutze Honorar- und Gehaltswerkzeuge, wenn du Budgets, Rollen oder Teamgrößen planst.',
+      'tools' => [
+        ['href' => 'honorarium_questionnaire.php', 'label' => 'Honorar-Fragebogen (Leitfaden 2026)'],
+        ['href' => 'personalplanung.php', 'label' => 'Personalplanung (FAIR PAY 2026)'],
+        ['href' => 'salary_data_en.php', 'label' => 'Gehalts- & Honorar-Daten Explorer'],
+      ],
+    ],
+  ],
+  'section_title' => 'Alle Rechner im Überblick',
   'footer' => 'Die artbackstage Toolsammlung ist in laufender BETA-Entwicklung als Teil des Lehrauftrags "Kunst im Kontext (Recht, Geld und Fairness) an der Kunstuniversität Linz. Es werden keine personalisierten Daten gespeichert.',
   'tools' => [
-    ['href' => 'index_situationen.php', 'title' => 'Neu hier? Starte mit dem geführten Einstieg', 'description' => 'Szenarien, Startklar-Pfad und Nutzungsanleitung auf einer Seite vereint.', 'highlight' => true, 'icon' => '<path d="M12 4.5v15"></path><path d="m6.5 10.5 5.5-6 5.5 6"></path>'],
     ['href' => 'forecast.php', 'title' => 'Jahresumsatz- & Gewinnprognose', 'description' => 'Vollständige Prognose mit Fragen, Sheet und Diagrammen.', 'icon' => '<path d="M4 19.5h16"></path><path d="M6 16l3.2-3.2 2.7 2.6 5-5"></path><circle cx="17" cy="8" r="1.2"></circle>'],
     ['href' => 'forecast_didactic.php', 'title' => 'Jahresumsatz- & Gewinnprognose (didaktisch)', 'description' => 'Alternative Oberfläche mit geführter, verständlicher Reihenfolge.', 'icon' => '<rect x="4" y="4" width="16" height="16" rx="2.5"></rect><path d="M8 9.2h8"></path><path d="M8 12h8"></path><path d="M8 14.8h5.2"></path>'],
     ['href' => 'hourly_rate.php', 'title' => 'Stundensatz-Rechner', 'description' => 'Berechne ein tragfähiges Stundenhonorar in 7 Fragen.', 'icon' => '<circle cx="12" cy="12" r="7.5"></circle><path d="M12 8v4.2l3 1.7"></path>'],
