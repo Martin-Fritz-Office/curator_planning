@@ -58,7 +58,7 @@
                   <th>Auflage/Einheit</th>
                   <th>Betrag (€)</th>
                   <th>Einheit</th>
-                  <th>Quelle</th>
+                  <th>Quelle/Details</th>
                 </tr>
               </thead>
               <tbody id="tarifTableBody"></tbody>
