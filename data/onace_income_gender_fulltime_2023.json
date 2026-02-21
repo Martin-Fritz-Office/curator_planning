@@ -1,0 +1,24 @@
+{
+  "source": "Statistik Austria 2024, Lohnsteuer- und SV-Daten",
+  "note": "Werte aus Abbildung 4 (ÖNACE 2008-Abschnitte, 2023), ohne Lehrlinge. Zahlen als gerundete Näherungswerte zur digitalen Vergleichbarkeit.",
+  "rows": [
+    {"code":"D","section":"Energieversorgung","income_eur":66000,"women_pct":23,"fulltime_pct":86},
+    {"code":"K","section":"Erbringung von Finanz- und Versicherungsdienstleistungen","income_eur":55000,"women_pct":52,"fulltime_pct":70},
+    {"code":"J","section":"Information und Kommunikation","income_eur":53000,"women_pct":35,"fulltime_pct":73},
+    {"code":"B","section":"Bergbau und Gewinnung von Steinen und Erden","income_eur":50000,"women_pct":15,"fulltime_pct":91},
+    {"code":"O","section":"Öffentliche Verwaltung, Verteidigung; Sozialversicherung","income_eur":47000,"women_pct":63,"fulltime_pct":69},
+    {"code":"C","section":"Herstellung von Waren","income_eur":47000,"women_pct":27,"fulltime_pct":84},
+    {"code":"E","section":"Wasserversorgung; Abwasser- und Abfallentsorgung, Beseitigung von Umweltverschmutzungen","income_eur":40000,"women_pct":22,"fulltime_pct":82},
+    {"code":"F","section":"Bau","income_eur":39500,"women_pct":13,"fulltime_pct":81},
+    {"code":"H","section":"Verkehr und Lagerei","income_eur":38500,"women_pct":22,"fulltime_pct":81},
+    {"code":"M","section":"Erbringung von freiberuflichen, wissenschaftlichen und technischen Dienstleistungen","income_eur":38000,"women_pct":55,"fulltime_pct":59},
+    {"code":"L","section":"Grundstücks- und Wohnungswesen","income_eur":32000,"women_pct":57,"fulltime_pct":57},
+    {"code":"Q","section":"Gesundheits- und Sozialwesen","income_eur":30500,"women_pct":77,"fulltime_pct":36},
+    {"code":"G","section":"Handel; Instandhaltung und Reparatur von Kraftfahrzeugen","income_eur":30000,"women_pct":55,"fulltime_pct":57},
+    {"code":"P","section":"Erziehung und Unterricht","income_eur":27000,"women_pct":60,"fulltime_pct":45},
+    {"code":"S","section":"Erbringung von sonstigen Dienstleistungen","income_eur":25500,"women_pct":65,"fulltime_pct":49},
+    {"code":"N","section":"Erbringung von sonstigen wirtschaftlichen Dienstleistungen","income_eur":23500,"women_pct":42,"fulltime_pct":63},
+    {"code":"R","section":"Kunst, Unterhaltung und Erholung","income_eur":20000,"women_pct":48,"fulltime_pct":53},
+    {"code":"I","section":"Beherbergung und Gastronomie","income_eur":15000,"women_pct":55,"fulltime_pct":59}
+  ]
+}
