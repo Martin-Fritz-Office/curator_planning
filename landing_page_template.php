@@ -9,7 +9,7 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>artbackstage | Money</title>
+  <title><?= $e($landingPage['page_title'] ?? 'artbackstage | Money') ?></title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -27,7 +27,7 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
           </span>
           <span>artbackstage</span>
         </p>
-        <h1>artbackstage | Money</h1>
+        <h1><?= $e($landingPage['page_title'] ?? 'artbackstage | Money') ?></h1>
         <p class="muted"><?= $e($landingPage['subtitle']) ?></p>
       </div>
       <div class="header-actions">
