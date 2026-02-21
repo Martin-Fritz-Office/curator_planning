@@ -16,7 +16,7 @@
         <p class="muted">Für sozial interessierte Kunststudierende: So hängen Einkommen, Frauenanteil und Teilzeitquote in Österreichs Branchen zusammen.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_money.php">Zurück</a>
+        <a class="btn btn-outline" href="index_soziales.php">Zurück</a>
       </div>
     </header>
 
