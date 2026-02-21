@@ -1,7 +1,7 @@
 <?php
 $landingPage = [
   'lang' => 'de',
-  'subtitle' => 'Geführter Einstieg: Situationen verstehen, passende Rechner wählen, sichere Entscheidungen treffen.',
+  'subtitle' => 'Einfacher Einstieg: Situationen verstehen, passende Rechner wählen, sichere Entscheidungen treffen.',
   'language_switch' => ['href' => 'index_en.php', 'label' => 'English'],
   'primary_cta' => ['href' => 'forecast_didactic.php', 'label' => 'Mit der Jahresprognose starten'],
   'secondary_cta' => ['href' => 'hourly_rate.php', 'label' => 'Zum Stundensatz-Rechner'],
