@@ -95,7 +95,7 @@ $landingPage = [
     ],
   ],
   'section_title' => 'Alle Rechner im Überblick',
-  'footer' => 'Die artbackstage Toolsammlung ist in laufender BETA-Entwicklung als Teil des Lehrauftrags "Kunst im Kontext (Recht, Geld und Fairness) an der Kunstuniversität Linz. Es werden keine personalisierten Daten gespeichert.',
+  'footer' => 'Die artbackstage Toolsammlung ist in laufender BETA-Entwicklung als Teil des Lehrauftrags "Kunst im Kontext (Recht, Geld und Fairness) an der Kunstuniversität Linz. Verwendet werden unter anderem Materialien der IG Bildende Kunst, der KUPF OÖ und aus dem Fair Pay Prozess der IG Kultur. Es werden keine personalisierten Daten gespeichert.',
   'tools' => [
     ['href' => 'forecast.php', 'title' => 'Jahresumsatz- & Gewinnprognose', 'description' => 'Vollständige Prognose mit Fragen, Sheet und Diagrammen.', 'icon' => '<path d="M4 19.5h16"></path><path d="M6 16l3.2-3.2 2.7 2.6 5-5"></path><circle cx="17" cy="8" r="1.2"></circle>'],
     ['href' => 'forecast_didactic.php', 'title' => 'Jahresumsatz- & Gewinnprognose (didaktisch)', 'description' => 'Alternative Oberfläche mit geführter, verständlicher Reihenfolge.', 'icon' => '<rect x="4" y="4" width="16" height="16" rx="2.5"></rect><path d="M8 9.2h8"></path><path d="M8 12h8"></path><path d="M8 14.8h5.2"></path>'],
