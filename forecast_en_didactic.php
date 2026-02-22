@@ -18,7 +18,7 @@
         <p class="muted">Same calculation logic as the standard tool, with a guided flow and easier-to-read interface.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="forecast_didactic.php">Deutsch</a>
       </div>
     </header>
