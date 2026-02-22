@@ -16,7 +16,7 @@
         <p class="muted">Choose the pay scale group on the left, select a sample role, and add your own title and weekly hours. Salaries and annual total costs update instantly.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="personalplanung.php">Deutsch</a>
       </div>
     </header>

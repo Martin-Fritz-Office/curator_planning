@@ -16,7 +16,7 @@
         <p class="muted">Interactive questionnaire based on Martin Fritz's 25 points: prepare exhibition agreements and track how many answers are already detailed enough.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="agreement_checklist.php">Deutsch</a>
       </div>
     </header>

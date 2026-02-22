@@ -19,7 +19,7 @@
         <p class="muted">Pie charts show percentage shares (tooltip). Values are gross heuristics.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="forecast.php">Deutsch</a>
         <button id="saveBtn" class="btn" type="button">Save responses</button>
         <input id="scenarioName" class="input-inline" type="text" maxlength="120" placeholder="Scenario name" aria-label="Scenario name" />

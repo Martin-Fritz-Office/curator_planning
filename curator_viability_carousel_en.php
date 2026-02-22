@@ -16,7 +16,7 @@
         <p class="muted">13 guided questions to decide whether to go, renegotiate, or decline a project.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="curator_viability_carousel.php">Deutsch</a>
       </div>
     </header>

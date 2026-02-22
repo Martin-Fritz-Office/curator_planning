@@ -16,7 +16,7 @@
         <p class="muted">Search 100 job titles, compare salary/fee ranges, and view a salary pyramid from highest to lowest expected pay.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
       </div>
     </header>
 

@@ -36,7 +36,6 @@
           <span class="tool-link-content">
             <h3>artbackstage | Money</h3>
             <p>Landingpage mit allen Finanz-, Angebots- und Fair-Pay-Rechnern.</p>
-            <p><a href="yearly_turnover_calculator.php">Neu: Direkt zum Jahresumsatz-Rechner (Zeilenmodell)</a></p>
           </span>
         </a>
 

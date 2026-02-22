@@ -1,68 +1,70 @@
-<?php
-$landingPage = [
-  'lang' => 'en',
-  'subtitle' => 'A scenario-based guide for early-career art professionals',
-  'home' => ['href' => 'index_en.php', 'label' => 'Home'],
-  'language_switch' => ['href' => 'index.php', 'label' => 'Deutsch'],
-  'story_intro_title' => 'Start from your current situation',
-  'story_intro' => 'Pick the situation that matches your work right now, follow the recommended sequence, and jump directly into the right tools.',
-  'situations_title' => 'Professional situations and best-fit tools',
-  'situations' => [
-    [
-      'title' => 'First independent project after graduation',
-      'description' => 'You have your first paid project, but your quote still feels like a guess and you are unsure if the total budget can cover your time.',
-      'icon' => '<path d="M12 3.8v4.7"></path><path d="M7.1 7.1 4.6 4.6"></path><path d="M16.9 7.1l2.5-2.5"></path><circle cx="12" cy="13" r="5"></circle><path d="M12 11.3v3.1l2 1.2"></path>',
-      'tools' => [
-        ['href' => 'hourly_rate_en.php', 'label' => 'Hourly Rate Calculator'],
-        ['href' => 'forecast_en_didactic.php', 'label' => 'Annual Forecast (didactic)'],
-      ],
-    ],
-    [
-      'title' => 'Too many asks, not enough paid hours',
-      'description' => 'You are juggling artist support, admin, production calls, and social posts. You need to scope tasks and protect your paid time.',
-      'icon' => '<rect x="4" y="5" width="16" height="14" rx="3"></rect><path d="M8 9h8"></path><path d="M8 12h5"></path><path d="M8 15h3"></path><circle cx="17" cy="14.8" r="2.4"></circle><path d="M17 13.8v1.1l.8.6"></path>',
-      'tools' => [
-        ['href' => 'freelance_services_calculator.php', 'label' => 'Freelance Service Calculator'],
-        ['href' => 'yearly_turnover_calculator_en.php', 'label' => 'Yearly Turnover Calculator'],
-        ['href' => 'fun_calculator_en.php', 'label' => 'Project Dimensions Calculator'],
-      ],
-    ],
-    [
-      'title' => 'A promising project, but risky deal terms',
-      'description' => 'An institution or gallery invites you in, but contract language, rights, and payment timing feel unclear. You want a confident response.',
-      'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="m9.2 15 2.1 2.1 3.8-4"></path>',
-      'tools' => [
-        ['href' => 'agreement_checklist_en.php', 'label' => 'Agreement Checklist (25 points)'],
-        ['href' => 'gallery_contract_reality_check_en.php', 'label' => 'Gallery Contract Reality Check'],
-      ],
-    ],
-    [
-      'title' => 'Trying to pay artists and collaborators fairly',
-      'description' => 'You care about fair remuneration but need concrete fee logic and staff-cost clarity before confirming your proposal.',
-      'icon' => '<circle cx="12" cy="12" r="7.8"></circle><path d="M12 7.8v8.4"></path><path d="M8.7 10.2c0-1.1 1.3-2 3.3-2s3.3.9 3.3 2-1.3 2-3.3 2-3.3.9-3.3 2 1.3 2 3.3 2 3.3-.9 3.3-2"></path>',
-      'tools' => [
-        ['href' => 'honorarium_questionnaire_en.php', 'label' => 'Honorarium Questionnaire'],
-        ['href' => 'personalplanung_en.php', 'label' => 'Staff planning tool (FAIR PAY 2026)'],
-      ],
-    ],
-  ],
-  'section_title' => 'Choose a calculator',
-  'footer' => 'The artbackstage tool collection is in ongoing BETA development as part of the teaching assignment "Art in Context (Law, Money and Fairness)" at Kunstuniversität Linz. No personalized data is stored. Teilweise KI generiert. Keine Haftung.',
-  'tools' => [
-    ['href' => 'forecast_en.php', 'title' => 'Annual Revenue & Profit Forecast', 'description' => 'Full forecast with questionnaire, result sheet, and charts.', 'icon' => '<path d="M4 19.5h16"></path><path d="M6 16l3.2-3.2 2.7 2.6 5-5"></path><circle cx="17" cy="8" r="1.2"></circle>'],
-    ['href' => 'forecast_en_didactic.php', 'title' => 'Annual Revenue & Profit Forecast (didactic)', 'description' => 'Alternative UI with a guided and easier-to-follow flow.', 'icon' => '<rect x="4" y="4" width="16" height="16" rx="2.5"></rect><path d="M8 9.2h8"></path><path d="M8 12h8"></path><path d="M8 14.8h5.2"></path>'],
-    ['href' => 'hourly_rate_en.php', 'title' => 'Hourly Rate Calculator', 'description' => 'Estimate a sustainable hourly fee with 7 questions.', 'icon' => '<circle cx="12" cy="12" r="7.5"></circle><path d="M12 8v4.2l3 1.7"></path>'],
-    ['href' => 'freelance_services_calculator.php', 'title' => 'Freelance Service Calculator', 'description' => 'Select services, set hours, and download a CSV cost summary.', 'icon' => '<path d="M4.5 6.5h15"></path><path d="M4.5 12h15"></path><path d="M4.5 17.5h9"></path><circle cx="18.5" cy="17.5" r="1.3"></circle>'],
-    ['href' => 'yearly_turnover_calculator_en.php', 'title' => 'Yearly Turnover Calculator', 'description' => 'Add your own service rows and see an instant yearly turnover total.', 'icon' => '<path d="M5 6.5h14"></path><path d="M5 11h14"></path><path d="M5 15.5h10"></path><path d="M16.5 15.5h2"></path><path d="M16.5 18.5v-6"></path>'],
-    ['href' => 'net_income_carousel_en.php', 'title' => 'Step-by-step yearly net income', 'description' => 'Interactive walkthrough to understand the net-income calculation.', 'icon' => '<rect x="4" y="5" width="16" height="14" rx="2.5"></rect><path d="M4 10.5h16"></path><path d="M8 14h2"></path><path d="M12 14h4"></path>'],
-    ['href' => 'curator_viability_carousel_en.php', 'title' => 'Curator Freelance Project Viability', 'description' => '13 questions to decide: go, renegotiate, or decline.', 'icon' => '<path d="M9.2 12.2l1.8 1.8 3.8-4"></path><circle cx="12" cy="12" r="8"></circle>'],
-    ['href' => 'gallery_contract_reality_check_en.php', 'title' => 'Gallery Contract Reality Check', 'description' => '12 questions to stress-test gallery deal terms.', 'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 7 19V6a1.5 1.5 0 0 1 1-1.4"></path><path d="M14 4.5V9h4"></path><path d="M9.5 13h5"></path><path d="M9.5 16h5"></path>'],
-    ['href' => 'honorarium_questionnaire_en.php', 'title' => 'Honorarium Questionnaire', 'description' => 'Guided questionnaire in English for estimating fair artist honoraria.', 'icon' => '<circle cx="12" cy="12" r="8"></circle><path d="M9.3 9.7a2.7 2.7 0 1 1 5.1 1.4c-.6.9-1.5 1.3-1.9 2.3"></path><circle cx="12" cy="16.9" r=".8"></circle>'],
-    ['href' => 'salary_data_en.php', 'title' => 'Salary & Fee Data Explorer', 'description' => 'Search 100 art/museum roles and compare salary, day-rate, and project-fee ranges with source links.', 'icon' => '<path d="M5 18h14"></path><path d="M7.5 15V9"></path><path d="M12 15V6"></path><path d="M16.5 15v-3"></path>'],
-    ['href' => 'personalplanung_en.php', 'title' => 'Staff planning tool (FAIR PAY 2026)', 'description' => 'View scale groups/examples and calculate actual salaries by custom hours.', 'icon' => '<path d="M4.5 19.5h15"></path><path d="M6 7.5h12"></path><path d="M8.5 12h2"></path><path d="M13.5 12h2"></path><path d="M8.5 15.5h7"></path>'],
-    ['href' => 'agreement_checklist_en.php', 'title' => 'Agreement Checklist (25 points)', 'description' => 'Interactive 25-point questionnaire with answer quality tracking and full-context popups.', 'icon' => '<path d="M6 5.5h12"></path><path d="M6 10h12"></path><path d="M6 14.5h8"></path><path d="m17.2 17.6 1.8 1.8 3-3"></path>'],
-    ['href' => 'fun_calculator_en.php', 'title' => 'Project Dimensions Calculator', 'description' => 'A radar-based project assessment across 6 dimensions (1–100).', 'icon' => '<path d="M12 4.5v3"></path><path d="M12 16.5v3"></path><path d="m6.3 6.3 2.1 2.1"></path><path d="m15.6 15.6 2.1 2.1"></path><path d="M4.5 12h3"></path><path d="M16.5 12h3"></path><circle cx="12" cy="12" r="3.5"></circle>'],
-  ],
-];
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>artbackstage</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page landing-page">
+    <header class="header landing-header">
+      <div>
+        <p class="eyebrow brand-mark">artbackstage</p>
+        <h1>Choose your entry point</h1>
+        <p class="muted">Three sections, one toolbox: money, law, and social topics for art and cultural practice.</p>
+      </div>
+      <div class="header-actions">
+        <a class="btn btn-outline" href="index.php" lang="de">Deutsch</a>
+      </div>
+    </header>
 
-require __DIR__ . '/landing_page_template.php';
+    <main class="card landing-card">
+      <section class="story-intro" aria-labelledby="areas-title">
+        <h2 id="areas-title">Sections</h2>
+        <p>Select the section you want to start with.</p>
+      </section>
+
+      <div class="card-body landing-links">
+        <a class="tool-link" href="index_money_en.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <circle cx="12" cy="12" r="7.8"></circle><path d="M12 7.8v8.4"></path><path d="M8.7 10.2c0-1.1 1.3-2 3.3-2s3.3.9 3.3 2-1.3 2-3.3 2-3.3.9-3.3 2 1.3 2 3.3 2 3.3-.9 3.3-2"></path>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>artbackstage | Money</h3>
+            <p>Landing page with all finance, offer, and fair-pay calculators.</p>
+          </span>
+        </a>
+
+        <a class="tool-link" href="index_law.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="M9 13h6"></path><path d="M9 16h4"></path>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>artbackstage | Law</h3>
+            <p>Landing page with an entry into copyright basics and legal tools.</p>
+          </span>
+        </a>
+
+        <a class="tool-link" href="index_soziales.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <circle cx="12" cy="8.2" r="3"></circle><path d="M5.5 18.8a6.5 6.5 0 0 1 13 0"></path><path d="M12 12.8v5.7"></path>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>artbackstage | Social</h3>
+            <p>Landing page with scenario-based guidance on social security, income, and fair-pay planning.</p>
+          </span>
+        </a>
+      </div>
+    </main>
+  </div>
+<?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
+</body>
+</html>
