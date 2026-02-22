@@ -13,7 +13,7 @@
       <div>
         <p class="eyebrow brand-mark">artbackstage</p>
         <h1>Wähle deinen Einstieg</h1>
-        <p class="muted">Drei Bereiche, ein Werkzeugkasten: Finanzen, Urheberrecht und Soziales für Kunst- und Kulturpraxis.</p>
+        <p class="muted">Ein Werkzeugkasten: Finanzen, Urheberrecht und Soziales für Kunst- und Kulturpraxis.</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index_en.php" lang="en">English</a>
