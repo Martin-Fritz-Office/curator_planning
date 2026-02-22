@@ -23,6 +23,7 @@ $landingPage = [
       'icon' => '<rect x="4" y="5" width="16" height="14" rx="3"></rect><path d="M8 9h8"></path><path d="M8 12h5"></path><path d="M8 15h3"></path><circle cx="17" cy="14.8" r="2.4"></circle><path d="M17 13.8v1.1l.8.6"></path>',
       'tools' => [
         ['href' => 'freelance_services_calculator.php', 'label' => 'Freelance Service Calculator'],
+        ['href' => 'yearly_turnover_calculator_en.php', 'label' => 'Yearly Turnover Calculator'],
         ['href' => 'fun_calculator_en.php', 'label' => 'Project Dimensions Calculator'],
       ],
     ],
@@ -52,6 +53,7 @@ $landingPage = [
     ['href' => 'forecast_en_didactic.php', 'title' => 'Annual Revenue & Profit Forecast (didactic)', 'description' => 'Alternative UI with a guided and easier-to-follow flow.', 'icon' => '<rect x="4" y="4" width="16" height="16" rx="2.5"></rect><path d="M8 9.2h8"></path><path d="M8 12h8"></path><path d="M8 14.8h5.2"></path>'],
     ['href' => 'hourly_rate_en.php', 'title' => 'Hourly Rate Calculator', 'description' => 'Estimate a sustainable hourly fee with 7 questions.', 'icon' => '<circle cx="12" cy="12" r="7.5"></circle><path d="M12 8v4.2l3 1.7"></path>'],
     ['href' => 'freelance_services_calculator.php', 'title' => 'Freelance Service Calculator', 'description' => 'Select services, set hours, and download a CSV cost summary.', 'icon' => '<path d="M4.5 6.5h15"></path><path d="M4.5 12h15"></path><path d="M4.5 17.5h9"></path><circle cx="18.5" cy="17.5" r="1.3"></circle>'],
+    ['href' => 'yearly_turnover_calculator_en.php', 'title' => 'Yearly Turnover Calculator', 'description' => 'Add your own service rows and see an instant yearly turnover total.', 'icon' => '<path d="M5 6.5h14"></path><path d="M5 11h14"></path><path d="M5 15.5h10"></path><path d="M16.5 15.5h2"></path><path d="M16.5 18.5v-6"></path>'],
     ['href' => 'net_income_carousel_en.php', 'title' => 'Step-by-step yearly net income', 'description' => 'Interactive walkthrough to understand the net-income calculation.', 'icon' => '<rect x="4" y="5" width="16" height="14" rx="2.5"></rect><path d="M4 10.5h16"></path><path d="M8 14h2"></path><path d="M12 14h4"></path>'],
     ['href' => 'curator_viability_carousel_en.php', 'title' => 'Curator Freelance Project Viability', 'description' => '13 questions to decide: go, renegotiate, or decline.', 'icon' => '<path d="M9.2 12.2l1.8 1.8 3.8-4"></path><circle cx="12" cy="12" r="8"></circle>'],
     ['href' => 'gallery_contract_reality_check_en.php', 'title' => 'Gallery Contract Reality Check', 'description' => '12 questions to stress-test gallery deal terms.', 'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 7 19V6a1.5 1.5 0 0 1 1-1.4"></path><path d="M14 4.5V9h4"></path><path d="M9.5 13h5"></path><path d="M9.5 16h5"></path>'],
