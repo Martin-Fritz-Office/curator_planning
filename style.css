@@ -10,8 +10,10 @@
   --headline:#276f49;
   --headline-soft:#35835a;
   --danger:#d13232;
+  --info:#245fa7;
   --shadow:0 1px 2px rgba(31,43,36,0.08), 0 8px 20px rgba(31,43,36,0.10);
   --shadow-soft:0 1px 2px rgba(31,43,36,0.06), 0 10px 24px rgba(31,43,36,0.10);
+  --focus-ring:0 0 0 3px rgba(47,143,91,0.28);
   --radius:10px;
   --gap:18px;
   --font: "Inter", "Avenir Next", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -22,15 +24,16 @@ html,body{height:100%}
 body{
   margin:0;
   font-family:var(--font);
+  font-size:15px;
   background:var(--bg);
   color:var(--text);
-  line-height:1.45;
+  line-height:1.55;
 }
 
 .page{
   max-width:1200px;
   margin:0 auto;
-  padding:24px 20px 28px;
+  padding:28px 20px 32px;
 }
 
 .header{
@@ -40,13 +43,26 @@ body{
   justify-content:space-between;
   margin:0 0 18px;
 }
+
+@media (max-width:900px){
+  .header{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .header-actions{
+    justify-content:flex-start;
+  }
+}
+
 .header h1{
   margin:0;
-  font-size:clamp(1.1rem, 1rem + 0.7vw, 1.45rem);
+  font-size:clamp(1.2rem, 1rem + 0.8vw, 1.6rem);
   letter-spacing:-0.02em;
+  line-height:1.25;
   color:var(--headline);
 }
-.header p{margin:6px 0 0;max-width:64ch;}
+.header p{margin:8px 0 0;max-width:66ch;}
 
 .header-actions{
   display:flex;
@@ -58,7 +74,7 @@ body{
 
 .pill{
   border:1px solid var(--border);
-  background:#fcfcfd;
+  background:#f8fbf9;
   padding:7px 11px;
   border-radius:999px;
   font-size:13px;
@@ -70,14 +86,16 @@ body{
   border:1px solid #7ea58f;
   background:var(--surface);
   color:var(--text);
-  padding:8px 12px;
+  padding:9px 13px;
   border-radius:10px;
   cursor:pointer;
   font-size:13px;
+  font-weight:600;
   transition:background-color .15s ease,border-color .15s ease,transform .1s ease,box-shadow .15s ease;
 }
 .btn:hover{background:var(--surface-soft);border-color:var(--accent);box-shadow:0 2px 8px rgba(47,143,91,0.24)}
 .btn:active{transform:translateY(1px)}
+.btn:focus-visible{outline:none;box-shadow:var(--focus-ring)}
 
 .btn-outline{background:transparent;border-color:#7ea58f}
 
@@ -94,7 +112,7 @@ body{
 }
 .input-inline:focus{
   border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(47,143,91,0.22);
+  box-shadow:var(--focus-ring);
   outline:none;
 }
 
@@ -130,9 +148,9 @@ body{
   overflow:hidden;
 }
 .card-head{
-  padding:13px 16px;
+  padding:14px 16px;
   border-bottom:1px solid var(--border);
-  background:#e4efe8;
+  background:linear-gradient(180deg, #e6f1ea 0%, #e1ece5 100%);
 }
 .card-head h2{
   margin:0;
@@ -142,7 +160,7 @@ body{
   text-transform:uppercase;
   color:var(--headline-soft);
 }
-.card-body{padding:14px 16px 16px}
+.card-body{padding:16px}
 
 .sep{
   border:0;
@@ -222,15 +240,15 @@ input[type="text"]{
 }
 select:focus{
   border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(47,143,91,0.22);
+  box-shadow:var(--focus-ring);
 }
 input[type="number"]:focus{
   border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(47,143,91,0.22);
+  box-shadow:var(--focus-ring);
 }
 input[type="text"]:focus{
   border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(47,143,91,0.22);
+  box-shadow:var(--focus-ring);
 }
 
 input[type="date"],
@@ -246,7 +264,7 @@ textarea{
 input[type="date"]:focus,
 textarea:focus{
   border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(47,143,91,0.22);
+  box-shadow:var(--focus-ring);
 }
 
 .q-full{
@@ -267,6 +285,7 @@ textarea:focus{
 .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .row strong{font-weight:700}
 .row .neg{color:var(--danger);font-weight:700}
+.row span:last-child{text-align:right}
 .small{font-size:12px}
 .muted{color:var(--muted)}
 
@@ -318,6 +337,10 @@ textarea:focus{
 
 .comparison-table th{
   background:#dde9e2;
+}
+
+.comparison-table tbody tr:nth-child(even){
+  background:#fbfdfc;
 }
 
 .comparison-table td.neg{
@@ -456,7 +479,7 @@ textarea:focus{
 
 .story-intro{
   margin-bottom:24px;
-  padding:14px;
+  padding:16px;
   border:1px solid var(--border);
   border-radius:10px;
   background:#fff;
@@ -488,6 +511,7 @@ textarea:focus{
   border-radius:10px;
   background:#fff;
   padding:14px;
+  box-shadow:0 1px 2px rgba(31,43,36,0.05);
 }
 
 .situation-icon{
@@ -514,7 +538,7 @@ textarea:focus{
 }
 
 .situation-tools a{
-  color:#2b6c49;
+  color:#245d3f;
   font-weight:600;
   text-decoration:none;
 }
@@ -538,13 +562,23 @@ textarea:focus{
   border-radius:10px;
   padding:14px;
   background:#fff;
-  transition:border-color .15s ease, transform .12s ease, box-shadow .15s ease;
+  transition:border-color .15s ease, transform .12s ease, box-shadow .15s ease, background-color .15s ease;
 }
 
 .tool-link:hover{
   border-color:#a6b8cb;
   box-shadow:0 8px 18px rgba(15,23,42,0.06);
   transform:translateY(-1px);
+  background:#fcfefd;
+}
+
+.tool-link:focus-visible,
+.situation-tools a:focus-visible,
+.guide-section a:focus-visible,
+.sources-cell a:focus-visible{
+  outline:2px solid transparent;
+  box-shadow:var(--focus-ring);
+  border-radius:8px;
 }
 
 .tool-link h3{
@@ -717,7 +751,7 @@ input[type="text"]{
 }
 input[type="text"]:focus{
   border-color:#56946f;
-  box-shadow:0 0 0 3px rgba(47,143,91,0.16);
+  box-shadow:var(--focus-ring);
 }
 
 .example-block{
@@ -1069,7 +1103,7 @@ input[type="text"]:focus{
 .site-footer{
   max-width:1200px;
   margin:0 auto;
-  padding:0 20px 24px;
+  padding:6px 20px 28px;
   color:var(--muted);
   font-size:12px;
   line-height:1.5;
@@ -1091,7 +1125,7 @@ input[type="text"]:focus{
 .salary-table th,
 .salary-table td{
   border-bottom:1px solid var(--border);
-  padding:9px 8px;
+  padding:10px 8px;
   text-align:left;
   vertical-align:top;
 }
@@ -1106,6 +1140,35 @@ input[type="text"]:focus{
   text-decoration:none;
 }
 .sources-cell a:hover{text-decoration:underline}
+
+@media (max-width:640px){
+  .page{
+    padding:20px 14px 26px;
+  }
+
+  .card-head,
+  .card-body{
+    padding:12px;
+  }
+
+  .header-actions{
+    gap:8px;
+  }
+
+  .comparison-controls select[multiple]{
+    min-width:0;
+    width:100%;
+  }
+
+  .row{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .row span:last-child{
+    text-align:left;
+  }
+}
 
 .salary-pyramid{
   display:flex;
