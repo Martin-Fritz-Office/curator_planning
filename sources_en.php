@@ -16,7 +16,7 @@
         <p class="muted">Collected source links used across the tool pages, grouped by theme.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
       </div>
     </header>
 

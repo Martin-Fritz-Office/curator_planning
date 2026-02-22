@@ -3,7 +3,7 @@ $landingPage = [
   'lang' => 'de',
   'subtitle' => 'Einfacher Einstieg: Situationen verstehen, passende Rechner wählen, sichere Entscheidungen treffen.',
   'home' => ['href' => 'index.php', 'label' => 'Bereichsauswahl'],
-  'language_switch' => ['href' => 'index_en.php', 'label' => 'English'],
+  'language_switch' => ['href' => 'index_money_en.php', 'label' => 'English'],
   'story_intro_title' => 'Dein Einstieg in die Tool-Sammlung',
   'story_intro' => 'Wähle zuerst deine Situation, folge danach dem empfohlenen Ablauf und springe anschließend direkt in die passenden Tools.',
   'situations_title' => 'Typische Situationen und direkte Tool-Empfehlungen',

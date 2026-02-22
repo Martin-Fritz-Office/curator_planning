@@ -16,7 +16,7 @@
         <p class="muted">12 guided questions to stress-test whether a gallery agreement is financially viable.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="gallery_contract_reality_check.php">Deutsch</a>
       </div>
     </header>

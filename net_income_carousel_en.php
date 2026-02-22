@@ -16,7 +16,7 @@
         <p class="muted">Interactive learning sequence to calculate your yearly net income as a freelancer.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="net_income_carousel.php">Deutsch</a>
       </div>
     </header>

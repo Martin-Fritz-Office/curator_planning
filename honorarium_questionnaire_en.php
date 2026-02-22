@@ -16,7 +16,7 @@
         <p class="muted">Guided questions based on the 2026 guideline to estimate a fair artist fee.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="honorarium_questionnaire.php">Deutsch</a>
       </div>
     </header>
