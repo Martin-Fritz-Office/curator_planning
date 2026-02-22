@@ -14,6 +14,7 @@
       <div>
         <h1>Freelance-Service-Rechner</h1>
         <p class="muted">Wähle Tätigkeiten, trage Stunden ein und exportiere die Kosten als CSV.</p>
+        <p class="small muted">Basierend auf den Honorarempfehlungen der <a href="https://igkultur.at/sites/default/files/posts/downloads/2025-10-07/TKI-Honorarspiegel_2026_mit-Erlaeuterungen.pdf" target="_blank" rel="noopener noreferrer">TKI</a>.</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php">Startseite</a>
