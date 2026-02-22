@@ -75,8 +75,6 @@
       </section>
     </main>
   </div>
-  <footer class="site-footer" role="contentinfo">
-    Datenbasis: Statistik Austria (2024), Lohnsteuer- und SV-Daten, ÖNACE 2008-Abschnitte 2023 (ohne Lehrlinge). Teilweise KI generiert. Keine Haftung.
-  </footer>
+<?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
 </body>
 </html>

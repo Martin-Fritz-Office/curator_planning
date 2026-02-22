@@ -103,5 +103,6 @@
       </section>
     </main>
   </div>
+<?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
 </body>
 </html>

@@ -23,7 +23,7 @@
           <span>artbackstage</span>
         </p>
         <h1>Summary: Gender Report in the Fields of Arts and Culture (2017–2021)</h1>
-        <p class="muted">A concise two-page overview of core findings, priority issues, and implementation directions.</p>
+        <p class="muted">A concise two-page overview of core findings, priority issues, and implementation directions.<span data-footnote="Note: This page is a plain-language paraphrase and does not replace the full source document."></span></p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index_soziales.php">Back to Social</a>
@@ -36,7 +36,7 @@
         <h2>Page 1 · Key findings</h2>
       </div>
       <div class="card-body">
-        <p>The 2017–2021 Gender Report for arts and culture indicates clear progress in visibility and participation, while structural inequalities remain persistent in income, employment security, decision-making power, and long-term social protection. Women are strongly represented across many cultural occupations, but this presence does not automatically translate into equal pay, equal access to leadership, or comparable career stability. The report frames gender equality as a structural issue rather than an individual one, closely tied to funding design, institutional routines, and project-based labor conditions.</p>
+        <p>The 2017–2021 Gender Report for arts and culture indicates clear progress in visibility and participation, while structural inequalities remain persistent in income, employment security, decision-making power, and long-term social protection. Women are strongly represented across many cultural occupations, but this presence does not automatically translate into equal pay, equal access to leadership, or comparable career stability. The report frames gender equality as a structural issue rather than an individual one, closely tied to funding design, institutional routines, and project-based labor conditions.<span data-footnote-html="true" data-footnote="Federal Ministry of Housing, Arts, Culture, Media and Sport (BMWKMS), &ldquo;Summary Gender Report in the Fields of Arts and Culture&rdquo;. <a href=&quot;https://www.bmwkms.gv.at/dam/jcr:a9e39f2f-2879-4651-8d05-b8ea0b6f0c2d/Summary_Gender_Report_in_the_Fields_of_Arts_and_Culture_english.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;>Open original PDF</a>."></span></p>
 
         <p>A recurring pattern is the gap between participation and resource allocation. In fields with high female participation, careers are more often characterized by part-time work, short-term contracts, multi-job constellations, and volatile earnings. This increases exposure to precarious work, weak pension trajectories, and financial insecurity over the life course. The report also highlights that unpaid or underpaid labor (such as preparation, follow-up, communication, and networking work) is often unevenly distributed and insufficiently reflected in fee structures and project budgets.</p>
 
@@ -61,14 +61,12 @@
 
         <p>Fifth, the report emphasizes intersectional implementation. Gender equality should be linked with other dimensions of inequality so that policies reach not only majority profiles but also people facing multiple barriers. This includes access to networks, language accessibility in funding communication, regional disparities, and representation of marginalized perspectives in programming.</p>
 
-        <p>In practical terms, durable progress comes less from symbolic gestures and more from continuous data-informed steering. Cultural institutions, funders, and policymakers can achieve the strongest impact by combining transparency, budget fairness, and accountability. The report provides a strong policy basis and demonstrates that measurable progress is possible when structural levers are addressed consistently.</p>
+        <p>In practical terms, durable progress comes less from symbolic gestures and more from continuous data-informed steering. Cultural institutions, funders, and policymakers can achieve the strongest impact by combining transparency, budget fairness, and accountability. The report provides a strong policy basis and demonstrates that measurable progress is possible when structural levers are addressed consistently.<span data-footnote-html="true" data-footnote="BMWKMS, „Gender Report im Bereich Kunst und Kultur 2017–2021“. <a href=&quot;https://www.bmwkms.gv.at/dam/jcr:edd38dda-d743-49cc-95a0-552139f7eb25/Gender_Report_im_Bereich_Kunst_und_Kultur_2017-2021.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;>Open full report</a>."></span></p>
 
-        <hr class="sep" />
-        <p><strong>Source (English):</strong> Federal Ministry of Housing, Arts, Culture, Media and Sport (BMWKMS), “Summary Gender Report in the Fields of Arts and Culture”. <a href="https://www.bmwkms.gv.at/dam/jcr:a9e39f2f-2879-4651-8d05-b8ea0b6f0c2d/Summary_Gender_Report_in_the_Fields_of_Arts_and_Culture_english.pdf" target="_blank" rel="noopener noreferrer">Open original PDF</a>.</p>
-        <p><strong>Source (German):</strong> BMWKMS, „Zusammenfassung Gender Report im Bereich Kunst und Kultur 2017–2021“. <a href="https://www.bmwkms.gv.at/dam/jcr:06423a90-f720-4712-ac84-b3c54b3a6817/Zusammenfassung_Gender_Report_im_Bereich_Kunst_und_Kultur_2017-2021_deutsch.pdf" target="_blank" rel="noopener noreferrer">Original-PDF öffnen</a>.</p>
-        <p class="hint">Note: This page is a plain-language paraphrase and does not replace the full source document.</p>
       </div>
     </main>
+
   </div>
+<?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
 </body>
 </html>

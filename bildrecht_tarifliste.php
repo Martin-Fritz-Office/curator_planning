@@ -68,8 +68,6 @@
       </section>
     </main>
   </div>
-  <footer class="site-footer" role="contentinfo">
-    Datenquelle: bildrecht.at · Stand wird beim Laden aus der Tarifseite aktualisiert (mit Cache-Fallback). Teilweise KI generiert. Keine Haftung.
-  </footer>
+<?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
 </body>
 </html>

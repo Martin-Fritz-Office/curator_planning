@@ -14,6 +14,7 @@
       <div>
         <h1>Personalplanungstool (Alternative Ansicht)</h1>
         <p class="muted">Beschäftigungsgruppe links wählen, Funktion aus Beispielen auswählen, eigenen Titel und Stunden ergänzen – Gehälter und Jahresgesamtkosten werden sofort berechnet.</p>
+        <p class="small muted">Aufbauend auf dem Fair Pay Rechner der KUPF (<a href="https://kupf.at/fairpayrechner/" target="_blank" rel="noopener noreferrer">https://kupf.at/fairpayrechner/</a>) und dem Gehaltschema für Vereine der IG Kultur (<a href="https://igkultur.at/service/verein/gehaltsschema-und-honorarrichtlinien-fuer-kulturarbeit" target="_blank" rel="noopener noreferrer">https://igkultur.at/service/verein/gehaltsschema-und-honorarrichtlinien-fuer-kulturarbeit</a>).</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php">Startseite</a>
@@ -40,8 +41,6 @@
 
     </main>
   </div>
-  <footer class="site-footer" role="contentinfo">
-    Die artbackstage Toolsammlung ist in laufender BETA-Entwicklung als Teil des Lehrauftrags "Kunst im Kontext (Recht, Geld und Fairness) an der Kunstuniversität Linz. Es werden keine personalisierten Daten gespeichert. Teilweise KI generiert. Keine Haftung.
-  </footer>
+<?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
 </body>
 </html>

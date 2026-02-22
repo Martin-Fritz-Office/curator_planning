@@ -14,6 +14,7 @@
       <div>
         <h1>Freelance-Service-Rechner</h1>
         <p class="muted">Wähle Tätigkeiten, trage Stunden ein und exportiere die Kosten als CSV.</p>
+        <p class="small muted">Basierend auf den Honorarempfehlungen der <a href="https://igkultur.at/sites/default/files/posts/downloads/2025-10-07/TKI-Honorarspiegel_2026_mit-Erlaeuterungen.pdf" target="_blank" rel="noopener noreferrer">TKI</a>.</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php">Startseite</a>
@@ -129,8 +130,6 @@
       </section>
     </main>
   </div>
-  <footer class="site-footer" role="contentinfo">
-    Die artbackstage Toolsammlung ist in laufender BETA-Entwicklung als Teil des Lehrauftrags "Kunst im Kontext (Recht, Geld und Fairness) an der Kunstuniversität Linz. Es werden keine personalisierten Daten gespeichert. Teilweise KI generiert. Keine Haftung.
-  </footer>
+<?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
 </body>
 </html>

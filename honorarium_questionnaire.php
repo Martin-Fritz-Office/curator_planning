@@ -14,6 +14,7 @@
       <div>
         <h1>Honorar-Fragebogen für faire Bezahlung</h1>
         <p class="muted">Geführte Fragen auf Basis des Leitfadens 2026, um ein angemessenes Honorar zu schätzen.</p>
+        <p class="muted">Aufbauend auf den Informationsmaterialien der IG Bildende Kunst (<a href="https://igbildendekunst.at/infomaterial/honorare/" target="_blank" rel="noopener noreferrer">https://igbildendekunst.at/infomaterial/honorare/</a>).</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php">Home</a>
@@ -39,8 +40,6 @@
       </div>
     </main>
   </div>
-  <footer class="site-footer" role="contentinfo">
-    Die artbackstage Toolsammlung ist in laufender BETA-Entwicklung als Teil des Lehrauftrags "Kunst im Kontext (Recht, Geld und Fairness) an der Kunstuniversität Linz. Es werden keine personalisierten Daten gespeichert. Teilweise KI generiert. Keine Haftung.
-  </footer>
+<?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
 </body>
 </html>

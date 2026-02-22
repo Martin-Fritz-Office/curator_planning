@@ -23,7 +23,7 @@
           <span>artbackstage</span>
         </p>
         <h1>Zusammenfassung: Gender Report im Bereich Kunst und Kultur (2017–2021)</h1>
-        <p class="muted">Kompakte, zweitseitige Aufbereitung zentraler Befunde, Handlungsfelder und Empfehlungen.</p>
+        <p class="muted">Kompakte, zweitseitige Aufbereitung zentraler Befunde, Handlungsfelder und Empfehlungen.<span data-footnote="Hinweis: Diese Seite ist eine verständliche Zusammenfassung in eigenen Worten und ersetzt nicht die vollständige Lektüre der Originalquelle."></span></p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index_soziales.php">Zurück zu Soziales</a>
@@ -36,7 +36,7 @@
         <h2>Seite 1 · Kernaussagen</h2>
       </div>
       <div class="card-body">
-        <p>Der Gender Report für Kunst und Kultur 2017–2021 zeigt, dass Gleichstellung im Sektor zwar sichtbar vorankommt, sich strukturelle Ungleichheiten aber weiterhin in Einkommen, Beschäftigungsformen, Entscheidungsmacht und Sichtbarkeit niederschlagen. Frauen sind in vielen Kulturberufen stark vertreten, diese Präsenz führt jedoch nicht automatisch zu gleichen Chancen bei Honoraren, Leitungspositionen oder langfristiger sozialer Absicherung. Besonders deutlich wird, dass Gendergerechtigkeit nicht nur eine Frage individueller Karrierewege ist, sondern eng mit den Rahmenbedingungen von Förderpraxis, Institutionenlogik und Projektarbeit zusammenhängt.</p>
+        <p>Der Gender Report für Kunst und Kultur 2017–2021 zeigt, dass Gleichstellung im Sektor zwar sichtbar vorankommt, sich strukturelle Ungleichheiten aber weiterhin in Einkommen, Beschäftigungsformen, Entscheidungsmacht und Sichtbarkeit niederschlagen. Frauen sind in vielen Kulturberufen stark vertreten, diese Präsenz führt jedoch nicht automatisch zu gleichen Chancen bei Honoraren, Leitungspositionen oder langfristiger sozialer Absicherung. Besonders deutlich wird, dass Gendergerechtigkeit nicht nur eine Frage individueller Karrierewege ist, sondern eng mit den Rahmenbedingungen von Förderpraxis, Institutionenlogik und Projektarbeit zusammenhängt.<span data-footnote-html="true" data-footnote="Bundesministerium für Wohnen, Kunst, Kultur, Medien und Sport (BMWKMS), „Gender Report im Bereich Kunst und Kultur 2017–2021“. <a href=&quot;https://www.bmwkms.gv.at/dam/jcr:edd38dda-d743-49cc-95a0-552139f7eb25/Gender_Report_im_Bereich_Kunst_und_Kultur_2017-2021.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;>Vollständigen Report öffnen</a>."></span></p>
 
         <p>Ein zentrales Muster ist die Schere zwischen hoher Beteiligung und ungleicher Verteilung von Ressourcen. In Bereichen mit hohem Frauenanteil sind Erwerbsbiografien häufiger von Teilzeit, Projektverträgen, Mehrfachbeschäftigung und Einkommensschwankungen geprägt. Dadurch steigt das Risiko für prekäre Erwerbssituationen, erschwerten Vermögensaufbau und Lücken in der Altersvorsorge. Gleichzeitig zeigt der Bericht, dass unbezahlte oder unterbezahlte Tätigkeiten (z. B. Vor- und Nachbereitung, Sichtbarkeitsarbeit, Netzwerkpflege) oftmals auf Frauen überproportional entfallen und in Förder- und Budgetlogiken nicht ausreichend eingepreist werden.</p>
 
@@ -61,14 +61,12 @@
 
         <p>Fünftens wird intersektionales Vorgehen als Schlüssel betont: Geschlechtergerechtigkeit sollte mit weiteren Dimensionen sozialer Ungleichheit zusammengedacht werden, damit Maßnahmen nicht nur Durchschnittsgruppen erreichen, sondern auch Personen in mehrfach benachteiligten Positionen. Das betrifft insbesondere Zugang zu Netzwerken, Förderberatung, Sprachbarrieren, regionale Unterschiede und die Sichtbarkeit marginalisierter Perspektiven im Programm.</p>
 
-        <p>Für die Praxis bedeutet das: Gleichstellung entsteht weniger durch einmalige Symbolmaßnahmen als durch kontinuierliche, datenbasierte Steuerung. Institutionen, Fördergeber und Kulturpolitik können den größten Effekt erzielen, wenn sie Transparenz, Budgetgerechtigkeit und Rechenschaftspflichten miteinander verbinden. Der Gender Report liefert dafür eine belastbare Grundlage und zeigt, dass Fortschritt möglich ist, wenn strukturelle Stellschrauben konsequent bearbeitet werden.</p>
+        <p>Für die Praxis bedeutet das: Gleichstellung entsteht weniger durch einmalige Symbolmaßnahmen als durch kontinuierliche, datenbasierte Steuerung. Institutionen, Fördergeber und Kulturpolitik können den größten Effekt erzielen, wenn sie Transparenz, Budgetgerechtigkeit und Rechenschaftspflichten miteinander verbinden. Der Gender Report liefert dafür eine belastbare Grundlage und zeigt, dass Fortschritt möglich ist, wenn strukturelle Stellschrauben konsequent bearbeitet werden.<span data-footnote-html="true" data-footnote="BMWKMS, &ldquo;Summary Gender Report in the Fields of Arts and Culture&rdquo;. <a href=&quot;https://www.bmwkms.gv.at/dam/jcr:a9e39f2f-2879-4651-8d05-b8ea0b6f0c2d/Summary_Gender_Report_in_the_Fields_of_Arts_and_Culture_english.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;>Open original PDF</a>."></span></p>
 
-        <hr class="sep" />
-        <p><strong>Quelle (Deutsch):</strong> Bundesministerium für Wohnen, Kunst, Kultur, Medien und Sport (BMWKMS), „Zusammenfassung Gender Report im Bereich Kunst und Kultur 2017–2021“. <a href="https://www.bmwkms.gv.at/dam/jcr:06423a90-f720-4712-ac84-b3c54b3a6817/Zusammenfassung_Gender_Report_im_Bereich_Kunst_und_Kultur_2017-2021_deutsch.pdf" target="_blank" rel="noopener noreferrer">Original-PDF öffnen</a>.</p>
-        <p><strong>Quelle (English):</strong> BMWKMS, “Summary Gender Report in the Fields of Arts and Culture”. <a href="https://www.bmwkms.gv.at/dam/jcr:a9e39f2f-2879-4651-8d05-b8ea0b6f0c2d/Summary_Gender_Report_in_the_Fields_of_Arts_and_Culture_english.pdf" target="_blank" rel="noopener noreferrer">Open original PDF</a>.</p>
-        <p class="hint">Hinweis: Diese Seite ist eine verständliche Zusammenfassung in eigenen Worten und ersetzt nicht die vollständige Lektüre der Originalquelle.</p>
       </div>
     </main>
+
   </div>
+<?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
 </body>
 </html>
