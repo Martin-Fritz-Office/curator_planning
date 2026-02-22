@@ -127,8 +127,6 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
       </div>
     </main>
   </div>
-  <footer class="site-footer" role="contentinfo">
-    <?= $e($landingPage['footer']) ?>
-  </footer>
+<?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
 </body>
 </html>
