@@ -13,7 +13,20 @@
 
   if (!nodes.table) return;
 
-  const EUR = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Number(n) || 0);
+  const lang = document.body?.dataset?.lang === 'de' ? 'de' : 'en';
+  const copy = lang === 'de'
+    ? {
+      all: 'Alle',
+      matchingRoles: 'passende Rollen',
+      loadError: 'Gehaltsdatensatz konnte nicht geladen werden.',
+    }
+    : {
+      all: 'All',
+      matchingRoles: 'matching roles',
+      loadError: 'Could not load salary dataset.',
+    };
+
+  const EUR = (n) => new Intl.NumberFormat(lang === 'de' ? 'de-DE' : 'en-US', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Number(n) || 0);
 
   function parseCSV(text) {
     const rows = [];
@@ -84,7 +97,7 @@
   }
 
   function fillSelect(select, values) {
-    select.innerHTML = ['<option value="">All</option>']
+    select.innerHTML = [`<option value="">${copy.all}</option>`]
       .concat(values.map((v) => `<option value="${v}">${v}</option>`))
       .join('');
   }
@@ -147,7 +160,7 @@
           && (rangeFrom(r.gross_salary_eur_per_year_range).max >= min);
       });
 
-      nodes.count.textContent = `${filtered.length} matching roles`;
+      nodes.count.textContent = `${filtered.length} ${copy.matchingRoles}`;
       renderTable(filtered);
       renderPyramid(filtered.length ? filtered : data);
     }
@@ -165,6 +178,6 @@
     .then(parseCSV)
     .then(setup)
     .catch(() => {
-      nodes.count.textContent = 'Could not load salary dataset.';
+      nodes.count.textContent = copy.loadError;
     });
 })();
