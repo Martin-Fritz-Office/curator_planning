@@ -12,8 +12,8 @@
     <header class="header landing-header">
       <div>
         <p class="eyebrow brand-mark">artbackstage</p>
-        <h1>Choose your entry point</h1>
-        <p class="muted">Three sections, one toolbox: money, law, and social topics for art and cultural practice.</p>
+        <h1>Choose your starting point</h1>
+        <p class="muted">Three sections, one toolbox: money, law, and social topics for artistic and cultural practice.</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php" lang="de">Deutsch</a>
@@ -23,7 +23,7 @@
     <main class="card landing-card">
       <section class="story-intro" aria-labelledby="areas-title">
         <h2 id="areas-title">Sections</h2>
-        <p>Select the section you want to start with.</p>
+        <p>Select the section you would like to explore first.</p>
       </section>
 
       <div class="card-body landing-links">
@@ -35,7 +35,7 @@
           </span>
           <span class="tool-link-content">
             <h3>artbackstage | Money</h3>
-            <p>Landing page with all finance, offer, and fair-pay calculators.</p>
+            <p>Overview page for budgeting, pricing, and fair-pay calculators.</p>
           </span>
         </a>
 
@@ -47,7 +47,7 @@
           </span>
           <span class="tool-link-content">
             <h3>artbackstage | Law</h3>
-            <p>Landing page with an entry into copyright basics and legal tools.</p>
+            <p>Overview page for copyright basics and legal support tools.</p>
           </span>
         </a>
 
@@ -59,7 +59,7 @@
           </span>
           <span class="tool-link-content">
             <h3>artbackstage | Social</h3>
-            <p>Landing page with scenario-based guidance on social security, income, and fair-pay planning.</p>
+            <p>Overview page with scenario-based guidance on social security, income, and fair-pay planning.</p>
           </span>
         </a>
       </div>
