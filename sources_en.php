@@ -13,7 +13,7 @@
       <div>
         <p class="eyebrow brand-mark">artbackstage</p>
         <h1>Sources</h1>
-        <p class="muted">Collected source links used across the tool pages, grouped by theme.</p>
+        <p class="muted">Collected source references used across the tool pages, organized by theme.</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index_money_en.php">Home</a>
@@ -22,7 +22,7 @@
 
     <main class="card" aria-labelledby="sources-themes-title">
       <div class="card-head">
-        <h2 id="sources-themes-title">By theme</h2>
+        <h2 id="sources-themes-title">Browse by theme</h2>
       </div>
       <div class="card-body">
         <section>

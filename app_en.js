@@ -63,7 +63,7 @@
         { k: "C", label: "mostly" },
         { k: "D", label: "exclusively" },
       ],
-      hint: "Indicator for stability/plannability (not a strict euro formula).",
+      hint: "Indicator of stability and planning reliability (not a strict euro formula).",
     },
     {
       key: "q5",
@@ -82,7 +82,7 @@
         { k: "A", label: "no" },
         { k: "B", label: "1–2/year" },
         { k: "C", label: "3–5/year" },
-        { k: "D", label: "regularly (>5)" },
+        { k: "D", label: "regularly (more than 5)" },
       ],
     },
     {
@@ -90,8 +90,8 @@
       title: "Day rate for consulting/jury (gross)?",
       options: [
         { k: "A", label: "under €300" },
-        { k: "B", label: "300–450 €" },
-        { k: "C", label: "450–650 €" },
+        { k: "B", label: "€300–€450" },
+        { k: "C", label: "€450–€650" },
         { k: "D", label: "over €650" },
       ],
     },
