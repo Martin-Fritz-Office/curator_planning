@@ -29,6 +29,7 @@
     q19: "C",
     q20: "B",
     q21: "A",
+    q22: "A",
   };
 
   const MAP = {
@@ -49,6 +50,7 @@
     targetNet: { A: 18000, B: 26000, C: 37500, D: 52000 },
     reserveRate: { A: 0.15, B: 0.12, C: 0.1, D: 0.08 },
     typologyStabilityScore: { A: 0.1, B: 0.35, C: 0.7, D: 1.0 },
+    salesIncome: { A: 0, B: 1200, C: 4000, D: 8000 },
   };
 
   const DEFAULT_LABELS = {
@@ -59,6 +61,7 @@
       "Teaching",
       "Grants / scholarships",
       "Support",
+      "Sales revenue",
     ],
     costs: ["Fixed costs", "Variable project costs", "Social insurance & provision", "Taxes"],
     typology: {
@@ -134,8 +137,9 @@
 
     const grants = MAP.grants[answers.q10];
     const support = MAP.supportIncome[answers.q21];
+    const sales = MAP.salesIncome[answers.q22] * stability;
 
-    const revenue = curatorial + texts + consulting + teaching + grants;
+    const revenue = curatorial + texts + consulting + teaching + grants + sales;
 
     const fixAnnual = MAP.fixMonthly[answers.q15] * 12;
 
@@ -169,6 +173,7 @@
       { name: labels.income[3], value: Math.max(0, teaching) },
       { name: labels.income[4], value: Math.max(0, grants) },
       { name: labels.income[5], value: Math.max(0, support) },
+      { name: labels.income[6], value: Math.max(0, sales) },
     ].filter((d) => d.value > 0);
 
     const costPie = [

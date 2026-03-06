@@ -241,6 +241,17 @@
       ],
       hint: "Zusätzliche private oder institutionelle Unterstützung pro Jahr.",
     },
+    {
+      key: "q22",
+      title: "Hast Du etwas zu verkaufen?",
+      options: [
+        { k: "A", label: "nein" },
+        { k: "B", label: "bis 2.000 €/Jahr" },
+        { k: "C", label: "2.000–6.000 €/Jahr" },
+        { k: "D", label: "über 6.000 €/Jahr" },
+      ],
+      hint: "Einnahmen aus dem Verkauf von Werken, Publikationen o. ä.",
+    },
   ];
 
   const QUESTION_GROUPS = [
@@ -252,7 +263,7 @@
     {
       title: "Einnahmenquellen",
       description: "Zusätzliche Erlösströme neben der klassischen Projektarbeit.",
-      keys: ["q5", "q6", "q7", "q10", "q17", "q18", "q21"],
+      keys: ["q5", "q6", "q7", "q10", "q17", "q18", "q21", "q22"],
     },
     {
       title: "Auslastung & Planbarkeit",
@@ -276,6 +287,7 @@
       "Lehre",
       "Förderungen / Stipendien",
       "Unterstützung",
+      "Verkaufserlöse",
     ],
     costs: ["Fixkosten", "Variable Projektkosten", "SV & Vorsorge", "Steuern"],
     typology: {

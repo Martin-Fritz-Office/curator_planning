@@ -241,6 +241,17 @@
       ],
       hint: "Additional private or institutional support per year.",
     },
+    {
+      key: "q22",
+      title: "Do you have something to sell?",
+      options: [
+        { k: "A", label: "no" },
+        { k: "B", label: "up to €2,000/year" },
+        { k: "C", label: "€2,000–€6,000/year" },
+        { k: "D", label: "over €6,000/year" },
+      ],
+      hint: "Income from selling works, publications, or similar.",
+    },
   ];
 
   const QUESTION_GROUPS = [
@@ -252,7 +263,7 @@
     {
       title: "Income streams",
       description: "Additional revenue sources besides project fees.",
-      keys: ["q5", "q6", "q7", "q10", "q17", "q18", "q21"],
+      keys: ["q5", "q6", "q7", "q10", "q17", "q18", "q21", "q22"],
     },
     {
       title: "Workload & predictability",
@@ -276,6 +287,7 @@
       "Teaching",
       "Grants / scholarships",
       "Support",
+      "Sales revenue",
     ],
     costs: ["Fixed costs", "Variable project costs", "Social insurance & provision", "Taxes"],
     typology: {
