@@ -36,7 +36,7 @@
     },
     {
       key: "q2",
-      title: "Wie viele kuratorische Projekte pro Jahr sind realistisch?",
+      title: "Wie viele kuratorische oder künstlerische Projekte pro Jahr sind realistisch?",
       options: [
         { k: "A", label: "1–3" },
         { k: "B", label: "4–6" },
