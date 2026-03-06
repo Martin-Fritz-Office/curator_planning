@@ -36,10 +36,10 @@
     },
     {
       key: "q2",
-      title: "Wie viele kuratorische Projekte pro Jahr realistisch?",
+      title: "Wie viele kuratorische Projekte pro Jahr sind realistisch?",
       options: [
-        { k: "A", label: "3–4" },
-        { k: "B", label: "5–6" },
+        { k: "A", label: "1–3" },
+        { k: "B", label: "4–6" },
         { k: "C", label: "7–9" },
         { k: "D", label: "10+" },
       ],
@@ -63,7 +63,7 @@
         { k: "C", label: "überwiegend" },
         { k: "D", label: "ausschließlich" },
       ],
-      hint: "Indikator für Stabilität/Planbarkeit (keine harte Euro-Logik).",
+      hint: "Indikator für Stabilität/Planbarkei.",
     },
     {
       key: "q5",
@@ -87,7 +87,7 @@
     },
     {
       key: "q7",
-      title: "Tagessatz bei Beratung/Jury (brutto)?",
+      title: "Tagessatz bei Beratung/Jury oder Recherche (brutto)?",
       options: [
         { k: "A", label: "unter 300 €" },
         { k: "B", label: "300–450 €" },
@@ -190,7 +190,7 @@
     },
     {
       key: "q17",
-      title: "Wie viele Lehraufträge hast du pro Jahr?",
+      title: "Wie viele andere Aufträge hast du pro Jahr?",
       options: [
         { k: "A", label: "0" },
         { k: "B", label: "1–2" },
@@ -200,7 +200,7 @@
     },
     {
       key: "q18",
-      title: "Durchschnittliches Honorar pro Lehrauftrag (brutto)?",
+      title: "Durchschnittliches Honorar pro Auftrag (brutto)?",
       options: [
         { k: "A", label: "unter 500 €" },
         { k: "B", label: "500–1.000 €" },
@@ -214,8 +214,8 @@
       options: [
         { k: "A", label: "<20.000 €" },
         { k: "B", label: "20.000–30.000 €" },
-        { k: "C", label: "30.000–45.000 €" },
-        { k: "D", label: ">45.000 €" },
+        { k: "C", label: "30.000–40.000 €" },
+        { k: "D", label: ">40.000 €" },
       ],
       hint: "Nur für Gap-Analyse, nicht als Input für Umsatzberechnung.",
     },
