@@ -13,7 +13,7 @@
     <header class="header">
       <div>
         <h1>Hourly Rate Calculator (Freelance Curator)</h1>
-        <p class="muted">7 questions to estimate a sustainable freelance hourly rate.</p>
+        <p class="muted">8 questions to estimate a sustainable freelance hourly rate.</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index_money_en.php">Home</a>
@@ -37,8 +37,8 @@
               <input id="professionalCosts" type="number" min="0" step="50" value="1000" />
             </label>
             <label class="q">
-              <span>3) Which multiplier do you use for social insurance &amp; taxes? (1.5 to 1.8)</span>
-              <input id="taxMultiplier" type="number" min="1.5" max="1.8" step="0.1" value="1.6" />
+              <span>3) Which multiplier do you use for social insurance &amp; taxes? (e.g. 1.6 for average income)</span>
+              <input id="taxMultiplier" type="number" min="1.0" max="2.5" step="0.05" value="1.6" />
             </label>
             <label class="q">
               <span>4) How many hours per week can you work?</span>
@@ -56,6 +56,10 @@
               <span>7) How many weeks per year are you sick?</span>
               <input id="sickWeeks" type="number" min="0" max="52" step="1" value="2" />
             </label>
+            <label class="q">
+              <span>8) What percentage of your working time goes to acquisition &amp; admin (non-billable)?</span>
+              <input id="adminShare" type="number" min="0" max="80" step="5" value="20" />
+            </label>
           </div>
         </div>
       </section>
@@ -66,7 +70,7 @@
         </div>
         <div class="card-body">
           <div class="sheet" id="hourlySheet"></div>
-          <p class="small muted">Note: Monthly gross living need = monthly private net need × multiplier; hourly rate = (monthly gross need + monthly costs) ÷ monthly billable hours.</p>
+          <p class="small muted">Note: Gross need = net need × multiplier; billable hours = (yearly hours − vacation/sickness) × billable share × (1 − acquisition/admin share); minimum rate = (gross need + costs) ÷ monthly billable hours.</p>
         </div>
       </section>
     </main>

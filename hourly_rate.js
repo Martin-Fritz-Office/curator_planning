@@ -13,26 +13,32 @@
     de: {
       yearlyHours: "Jahresstunden (Wochenstunden × 52)",
       workingHours: "Arbeitsstunden nach Urlaub/Krankheit",
-      billableHoursYear: "Verrechenbare Stunden/Jahr",
+      billableHoursYear: "Verrechenbare Stunden/Jahr (nach Akquise/Verwaltung)",
       billableHoursMonth: "Verrechenbare Stunden/Monat",
       billableRatio: "Verrechenbarkeitsquote",
+      adminShare: "Akquise-/Verwaltungsanteil",
+      effectiveTaxMultiplier: "Effektiver Steuermultiplikator",
       monthlyNeedNet: "Monatlicher Bedarf privat netto",
       monthlyNeedGross: "Monatlicher Bedarf privat brutto",
       monthlyTarget: "Monatliches Ziel (Bedarf privat brutto + Betriebskosten)",
-      recommendedHourly: "Empfohlener Stundenhonorar-Satz",
-      info: "Formel: Bedarf brutto = Bedarf privat netto × Multiplikator; Stundenhonorar = (Bedarf brutto + monatliche Kosten) ÷ verrechenbare Stunden pro Monat.",
+      recommendedHourly: "Mindestsatz (empfohlenes Stundenhonorar)",
+      negotiationTarget: "Verhandlungsziel (+20 % Risikopuffer)",
+      info: "Formel: Bedarf brutto = Nettobedarf × Multiplikator; verrechenbare Stunden = (Jahresstunden − Urlaub/Krankheit) × Verrechenbarkeitsquote × (1 − Akquise/Verwaltungsanteil); Mindestsatz = (Bedarf brutto + Kosten) ÷ verrechenbare Stunden/Monat.",
     },
     en: {
       yearlyHours: "Yearly hours (weekly hours × 52)",
       workingHours: "Working hours after vacation/sickness",
-      billableHoursYear: "Billable hours per year",
+      billableHoursYear: "Billable hours per year (after acquisition/admin)",
       billableHoursMonth: "Billable hours per month",
       billableRatio: "Billable share",
+      adminShare: "Acquisition/admin share",
+      effectiveTaxMultiplier: "Effective tax multiplier",
       monthlyNeedNet: "Monthly private net need",
       monthlyNeedGross: "Monthly private gross need",
       monthlyTarget: "Monthly target (gross private need + costs)",
-      recommendedHourly: "Recommended hourly rate",
-      info: "Formula: Gross need = private net need × multiplier; Hourly rate = (gross monthly need + monthly costs) ÷ billable monthly hours.",
+      recommendedHourly: "Minimum rate (recommended hourly rate)",
+      negotiationTarget: "Negotiation target (+20% risk buffer)",
+      info: "Formula: Gross need = net need × multiplier; billable hours = (yearly hours − vacation/sickness) × billable share × (1 − acquisition/admin share); minimum rate = (gross need + costs) ÷ monthly billable hours.",
     },
   };
 
@@ -44,6 +50,7 @@
     "billableWeeklyHours",
     "vacationWeeks",
     "sickWeeks",
+    "adminShare",
   ];
 
   const inputs = Object.fromEntries(
@@ -58,11 +65,12 @@
   function recalc() {
     const monthlyNeedNet = n("monthlyNeed");
     const professionalCosts = n("professionalCosts");
-    const taxMultiplier = Math.min(1.8, Math.max(1.5, n("taxMultiplier") || 1.6));
+    const taxMultiplier = Math.min(2.5, Math.max(1.0, n("taxMultiplier") || 1.6));
     const weeklyHours = Math.max(1, n("weeklyHours"));
     const billableWeeklyHours = Math.min(n("billableWeeklyHours"), weeklyHours);
     const vacationWeeks = n("vacationWeeks");
     const sickWeeks = n("sickWeeks");
+    const adminShare = Math.min(0.8, Math.max(0, (n("adminShare") || 0) / 100));
 
     const yearlyHours = weeklyHours * 52;
     const workingHours = Math.max(
@@ -70,22 +78,26 @@
       yearlyHours - vacationWeeks * weeklyHours - sickWeeks * weeklyHours
     );
     const billableRatio = weeklyHours > 0 ? billableWeeklyHours / weeklyHours : 0;
-    const billableHoursYear = Math.max(1, workingHours * billableRatio);
+    const billableHoursYear = Math.max(1, workingHours * billableRatio * (1 - adminShare));
     const billableHoursMonth = Math.max(1, billableHoursYear / 12);
     const monthlyNeedGross = monthlyNeedNet * taxMultiplier;
     const monthlyTarget = monthlyNeedGross + professionalCosts;
     const hourlyRate = monthlyTarget / billableHoursMonth;
+    const negotiationRate = hourlyRate * 1.2;
 
     sheet.innerHTML = `
       <div class="row"><span>${labels[lang].yearlyHours}</span><strong>${yearlyHours.toFixed(0)} h</strong></div>
       <div class="row"><span>${labels[lang].workingHours}</span><strong>${workingHours.toFixed(0)} h</strong></div>
+      <div class="row"><span>${labels[lang].billableRatio}</span><strong>${(billableRatio * 100).toFixed(1)}%</strong></div>
+      <div class="row"><span>${labels[lang].adminShare}</span><strong>${(adminShare * 100).toFixed(0)}%</strong></div>
       <div class="row"><span>${labels[lang].billableHoursYear}</span><strong>${billableHoursYear.toFixed(0)} h</strong></div>
       <div class="row"><span>${labels[lang].billableHoursMonth}</span><strong>${billableHoursMonth.toFixed(1)} h</strong></div>
-      <div class="row"><span>${labels[lang].billableRatio}</span><strong>${(billableRatio * 100).toFixed(1)}%</strong></div>
+      <div class="row"><span>${labels[lang].effectiveTaxMultiplier}</span><strong>${taxMultiplier.toFixed(2)}</strong></div>
       <div class="row"><span>${labels[lang].monthlyNeedNet}</span><strong>${EUR(monthlyNeedNet)}</strong></div>
       <div class="row"><span>${labels[lang].monthlyNeedGross}</span><strong>${EUR(monthlyNeedGross)}</strong></div>
       <div class="row"><span>${labels[lang].monthlyTarget}</span><strong>${EUR(monthlyTarget)}</strong></div>
       <div class="row"><span>${labels[lang].recommendedHourly}</span><strong>${EUR(hourlyRate)}</strong></div>
+      <div class="row"><span>${labels[lang].negotiationTarget}</span><strong>${EUR(negotiationRate)}</strong></div>
       <p class="small muted">${labels[lang].info}</p>
     `;
   }
