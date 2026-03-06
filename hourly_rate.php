@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Stundensatz-Rechner (Freelance Curator)</title>
+  <title>Stundensatz-Rechner</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="hourly_rate.js"></script>
 </head>
@@ -37,7 +37,7 @@
               <input id="professionalCosts" type="number" min="0" step="50" value="1000" />
             </label>
             <label class="q">
-              <span>3) Welchen Multiplikator nutzt du für Sozialversicherung &amp; Steuern? (1,5 bis 1,8)</span>
+              <span>3) Multiplikator / Pauschalwert für Sozialversicherung &amp; Steuern? (1,5 bis 1,8)</span>
               <input id="taxMultiplier" type="number" min="1.5" max="1.8" step="0.1" value="1.6" />
             </label>
             <label class="q">
@@ -45,7 +45,7 @@
               <input id="weeklyHours" type="number" min="1" step="1" value="35" />
             </label>
             <label class="q">
-              <span>5) Wie viele dieser Stunden kannst du im Durchschnitt verrechnen?</span>
+              <span>5) Wie viele dieser Stunden kannst du im Durchschnitt an jemanden verrechnen?</span>
               <input id="billableWeeklyHours" type="number" min="0" step="1" value="24" />
             </label>
             <label class="q">
