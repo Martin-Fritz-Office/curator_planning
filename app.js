@@ -284,7 +284,7 @@
       "Kuratorische Honorare",
       "Texte & Publikationen",
       "Beratung / Jury",
-      "Lehre",
+      "andere Aufträge",
       "Förderungen / Stipendien",
       "Unterstützung",
       "Verkaufserlöse",
@@ -523,8 +523,9 @@
       { label: "Kuratorische Honorare", value: c.curatorial, formatted: EUR(c.curatorial) },
       { label: "Texte & Publikationen", value: c.texts, formatted: EUR(c.texts) },
       { label: "Beratung / Jury", value: c.consulting, formatted: EUR(c.consulting) },
-      { label: "Lehre", value: c.teaching, formatted: EUR(c.teaching) },
+      { label: "andere Aufträge", value: c.teaching, formatted: EUR(c.teaching) },
       { label: "Förderungen / Stipendien", value: c.grants, formatted: EUR(c.grants) },
+      { label: "Verkäufe", value: c.sales, formatted: EUR(c.sales) },
       { label: "Gesamtumsatz", value: c.revenue, formatted: EUR(c.revenue) },
       { label: "Fixkosten (jährlich)", value: c.fixAnnual, formatted: EUR(c.fixAnnual) },
       { label: "Variable Projektkosten", value: c.varAnnual, formatted: EUR(c.varAnnual) },
@@ -794,8 +795,9 @@
     sheetEl.appendChild(sheetRow("Kuratorische Honorare", EUR(c.curatorial)));
     sheetEl.appendChild(sheetRow("Texte & Publikationen", EUR(c.texts)));
     sheetEl.appendChild(sheetRow("Beratung / Jury", EUR(c.consulting)));
-    sheetEl.appendChild(sheetRow("Lehre", EUR(c.teaching)));
+    sheetEl.appendChild(sheetRow("andere Aufträge", EUR(c.teaching)));
     sheetEl.appendChild(sheetRow("Förderungen / Stipendien", EUR(c.grants)));
+    sheetEl.appendChild(sheetRow("Verkäufe", EUR(c.sales)));
 
     sheetEl.appendChild(document.createElement("hr")).className = "sep";
 

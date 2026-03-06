@@ -284,7 +284,7 @@
       "Curatorial fees",
       "Texts & publications",
       "Consulting / jury",
-      "Teaching",
+      "Other assignments",
       "Grants / scholarships",
       "Support",
       "Sales revenue",
@@ -523,8 +523,9 @@
       { label: "Curatorial fees", value: c.curatorial, formatted: EUR(c.curatorial) },
       { label: "Texts & publications", value: c.texts, formatted: EUR(c.texts) },
       { label: "Consulting / jury", value: c.consulting, formatted: EUR(c.consulting) },
-      { label: "Teaching", value: c.teaching, formatted: EUR(c.teaching) },
+      { label: "Other assignments", value: c.teaching, formatted: EUR(c.teaching) },
       { label: "Grants / scholarships", value: c.grants, formatted: EUR(c.grants) },
+      { label: "Sales", value: c.sales, formatted: EUR(c.sales) },
       { label: "Total revenue", value: c.revenue, formatted: EUR(c.revenue) },
       { label: "Fixed costs (annual)", value: c.fixAnnual, formatted: EUR(c.fixAnnual) },
       { label: "Variable project costs", value: c.varAnnual, formatted: EUR(c.varAnnual) },
@@ -795,8 +796,9 @@
     sheetEl.appendChild(sheetRow("Curatorial fees", EUR(c.curatorial)));
     sheetEl.appendChild(sheetRow("Texts & publications", EUR(c.texts)));
     sheetEl.appendChild(sheetRow("Consulting / jury", EUR(c.consulting)));
-    sheetEl.appendChild(sheetRow("Teaching", EUR(c.teaching)));
+    sheetEl.appendChild(sheetRow("Other assignments", EUR(c.teaching)));
     sheetEl.appendChild(sheetRow("Grants / scholarships", EUR(c.grants)));
+    sheetEl.appendChild(sheetRow("Sales", EUR(c.sales)));
 
     sheetEl.appendChild(document.createElement("hr")).className = "sep";
 
