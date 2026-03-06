@@ -12,7 +12,7 @@
   <div class="page">
     <header class="header">
       <div>
-        <h1>Stundensatz-Rechner (Freelance Curator)</h1>
+        <h1>Stundensatz-Rechner</h1>
         <p class="muted">7 Fragen zur Abschätzung eines tragfähigen Stundenhonorars.</p>
       </div>
       <div class="header-actions">
