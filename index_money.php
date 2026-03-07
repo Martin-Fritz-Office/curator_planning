@@ -1,7 +1,7 @@
 <?php
 $landingPage = [
   'lang' => 'de',
-  'subtitle' => 'Kenne deine Zahlen. Schütze deine Zeit. Arbeite nachhaltig.',
+  'subtitle' => 'Kenne deine Zahlen.',
   'home' => ['href' => 'index.php', 'label' => 'Bereichsauswahl'],
   'language_switch' => ['href' => 'index_money_en.php', 'label' => 'English'],
   'credibility_badge' => [
@@ -25,7 +25,7 @@ $landingPage = [
     ],
   ],
   'story_intro_title' => 'Dein Einstieg in die Tool-Sammlung',
-  'story_intro' => 'Die meisten Kulturarbeiter*innen verlangen zu wenig, liefern zu viel und unterschreiben Verträge, die sie später bereuen. Diese Tools sind dazu da, das zu ändern — eine Entscheidung nach der anderen.',
+  'story_intro' => 'Viele in der Kultur Tätigen verlangen zu wenig, liefern zu viel und unterschreiben Verträge ohne auf Details zu achten. Diese Tools sind dazu da, das zu ändern — eine Entscheidung nach der anderen.',
   'situations_title' => 'Typische Situationen und direkte Tool-Empfehlungen',
   'situations' => [
     [
