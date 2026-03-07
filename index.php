@@ -35,7 +35,7 @@
             </svg>
           </span>
           <span class="tool-link-content">
-            <h3>artbackstage | Money</h3>
+            <h3>artbackstage | Geld</h3>
             <p>Landingpage mit allen Finanz-, Angebots- und Fair-Pay-Rechnern.</p>
           </span>
         </a>
@@ -47,7 +47,7 @@
             </svg>
           </span>
           <span class="tool-link-content">
-            <h3>artbackstage | Law</h3>
+            <h3>artbackstage | Recht</h3>
             <p>Landingpage mit Einstieg ins UrhG-Quiz und Rechtsgrundlagen.</p>
           </span>
         </a>
