@@ -78,6 +78,10 @@
     const hourlyRate = monthlyTarget / billableHoursMonth;
     const negotiationRate = hourlyRate * 1.2;
 
+    const nextStep = lang === "de"
+      ? `<div class="next-step-suggestion"><p>Stundensatz berechnet. Jetzt nutze ihn, um dein Jahreseinkommen zu prognostizieren.</p><a href="forecast.php">Jahresprognose →</a></div>`
+      : `<div class="next-step-suggestion"><p>Your rate is set. Now use it to project your annual income.</p><a href="forecast_en.php">Annual Forecast →</a></div>`;
+
     sheet.innerHTML = `
       <div class="row"><span>${labels[lang].yearlyHours}</span><strong>${yearlyHours.toFixed(0)} h</strong></div>
       <div class="row"><span>${labels[lang].workingHours}</span><strong>${workingHours.toFixed(0)} h</strong></div>
@@ -90,6 +94,7 @@
       <div class="row"><span>${labels[lang].recommendedHourly}</span><strong>${EUR(hourlyRate)}</strong></div>
       <div class="row"><span>${labels[lang].negotiationTarget}</span><strong>${EUR(negotiationRate)}</strong></div>
       <p class="small muted">${labels[lang].info}</p>
+      ${nextStep}
     `;
   }
 

@@ -22,6 +22,11 @@
     </header>
 
     <main class="grid planning-grid">
+      <div class="fair-pay-values" role="note">
+        <h3>Fair pay is a sector responsibility</h3>
+        <p>Paying collaborators fairly is not just legal compliance — it is how we build a sustainable arts ecosystem. FAIR PAY 2026 sets the floor. Use these figures as your minimum starting point, not a target to negotiate down from. For advocacy context and further guidance, see <a href="https://igkultur.at" target="_blank" rel="noopener">IG Kultur</a> and <a href="https://igbildendekunst.at" target="_blank" rel="noopener">IG Bildende Kunst</a>.</p>
+      </div>
+
       <section class="card planning-card-wide">
         <div class="card-head">
           <h2>Live planning by pay scale group</h2>

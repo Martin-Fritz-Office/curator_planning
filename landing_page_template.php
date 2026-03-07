@@ -29,6 +29,11 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
         </p>
         <h1><?= $e($landingPage['page_title'] ?? 'artbackstage | Money') ?></h1>
         <p class="muted"><?= $e($landingPage['subtitle']) ?></p>
+        <?php if (!empty($landingPage['credibility_badge'])): $cb = $landingPage['credibility_badge']; ?>
+          <p class="credibility-badge">
+            <?= $e($cb['text']) ?> · <a href="<?= $e($cb['sources_href']) ?>"><?= $e($cb['sources_label']) ?></a>
+          </p>
+        <?php endif; ?>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="<?= $e($landingPage['home']['href']) ?>"><?= $e($landingPage['home']['label']) ?></a>
@@ -37,6 +42,13 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
     </header>
 
     <main class="card landing-card">
+      <?php if (!empty($landingPage['onboarding_block'])): $ob = $landingPage['onboarding_block']; ?>
+        <div class="onboarding-block" role="note">
+          <p><?= $e($ob['text']) ?></p>
+          <a class="btn-cta" href="<?= $e($ob['cta_href']) ?>"><?= $e($ob['cta_label']) ?></a>
+        </div>
+      <?php endif; ?>
+
       <?php if (!empty($landingPage['story_intro_title']) || !empty($landingPage['story_intro'])): ?>
         <section class="story-intro" aria-labelledby="story-intro-title">
           <?php if (!empty($landingPage['story_intro_title'])): ?>
@@ -107,10 +119,32 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
         </section>
       <?php endif; ?>
 
+      <?php if (!empty($landingPage['planning_checklist'])): $pc = $landingPage['planning_checklist']; ?>
+        <div class="planning-checklist" id="planningChecklist">
+          <div class="planning-checklist-head">
+            <h3><?= $e($pc['title']) ?></h3>
+            <button class="checklist-reset" type="button" id="checklistReset"><?= $e($pc['reset_label']) ?></button>
+          </div>
+          <div class="planning-checklist-body">
+            <?php foreach ($pc['items'] as $item): ?>
+              <div class="checklist-item" id="ci_<?= $e($item['id']) ?>">
+                <input type="checkbox" id="<?= $e($item['id']) ?>" name="<?= $e($item['id']) ?>" />
+                <label for="<?= $e($item['id']) ?>"><a href="<?= $e($item['href']) ?>"><?= $e($item['label']) ?></a></label>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        </div>
+      <?php endif; ?>
+
       <div class="card-head">
         <h2><?= $e($landingPage['section_title']) ?></h2>
       </div>
-      <div class="card-body landing-links">
+      <?php
+        $toolCount = count($landingPage['tools']);
+        $toggleLabel = !empty($landingPage['tools_toggle_label']) ? $landingPage['tools_toggle_label'] : "Browse all {$toolCount} tools";
+      ?>
+      <button class="btn btn-outline tools-toggle-btn" id="toolsToggleBtn" type="button"><?= $e($toggleLabel) ?> &#9660;</button>
+      <div class="card-body landing-links tools-hidden" id="landingLinksGrid">
         <?php foreach ($landingPage['tools'] as $tool): ?>
           <a class="tool-link<?= !empty($tool['highlight']) ? ' tool-link-highlight' : '' ?>" href="<?= $e($tool['href']) ?>">
             <span class="tool-icon" aria-hidden="true">
@@ -128,5 +162,50 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
     </main>
   </div>
 <?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
+<?php if (!empty($landingPage['planning_checklist'])): ?>
+<script>
+(function(){
+  var items = <?= json_encode(array_column($landingPage['planning_checklist']['items'], 'id')) ?>;
+  var KEY = 'artbackstage_checklist';
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ return {}; } }
+  function save(state){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+  function apply(){
+    var state = load();
+    items.forEach(function(id){
+      var cb = document.getElementById(id);
+      var ci = document.getElementById('ci_'+id);
+      if(!cb||!ci) return;
+      cb.checked = !!state[id];
+      ci.classList.toggle('done', !!state[id]);
+    });
+  }
+  apply();
+  items.forEach(function(id){
+    var cb = document.getElementById(id);
+    if(!cb) return;
+    cb.addEventListener('change', function(){
+      var state = load(); state[id] = cb.checked; save(state);
+      var ci = document.getElementById('ci_'+id);
+      if(ci) ci.classList.toggle('done', cb.checked);
+    });
+  });
+  var reset = document.getElementById('checklistReset');
+  if(reset) reset.addEventListener('click', function(){ save({}); apply(); });
+})();
+</script>
+<?php endif; ?>
+<script>
+(function(){
+  var btn = document.getElementById('toolsToggleBtn');
+  var grid = document.getElementById('landingLinksGrid');
+  if(!btn||!grid) return;
+  var showLabel = btn.textContent;
+  var hideLabel = btn.textContent.replace('\u25bc', '\u25b2').replace('Browse all', 'Hide');
+  btn.addEventListener('click', function(){
+    var hidden = grid.classList.toggle('tools-hidden');
+    btn.innerHTML = (hidden ? showLabel : hideLabel);
+  });
+})();
+</script>
 </body>
 </html>

@@ -95,7 +95,10 @@
 
   const renderResult = () => {
     const r = compute();
-    stage.innerHTML = `<article class="didactic-step"><h3>${tr.result}: ${r.recommendation}</h3><div class="sheet"><div class="row"><span>${tr.labels.grossRevenue}</span><strong>${EUR(r.grossRevenue)}</strong></div><div class="row"><span>${tr.labels.totalCosts}</span><strong>${EUR(r.totalCosts)}</strong></div><div class="row"><span>${tr.labels.netAfterCosts}</span><strong>${EUR(r.netAfterCosts)}</strong></div><div class="row"><span>${tr.labels.netAfterCommission}</span><strong>${EUR(r.netAfterCommission)}</strong></div><div class="row"><span>${tr.labels.cashflowRisk}</span><strong>${r.cashflowRisk.toFixed(1)}</strong></div><div class="row"><span>${tr.labels.leverageScore}</span><strong>${r.leverageScore.toFixed(1)}</strong></div><div class="row"><span>${tr.labels.decisionScore}</span><strong>${r.decisionScore.toFixed(1)} / 100</strong></div></div><p class="small muted">${tr.tip}</p></article>`;
+    const nextStep = lang === "de"
+      ? `<div class="next-step-suggestion"><p>Bevor du unterschreibst: Gehe alle 25 Vertragspunkte der Checkliste durch.</p><a href="agreement_checklist.php">25-Punkte-Checkliste →</a></div>`
+      : `<div class="next-step-suggestion"><p>Before you sign: work through all 25 contract points in the Agreement Checklist.</p><a href="agreement_checklist_en.php">Agreement Checklist →</a></div>`;
+    stage.innerHTML = `<article class="didactic-step"><h3>${tr.result}: ${r.recommendation}</h3><div class="sheet"><div class="row"><span>${tr.labels.grossRevenue}</span><strong>${EUR(r.grossRevenue)}</strong></div><div class="row"><span>${tr.labels.totalCosts}</span><strong>${EUR(r.totalCosts)}</strong></div><div class="row"><span>${tr.labels.netAfterCosts}</span><strong>${EUR(r.netAfterCosts)}</strong></div><div class="row"><span>${tr.labels.netAfterCommission}</span><strong>${EUR(r.netAfterCommission)}</strong></div><div class="row"><span>${tr.labels.cashflowRisk}</span><strong>${r.cashflowRisk.toFixed(1)}</strong></div><div class="row"><span>${tr.labels.leverageScore}</span><strong>${r.leverageScore.toFixed(1)}</strong></div><div class="row"><span>${tr.labels.decisionScore}</span><strong>${r.decisionScore.toFixed(1)} / 100</strong></div></div><p class="small muted">${tr.tip}</p>${nextStep}</article>`;
   };
 
   const render = () => {

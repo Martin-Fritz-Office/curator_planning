@@ -1304,3 +1304,232 @@ input[type="text"]:focus{
   color:var(--muted);
   font-size:13px;
 }
+
+/* ===== CREDIBILITY BADGE ===== */
+.credibility-badge{
+  margin:6px 0 0;
+  font-size:12px;
+  color:var(--headline-soft);
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.credibility-badge a{
+  color:var(--accent);
+  text-decoration:none;
+  font-weight:600;
+}
+.credibility-badge a:hover{text-decoration:underline}
+
+/* ===== ONBOARDING BLOCK ===== */
+.onboarding-block{
+  margin-bottom:20px;
+  padding:14px 16px;
+  border:1px solid #a8d4b9;
+  border-radius:10px;
+  background:linear-gradient(135deg,#f0f9f4 0%,#e8f5ee 100%);
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.onboarding-block p{
+  margin:0;
+  flex:1;
+  font-size:14px;
+  color:var(--text);
+  min-width:200px;
+}
+.onboarding-block .btn-cta{
+  white-space:nowrap;
+  background:var(--accent);
+  color:#fff;
+  border:1px solid var(--accent);
+  padding:10px 16px;
+  border-radius:10px;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:700;
+  display:inline-block;
+  transition:background .15s,border-color .15s;
+}
+.onboarding-block .btn-cta:hover{
+  background:var(--headline);
+  border-color:var(--headline);
+}
+
+/* ===== PLANNING CHECKLIST ===== */
+.planning-checklist{
+  margin-bottom:20px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#fff;
+  overflow:hidden;
+}
+.planning-checklist-head{
+  padding:12px 16px;
+  background:linear-gradient(180deg,#e6f1ea 0%,#e1ece5 100%);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.planning-checklist-head h3{
+  margin:0;
+  font-size:13px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.01em;
+  color:var(--headline-soft);
+}
+.planning-checklist-body{
+  padding:12px 16px;
+  display:grid;
+  gap:8px;
+}
+.checklist-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:13px;
+}
+.checklist-item input[type="checkbox"]{
+  width:16px;
+  height:16px;
+  accent-color:var(--accent);
+  flex-shrink:0;
+  cursor:pointer;
+}
+.checklist-item label{
+  cursor:pointer;
+  color:var(--text);
+}
+.checklist-item.done label{
+  text-decoration:line-through;
+  color:var(--muted);
+}
+.checklist-item a{
+  color:var(--accent);
+  font-weight:600;
+  text-decoration:none;
+}
+.checklist-item a:hover{text-decoration:underline}
+.checklist-reset{
+  font-size:12px;
+  color:var(--muted);
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:0;
+  text-decoration:underline;
+}
+.checklist-reset:hover{color:var(--danger)}
+
+/* ===== HUB NAVIGATION ===== */
+.hub-nav{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+  padding:10px 0;
+  margin-bottom:8px;
+  border-bottom:1px solid var(--border);
+}
+.hub-nav-label{
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+  margin-right:4px;
+}
+.hub-nav-link{
+  font-size:12px;
+  font-weight:600;
+  color:var(--headline-soft);
+  text-decoration:none;
+  padding:4px 10px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  background:#f8fbf9;
+  transition:background .12s,border-color .12s;
+}
+.hub-nav-link:hover{
+  background:var(--surface-soft);
+  border-color:var(--accent);
+  color:var(--headline);
+}
+.hub-nav-link.hub-nav-active{
+  background:var(--surface-soft);
+  border-color:#8ec4a4;
+  color:var(--headline);
+  font-weight:700;
+}
+
+/* ===== NEXT-STEP SUGGESTION ===== */
+.next-step-suggestion{
+  margin-top:14px;
+  padding:12px 14px;
+  border:1px solid #a8d4b9;
+  border-radius:10px;
+  background:#f0f9f4;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.next-step-suggestion p{
+  margin:0;
+  flex:1;
+  font-size:13px;
+  color:var(--headline);
+  min-width:180px;
+}
+.next-step-suggestion a{
+  font-size:13px;
+  font-weight:700;
+  color:var(--accent);
+  text-decoration:none;
+  white-space:nowrap;
+}
+.next-step-suggestion a:hover{text-decoration:underline}
+
+/* ===== FAIR PAY VALUES BANNER ===== */
+.fair-pay-values{
+  margin-bottom:18px;
+  padding:14px 16px;
+  border:1px solid #a8d4b9;
+  border-left:4px solid var(--accent);
+  border-radius:0 10px 10px 0;
+  background:linear-gradient(135deg,#f0f9f4 0%,#e8f5ee 100%);
+}
+.fair-pay-values h3{
+  margin:0 0 6px;
+  font-size:14px;
+  color:var(--headline);
+}
+.fair-pay-values p{
+  margin:0;
+  font-size:13px;
+  color:var(--muted);
+}
+.fair-pay-values a{
+  color:var(--accent);
+  font-weight:600;
+  text-decoration:none;
+}
+.fair-pay-values a:hover{text-decoration:underline}
+
+/* ===== MOBILE: TOOLS GRID COLLAPSE ===== */
+.tools-toggle-btn{
+  display:none;
+  width:100%;
+  text-align:center;
+  margin-bottom:12px;
+}
+@media (max-width:719px){
+  .tools-toggle-btn{display:block}
+  .landing-links.tools-hidden{display:none}
+}

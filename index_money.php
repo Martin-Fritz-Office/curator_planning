@@ -1,16 +1,36 @@
 <?php
 $landingPage = [
   'lang' => 'de',
-  'subtitle' => 'Einfacher Einstieg: Situationen verstehen, passende Rechner wählen, sichere Entscheidungen treffen.',
+  'subtitle' => 'Kenne deine Zahlen. Schütze deine Zeit. Arbeite nachhaltig.',
   'home' => ['href' => 'index.php', 'label' => 'Bereichsauswahl'],
   'language_switch' => ['href' => 'index_money_en.php', 'label' => 'English'],
+  'credibility_badge' => [
+    'text' => 'Basierend auf österreichischem Steuerrecht (2025), FAIR PAY 2026 & KU-Linz-Lehrauftrag',
+    'sources_href' => 'sources.php',
+    'sources_label' => 'Quellen ansehen',
+  ],
+  'onboarding_block' => [
+    'text' => 'Noch nicht sicher, wo du anfangen sollst? Starte mit der Jahresprognose — 22 Fragen, die zeigen, ob dein Setup finanziell tragfähig ist.',
+    'cta_label' => 'Hier starten →',
+    'cta_href' => 'forecast.php',
+  ],
+  'planning_checklist' => [
+    'title' => 'Dein Planungsfortschritt',
+    'reset_label' => 'Zurücksetzen',
+    'items' => [
+      ['id' => 'de_forecast', 'label' => 'Jahresprognose abgeschlossen',   'href' => 'forecast.php'],
+      ['id' => 'de_hourly',   'label' => 'Stundensatz berechnet',           'href' => 'hourly_rate.php'],
+      ['id' => 'de_services', 'label' => 'Leistungen kalkuliert',           'href' => 'freelance_services_calculator.php'],
+      ['id' => 'de_contract', 'label' => 'Vertrag geprüft',                 'href' => 'agreement_checklist.php'],
+    ],
+  ],
   'story_intro_title' => 'Dein Einstieg in die Tool-Sammlung',
-  'story_intro' => 'Wähle zuerst deine Situation, folge danach dem empfohlenen Ablauf und springe anschließend direkt in die passenden Tools.',
+  'story_intro' => 'Die meisten Kulturarbeiter*innen verlangen zu wenig, liefern zu viel und unterschreiben Verträge, die sie später bereuen. Diese Tools sind dazu da, das zu ändern — eine Entscheidung nach der anderen.',
   'situations_title' => 'Typische Situationen und direkte Tool-Empfehlungen',
   'situations' => [
     [
       'title' => 'Ich starte gerade in die Selbstständigkeit',
-      'description' => 'Du willst schnell wissen, ob dein Setup tragfähig ist und welcher Stundensatz realistisch ist.',
+      'description' => 'Endlich selbstständig — und schon die erste Frage: Was bin ich eigentlich wert? Diese Tools geben dir eine ehrliche Antwort.',
       'icon' => '<path d="M12 3.8v4.7"></path><path d="M7.1 7.1 4.6 4.6"></path><path d="M16.9 7.1l2.5-2.5"></path><circle cx="12" cy="13" r="5"></circle><path d="M12 11.3v3.1l2 1.2"></path>',
       'tools' => [
         ['href' => 'forecast_didactic.php', 'label' => 'Jahresprognose (didaktisch)'],
@@ -20,7 +40,7 @@ $landingPage = [
     ],
     [
       'title' => 'Ich plane Angebote, Leistungen und laufende Arbeit',
-      'description' => 'Du musst Aufgaben in klare Services übersetzen, Aufwand bewerten und Einnahmen mit Netto-Bedarf abgleichen.',
+      'description' => 'Jede unbezahlte Stunde für Abstimmungen, Mails und Koordination frisst dein Einkommen. Benenne deine Leistungen — und schütze deine bezahlte Zeit.',
       'icon' => '<rect x="4" y="5" width="16" height="14" rx="3"></rect><path d="M8 9h8"></path><path d="M8 12h5"></path><path d="M8 15h3"></path><circle cx="17" cy="14.8" r="2.4"></circle><path d="M17 13.8v1.1l.8.6"></path>',
       'tools' => [
         ['href' => 'freelance_services_calculator.php', 'label' => 'Freelance-Service-Rechner'],
@@ -31,7 +51,7 @@ $landingPage = [
     ],
     [
       'title' => 'Ich entscheide über Projekte und Verträge',
-      'description' => 'Du willst vor Zusagen Risiken, Verhandlungsspielräume und finanzielle Folgen schnell prüfen.',
+      'description' => 'Institutionen haben Anwälte. Du hast diese Checkliste. Prüfe die Konditionen, bevor du zusagst.',
       'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="m9.2 15 2.1 2.1 3.8-4"></path>',
       'tools' => [
         ['href' => 'curator_viability_carousel.php', 'label' => 'Projekt-Check für freie Kurator*innen'],
@@ -41,7 +61,7 @@ $landingPage = [
     ],
     [
       'title' => 'Ich plane faire Budgets für Künstler*innen und Teams',
-      'description' => 'Du brauchst belastbare Richtwerte für Honorare, Gehälter und Rollen in Kulturprojekten.',
+      'description' => 'Faire Bezahlung ist kein Goodwill, sondern Grundlage für einen lebensfähigen Sektor. Nutze verlässliche Richtwerte für dein Budget.',
       'icon' => '<circle cx="12" cy="12" r="7.8"></circle><path d="M12 7.8v8.4"></path><path d="M8.7 10.2c0-1.1 1.3-2 3.3-2s3.3.9 3.3 2-1.3 2-3.3 2-3.3.9-3.3 2 1.3 2 3.3 2 3.3-.9 3.3-2"></path>',
       'tools' => [
         ['href' => 'honorarium_questionnaire.php', 'label' => 'Honorar-Fragebogen (Leitfaden 2026)'],
@@ -98,6 +118,7 @@ $landingPage = [
     ],
   ],
   'section_title' => 'Alle Rechner im Überblick',
+  'tools_toggle_label' => 'Alle 14 Tools anzeigen',
   'footer' => 'Die artbackstage Toolsammlung ist in laufender BETA-Entwicklung als Teil des Lehrauftrags "Kunst im Kontext (Recht, Geld und Fairness) an der Kunstuniversität Linz. Verwendet werden unter anderem Materialien der IG Bildende Kunst, der KUPF Oberösterreich und aus dem Fair Pay Prozess der IG Kultur. Es werden keine personalisierten Daten gespeichert. Teilweise KI generiert. Keine Haftung.',
   'tools' => [
     ['href' => 'forecast.php', 'title' => 'Jahresumsatz- & Gewinnprognose', 'description' => 'Vollständige Prognose mit Fragen, Sheet und Diagrammen.', 'icon' => '<path d="M4 19.5h16"></path><path d="M6 16l3.2-3.2 2.7 2.6 5-5"></path><circle cx="17" cy="8" r="1.2"></circle>'],
