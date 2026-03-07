@@ -9,6 +9,7 @@
   <script defer src="net_income_carousel.js"></script>
 </head>
 <body data-lang="de">
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -21,7 +22,7 @@
       </div>
     </header>
 
-    <main class="card tutorial-card">
+    <main id="main-content" class="card tutorial-card">
       <div class="card-head">
         <h2>Interaktive Didaktik-Serie</h2>
       </div>

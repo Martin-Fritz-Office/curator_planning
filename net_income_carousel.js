@@ -7,8 +7,8 @@
       tableHead: ['Einkommen in EUR (Tarifstufen)', 'Grenzsteuersatz 2025', 'Steuerbetrag (höchstens) pro Kategorie in EUR', 'Steuerbetrag aufsummiert in EUR'],
       rows: ['0 – 13.308','13.309 – 21.617','21.618 – 35.836','35.837 – 69.166','69.167 – 103.072','103.073 – 1 Mio.'],
       steps: (s)=>[
-        `<h3>1) Einnahmen eingeben</h3><p>Gib hier alle Einnahmen aus deiner selbständigen Tätigkeit ein.</p><label for="revenueInput" class="small muted">Gesamteinnahmen pro Jahr (EUR)</label><input id="revenueInput" type="number" min="0" step="100" value="${s.revenue}" />`,
-        `<h3>2) Berufliche Kosten eingeben</h3><p>Und hier alle deine beruflichen Kosten aus demselben Jahr.</p><label for="costInput" class="small muted">Gesamtkosten pro Jahr (EUR)</label><input id="costInput" type="number" min="0" step="100" value="${s.costs}" />`,
+        `<h3>1) Einnahmen eingeben</h3><p>Gib hier alle Einnahmen aus deiner selbständigen Tätigkeit ein.</p><label for="revenueInput" class="small muted">Gesamteinnahmen pro Jahr (EUR)</label><input id="revenueInput" type="number" min="0" step="100" value="${s.revenue}" inputmode="numeric" />`,
+        `<h3>2) Berufliche Kosten eingeben</h3><p>Und hier alle deine beruflichen Kosten aus demselben Jahr.</p><label for="costInput" class="small muted">Gesamtkosten pro Jahr (EUR)</label><input id="costInput" type="number" min="0" step="100" value="${s.costs}" inputmode="numeric" />`,
         `<h3>3) Danke</h3><p>Danke. Ich zeige dir jetzt, wie du dein Netto-Einkommen berechnen kannst.</p>`,
         `<h3>4) Umsatz</h3><p>Deine Gesamteinnahmen sind <strong>${EUR(s.revenue)}</strong>. Das ist dein Umsatz.</p>`,
         `<h3>5) Kosten abziehen</h3><p>Davon ziehst du deine Kosten von <strong>${EUR(s.costs)}</strong> ab.</p>`,
@@ -26,8 +26,8 @@
       tableHead: ['Income in EUR (tax brackets)', 'Marginal tax rate 2025', 'Max tax amount per bracket in EUR', 'Cumulative tax amount in EUR'],
       rows: ['0 – 13,308','13,309 – 21,617','21,618 – 35,836','35,837 – 69,166','69,167 – 103,072','103,073 – 1M'],
       steps: (s)=>[
-        `<h3>1) Enter revenue</h3><p>Enter your total freelance revenue for the year.</p><label for="revenueInput" class="small muted">Total yearly revenue (EUR)</label><input id="revenueInput" type="number" min="0" step="100" value="${s.revenue}" />`,
-        `<h3>2) Enter professional costs</h3><p>Now add all professional costs for the same year.</p><label for="costInput" class="small muted">Total yearly costs (EUR)</label><input id="costInput" type="number" min="0" step="100" value="${s.costs}" />`,
+        `<h3>1) Enter revenue</h3><p>Enter your total freelance revenue for the year.</p><label for="revenueInput" class="small muted">Total yearly revenue (EUR)</label><input id="revenueInput" type="number" min="0" step="100" value="${s.revenue}" inputmode="numeric" />`,
+        `<h3>2) Enter professional costs</h3><p>Now add all professional costs for the same year.</p><label for="costInput" class="small muted">Total yearly costs (EUR)</label><input id="costInput" type="number" min="0" step="100" value="${s.costs}" inputmode="numeric" />`,
         `<h3>3) Thanks</h3><p>Great. Next, we'll calculate your net income step by step.</p>`,
         `<h3>4) Revenue</h3><p>Your total revenue is <strong>${EUR(s.revenue)}</strong>.</p>`,
         `<h3>5) Subtract costs</h3><p>Subtract your costs of <strong>${EUR(s.costs)}</strong>.</p>`,

@@ -9,6 +9,7 @@
   <script defer src="agreement_checklist.js"></script>
 </head>
 <body data-lang="de">
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -21,11 +22,19 @@
       </div>
     </header>
 
-    <main class="card tutorial-card">
+    <main id="main-content" class="card tutorial-card">
       <div class="card-head">
         <h2>Checkliste mit Detail-Check</h2>
       </div>
       <div class="card-body">
+        <div class="tool-preamble">
+          <p><strong>25 Punkte · ca. 15–20 Minuten</strong></p>
+          <p>Ergebnis: Dokumentation Ihrer Vereinbarungen zu Honorar, Rechten, Transport, Versicherung und weiteren Konditionen. Hilfreich: konkrete Projektdetails und Vertragsentwurf zur Hand haben.</p>
+        </div>
+        <div id="persistenceNotice" class="persistence-notice" hidden>
+          <p>Ihre Antworten werden in diesem Browser gespeichert. Das Löschen von Browser-Daten entfernt sie — nutzen Sie „Zusammenfassung kopieren" zur Sicherung.</p>
+          <button type="button" class="persistence-notice-dismiss" aria-label="Hinweis schließen">×</button>
+        </div>
         <div class="agreement-toolbar">
           <span id="agreementProgress" class="pill">0 / 25 ausreichend detailliert</span>
           <button type="button" id="showIncompleteBtn" class="btn btn-outline">Nur unvollständige Antworten</button>

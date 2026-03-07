@@ -848,29 +848,40 @@
   let costChart = null;
 
   function makePie(ctx, labels, values) {
+    const total = values.reduce((a, b) => a + (Number(b) || 0), 0) || 1;
     return new Chart(ctx, {
-      type: "pie",
+      type: "bar",
       data: {
         labels,
         datasets: [
           {
             data: values,
             borderWidth: 1,
+            borderRadius: 4,
           },
         ],
       },
       options: {
+        indexAxis: "y",
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { position: "bottom" },
+          legend: { display: false },
           tooltip: {
             callbacks: {
               label: function (context) {
-                const v = Number(context.parsed) || 0;
-                const total = context.dataset.data.reduce((a, b) => a + (Number(b) || 0), 0) || 1;
+                const v = Number(context.parsed.x) || 0;
                 const share = Math.round((v / total) * 100);
-                return `${context.label}: ${EUR(v)} (${share}%)`;
+                return `${EUR(v)} (${share}%)`;
+              },
+            },
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              callback: function (value) {
+                return EUR(Number(value));
               },
             },
           },
@@ -939,6 +950,11 @@
     renderCharts(c);
     renderScenarioComparison();
     setSaveStatus("Nicht gespeichert", null);
+    const touched = QUESTIONS.filter((q) => answers[q.key] !== DEFAULT[q.key]).length;
+    const progressBar = document.getElementById("forecastProgressBar");
+    const progressLabel = document.getElementById("forecastProgress");
+    if (progressBar) progressBar.value = touched;
+    if (progressLabel) progressLabel.textContent = `${touched} / ${QUESTIONS.length} Fragen bearbeitet`;
   }
 
   if (saveBtn) {
@@ -990,6 +1006,20 @@
     }
     updateAll();
   });
+
+  // -------------------- persistence notice --------------------
+  const ONBOARDING_KEY = "artbackstage_onboarded_v1";
+  const persistenceNoticeEl = document.getElementById("persistenceNotice");
+  if (persistenceNoticeEl && !localStorage.getItem(ONBOARDING_KEY)) {
+    persistenceNoticeEl.hidden = false;
+    const dismissBtn = persistenceNoticeEl.querySelector(".persistence-notice-dismiss");
+    if (dismissBtn) {
+      dismissBtn.addEventListener("click", () => {
+        persistenceNoticeEl.hidden = true;
+        localStorage.setItem(ONBOARDING_KEY, "1");
+      });
+    }
+  }
 
   // -------------------- init --------------------
   function init() {

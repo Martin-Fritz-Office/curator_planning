@@ -54,8 +54,8 @@
     tr.innerHTML = `
       <td><input type="text" data-field="service" placeholder="${labels[lang].placeholder}" /></td>
       <td><select data-field="unit">${unitOptionsMarkup()}</select></td>
-      <td><input type="number" data-field="price" min="0" step="0.01" value="0" /></td>
-      <td><input type="number" data-field="quantity" min="0" step="1" value="0" /></td>
+      <td><input type="number" data-field="price" min="0" step="0.01" value="0" inputmode="decimal" /></td>
+      <td><input type="number" data-field="quantity" min="0" step="1" value="0" inputmode="numeric" /></td>
       <td data-field="yearly">0</td>
       <td><button type="button" class="btn btn-outline" data-action="remove">${labels[lang].remove}</button></td>
     `;

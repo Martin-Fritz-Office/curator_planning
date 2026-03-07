@@ -9,6 +9,7 @@
   <script defer src="gallery_contract_reality_check.js"></script>
 </head>
 <body data-lang="en">
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -21,7 +22,7 @@
       </div>
     </header>
 
-    <main class="card tutorial-card">
+    <main id="main-content" class="card tutorial-card">
       <div class="card-head">
         <h2>Contract Check Carousel</h2>
       </div>

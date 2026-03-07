@@ -9,6 +9,7 @@
   <script defer src="agreement_checklist.js"></script>
 </head>
 <body data-lang="en">
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -21,11 +22,19 @@
       </div>
     </header>
 
-    <main class="card tutorial-card">
+    <main id="main-content" class="card tutorial-card">
       <div class="card-head">
         <h2>Checklist with detail check</h2>
       </div>
       <div class="card-body">
+        <div class="tool-preamble">
+          <p><strong>25 points · approx. 15–20 minutes</strong></p>
+          <p>Result: documentation of your agreements on fee, rights, transport, insurance, and other conditions. Helpful: have specific project details and a draft contract to hand.</p>
+        </div>
+        <div id="persistenceNotice" class="persistence-notice" hidden>
+          <p>Your answers are stored in this browser. Clearing browser data will erase them — use "Copy summary" to keep a backup.</p>
+          <button type="button" class="persistence-notice-dismiss" aria-label="Close notice">×</button>
+        </div>
         <div class="agreement-toolbar">
           <span id="agreementProgress" class="pill">0 / 25 answered in enough detail</span>
           <button type="button" id="showIncompleteBtn" class="btn btn-outline">Show only incomplete answers</button>

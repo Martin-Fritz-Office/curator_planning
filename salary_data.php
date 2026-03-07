@@ -9,6 +9,7 @@
   <script defer src="salary_data.js"></script>
 </head>
 <body data-lang="de">
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -20,7 +21,7 @@
       </div>
     </header>
 
-    <main class="stack">
+    <main id="main-content" class="stack">
       <section class="card">
         <div class="card-head">
           <h2>Suche und Filter</h2>
