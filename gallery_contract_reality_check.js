@@ -89,7 +89,7 @@
   };
 
   const renderQuestion = (question) => {
-    stage.innerHTML = `<article class="didactic-step"><h3>${question.label}</h3><label class="q carousel-question" for="questionInput"><input id="questionInput" type="number" min="${question.min}" ${question.max !== undefined ? `max="${question.max}"` : ""} step="${question.step}" value="${state.values[question.key]}" /></label></article>`;
+    stage.innerHTML = `<article class="didactic-step"><h3>${question.label}</h3><label class="q carousel-question" for="questionInput"><input id="questionInput" type="number" inputmode="decimal" min="${question.min}" ${question.max !== undefined ? `max="${question.max}"` : ""} step="${question.step}" value="${state.values[question.key]}" /></label></article>`;
     document.getElementById("questionInput").addEventListener("input", (event) => { state.values[question.key] = Number(event.target.value) || 0; });
   };
 

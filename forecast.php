@@ -7,11 +7,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Jahresumsatz- & Gewinnprognose (Curator)</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script defer src="chart.umd.min.js"></script>
   <script defer src="calc_core.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -34,12 +35,24 @@
       </div>
     </header>
 
-    <main class="grid">
+    <main id="main-content" class="grid">
       <section class="card">
         <div class="card-head">
           <h2>Fragebogen</h2>
+          <div class="q-progress">
+            <progress id="forecastProgressBar" value="0" max="21" aria-label="Fragebogen-Fortschritt"></progress>
+            <span id="forecastProgress" class="q-progress-label">0 / 21 Fragen bearbeitet</span>
+          </div>
         </div>
         <div class="card-body">
+          <div class="tool-preamble">
+            <p><strong>21 Fragen · ca. 8 Minuten</strong></p>
+            <p>Ergebnis: Einkommenstypologie + Prognose-Sheet mit verfügbarem Jahreseinkommen. Hilfreich: Einnahmen und Kosten der letzten 12 Monate zur Hand haben.</p>
+          </div>
+          <div id="persistenceNotice" class="persistence-notice" hidden>
+            <p>Ihre Antworten werden nur gespeichert, wenn Sie „Antworten speichern" klicken. Nutzen Sie den Szenario-Link zum Teilen oder Wiederherstellen.</p>
+            <button type="button" class="persistence-notice-dismiss" aria-label="Hinweis schließen">×</button>
+          </div>
           <div id="questionGrid" class="qgrid"></div>
 
           <hr class="sep" />

@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -20,7 +21,7 @@
       </div>
     </header>
 
-    <main class="card" aria-labelledby="sources-themes-title">
+    <main id="main-content" class="card" aria-labelledby="sources-themes-title">
       <div class="card-head">
         <h2 id="sources-themes-title">Nach Themen</h2>
       </div>

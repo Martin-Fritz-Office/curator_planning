@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body data-lang="de">
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -22,7 +23,7 @@
       </div>
     </header>
 
-    <main class="grid">
+    <main id="main-content" class="grid">
       <section class="card">
         <div class="card-head">
           <h2>Dimensionswerte (1–100)</h2>

@@ -9,6 +9,7 @@
   <script defer src="hourly_rate.js"></script>
 </head>
 <body data-lang="de">
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -21,7 +22,7 @@
       </div>
     </header>
 
-    <main class="grid">
+    <main id="main-content" class="grid">
       <section class="card">
         <div class="card-head">
           <h2>Fragen</h2>

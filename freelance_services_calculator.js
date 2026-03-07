@@ -75,15 +75,15 @@
           <div class="qgrid freelance-service-params-row">
             <label class="q freelance-service-param">
               <span>Personen</span>
-              <input type="number" min="0" step="1" data-persons-id="${service.id}" value="${serviceState.persons}" ${disabled} />
+              <input type="number" min="0" step="1" data-persons-id="${service.id}" value="${serviceState.persons}" ${disabled} inputmode="numeric" />
             </label>
             <label class="q freelance-service-param">
               <span>Stunden pro Person</span>
-              <input type="number" min="0" step="0.5" data-hours-per-person-id="${service.id}" value="${serviceState.hoursPerPerson}" ${disabled} />
+              <input type="number" min="0" step="0.5" data-hours-per-person-id="${service.id}" value="${serviceState.hoursPerPerson}" ${disabled} inputmode="decimal" />
             </label>
             <label class="q freelance-service-param">
               <span>Stundensatz (€)</span>
-              <input type="number" min="${service.minRate}" max="${service.maxRate}" step="1" data-rate-id="${service.id}" value="${serviceState.rate}" ${disabled} />
+              <input type="number" min="${service.minRate}" max="${service.maxRate}" step="1" data-rate-id="${service.id}" value="${serviceState.rate}" ${disabled} inputmode="numeric" />
             </label>
           </div>
         </div>`;
@@ -243,7 +243,7 @@
           </label>
           <label class="q">
             <span>Anteil (%)</span>
-            <input type="number" min="0" max="100" step="0.1" data-payment-percentage-index="${index}" value="${entry.percentage}" />
+            <input type="number" min="0" max="100" step="0.1" data-payment-percentage-index="${index}" value="${entry.percentage}" inputmode="decimal" />
           </label>
         </div>
         <div class="footer">

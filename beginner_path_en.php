@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page landing-page">
     <header class="header landing-header">
       <div>
@@ -22,7 +23,7 @@
       </div>
     </header>
 
-    <main class="card landing-card">
+    <main id="main-content" class="card landing-card">
       <div class="card-head">
         <h2>Your easiest way to start</h2>
       </div>

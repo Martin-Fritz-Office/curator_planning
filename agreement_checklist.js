@@ -30,6 +30,8 @@
       summaryAnswer: "Antwort",
       charUnit: "Zeichen",
       contextTitleSuffix: "Mehr Kontext",
+      persistenceNotice: "Ihre Antworten werden im Browser gespeichert. Browser-Daten löschen entfernt sie – nutzen Sie „Zusammenfassung kopieren" zur Sicherung.",
+      persistenceDismiss: "Verstanden",
       points: [
         ["Wer?", "Mit wem habe ich es konkret zu tun und wer entscheidet tatsächlich?", "Klären Sie frühzeitig mit wem Sie es zu tun haben. Führen Sie – wenn notwendig – Recherchen durch. Finden Sie heraus, ob die Person für die Einhaltung der Zusagen selbst verantwortlich sein wird, oder ob Ihr Gegenüber für jemand anderen (Sammler/in, Programmbetreiber/in, Sponsor/in, Agentur etc.) handelt."],
         ["Wann?", "Welche zeitlichen Rahmenbedingungen gelten bis zum echten Projektabschluss?", "Klären Sie alle terminlichen Rahmenbedingungen. Beachten Sie, dass das Projekt nicht mit der Eröffnung abgeschlossen sein wird, sondern erst mit der Rückgabe der Arbeiten, der Fertigstellung des Katalogs, der Bezahlung aller Rechnungen, der Abrechnung, der Übergabe der Dokumentation oder anderer notwendiger Nachbearbeitungen abgeschlossen ist."],
@@ -84,6 +86,8 @@
       summaryAnswer: "Answer",
       charUnit: "chars",
       contextTitleSuffix: "More context",
+      persistenceNotice: "Your answers are stored in this browser. Clearing browser data will erase them — use \"Copy summary\" to keep a backup.",
+      persistenceDismiss: "Got it",
       points: [
         ["Who?", "Who exactly am I dealing with, and who is actually responsible?", "Clarify early who you are dealing with. Do research where needed. Find out whether the person you are speaking to is personally responsible for keeping commitments, or whether they are acting for someone else (collector, program operator, sponsor, agency, etc.)."],
         ["When?", "Which timeline applies all the way to the true project close?", "Clarify the complete timeline. Remember that the project does not end with the opening: it is only complete after return of works, completion of catalog production, payment of invoices, final accounting, handover of documentation, and any required follow-up work."],
@@ -295,6 +299,21 @@
 
   copySummaryBtn.textContent = i18n.copySummary;
   showIncompleteBtn.textContent = i18n.showIncomplete;
+
+  const ONBOARDING_KEY = "artbackstage_onboarded_v1";
+  const noticeEl = document.getElementById("persistenceNotice");
+  if (noticeEl) {
+    if (!localStorage.getItem(ONBOARDING_KEY)) {
+      noticeEl.hidden = false;
+      const dismissBtn = noticeEl.querySelector(".persistence-notice-dismiss");
+      if (dismissBtn) {
+        dismissBtn.addEventListener("click", () => {
+          noticeEl.hidden = true;
+          localStorage.setItem(ONBOARDING_KEY, "1");
+        });
+      }
+    }
+  }
 
   load();
   render();

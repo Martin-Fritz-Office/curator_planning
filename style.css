@@ -5,8 +5,9 @@
   --surface-soft:#e6f1ea;
   --border:#afc2b7;
   --text:#1f2b24;
-  --muted:#4e6257;
+  --muted:#3a4f44;         /* darkened from #4e6257 — ≥4.5:1 on --bg for WCAG AA */
   --accent:#2f8f5b;
+  --accent-text:#1e6b42;   /* darkened accent for readable text on light bg */
   --headline:#276f49;
   --headline-soft:#35835a;
   --danger:#d13232;
@@ -1533,3 +1534,121 @@ input[type="text"]:focus{
   .tools-toggle-btn{display:block}
   .landing-links.tools-hidden{display:none}
 }
+
+/* ===== SKIP NAVIGATION (WCAG 2.4.1 Level A) ===== */
+.skip-link{
+  position:absolute;
+  left:-9999px;
+  top:6px;
+  z-index:9999;
+  padding:8px 16px;
+  background:var(--surface);
+  color:var(--accent-text);
+  border:2px solid var(--accent);
+  border-radius:var(--radius);
+  font-size:0.9375rem;
+  font-weight:600;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.skip-link:focus{
+  left:6px;
+}
+
+/* ===== TYPE SCALE TOKENS ===== */
+:root{
+  --text-xs:   0.75rem;    /* 12px */
+  --text-sm:   0.8125rem;  /* 13px */
+  --text-base: 0.9375rem;  /* 15px */
+  --text-md:   1rem;       /* 16px */
+  --text-lg:   1.125rem;   /* 18px */
+  --text-xl:   1.25rem;    /* 20px */
+}
+
+/* ===== MOBILE: FIXED HUB NAVIGATION ===== */
+@media (max-width:760px){
+  .hub-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:var(--surface);
+    border-top:1px solid var(--border);
+    border-bottom:none;
+    padding:8px 14px;
+    padding-bottom:calc(8px + env(safe-area-inset-bottom));
+    margin:0;
+    z-index:200;
+    box-shadow:0 -2px 8px rgba(31,43,36,0.10);
+  }
+  .site-footer{
+    padding-bottom:64px;
+  }
+}
+
+/* ===== PERSISTENCE NOTICE BANNER ===== */
+.persistence-notice{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:10px 14px;
+  margin-bottom:var(--gap);
+  background:#f0f9f4;
+  border:1px solid #a8d4b9;
+  border-radius:var(--radius);
+  font-size:var(--text-sm);
+  color:var(--headline);
+}
+.persistence-notice p{
+  margin:0;
+  flex:1;
+}
+.persistence-notice-dismiss{
+  background:none;
+  border:none;
+  cursor:pointer;
+  color:var(--muted);
+  font-size:1rem;
+  line-height:1;
+  padding:0 2px;
+  flex-shrink:0;
+}
+.persistence-notice-dismiss:hover{color:var(--text)}
+.persistence-notice-dismiss:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:4px}
+
+/* ===== QUESTIONNAIRE PROGRESS ===== */
+.q-progress{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+.q-progress progress{
+  flex:1;
+  height:6px;
+  border-radius:3px;
+  border:none;
+  accent-color:var(--accent);
+}
+.q-progress-label{
+  font-size:var(--text-xs);
+  color:var(--muted);
+  white-space:nowrap;
+}
+
+/* ===== TOOL PREAMBLE ===== */
+.tool-preamble{
+  padding:14px 16px;
+  background:#f0f9f4;
+  border:1px solid #a8d4b9;
+  border-left:4px solid var(--accent);
+  border-radius:0 var(--radius) var(--radius) 0;
+  margin-bottom:var(--gap);
+}
+.tool-preamble p{
+  margin:0;
+  font-size:var(--text-sm);
+  color:var(--headline);
+  line-height:1.5;
+}
+.tool-preamble p+p{margin-top:6px}

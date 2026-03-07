@@ -116,6 +116,7 @@ $quizQuestions = [
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page landing-page law-page">
     <header class="header landing-header">
       <div>
@@ -128,7 +129,7 @@ $quizQuestions = [
       </div>
     </header>
 
-    <main class="card landing-card">
+    <main id="main-content" class="card landing-card">
       <section class="story-intro" aria-labelledby="vgg-quiz-intro">
         <h2 id="vgg-quiz-intro">Quiz zur Gesetzesnummer 20009532 (Deutsch)</h2>
         <p>

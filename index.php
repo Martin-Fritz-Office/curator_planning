@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page landing-page">
     <header class="header landing-header">
       <div>
@@ -20,7 +21,7 @@
       </div>
     </header>
 
-    <main class="card landing-card">
+    <main id="main-content" class="card landing-card">
       <section class="story-intro" aria-labelledby="areas-title">
         <h2 id="areas-title">Bereiche</h2>
         <p>Wähle den Bereich, mit dem du starten möchtest.</p>

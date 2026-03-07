@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -31,7 +32,7 @@
       </div>
     </header>
 
-    <main class="card">
+    <main id="main-content" class="card">
       <div class="card-head">
         <h2>Seite 1 · Kernaussagen</h2>
       </div>
@@ -48,7 +49,7 @@
       </div>
     </main>
 
-    <main class="card" style="margin-top:18px;">
+    <main id="main-content" class="card" style="margin-top:18px;">
       <div class="card-head">
         <h2>Seite 2 · Handlungsfelder und Umsetzung</h2>
       </div>

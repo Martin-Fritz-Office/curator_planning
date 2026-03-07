@@ -14,6 +14,7 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page landing-page">
     <header class="header landing-header">
       <div>
@@ -41,7 +42,7 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
       </div>
     </header>
 
-    <main class="card landing-card">
+    <main id="main-content" class="card landing-card">
       <?php if (!empty($landingPage['onboarding_block'])): $ob = $landingPage['onboarding_block']; ?>
         <div class="onboarding-block" role="note">
           <p><?= $e($ob['text']) ?></p>
