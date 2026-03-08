@@ -26,7 +26,7 @@ if (!function_exists('render_site_footer')) {
         $socialHref = 'index_soziales.php';
         $isMoneyPage  = str_contains($scriptName, 'money') || str_contains($scriptName, 'forecast') || str_contains($scriptName, 'hourly') || str_contains($scriptName, 'freelance') || str_contains($scriptName, 'turnover') || str_contains($scriptName, 'personalplanung') || str_contains($scriptName, 'gallery_contract') || str_contains($scriptName, 'agreement') || str_contains($scriptName, 'honorarium');
         $isLawPage    = str_contains($scriptName, 'law') || str_contains($scriptName, 'vgg') || str_contains($scriptName, 'bildrecht') || str_contains($scriptName, 'fair_use');
-        $isSocialPage = str_contains($scriptName, 'soziales') || str_contains($scriptName, 'onace') || str_contains($scriptName, 'gender');
+        $isSocialPage = str_contains($scriptName, 'soziales') || str_contains($scriptName, 'onace') || str_contains($scriptName, 'gender') || str_contains($scriptName, 'svs_leistungen');
         $hubNavLabel  = $isEnglishPage ? 'artbackstage sections' : 'artbackstage Bereiche';
         $hubMoney     = $isEnglishPage ? 'Money' : 'Geld';
         $hubLaw       = $isEnglishPage ? 'Law' : 'Recht';
