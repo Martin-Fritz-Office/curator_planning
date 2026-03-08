@@ -30,7 +30,7 @@
       summaryAnswer: "Antwort",
       charUnit: "Zeichen",
       contextTitleSuffix: "Mehr Kontext",
-      persistenceNotice: "Ihre Antworten werden im Browser gespeichert. Browser-Daten löschen entfernt sie – nutzen Sie „Zusammenfassung kopieren" zur Sicherung.",
+      persistenceNotice: "Ihre Antworten werden im Browser gespeichert. Browser-Daten löschen entfernt sie – nutzen Sie \u201eZusammenfassung kopieren\u201d zur Sicherung.",
       persistenceDismiss: "Verstanden",
       points: [
         ["Wer?", "Mit wem habe ich es konkret zu tun und wer entscheidet tatsächlich?", "Klären Sie frühzeitig mit wem Sie es zu tun haben. Führen Sie – wenn notwendig – Recherchen durch. Finden Sie heraus, ob die Person für die Einhaltung der Zusagen selbst verantwortlich sein wird, oder ob Ihr Gegenüber für jemand anderen (Sammler/in, Programmbetreiber/in, Sponsor/in, Agentur etc.) handelt."],
