@@ -17,7 +17,7 @@
     <header class="header">
       <div>
         <h1>Jahresumsatz- & Gewinnprognose (Freelance Curator)</h1>
-        <p class="muted">Pie-Charts zeigen Prozentanteile (Tooltip). Werte sind Brutto-Heuristiken.</p>
+        <p class="muted">Wenn Du willst, kannst Du Dein Szenario speichern, um es mit anderen zu vergleichen.</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index.php">Startseite</a>
