@@ -19,7 +19,7 @@
       </div>
     </header>
     <main id="main-content" class="grid">
-      <section class="card">
+      <section class="pill">
         <h2>Entwicklung und Medieninhaber</h2>
         <address>
           artbackstage<br>
