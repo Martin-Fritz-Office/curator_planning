@@ -11,45 +11,30 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title><?= $e($landingPage['page_title'] ?? 'artbackstage | Money') ?></title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page landing-page">
-    <header class="header landing-header">
-      <div>
-        <p class="eyebrow brand-mark">
-          <span class="brand-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" role="img" focusable="false">
-              <rect x="2.5" y="2.5" width="19" height="19" rx="5"></rect>
-              <circle cx="9" cy="9" r="1.6"></circle>
-              <path d="M5.8 17.3h12.4l-4.1-4.7-2.8 2.9-2-2.1z"></path>
-            </svg>
-          </span>
-          <span>artbackstage</span>
-        </p>
+    <div class="landing-hero">
+      <div class="landing-hero-inner">
+        <span class="landing-hero-eyebrow">
+          <span class="landing-hero-dot" aria-hidden="true"></span>
+          artbackstage · BETA
+        </span>
         <h1><?= $e($landingPage['page_title'] ?? 'artbackstage | Money') ?></h1>
-        <p class="muted"><?= $e($landingPage['subtitle']) ?></p>
-        <?php if (!empty($landingPage['credibility_badge'])): $cb = $landingPage['credibility_badge']; ?>
-          <p class="credibility-badge">
-            <?= $e($cb['text']) ?> · <a href="<?= $e($cb['sources_href']) ?>"><?= $e($cb['sources_label']) ?></a>
-          </p>
-        <?php endif; ?>
-      </div>
-      <div class="header-actions">
-        <a class="btn btn-outline" href="<?= $e($landingPage['home']['href']) ?>"><?= $e($landingPage['home']['label']) ?></a>
-        <a class="btn btn-outline" href="<?= $e($landingPage['language_switch']['href']) ?>"><?= $e($landingPage['language_switch']['label']) ?></a>
-      </div>
-    </header>
-
-    <main id="main-content" class="card landing-card">
-      <?php if (!empty($landingPage['onboarding_block'])): $ob = $landingPage['onboarding_block']; ?>
-        <div class="onboarding-block" role="note">
-          <p><?= $e($ob['text']) ?></p>
-          <a class="btn-cta" href="<?= $e($ob['cta_href']) ?>"><?= $e($ob['cta_label']) ?></a>
+        <p><?= $e($landingPage['subtitle']) ?></p>
+        <div class="landing-hero-actions">
+          <a class="btn btn-hero-ghost" href="<?= $e($landingPage['home']['href']) ?>"><?= $e($landingPage['home']['label']) ?></a>
+          <a class="btn btn-hero-ghost" href="<?= $e($landingPage['language_switch']['href']) ?>"><?= $e($landingPage['language_switch']['label']) ?></a>
         </div>
-      <?php endif; ?>
+      </div>
+    </div>
 
+    <main>
       <?php if (!empty($landingPage['story_intro_title']) || !empty($landingPage['story_intro'])): ?>
         <section class="story-intro" aria-labelledby="story-intro-title">
           <?php if (!empty($landingPage['story_intro_title'])): ?>
@@ -63,7 +48,7 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
 
       <?php if (!empty($landingPage['situations']) && is_array($landingPage['situations'])): ?>
         <section class="situation-section" aria-labelledby="situation-title">
-          <div class="card-head">
+          <div class="landing-section-header">
             <h2 id="situation-title"><?= $e($landingPage['situations_title'] ?? 'Situations') ?></h2>
           </div>
           <div class="situation-grid">
@@ -92,60 +77,36 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
       <?php endif; ?>
 
       <?php if (!empty($landingPage['guide_steps']) && is_array($landingPage['guide_steps'])): ?>
-        <section class="guide-section" aria-labelledby="guide-title">
-          <div class="card-head">
+        <section aria-labelledby="guide-title" style="margin-bottom:28px">
+          <div class="landing-section-header">
             <h2 id="guide-title"><?= $e($landingPage['guide_title'] ?? 'Geführter Ablauf') ?></h2>
-          </div>
-          <div class="card-body">
             <?php if (!empty($landingPage['guide_intro'])): ?>
-              <p class="muted"><?= $e($landingPage['guide_intro']) ?></p>
+              <p><?= $e($landingPage['guide_intro']) ?></p>
             <?php endif; ?>
-            <div class="beginner-steps">
-              <?php foreach ($landingPage['guide_steps'] as $step): ?>
-                <article class="beginner-step">
-                  <?php if (!empty($step['badge'])): ?><p class="step-badge"><?= $e($step['badge']) ?></p><?php endif; ?>
-                  <h3><?= $e($step['title'] ?? '') ?></h3>
-                  <p><?= $e($step['description'] ?? '') ?></p>
-                  <?php if (!empty($step['tools']) && is_array($step['tools'])): ?>
-                    <ul class="situation-tools">
-                      <?php foreach ($step['tools'] as $stepTool): ?>
-                        <li><a href="<?= $e($stepTool['href'] ?? '#') ?>"><?= $e($stepTool['label'] ?? '') ?></a></li>
-                      <?php endforeach; ?>
-                    </ul>
-                  <?php endif; ?>
-                </article>
-              <?php endforeach; ?>
-            </div>
+          </div>
+          <div class="beginner-steps">
+            <?php foreach ($landingPage['guide_steps'] as $step): ?>
+              <article class="beginner-step">
+                <?php if (!empty($step['badge'])): ?><p class="step-badge"><?= $e($step['badge']) ?></p><?php endif; ?>
+                <h3><?= $e($step['title'] ?? '') ?></h3>
+                <p><?= $e($step['description'] ?? '') ?></p>
+                <?php if (!empty($step['tools']) && is_array($step['tools'])): ?>
+                  <ul class="situation-tools">
+                    <?php foreach ($step['tools'] as $stepTool): ?>
+                      <li><a href="<?= $e($stepTool['href'] ?? '#') ?>"><?= $e($stepTool['label'] ?? '') ?></a></li>
+                    <?php endforeach; ?>
+                  </ul>
+                <?php endif; ?>
+              </article>
+            <?php endforeach; ?>
           </div>
         </section>
       <?php endif; ?>
 
-      <?php if (!empty($landingPage['planning_checklist'])): $pc = $landingPage['planning_checklist']; ?>
-        <div class="planning-checklist" id="planningChecklist">
-          <div class="planning-checklist-head">
-            <h3><?= $e($pc['title']) ?></h3>
-            <button class="checklist-reset" type="button" id="checklistReset"><?= $e($pc['reset_label']) ?></button>
-          </div>
-          <div class="planning-checklist-body">
-            <?php foreach ($pc['items'] as $item): ?>
-              <div class="checklist-item" id="ci_<?= $e($item['id']) ?>">
-                <input type="checkbox" id="<?= $e($item['id']) ?>" name="<?= $e($item['id']) ?>" />
-                <label for="<?= $e($item['id']) ?>"><a href="<?= $e($item['href']) ?>"><?= $e($item['label']) ?></a></label>
-              </div>
-            <?php endforeach; ?>
-          </div>
-        </div>
-      <?php endif; ?>
-
-      <div class="card-head">
+      <div class="landing-section-header">
         <h2><?= $e($landingPage['section_title']) ?></h2>
       </div>
-      <?php
-        $toolCount = count($landingPage['tools']);
-        $toggleLabel = !empty($landingPage['tools_toggle_label']) ? $landingPage['tools_toggle_label'] : "Browse all {$toolCount} tools";
-      ?>
-      <button class="btn btn-outline tools-toggle-btn" id="toolsToggleBtn" type="button"><?= $e($toggleLabel) ?> &#9660;</button>
-      <div class="card-body landing-links tools-hidden" id="landingLinksGrid">
+      <div class="landing-links">
         <?php foreach ($landingPage['tools'] as $tool): ?>
           <a class="tool-link<?= !empty($tool['highlight']) ? ' tool-link-highlight' : '' ?>" href="<?= $e($tool['href']) ?>">
             <span class="tool-icon" aria-hidden="true">

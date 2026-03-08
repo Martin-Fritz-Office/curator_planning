@@ -5,29 +5,38 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>artbackstage</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page landing-page">
-    <header class="header landing-header">
-      <div>
-        <p class="eyebrow brand-mark">artbackstage</p>
-        <h1>Wähle deinen Einstieg</h1>
-        <p class="muted">Ein Werkzeugkasten: Finanzen, Urheberrecht und Soziales für Kunst- und Kulturpraxis.</p>
-      </div>
-      <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php" lang="en">English</a>
-      </div>
-    </header>
 
-    <main id="main-content" class="card landing-card">
-      <section class="story-intro" aria-labelledby="areas-title">
-        <h2 id="areas-title">Bereiche</h2>
+    <!-- Hero -->
+    <div class="landing-hero">
+      <div class="landing-hero-inner">
+        <span class="landing-hero-eyebrow">
+          <span class="landing-hero-dot" aria-hidden="true"></span>
+          artbackstage · BETA
+        </span>
+        <h1>Wähle deinen&nbsp;Einstieg</h1>
+        <p>Drei Bereiche, ein Werkzeugkasten: Finanzen, Urheberrecht und Soziales für Kunst- und Kulturpraxis.</p>
+        <div class="landing-hero-actions">
+          <a class="btn btn-hero-ghost" href="index_en.php" lang="en">English version</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Area cards -->
+    <main>
+      <div class="landing-section-header">
+        <h2>Bereiche</h2>
         <p>Wähle den Bereich, mit dem du starten möchtest.</p>
-      </section>
+      </div>
 
-      <div class="card-body landing-links">
+      <div class="landing-links">
         <a class="tool-link" href="index_money.php">
           <span class="tool-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img" focusable="false">
@@ -35,8 +44,9 @@
             </svg>
           </span>
           <span class="tool-link-content">
-            <h3>artbackstage | Geld</h3>
-            <p>Landingpage mit allen Finanz-, Angebots- und Fair-Pay-Rechnern.</p>
+            <h3>artbackstage | Money</h3>
+            <p>Finanz-, Angebots- und Fair-Pay-Rechner für die freie Kuratorenpraxis.</p>
+            <p style="margin-top:6px"><a href="yearly_turnover_calculator.php" style="color:var(--accent-dark);font-weight:600;font-size:13px">Neu: Direkt zum Jahresumsatz-Rechner →</a></p>
           </span>
         </a>
 
@@ -47,8 +57,8 @@
             </svg>
           </span>
           <span class="tool-link-content">
-            <h3>artbackstage | Recht</h3>
-            <p>Landingpage mit Einstieg ins UrhG-Quiz und Rechtsgrundlagen.</p>
+            <h3>artbackstage | Law</h3>
+            <p>UrhG-Quiz, Vertrags-Checklisten und Rechtsgrundlagen für Kunstschaffende.</p>
           </span>
         </a>
 
@@ -60,7 +70,7 @@
           </span>
           <span class="tool-link-content">
             <h3>artbackstage | Soziales</h3>
-            <p>Landingpage mit Story-Einstieg zu sozialer Absicherung, Einkommen und Fair-Pay-Planung.</p>
+            <p>Soziale Absicherung, Einkommen und Fair-Pay-Planung für Kulturarbeit.</p>
           </span>
         </a>
       </div>
