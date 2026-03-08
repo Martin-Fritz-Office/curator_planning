@@ -9,11 +9,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script defer src="chart.umd.min.js"></script>
   <script defer src="calc_core.js"></script>
   <script defer src="app_en.js"></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page didactic-page">
     <header class="header didactic-header">
       <div>
@@ -21,12 +22,12 @@
         <p class="muted">Same calculation logic as the standard tool, with a guided flow and easier-to-read interface.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="forecast_didactic.php">Deutsch</a>
       </div>
     </header>
 
-    <main class="didactic-main">
+    <main id="main-content" class="didactic-main">
       <section class="card didactic-intro">
         <div class="card-head"><h2>How to use this version</h2></div>
         <div class="card-body didactic-steps">

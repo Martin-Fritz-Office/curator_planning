@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page landing-page">
     <header class="header landing-header">
       <div>
@@ -20,12 +21,12 @@
         <p class="muted">If you're just starting out or feeling overwhelmed, follow these 4 steps first. You don't need to solve everything at once.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="beginner_path.php">Deutsch</a>
       </div>
     </header>
 
-    <main class="card landing-card">
+    <main id="main-content" class="card landing-card">
       <div class="card-head">
         <h2>Your easiest way to start</h2>
       </div>

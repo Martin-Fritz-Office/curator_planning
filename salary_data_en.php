@@ -12,6 +12,7 @@
   <script defer src="salary_data.js"></script>
 </head>
 <body data-lang="en">
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -19,11 +20,11 @@
         <p class="muted">Search 100 job titles, compare salary/fee ranges, and view a salary pyramid from highest to lowest expected pay.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
       </div>
     </header>
 
-    <main class="stack">
+    <main id="main-content" class="stack">
       <section class="card">
         <div class="card-head">
           <h2>Search and filter</h2>

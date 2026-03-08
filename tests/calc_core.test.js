@@ -27,9 +27,9 @@ const forecast = core.calculateForecast(core.DEFAULT_ANSWERS, 0, {
   },
 });
 
-near(forecast.revenue, 35170);
-near(forecast.taxes, 1585.8519999999999);
-near(forecast.available, 17293.23904);
+near(forecast.revenue, 44650);
+near(forecast.taxes, 3424);
+near(forecast.available, 21178.96);
 assert.equal(forecast.typ.label, 's');
 assert.equal(forecast.incomePie[0].name, 'a');
 

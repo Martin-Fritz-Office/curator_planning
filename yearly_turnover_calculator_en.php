@@ -13,6 +13,7 @@
   <script defer src="yearly_turnover_calculator.js"></script>
 </head>
 <body data-lang="en">
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page planning-wide freelance-page">
     <header class="header">
       <div>
@@ -20,12 +21,12 @@
         <p class="muted">Built in the same spirit as the Freelance Service Calculator: add service rows, estimate yearly quantity, and track your total turnover instantly.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="yearly_turnover_calculator.php">Deutsch</a>
       </div>
     </header>
 
-    <main class="grid planning-grid freelance-grid">
+    <main id="main-content" class="grid planning-grid freelance-grid">
       <section class="card planning-card-wide freelance-card-wide">
         <div class="card-head">
           <h2>Services & yearly turnover</h2>

@@ -148,10 +148,10 @@
               <input type="text" data-field="title" data-index="${index}" value="${row.title}" placeholder="Eigener Jobtitel" />
             </td>
             <td>
-              <input type="number" min="1" step="1" data-field="years" data-index="${index}" value="${row.years}" />
+              <input type="number" min="1" step="1" data-field="years" data-index="${index}" value="${row.years}" inputmode="numeric" />
             </td>
             <td>
-              <input type="number" min="0" step="0.5" data-field="hours" data-index="${index}" value="${row.hours}" />
+              <input type="number" min="0" step="0.5" data-field="hours" data-index="${index}" value="${row.hours}" inputmode="decimal" />
             </td>
             <td><strong>${salary.stage}</strong></td>
             <td>${EUR(salary.fullTime)}</td>

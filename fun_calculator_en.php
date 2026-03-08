@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body data-lang="en">
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -20,12 +21,12 @@
         <p class="muted">Rate each dimension from 1 to 100 and inspect the radar diagram to see whether a project is balanced and feasible for you.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="fun_calculator.php">Deutsch</a>
       </div>
     </header>
 
-    <main class="grid">
+    <main id="main-content" class="grid">
       <section class="card">
         <div class="card-head">
           <h2>Dimension scores (1–100)</h2>

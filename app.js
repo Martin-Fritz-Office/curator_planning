@@ -36,10 +36,10 @@
     },
     {
       key: "q2",
-      title: "Wie viele kuratorische Projekte pro Jahr realistisch?",
+      title: "Wie viele kuratorische oder künstlerische Projekte pro Jahr sind realistisch?",
       options: [
-        { k: "A", label: "3–4" },
-        { k: "B", label: "5–6" },
+        { k: "A", label: "1–3" },
+        { k: "B", label: "4–6" },
         { k: "C", label: "7–9" },
         { k: "D", label: "10+" },
       ],
@@ -63,7 +63,7 @@
         { k: "C", label: "überwiegend" },
         { k: "D", label: "ausschließlich" },
       ],
-      hint: "Indikator für Stabilität/Planbarkeit (keine harte Euro-Logik).",
+      hint: "Indikator für Stabilität/Planbarkei.",
     },
     {
       key: "q5",
@@ -87,33 +87,12 @@
     },
     {
       key: "q7",
-      title: "Tagessatz bei Beratung/Jury (brutto)?",
+      title: "Tagessatz bei Beratung/Jury oder Recherche (brutto)?",
       options: [
         { k: "A", label: "unter 300 €" },
         { k: "B", label: "300–450 €" },
         { k: "C", label: "450–650 €" },
         { k: "D", label: "über 650 €" },
-      ],
-    },
-    {
-      key: "q8",
-      title: "Internationale Projekte (inkl. Reisen)?",
-      options: [
-        { k: "A", label: "keine" },
-        { k: "B", label: "1/Jahr" },
-        { k: "C", label: "2–3/Jahr" },
-        { k: "D", label: "4+/Jahr" },
-      ],
-      hint: "Treiber für variable Kosten und Risikopuffer.",
-    },
-    {
-      key: "q9",
-      title: "Wer trägt Reisekosten?",
-      options: [
-        { k: "A", label: "meist ich selbst" },
-        { k: "B", label: "geteilt" },
-        { k: "C", label: "meist Auftraggeber*in" },
-        { k: "D", label: "immer Auftraggeber*in" },
       ],
     },
     {
@@ -124,48 +103,6 @@
         { k: "B", label: "bis 5.000 €" },
         { k: "C", label: "5.000–15.000 €" },
         { k: "D", label: "über 15.000 €" },
-      ],
-    },
-    {
-      key: "q11",
-      title: "Wie stabil ist deine Auftragslage?",
-      options: [
-        { k: "A", label: "stark schwankend" },
-        { k: "B", label: "eher unsicher" },
-        { k: "C", label: "relativ stabil" },
-        { k: "D", label: "sehr stabil" },
-      ],
-      hint: "Beeinflusst den Sicherheitsabschlag (Konservativitätsfaktor).",
-    },
-    {
-      key: "q12",
-      title: "Wie viele unbezahlte Projekte pro Jahr?",
-      options: [
-        { k: "A", label: "0" },
-        { k: "B", label: "1–2" },
-        { k: "C", label: "3–4" },
-        { k: "D", label: "5+" },
-      ],
-      hint: "Reduziert bezahlten Projektumfang.",
-    },
-    {
-      key: "q13",
-      title: "Arbeitszeit pro Woche (Ø)?",
-      options: [
-        { k: "A", label: "unter 25 h" },
-        { k: "B", label: "25–35 h" },
-        { k: "C", label: "35–45 h" },
-        { k: "D", label: "über 45 h" },
-      ],
-    },
-    {
-      key: "q14",
-      title: "Anteil Administratives/Buchhaltung?",
-      options: [
-        { k: "A", label: "<10 %" },
-        { k: "B", label: "10–20 %" },
-        { k: "C", label: "20–30 %" },
-        { k: "D", label: ">30 %" },
       ],
     },
     {
@@ -190,7 +127,7 @@
     },
     {
       key: "q17",
-      title: "Wie viele Lehraufträge hast du pro Jahr?",
+      title: "Wie viele andere Aufträge hast du pro Jahr?",
       options: [
         { k: "A", label: "0" },
         { k: "B", label: "1–2" },
@@ -200,7 +137,7 @@
     },
     {
       key: "q18",
-      title: "Durchschnittliches Honorar pro Lehrauftrag (brutto)?",
+      title: "Durchschnittliches Honorar pro Auftrag (brutto)?",
       options: [
         { k: "A", label: "unter 500 €" },
         { k: "B", label: "500–1.000 €" },
@@ -214,8 +151,8 @@
       options: [
         { k: "A", label: "<20.000 €" },
         { k: "B", label: "20.000–30.000 €" },
-        { k: "C", label: "30.000–45.000 €" },
-        { k: "D", label: ">45.000 €" },
+        { k: "C", label: "30.000–40.000 €" },
+        { k: "D", label: ">40.000 €" },
       ],
       hint: "Nur für Gap-Analyse, nicht als Input für Umsatzberechnung.",
     },
@@ -241,6 +178,17 @@
       ],
       hint: "Zusätzliche private oder institutionelle Unterstützung pro Jahr.",
     },
+    {
+      key: "q22",
+      title: "Hast Du etwas zu verkaufen?",
+      options: [
+        { k: "A", label: "nein" },
+        { k: "B", label: "bis 2.000 €/Jahr" },
+        { k: "C", label: "2.000–6.000 €/Jahr" },
+        { k: "D", label: "über 6.000 €/Jahr" },
+      ],
+      hint: "Einnahmen aus dem Verkauf von Werken, Publikationen o. ä.",
+    },
   ];
 
   const QUESTION_GROUPS = [
@@ -252,12 +200,7 @@
     {
       title: "Einnahmenquellen",
       description: "Zusätzliche Erlösströme neben der klassischen Projektarbeit.",
-      keys: ["q5", "q6", "q7", "q10", "q17", "q18", "q21"],
-    },
-    {
-      title: "Auslastung & Planbarkeit",
-      description: "Wie stabil und planbar dein Jahr ist.",
-      keys: ["q8", "q9", "q11", "q12", "q13", "q14"],
+      keys: ["q5", "q6", "q7", "q10", "q17", "q18", "q21", "q22"],
     },
     {
       title: "Kosten, Risiko & Ziel",
@@ -273,9 +216,10 @@
       "Kuratorische Honorare",
       "Texte & Publikationen",
       "Beratung / Jury",
-      "Lehre",
+      "andere Aufträge",
       "Förderungen / Stipendien",
       "Unterstützung",
+      "Verkaufserlöse",
     ],
     costs: ["Fixkosten", "Variable Projektkosten", "SV & Vorsorge", "Steuern"],
     typology: {
@@ -511,8 +455,9 @@
       { label: "Kuratorische Honorare", value: c.curatorial, formatted: EUR(c.curatorial) },
       { label: "Texte & Publikationen", value: c.texts, formatted: EUR(c.texts) },
       { label: "Beratung / Jury", value: c.consulting, formatted: EUR(c.consulting) },
-      { label: "Lehre", value: c.teaching, formatted: EUR(c.teaching) },
+      { label: "andere Aufträge", value: c.teaching, formatted: EUR(c.teaching) },
       { label: "Förderungen / Stipendien", value: c.grants, formatted: EUR(c.grants) },
+      { label: "Verkäufe", value: c.sales, formatted: EUR(c.sales) },
       { label: "Gesamtumsatz", value: c.revenue, formatted: EUR(c.revenue) },
       { label: "Fixkosten (jährlich)", value: c.fixAnnual, formatted: EUR(c.fixAnnual) },
       { label: "Variable Projektkosten", value: c.varAnnual, formatted: EUR(c.varAnnual) },
@@ -782,8 +727,9 @@
     sheetEl.appendChild(sheetRow("Kuratorische Honorare", EUR(c.curatorial)));
     sheetEl.appendChild(sheetRow("Texte & Publikationen", EUR(c.texts)));
     sheetEl.appendChild(sheetRow("Beratung / Jury", EUR(c.consulting)));
-    sheetEl.appendChild(sheetRow("Lehre", EUR(c.teaching)));
+    sheetEl.appendChild(sheetRow("andere Aufträge", EUR(c.teaching)));
     sheetEl.appendChild(sheetRow("Förderungen / Stipendien", EUR(c.grants)));
+    sheetEl.appendChild(sheetRow("Verkäufe", EUR(c.sales)));
 
     sheetEl.appendChild(document.createElement("hr")).className = "sep";
 
@@ -834,29 +780,40 @@
   let costChart = null;
 
   function makePie(ctx, labels, values) {
+    const total = values.reduce((a, b) => a + (Number(b) || 0), 0) || 1;
     return new Chart(ctx, {
-      type: "pie",
+      type: "bar",
       data: {
         labels,
         datasets: [
           {
             data: values,
             borderWidth: 1,
+            borderRadius: 4,
           },
         ],
       },
       options: {
+        indexAxis: "y",
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { position: "bottom" },
+          legend: { display: false },
           tooltip: {
             callbacks: {
               label: function (context) {
-                const v = Number(context.parsed) || 0;
-                const total = context.dataset.data.reduce((a, b) => a + (Number(b) || 0), 0) || 1;
+                const v = Number(context.parsed.x) || 0;
                 const share = Math.round((v / total) * 100);
-                return `${context.label}: ${EUR(v)} (${share}%)`;
+                return `${EUR(v)} (${share}%)`;
+              },
+            },
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              callback: function (value) {
+                return EUR(Number(value));
               },
             },
           },
@@ -925,6 +882,11 @@
     renderCharts(c);
     renderScenarioComparison();
     setSaveStatus("Nicht gespeichert", null);
+    const touched = QUESTIONS.filter((q) => answers[q.key] !== DEFAULT[q.key]).length;
+    const progressBar = document.getElementById("forecastProgressBar");
+    const progressLabel = document.getElementById("forecastProgress");
+    if (progressBar) progressBar.value = touched;
+    if (progressLabel) progressLabel.textContent = `${touched} / ${QUESTIONS.length} Fragen bearbeitet`;
   }
 
   if (saveBtn) {
@@ -976,6 +938,20 @@
     }
     updateAll();
   });
+
+  // -------------------- persistence notice --------------------
+  const ONBOARDING_KEY = "artbackstage_onboarded_v1";
+  const persistenceNoticeEl = document.getElementById("persistenceNotice");
+  if (persistenceNoticeEl && !localStorage.getItem(ONBOARDING_KEY)) {
+    persistenceNoticeEl.hidden = false;
+    const dismissBtn = persistenceNoticeEl.querySelector(".persistence-notice-dismiss");
+    if (dismissBtn) {
+      dismissBtn.addEventListener("click", () => {
+        persistenceNoticeEl.hidden = true;
+        localStorage.setItem(ONBOARDING_KEY, "1");
+      });
+    }
+  }
 
   // -------------------- init --------------------
   function init() {

@@ -12,6 +12,7 @@
   <script defer src="fair_use_questionnaire_en.js"></script>
 </head>
 <body data-lang="en">
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -19,12 +20,12 @@
         <p class="muted">Guided questions based on the 2026 guideline to estimate a fair artist fee.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="honorarium_questionnaire.php">Deutsch</a>
       </div>
     </header>
 
-    <main class="card tutorial-card">
+    <main id="main-content" class="card tutorial-card">
       <div class="card-head">
         <h2>Questionnaire: Fair honorarium estimate</h2>
       </div>

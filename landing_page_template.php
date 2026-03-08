@@ -17,6 +17,7 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page landing-page">
     <div class="landing-hero">
       <div class="landing-hero-inner">
@@ -123,5 +124,50 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
     </main>
   </div>
 <?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
+<?php if (!empty($landingPage['planning_checklist'])): ?>
+<script>
+(function(){
+  var items = <?= json_encode(array_column($landingPage['planning_checklist']['items'], 'id')) ?>;
+  var KEY = 'artbackstage_checklist';
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ return {}; } }
+  function save(state){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+  function apply(){
+    var state = load();
+    items.forEach(function(id){
+      var cb = document.getElementById(id);
+      var ci = document.getElementById('ci_'+id);
+      if(!cb||!ci) return;
+      cb.checked = !!state[id];
+      ci.classList.toggle('done', !!state[id]);
+    });
+  }
+  apply();
+  items.forEach(function(id){
+    var cb = document.getElementById(id);
+    if(!cb) return;
+    cb.addEventListener('change', function(){
+      var state = load(); state[id] = cb.checked; save(state);
+      var ci = document.getElementById('ci_'+id);
+      if(ci) ci.classList.toggle('done', cb.checked);
+    });
+  });
+  var reset = document.getElementById('checklistReset');
+  if(reset) reset.addEventListener('click', function(){ save({}); apply(); });
+})();
+</script>
+<?php endif; ?>
+<script>
+(function(){
+  var btn = document.getElementById('toolsToggleBtn');
+  var grid = document.getElementById('landingLinksGrid');
+  if(!btn||!grid) return;
+  var showLabel = btn.textContent;
+  var hideLabel = btn.textContent.replace('\u25bc', '\u25b2').replace('Browse all', 'Hide');
+  btn.addEventListener('click', function(){
+    var hidden = grid.classList.toggle('tools-hidden');
+    btn.innerHTML = (hidden ? showLabel : hideLabel);
+  });
+})();
+</script>
 </body>
 </html>

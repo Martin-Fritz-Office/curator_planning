@@ -12,6 +12,7 @@
   <script defer src="personalplanung_en.js"></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page planning-wide">
     <header class="header">
       <div>
@@ -19,12 +20,17 @@
         <p class="muted">Choose the pay scale group on the left, select a sample role, and add your own title and weekly hours. Salaries and annual total costs update instantly.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="personalplanung.php">Deutsch</a>
       </div>
     </header>
 
-    <main class="grid planning-grid">
+    <main id="main-content" class="grid planning-grid">
+      <div class="fair-pay-values" role="note">
+        <h3>Fair pay is a sector responsibility</h3>
+        <p>Paying collaborators fairly is not just legal compliance — it is how we build a sustainable arts ecosystem. FAIR PAY 2026 sets the floor. Use these figures as your minimum starting point, not a target to negotiate down from. For advocacy context and further guidance, see <a href="https://igkultur.at" target="_blank" rel="noopener">IG Kultur</a> and <a href="https://igbildendekunst.at" target="_blank" rel="noopener">IG Bildende Kunst</a>.</p>
+      </div>
+
       <section class="card planning-card-wide">
         <div class="card-head">
           <h2>Live planning by pay scale group</h2>

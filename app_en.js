@@ -63,7 +63,7 @@
         { k: "C", label: "mostly" },
         { k: "D", label: "exclusively" },
       ],
-      hint: "Indicator for stability/plannability (not a strict euro formula).",
+      hint: "Indicator of stability and planning reliability (not a strict euro formula).",
     },
     {
       key: "q5",
@@ -82,7 +82,7 @@
         { k: "A", label: "no" },
         { k: "B", label: "1–2/year" },
         { k: "C", label: "3–5/year" },
-        { k: "D", label: "regularly (>5)" },
+        { k: "D", label: "regularly (more than 5)" },
       ],
     },
     {
@@ -90,30 +90,9 @@
       title: "Day rate for consulting/jury (gross)?",
       options: [
         { k: "A", label: "under €300" },
-        { k: "B", label: "300–450 €" },
-        { k: "C", label: "450–650 €" },
+        { k: "B", label: "€300–€450" },
+        { k: "C", label: "€450–€650" },
         { k: "D", label: "over €650" },
-      ],
-    },
-    {
-      key: "q8",
-      title: "International projects (incl. travel)?",
-      options: [
-        { k: "A", label: "none" },
-        { k: "B", label: "1/year" },
-        { k: "C", label: "2–3/year" },
-        { k: "D", label: "4+/year" },
-      ],
-      hint: "Driver for variable costs and risk buffer.",
-    },
-    {
-      key: "q9",
-      title: "Who covers travel costs?",
-      options: [
-        { k: "A", label: "mostly me" },
-        { k: "B", label: "shared" },
-        { k: "C", label: "mostly the client" },
-        { k: "D", label: "always the client" },
       ],
     },
     {
@@ -124,48 +103,6 @@
         { k: "B", label: "up to €5,000" },
         { k: "C", label: "€5,000–€15,000" },
         { k: "D", label: "over €15,000" },
-      ],
-    },
-    {
-      key: "q11",
-      title: "How stable is your pipeline?",
-      options: [
-        { k: "A", label: "highly volatile" },
-        { k: "B", label: "rather uncertain" },
-        { k: "C", label: "relatively stable" },
-        { k: "D", label: "very stable" },
-      ],
-      hint: "Affects the safety discount (conservatism factor).",
-    },
-    {
-      key: "q12",
-      title: "How many unpaid projects per year?",
-      options: [
-        { k: "A", label: "0" },
-        { k: "B", label: "1–2" },
-        { k: "C", label: "3–4" },
-        { k: "D", label: "5+" },
-      ],
-      hint: "Reduces paid project volume.",
-    },
-    {
-      key: "q13",
-      title: "Working hours per week (avg)?",
-      options: [
-        { k: "A", label: "under 25 h" },
-        { k: "B", label: "25–35 h" },
-        { k: "C", label: "35–45 h" },
-        { k: "D", label: "over 45 h" },
-      ],
-    },
-    {
-      key: "q14",
-      title: "Share of admin/accounting?",
-      options: [
-        { k: "A", label: "<10 %" },
-        { k: "B", label: "10–20 %" },
-        { k: "C", label: "20–30 %" },
-        { k: "D", label: ">30 %" },
       ],
     },
     {
@@ -241,6 +178,17 @@
       ],
       hint: "Additional private or institutional support per year.",
     },
+    {
+      key: "q22",
+      title: "Do you have something to sell?",
+      options: [
+        { k: "A", label: "no" },
+        { k: "B", label: "up to €2,000/year" },
+        { k: "C", label: "€2,000–€6,000/year" },
+        { k: "D", label: "over €6,000/year" },
+      ],
+      hint: "Income from selling works, publications, or similar.",
+    },
   ];
 
   const QUESTION_GROUPS = [
@@ -252,12 +200,7 @@
     {
       title: "Income streams",
       description: "Additional revenue sources besides project fees.",
-      keys: ["q5", "q6", "q7", "q10", "q17", "q18", "q21"],
-    },
-    {
-      title: "Workload & predictability",
-      description: "How stable and plannable your year is.",
-      keys: ["q8", "q9", "q11", "q12", "q13", "q14"],
+      keys: ["q5", "q6", "q7", "q10", "q17", "q18", "q21", "q22"],
     },
     {
       title: "Costs, risk & target",
@@ -273,9 +216,10 @@
       "Curatorial fees",
       "Texts & publications",
       "Consulting / jury",
-      "Teaching",
+      "Other assignments",
       "Grants / scholarships",
       "Support",
+      "Sales revenue",
     ],
     costs: ["Fixed costs", "Variable project costs", "Social insurance & provision", "Taxes"],
     typology: {
@@ -511,8 +455,9 @@
       { label: "Curatorial fees", value: c.curatorial, formatted: EUR(c.curatorial) },
       { label: "Texts & publications", value: c.texts, formatted: EUR(c.texts) },
       { label: "Consulting / jury", value: c.consulting, formatted: EUR(c.consulting) },
-      { label: "Teaching", value: c.teaching, formatted: EUR(c.teaching) },
+      { label: "Other assignments", value: c.teaching, formatted: EUR(c.teaching) },
       { label: "Grants / scholarships", value: c.grants, formatted: EUR(c.grants) },
+      { label: "Sales", value: c.sales, formatted: EUR(c.sales) },
       { label: "Total revenue", value: c.revenue, formatted: EUR(c.revenue) },
       { label: "Fixed costs (annual)", value: c.fixAnnual, formatted: EUR(c.fixAnnual) },
       { label: "Variable project costs", value: c.varAnnual, formatted: EUR(c.varAnnual) },
@@ -783,8 +728,9 @@
     sheetEl.appendChild(sheetRow("Curatorial fees", EUR(c.curatorial)));
     sheetEl.appendChild(sheetRow("Texts & publications", EUR(c.texts)));
     sheetEl.appendChild(sheetRow("Consulting / jury", EUR(c.consulting)));
-    sheetEl.appendChild(sheetRow("Teaching", EUR(c.teaching)));
+    sheetEl.appendChild(sheetRow("Other assignments", EUR(c.teaching)));
     sheetEl.appendChild(sheetRow("Grants / scholarships", EUR(c.grants)));
+    sheetEl.appendChild(sheetRow("Sales", EUR(c.sales)));
 
     sheetEl.appendChild(document.createElement("hr")).className = "sep";
 
@@ -835,29 +781,40 @@
   let costChart = null;
 
   function makePie(ctx, labels, values) {
+    const total = values.reduce((a, b) => a + (Number(b) || 0), 0) || 1;
     return new Chart(ctx, {
-      type: "pie",
+      type: "bar",
       data: {
         labels,
         datasets: [
           {
             data: values,
             borderWidth: 1,
+            borderRadius: 4,
           },
         ],
       },
       options: {
+        indexAxis: "y",
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { position: "bottom" },
+          legend: { display: false },
           tooltip: {
             callbacks: {
               label: function (context) {
-                const v = Number(context.parsed) || 0;
-                const total = context.dataset.data.reduce((a, b) => a + (Number(b) || 0), 0) || 1;
+                const v = Number(context.parsed.x) || 0;
                 const share = Math.round((v / total) * 100);
-                return `${context.label}: ${EUR(v)} (${share}%)`;
+                return `${EUR(v)} (${share}%)`;
+              },
+            },
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              callback: function (value) {
+                return EUR(Number(value));
               },
             },
           },
@@ -926,6 +883,11 @@
     renderCharts(c);
     renderScenarioComparison();
     setSaveStatus("Not saved", null);
+    const touched = QUESTIONS.filter((q) => answers[q.key] !== DEFAULT[q.key]).length;
+    const progressBar = document.getElementById("forecastProgressBar");
+    const progressLabel = document.getElementById("forecastProgress");
+    if (progressBar) progressBar.value = touched;
+    if (progressLabel) progressLabel.textContent = `${touched} / ${QUESTIONS.length} questions completed`;
   }
 
   if (saveBtn) {
@@ -977,6 +939,20 @@
     }
     updateAll();
   });
+
+  // -------------------- persistence notice --------------------
+  const ONBOARDING_KEY = "artbackstage_onboarded_v1";
+  const persistenceNoticeEl = document.getElementById("persistenceNotice");
+  if (persistenceNoticeEl && !localStorage.getItem(ONBOARDING_KEY)) {
+    persistenceNoticeEl.hidden = false;
+    const dismissBtn = persistenceNoticeEl.querySelector(".persistence-notice-dismiss");
+    if (dismissBtn) {
+      dismissBtn.addEventListener("click", () => {
+        persistenceNoticeEl.hidden = true;
+        localStorage.setItem(ONBOARDING_KEY, "1");
+      });
+    }
+  }
 
   // -------------------- init --------------------
   function init() {

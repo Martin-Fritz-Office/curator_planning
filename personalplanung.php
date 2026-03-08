@@ -12,6 +12,7 @@
   <script defer src="personalplanung.js"></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page planning-wide">
     <header class="header">
       <div>
@@ -25,7 +26,7 @@
       </div>
     </header>
 
-    <main class="grid planning-grid">
+    <main id="main-content" class="grid planning-grid">
       <section class="card planning-card-wide">
         <div class="card-head">
           <h2>Live-Planung nach Beschäftigungsgruppe</h2>

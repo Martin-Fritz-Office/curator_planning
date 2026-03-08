@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page landing-page law-page">
     <header class="header landing-header">
       <div>
@@ -23,7 +24,7 @@
       </div>
     </header>
 
-    <main class="card landing-card">
+    <main id="main-content" class="card landing-card">
       <section class="story-intro" aria-labelledby="vgo-intro">
         <h2 id="vgo-intro">Was ist eine Verwertungsgesellschaft?</h2>
         <p>

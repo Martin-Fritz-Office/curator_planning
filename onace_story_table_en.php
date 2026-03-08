@@ -1,62 +1,59 @@
 <?php
 ?><!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Branchen-Story: Kunst, Geschlecht, Teilzeit und Einkommen</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <title>Sector story: arts, gender, part-time and income</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="onace_story_table.js"></script>
 </head>
-<body data-lang="de">
+<body data-lang="en">
   <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
-        <h1>Branchen-Story vor dem Berufseinstieg</h1>
-        <p class="muted">Für sozial interessierte Kunststudierende: So hängen Einkommen, Frauenanteil und Teilzeitquote in Österreichs Branchen zusammen.</p>
+        <h1>Sector story before entering the field</h1>
+        <p class="muted">For socially aware arts students: how income, share of women, and part-time rates relate across Austrian industry sectors.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_soziales.php">Zurück</a>
-        <a class="btn btn-outline" href="onace_story_table_en.php">English</a>
+        <a class="btn btn-outline" href="index_soziales_en.php">Back</a>
+        <a class="btn btn-outline" href="onace_story_table.php">Deutsch</a>
       </div>
     </header>
 
     <main id="main-content" class="stack">
       <section class="card">
         <div class="card-head">
-          <h2>Die Story in zwei Sätzen</h2>
+          <h2>The story in two sentences</h2>
         </div>
         <div class="card-body stack">
           <p id="storyArtPosition" class="small"></p>
           <p id="storyPattern" class="small"></p>
-          <p class="small muted">Hinweis: Die Werte sind gerundete Näherungen aus der gezeigten Statistik-Abbildung, damit sie digital filterbar und vergleichbar sind.</p>
+          <p class="small muted">Note: Values are rounded approximations from the source chart, to make them filterable and digitally comparable.</p>
         </div>
       </section>
 
       <section class="card">
         <div class="card-head">
-          <h2>Onlinetabelle (wie Salary-Explorer)</h2>
+          <h2>Interactive table (sector explorer)</h2>
         </div>
         <div class="card-body">
           <div class="qgrid">
             <label class="q">
-              <span>Suche (Code/Branche)</span>
-              <input id="onaceSearch" type="text" placeholder="z.B. R, Kunst, Gesundheit" />
+              <span>Search (code/sector)</span>
+              <input id="onaceSearch" type="text" placeholder="e.g. R, Arts, Health" />
             </label>
             <label class="q">
-              <span>Frauenanteil ab (%)</span>
+              <span>Minimum share of women (%)</span>
               <input id="onaceWomenMin" type="number" min="0" max="100" step="1" value="0" />
             </label>
             <label class="q">
-              <span>Teilzeitquote ab (%)</span>
+              <span>Minimum part-time rate (%)</span>
               <input id="onacePartTimeMin" type="number" min="0" max="100" step="1" value="0" />
             </label>
             <label class="q">
-              <span>Max. Bruttojahreseinkommen (€)</span>
+              <span>Max. gross annual income (€)</span>
               <input id="onaceIncomeMax" type="number" min="0" step="500" value="100000" />
             </label>
           </div>
@@ -66,11 +63,11 @@
               <thead>
                 <tr>
                   <th>Code</th>
-                  <th>ÖNACE-Abschnitt</th>
-                  <th>Mittleres Bruttojahreseinkommen</th>
-                  <th>Frauenanteil</th>
-                  <th>Vollzeitanteil</th>
-                  <th>Teilzeitquote</th>
+                  <th>ÖNACE sector</th>
+                  <th>Median gross annual income</th>
+                  <th>Share of women</th>
+                  <th>Full-time rate</th>
+                  <th>Part-time rate</th>
                 </tr>
               </thead>
               <tbody id="onaceTableBody"></tbody>

@@ -12,6 +12,7 @@
   <script defer src="gallery_contract_reality_check.js"></script>
 </head>
 <body data-lang="en">
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -19,12 +20,12 @@
         <p class="muted">12 guided questions to stress-test whether a gallery agreement is financially viable.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="gallery_contract_reality_check.php">Deutsch</a>
       </div>
     </header>
 
-    <main class="card tutorial-card">
+    <main id="main-content" class="card tutorial-card">
       <div class="card-head">
         <h2>Contract Check Carousel</h2>
       </div>

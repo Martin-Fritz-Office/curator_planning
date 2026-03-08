@@ -15,13 +15,7 @@
     q5: "B",
     q6: "B",
     q7: "C",
-    q8: "B",
-    q9: "B",
     q10: "B",
-    q11: "B",
-    q12: "B",
-    q13: "C",
-    q14: "B",
     q15: "B",
     q16: "B",
     q17: "B",
@@ -29,11 +23,11 @@
     q19: "C",
     q20: "B",
     q21: "A",
+    q22: "A",
   };
 
   const MAP = {
     projects: { A: 4, B: 6, C: 8, D: 11 },
-    paidShare: { A: 1.0, B: 0.85, C: 0.7, D: 0.55 },
     feePerProject: { A: 2500, B: 4000, C: 6500, D: 9000 },
     textIncome: { A: 0, B: 1200, C: 4000, D: 8000 },
     consultCount: { A: 0, B: 1.5, C: 4, D: 7.5 },
@@ -44,11 +38,9 @@
     supportIncome: { A: 0, B: 3600, C: 6000, D: 12000 },
     fixMonthly: { A: 200, B: 450, C: 800, D: 1200 },
     varPerProject: { A: 150, B: 350, C: 750, D: 1200 },
-    travelCostShare: { A: 1.0, B: 0.6, C: 0.3, D: 0.1 },
-    stabilityFactor: { A: 0.82, B: 0.9, C: 0.95, D: 1.0 },
     targetNet: { A: 18000, B: 26000, C: 37500, D: 52000 },
     reserveRate: { A: 0.15, B: 0.12, C: 0.1, D: 0.08 },
-    typologyStabilityScore: { A: 0.1, B: 0.35, C: 0.7, D: 1.0 },
+    salesIncome: { A: 0, B: 1200, C: 4000, D: 8000 },
   };
 
   const DEFAULT_LABELS = {
@@ -56,9 +48,10 @@
       "Curatorial fees",
       "Texts & publications",
       "Consulting / jury",
-      "Teaching",
+      "Other assignments",
       "Grants / scholarships",
       "Support",
+      "Sales revenue",
     ],
     costs: ["Fixed costs", "Variable project costs", "Social insurance & provision", "Taxes"],
     typology: {
@@ -94,10 +87,9 @@
 
   function scoreTypology(answers, labels) {
     const v =
-      (MAP.feePerProject[answers.q3] / 9000) * 0.35 +
-      MAP.typologyStabilityScore[answers.q11] * 0.35 +
-      (MAP.projects[answers.q2] / 11) * 0.2 +
-      (MAP.consultCount[answers.q6] / 7.5) * 0.1;
+      (MAP.feePerProject[answers.q3] / 9000) * 0.5 +
+      (MAP.projects[answers.q2] / 11) * 0.35 +
+      (MAP.consultCount[answers.q6] / 7.5) * 0.15;
 
     const s = clamp01(v);
     if (s < 0.33) return { label: labels.precarious, score: s };
@@ -115,32 +107,31 @@
 
     const employmentIncome = Math.max(0, Number(employmentIncomeInput) || 0);
     const projects = MAP.projects[answers.q2];
-    const paidProjects = Math.max(0, projects * MAP.paidShare[answers.q12]);
+    const paidProjects = projects;
 
     const feePerProject = MAP.feePerProject[answers.q3];
 
-    const stability = MAP.stabilityFactor[answers.q11];
-    const curatorial = paidProjects * feePerProject * stability;
+    const curatorial = paidProjects * feePerProject;
 
-    const texts = MAP.textIncome[answers.q5] * stability;
+    const texts = MAP.textIncome[answers.q5];
 
     const consultCount = MAP.consultCount[answers.q6];
     const dayRate = MAP.dayRate[answers.q7];
-    const consulting = consultCount * dayRate * stability;
+    const consulting = consultCount * dayRate;
 
     const teachingAssignments = MAP.teachingAssignments[answers.q17];
     const teachingFee = MAP.teachingFee[answers.q18];
-    const teaching = teachingAssignments * teachingFee * stability;
+    const teaching = teachingAssignments * teachingFee;
 
     const grants = MAP.grants[answers.q10];
     const support = MAP.supportIncome[answers.q21];
+    const sales = MAP.salesIncome[answers.q22];
 
-    const revenue = curatorial + texts + consulting + teaching + grants;
+    const revenue = curatorial + texts + consulting + teaching + grants + sales;
 
     const fixAnnual = MAP.fixMonthly[answers.q15] * 12;
 
-    const travelShare = MAP.travelCostShare[answers.q9];
-    const varAnnual = paidProjects * MAP.varPerProject[answers.q16] * travelShare;
+    const varAnnual = paidProjects * MAP.varPerProject[answers.q16];
 
     const profitBeforeSv = revenue - fixAnnual - varAnnual;
     const svAnnual = Math.max(0, profitBeforeSv) * 0.26;
@@ -169,6 +160,7 @@
       { name: labels.income[3], value: Math.max(0, teaching) },
       { name: labels.income[4], value: Math.max(0, grants) },
       { name: labels.income[5], value: Math.max(0, support) },
+      { name: labels.income[6], value: Math.max(0, sales) },
     ].filter((d) => d.value > 0);
 
     const costPie = [
@@ -182,13 +174,13 @@
       projects,
       paidProjects,
       feePerProject,
-      stability,
       curatorial,
       texts,
       consulting,
       teaching,
       grants,
       support,
+      sales,
       employmentIncome,
       revenue,
       fixAnnual,

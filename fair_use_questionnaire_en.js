@@ -159,7 +159,7 @@
     const value = state.values[question.key];
 
     const fieldHtml = question.type === "number"
-      ? `<input id="questionInput" type="number" min="${question.min ?? 0}" step="${question.step ?? 1}" value="${value}" />`
+      ? `<input id="questionInput" type="number" inputmode="decimal" min="${question.min ?? 0}" step="${question.step ?? 1}" value="${value}" />`
       : `<select id="questionInput">${question.options
           .map((option) => `<option value="${option.value}" ${value === option.value ? "selected" : ""}>${option.label}</option>`)
           .join("")}</select>`;

@@ -10,11 +10,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script defer src="chart.umd.min.js"></script>
   <script defer src="calc_core.js"></script>
   <script defer src="app_en.js"></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -22,7 +23,7 @@
         <p class="muted">Pie charts show percentage shares (tooltip). Values are gross heuristics.</p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_en.php">Home</a>
+        <a class="btn btn-outline" href="index_money_en.php">Home</a>
         <a class="btn btn-outline" href="forecast.php">Deutsch</a>
         <button id="saveBtn" class="btn" type="button">Save responses</button>
         <input id="scenarioName" class="input-inline" type="text" maxlength="120" placeholder="Scenario name" aria-label="Scenario name" />
@@ -37,12 +38,24 @@
       </div>
     </header>
 
-    <main class="grid">
+    <main id="main-content" class="grid">
       <section class="card">
         <div class="card-head">
           <h2>Questionnaire</h2>
+          <div class="q-progress">
+            <progress id="forecastProgressBar" value="0" max="21" aria-label="Questionnaire progress"></progress>
+            <span id="forecastProgress" class="q-progress-label">0 / 21 questions completed</span>
+          </div>
         </div>
         <div class="card-body">
+          <div class="tool-preamble">
+            <p><strong>21 questions · approx. 8 minutes</strong></p>
+            <p>Result: income typology + forecast sheet with available annual income. Helpful: have your income and costs for the last 12 months to hand.</p>
+          </div>
+          <div id="persistenceNotice" class="persistence-notice" hidden>
+            <p>Your answers are only saved when you click "Save answers". Use the scenario link to share or restore your work.</p>
+            <button type="button" class="persistence-notice-dismiss" aria-label="Close notice">×</button>
+          </div>
           <div id="questionGrid" class="qgrid"></div>
 
           <hr class="sep" />

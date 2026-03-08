@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <div class="page">
     <header class="header">
       <div>
@@ -29,12 +30,12 @@
         <p class="muted">A concise two-page overview of core findings, priority issues, and implementation directions.<span data-footnote="Note: This page is a plain-language paraphrase and does not replace the full source document."></span></p>
       </div>
       <div class="header-actions">
-        <a class="btn btn-outline" href="index_soziales.php">Back to Social</a>
+        <a class="btn btn-outline" href="index_soziales_en.php">Back to Social</a>
         <a class="btn btn-outline" href="gender_report_summary.php">Deutsch</a>
       </div>
     </header>
 
-    <main class="card">
+    <main id="main-content" class="card">
       <div class="card-head">
         <h2>Page 1 · Key findings</h2>
       </div>
@@ -51,7 +52,7 @@
       </div>
     </main>
 
-    <main class="card" style="margin-top:18px;">
+    <main id="main-content" class="card" style="margin-top:18px;">
       <div class="card-head">
         <h2>Page 2 · Priority actions and implementation</h2>
       </div>
