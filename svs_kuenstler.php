@@ -200,7 +200,7 @@
           </div>
           <div class="step-nav">
             <button class="btn btn-outline" onclick="goStep(1)">Zurück</button>
-            <button class="btn" id="next-2" onclick="goStep(3)" disabled>Weiter</button>
+            <button class="btn" id="next-2" onclick="goStepAfter2()" disabled>Weiter</button>
           </div>
         </div>
 
@@ -228,8 +228,8 @@
             <button class="answer-btn" data-step="4" data-val="no">Nein, ich bin bereits länger als 3 Kalenderjahre selbständig</button>
           </div>
           <div class="step-nav">
-            <button class="btn btn-outline" onclick="goStep(3)">Zurück</button>
-            <button class="btn" id="next-4" onclick="goStep(5)" disabled>Weiter</button>
+            <button class="btn btn-outline" onclick="goStepBefore4()">Zurück</button>
+            <button class="btn" id="next-4" onclick="goStepAfter4()" disabled>Weiter</button>
           </div>
         </div>
 
@@ -256,7 +256,7 @@
             <button class="answer-btn" data-step="6" data-val="no">Nein, die SVS ist meine einzige Versicherung</button>
           </div>
           <div class="step-nav">
-            <button class="btn btn-outline" onclick="goStep(5)">Zurück</button>
+            <button class="btn btn-outline" onclick="goStepBefore6()">Zurück</button>
             <button class="btn" id="next-6" onclick="showResult()" disabled>Ergebnis anzeigen</button>
           </div>
         </div>
@@ -380,7 +380,7 @@
     if (a1 === 'no') {
       html += `<p>Du übst keine freiberufliche künstlerische Tätigkeit aus. Eine GSVG-Pflichtversicherung über die SVS als Kunstschaffende*r trifft dich in dieser Konstellation nicht.</p>`;
     } else if (a2 === 'below') {
-      html += `<p>Deine Einkünfte liegen voraussichtlich <strong>unter der Versicherungsgrenze von 6.613,20 €</strong>. Eine Pflichtversicherung greift dann nicht automatisch – die SVS prüft dies aber rückwirkend anhand deines Einkommensteuerbescheids.</p>`;
+      html += `<p>Deine Einkünfte liegen voraussichtlich <strong>unter der Versicherungsgrenze von 6.613,20 €</strong>. Damit besteht <strong>keine Meldepflicht bei der SVS</strong> und keine automatische Pflichtversicherung. Die SVS prüft die Grenze rückwirkend anhand deines Einkommensteuerbescheids.</p>`;
       html += `<p>Wichtig: Auch wenn keine Pflichtversicherung besteht, kannst du freiwillig eine GSVG-Versicherung beantragen.</p>`;
     } else if (a2 === 'above') {
       html += `<p>Deine Einkünfte übersteigen die Versicherungsgrenze von <strong>6.613,20 €</strong>. Du bist damit bei der SVS in der <strong>Pensions-, Kranken- und Unfallversicherung pflichtversichert</strong>.</p>`;
@@ -421,7 +421,8 @@
     }
 
     // ── Block 3: K-SVFG Zuschuss ──────────────────────────────────────────
-    if (a5 === 'yes') {
+    // K-SVFG requires income >= 6.613,20 €, so only shown for above/unsure
+    if (a5 === 'yes' && a2 !== 'below') {
       html += `<div class="result-box" style="margin-top:14px;">`;
       html += `<h3>🎨 Künstler-Sozialversicherungsfonds (K-SVFG)</h3>`;
       html += `<p>Du kannst beim <strong>Künstler-Sozialversicherungsfonds</strong> einen Zuschuss zu deinen SVS-Beiträgen beantragen. Voraussetzungen:</p>`;
@@ -449,14 +450,19 @@
     html += `<div class="result-box" style="margin-top:14px;">`;
     html += `<h3>✅ Empfohlene nächste Schritte</h3>`;
     html += `<ul class="check-list">`;
+    if (a2 === 'below') {
+      html += `<li>Einkünfte im Blick behalten – sollte die Grenze von 6.613,20 € doch überschritten werden, besteht ab dann Meldepflicht bei der SVS</li>`;
+    }
     if (a2 === 'above' && a3 === 'no') {
       html += `<li>Überschreitung der Versicherungsgrenze proaktiv bei der SVS melden (innerhalb 8 Wochen nach Steuerbescheid)</li>`;
     }
-    if (a5 === 'yes') {
+    if (a5 === 'yes' && a2 !== 'below') {
       html += `<li>Antrag auf K-SVFG-Zuschuss stellen (Kontakt: <a href="mailto:office@ksvf.at">office@ksvf.at</a>)</li>`;
     }
-    html += `<li>Vierteljährliche SVS-Beitragsvorschreibungen im Blick behalten und rechtzeitig bezahlen</li>`;
-    html += `<li>Nach Erhalt des Einkommensteuerbescheids Nachbemessung durch die SVS abwarten</li>`;
+    if (a2 !== 'below') {
+      html += `<li>Vierteljährliche SVS-Beitragsvorschreibungen im Blick behalten und rechtzeitig bezahlen</li>`;
+      html += `<li>Nach Erhalt des Einkommensteuerbescheids Nachbemessung durch die SVS abwarten</li>`;
+    }
     if (a6 === 'yes' || a1 === 'both') {
       html += `<li>SVS-Infoblätter zur Mehrfachversicherung lesen: <a href="https://www.svs.at/info" target="_blank" rel="noopener noreferrer">svs.at/info</a></li>`;
     }
@@ -467,6 +473,12 @@
     document.getElementById('resultContent').innerHTML = html;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  // Skip step 3 (reporting) and step 5 (K-SVFG) when income is below threshold
+  function goStepAfter2() { goStep(answers['2'] === 'below' ? 4 : 3); }
+  function goStepBefore4() { goStep(answers['2'] === 'below' ? 2 : 3); }
+  function goStepAfter4() { goStep(answers['2'] === 'below' ? 6 : 5); }
+  function goStepBefore6() { goStep(answers['2'] === 'below' ? 4 : 5); }
 
   function resetTool() {
     Object.keys(answers).forEach(k => delete answers[k]);
