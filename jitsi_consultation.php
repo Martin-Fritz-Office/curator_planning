@@ -72,13 +72,36 @@
 <?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
 
 <script>
+function showToast(msg) {
+  var t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1a1a2e;color:#fff;padding:12px 18px;border-radius:8px;font-size:14px;box-shadow:0 4px 16px rgba(0,0,0,.3);z-index:9999;transition:opacity .4s';
+  document.body.appendChild(t);
+  setTimeout(function () { t.style.opacity = '0'; setTimeout(function () { t.remove(); }, 400); }, 4000);
+}
+
+function notifyParticipant(displayName) {
+  var name = displayName || 'Jemand';
+  var msg = name + ' ist dem Raum beigetreten.';
+  showToast('👤 ' + msg);
+  if (Notification.permission === 'granted') {
+    new Notification('artbackstage | Videoberatung', { body: msg, icon: 'favicon.svg' });
+  }
+}
+
 window.addEventListener('load', function () {
   if (typeof JitsiMeetExternalAPI === 'undefined') {
     document.getElementById('jaas-container').innerHTML =
       '<p style="color:#fff;padding:20px;font-family:sans-serif">Die Videokonferenz konnte nicht geladen werden. Bitte Seite neu laden.</p>';
     return;
   }
-  new JitsiMeetExternalAPI('8x8.vc', {
+
+  // Request browser notification permission up front
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+
+  var api = new JitsiMeetExternalAPI('8x8.vc', {
     roomName: 'vpaas-magic-cookie-217700227dd14fdc85d66af17ebfa727/ArtbackstageBeratung',
     parentNode: document.getElementById('jaas-container'),
     lang: 'de',
@@ -90,6 +113,10 @@ window.addEventListener('load', function () {
       SHOW_JITSI_WATERMARK: false,
       SHOW_WATERMARK_FOR_GUESTS: false,
     },
+  });
+
+  api.addEventListener('participantJoined', function (event) {
+    notifyParticipant(event.displayName);
   });
 });
 </script>
