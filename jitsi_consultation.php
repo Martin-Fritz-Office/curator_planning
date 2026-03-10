@@ -92,7 +92,7 @@
     <header style="margin-bottom:24px">
       <a href="index.php" style="font-size:13px;color:var(--muted);text-decoration:none">← artbackstage</a>
       <h1 style="margin:8px 0 4px;font-size:1.5rem">Videoberatung</h1>
-      <p style="margin:0;color:var(--muted);font-size:14px">Live-Beratungsraum für Kunst- und Kulturschaffende</p>
+      <p style="margin:0;color:var(--muted);font-size:14px">Live-Dialoge</p>
     </header>
 
     <main id="main-content" class="consultation-layout">
@@ -104,7 +104,7 @@
             <span id="occupancy-label">Verbinde…</span>
           </span>
         </div>
-        <p style="margin-top:10px">Dieser Raum steht für offene Beratungsgespräche zur Verfügung. Du benötigst keine Installation – der Raum öffnet direkt im Browser. Mikrofon und Kamera werden beim Beitreten abgefragt.</p>
+        <p style="margin-top:10px">Dieser Raum steht für offene Gespräche zur Verfügung. Du benötigst keine Installation – der Raum öffnet direkt im Browser. Mikrofon und Kamera werden beim Beitreten abgefragt.</p>
         <p>Bitte teile den Raumnamen mit deiner Beratungsperson, damit ihr euch im gleichen Raum trefft. Der Raum ist passwortfrei zugänglich.</p>
       </div>
 
