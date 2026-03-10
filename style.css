@@ -625,6 +625,46 @@ textarea:focus{
 }
 .tool-link-highlight:hover{border-color:#d4a45e}
 
+/* ── Section colour themes ── */
+/* Geld – amber/gold */
+.tool-link-geld{
+  background:linear-gradient(to bottom right,#fffbf0,#fff4d6);
+  border-color:#e8c96a;
+}
+.tool-link-geld .tool-icon{
+  background:linear-gradient(145deg,#fff0c0,#ffd970);
+  border-color:#d4a83a;
+  color:#7a4e00;
+}
+.tool-link-geld h3{color:#7a4e00}
+.tool-link-geld:hover{background:linear-gradient(to bottom right,#fff7e0,#ffedb0);border-color:#c8981a}
+
+/* Recht – blue/slate */
+.tool-link-recht{
+  background:linear-gradient(to bottom right,#f0f6ff,#e4effe);
+  border-color:#93b8f5;
+}
+.tool-link-recht .tool-icon{
+  background:linear-gradient(145deg,#dbeafe,#bfdbfe);
+  border-color:#6da5f0;
+  color:#1e40af;
+}
+.tool-link-recht h3{color:#1e3a8a}
+.tool-link-recht:hover{background:linear-gradient(to bottom right,#e6f0ff,#d6e6fd);border-color:#6da5f0}
+
+/* Soziales – lavender/purple */
+.tool-link-soziales{
+  background:linear-gradient(to bottom right,#f6f2ff,#ede8fe);
+  border-color:#c4b0f8;
+}
+.tool-link-soziales .tool-icon{
+  background:linear-gradient(145deg,#ede9fe,#ddd6fe);
+  border-color:#a78bfa;
+  color:#5b21b6;
+}
+.tool-link-soziales h3{color:#4c1d95}
+.tool-link-soziales:hover{background:linear-gradient(to bottom right,#ede8ff,#e0d8fc);border-color:#a78bfa}
+
 /* ── Responsive landing ── */
 @media (min-width:720px){
   .landing-links{grid-template-columns:repeat(3,1fr)}
