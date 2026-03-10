@@ -13,6 +13,8 @@ if (!function_exists('render_site_footer')) {
             $sourcesLabel = 'Sources';
             $notesTitle = 'Sources &amp; notes';
             $impressumLabel = 'Impressum';
+            $feedbackHref = 'feedback_en.php';
+            $feedbackLabel = 'Feedback';
         } else {
             $ariaLabel = 'Seitenhinweis und Fußnoten';
             $disclaimer = 'Die artbackstage Toolsammlung ist in laufender BETA-Entwicklung als Teil des Lehrauftrags „Kunst im Kontext (Recht, Geld und Fairness)” an der Kunstuniversität Linz. Für die Szenarios werden keine personalisierten Daten gespeichert. Teilweise KI-generiert. Keine Haftung.';
@@ -20,6 +22,8 @@ if (!function_exists('render_site_footer')) {
             $sourcesLabel = 'Quellen';
             $notesTitle = 'Quellen &amp; Hinweise';
             $impressumLabel = 'Impressum';
+            $feedbackHref = 'feedback.php';
+            $feedbackLabel = 'Feedback';
         }
         $moneyHref = $isEnglishPage ? 'index_money_en.php' : 'index_money.php';
         $lawHref   = 'index_law.php';
@@ -43,6 +47,7 @@ if (!function_exists('render_site_footer')) {
       <?= htmlspecialchars($disclaimer, ENT_QUOTES, 'UTF-8') ?>
       <a href="<?= htmlspecialchars($sourcesHref, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($sourcesLabel, ENT_QUOTES, 'UTF-8') ?></a>
       · <a href="impressum.php"><?= htmlspecialchars($impressumLabel, ENT_QUOTES, 'UTF-8') ?></a>
+      · <a href="<?= htmlspecialchars($feedbackHref, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($feedbackLabel, ENT_QUOTES, 'UTF-8') ?></a>
     </p>
     <section class="global-footnotes" id="globalFootnotes" hidden>
       <h2><?= $notesTitle ?></h2>
