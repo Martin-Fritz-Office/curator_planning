@@ -1,6 +1,7 @@
 <?php
 $landingPage = [
   'lang' => 'de',
+  'section_theme' => 'geld',
   'subtitle' => 'Kenne deine Zahlen.',
   'home' => ['href' => 'index.php', 'label' => 'Bereichsauswahl'],
   'language_switch' => ['href' => 'index_money_en.php', 'label' => 'English'],

@@ -1,6 +1,7 @@
 <?php
 $landingPage = [
   'lang' => 'de',
+  'section_theme' => 'soziales',
   'page_title' => 'artbackstage | Soziales',
   'subtitle' => 'Soziale Absicherung im Kulturbereich: Fokus auf Einkommen, Gender und Teilzeit.',
   'home' => ['href' => 'index.php', 'label' => 'Bereichsauswahl'],
