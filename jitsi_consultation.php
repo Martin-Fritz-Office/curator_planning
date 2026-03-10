@@ -47,6 +47,43 @@
     @media (max-width: 600px) {
       #jaas-container { height: 400px; }
     }
+    .occupancy-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--surface, #fff);
+      border: 1px solid var(--border, #e5e7eb);
+      border-radius: 999px;
+      padding: 5px 14px 5px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--headline, #134d30);
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .occupancy-badge .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #9ca3af;
+      flex-shrink: 0;
+      transition: background .4s;
+    }
+    .occupancy-badge .dot.active {
+      background: #1a9e57;
+      box-shadow: 0 0 0 3px rgba(26,158,87,.2);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(26,158,87,.2); }
+      50%       { box-shadow: 0 0 0 6px rgba(26,158,87,.05); }
+    }
+    .occupancy-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
   </style>
 </head>
 <body>
@@ -60,8 +97,14 @@
 
     <main id="main-content" class="consultation-layout">
       <div class="consultation-info">
-        <h2>Hinweise zur Nutzung</h2>
-        <p>Dieser Raum steht für offene Beratungsgespräche zur Verfügung. Du benötigst keine Installation – der Raum öffnet direkt im Browser. Mikrofon und Kamera werden beim Beitreten abgefragt.</p>
+        <div class="occupancy-row">
+          <h2 style="margin:0">Hinweise zur Nutzung</h2>
+          <span class="occupancy-badge" id="occupancy-badge" aria-live="polite" aria-label="Personen im Raum">
+            <span class="dot" id="occupancy-dot"></span>
+            <span id="occupancy-label">Verbinde…</span>
+          </span>
+        </div>
+        <p style="margin-top:10px">Dieser Raum steht für offene Beratungsgespräche zur Verfügung. Du benötigst keine Installation – der Raum öffnet direkt im Browser. Mikrofon und Kamera werden beim Beitreten abgefragt.</p>
         <p>Bitte teile den Raumnamen mit deiner Beratungsperson, damit ihr euch im gleichen Raum trefft. Der Raum ist passwortfrei zugänglich.</p>
       </div>
 
@@ -89,10 +132,29 @@ function notifyParticipant(displayName) {
   }
 }
 
+function updateOccupancy(count) {
+  var label = document.getElementById('occupancy-label');
+  var dot   = document.getElementById('occupancy-dot');
+  if (!label || !dot) return;
+  if (count === 0) {
+    label.textContent = 'Niemand im Raum';
+    dot.classList.remove('active');
+  } else if (count === 1) {
+    label.textContent = '1 Person im Raum';
+    dot.classList.add('active');
+  } else {
+    label.textContent = count + ' Personen im Raum';
+    dot.classList.add('active');
+  }
+  document.getElementById('occupancy-badge').setAttribute('aria-label', label.textContent);
+}
+
 window.addEventListener('load', function () {
   if (typeof JitsiMeetExternalAPI === 'undefined') {
     document.getElementById('jaas-container').innerHTML =
       '<p style="color:#fff;padding:20px;font-family:sans-serif">Die Videokonferenz konnte nicht geladen werden. Bitte Seite neu laden.</p>';
+    var label = document.getElementById('occupancy-label');
+    if (label) label.textContent = 'Nicht verfügbar';
     return;
   }
 
@@ -100,6 +162,8 @@ window.addEventListener('load', function () {
   if ('Notification' in window && Notification.permission === 'default') {
     Notification.requestPermission();
   }
+
+  var participantCount = 0;
 
   var api = new JitsiMeetExternalAPI('8x8.vc', {
     roomName: 'vpaas-magic-cookie-217700227dd14fdc85d66af17ebfa727/ArtbackstageBeratung',
@@ -115,8 +179,29 @@ window.addEventListener('load', function () {
     },
   });
 
+  // Local user joins: count = 1 (just themselves) + any existing participants
+  api.addEventListener('videoConferenceJoined', function () {
+    participantCount = 1;
+    updateOccupancy(participantCount);
+  });
+
+  // Another participant joined
   api.addEventListener('participantJoined', function (event) {
+    participantCount += 1;
+    updateOccupancy(participantCount);
     notifyParticipant(event.displayName);
+  });
+
+  // A participant left
+  api.addEventListener('participantLeft', function () {
+    participantCount = Math.max(0, participantCount - 1);
+    updateOccupancy(participantCount);
+  });
+
+  // Local user left / conference ended
+  api.addEventListener('videoConferenceLeft', function () {
+    participantCount = 0;
+    updateOccupancy(participantCount);
   });
 });
 </script>
