@@ -11,6 +11,15 @@ $landingPage = [
   'situations_title' => 'Typische Situationen im Rechtskontext',
   'situations' => [
     [
+      'title' => 'Ich bin unsicher, ob ich einen gültigen Vertrag geschlossen habe',
+      'description' => 'Du willst prüfen, ob alle Voraussetzungen eines wirksamen Vertragsschlusses erfüllt sind – z. B. Angebot, Annahme, Geschäftsfähigkeit und Formvorschriften.',
+      'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="M9.2 15 11.3 17.1 15.1 13.1"></path>',
+      'tools' => [
+        ['href' => 'contract_validity_check.php', 'label' => 'Vertragsschluss-Check (10 Fragen)'],
+        ['href' => 'agreement_checklist.php', 'label' => '25-Punkte-Vertrags-Checkliste'],
+      ],
+    ],
+    [
       'title' => 'Ich brauche Grundbegriffe des Urheberrechts und zu Verwertungsgesellschaften',
       'description' => 'Du willst Grundbegriffe wie Werk, Bearbeitung, Zitat oder freie Werknutzung sicher unterscheiden können.',
       'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="M9.2 15 11.3 17.1 15.1 13.1"></path>',
@@ -26,7 +35,16 @@ $landingPage = [
   'guide_intro' => 'Wenn du schnell Sicherheit gewinnen willst: zuerst Quiz, dann Gesetzesquelle im Detail lesen und anschließend auf konkrete Projekte anwenden.',
   'guide_steps' => [
     [
-      'badge' => 'Block 1 · Begriffe klären',
+      'badge' => 'Block 1 · Vertragsschluss prüfen',
+      'title' => 'Vertragsschluss-Check',
+      'description' => 'Prüfe in 10 Ja/Nein-Fragen, ob alle Voraussetzungen eines wirksamen Vertrags erfüllt sind (ABGB / BGB).',
+      'tools' => [
+        ['href' => 'contract_validity_check.php', 'label' => 'Vertragsschluss-Check (10 Fragen)'],
+        ['href' => 'agreement_checklist.php', 'label' => '25-Punkte-Vertrags-Checkliste'],
+      ],
+    ],
+    [
+      'badge' => 'Block 2 · Begriffe klären',
       'title' => 'Quiz absolvieren',
       'description' => 'Prüfe dein Wissen zu UrhG und ergänzend zur kollektiven Rechtewahrnehmung (Gesetzesnr. 20009532).',
       'tools' => [
@@ -35,7 +53,7 @@ $landingPage = [
       ],
     ],
     [
-      'badge' => 'Block 2 · Orientierung',
+      'badge' => 'Block 3 · Orientierung',
       'title' => 'Verwertungsgesellschaften verstehen',
       'description' => 'Sieh nach, welche Gesellschaft für Musik, Bild, Text oder audiovisuelle Werke zuständig ist.',
       'tools' => [
@@ -43,7 +61,7 @@ $landingPage = [
       ],
     ],
     [
-      'badge' => 'Block 3 · Vertiefen',
+      'badge' => 'Block 4 · Vertiefen',
       'title' => 'Gesetzestext nachlesen',
       'description' => 'Nutze die RIS-Fassungen, um Details und Ausnahmen nachzuvollziehen.',
       'tools' => [
@@ -55,7 +73,8 @@ $landingPage = [
   'section_title' => 'Alle Law-Tools im Überblick',
   'footer' => 'Die artbackstage Toolsammlung ist in laufender BETA-Entwicklung als Teil des Lehrauftrags "Kunst im Kontext (Recht, Geld und Fairness)" an der Kunstuniversität Linz. Es werden keine personalisierten Daten gespeichert. Teilweise KI generiert. Keine Haftung.',
   'tools' => [
-    ['href' => 'law_quiz.php', 'title' => 'UrhG-Quiz (Deutsch)', 'description' => '20 Fragen zu zentralen Begriffen und Paragraphen des österreichischen Urheberrechtsgesetzes.', 'highlight' => true, 'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="M9 13h6"></path><path d="M9 16h4"></path>'],
+    ['href' => 'contract_validity_check.php', 'title' => 'Habe ich einen gültigen Vertrag geschlossen?', 'description' => '10 Ja/Nein-Fragen zu den Voraussetzungen eines wirksamen Vertragsschlusses nach ABGB und BGB.', 'highlight' => true, 'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="M9.2 15 11.3 17.1 15.1 13.1"></path>'],
+    ['href' => 'law_quiz.php', 'title' => 'UrhG-Quiz (Deutsch)', 'description' => '20 Fragen zu zentralen Begriffen und Paragraphen des österreichischen Urheberrechtsgesetzes.', 'highlight' => false, 'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="M9 13h6"></path><path d="M9 16h4"></path>'],
     ['href' => 'vgg_quiz.php', 'title' => 'Verwertungsgesellschaftengesetz-Quiz', 'description' => 'Lernquiz analog zum UrhG-Format mit Fokus auf kollektive Rechtewahrnehmung und Transparenz.', 'highlight' => false, 'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="M9.3 12.2h5.4"></path><path d="M12 9.5v5.4"></path>'],
   ],
 ];
