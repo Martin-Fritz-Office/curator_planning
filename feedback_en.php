@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
+  <script src="https://8x8.vc/vpaas-magic-cookie-217700227dd14fdc85d66af17ebfa727/external_api.js" async></script>
   <style>
     .feedback-grid {
       display: grid;
@@ -265,9 +266,9 @@
           <div class="info-card">
             <h2>Privacy &amp; Technology</h2>
             <ul>
-              <li>Video calls are powered by <strong>Jitsi Meet</strong> (meet.jit.si) — a free, open-source video conferencing system.</li>
+              <li>Video calls are powered by <strong>Jitsi as a Service (JaaS)</strong> by 8×8 — based on the open-source Jitsi project.</li>
               <li>artbackstage does not store any call content or recordings.</li>
-              <li>Room connections are handled by Jitsi's servers (operated by 8×8, Inc.). Their <a href="https://jitsi.org/security/" target="_blank" rel="noopener" style="color:var(--accent-dark)">privacy policy</a> applies.</li>
+              <li>Room connections run through the dedicated artbackstage account at 8×8, Inc. Their <a href="https://jitsi.org/security/" target="_blank" rel="noopener" style="color:var(--accent-dark)">privacy policy</a> applies.</li>
               <li>Choose a non-guessable room name to prevent uninvited guests.</li>
             </ul>
           </div>
@@ -286,9 +287,28 @@
 
 <?php require_once __DIR__ . '/site_footer.php'; render_site_footer('en'); ?>
 
-<script src="https://meet.jit.si/external_api.js"></script>
 <script>
+  const JAAS_DOMAIN = '8x8.vc';
+  const JAAS_COOKIE = 'vpaas-magic-cookie-217700227dd14fdc85d66af17ebfa727';
+
   let api = null;
+
+  function showToast(msg) {
+    var t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1a1a2e;color:#fff;padding:12px 18px;border-radius:8px;font-size:14px;box-shadow:0 4px 16px rgba(0,0,0,.3);z-index:9999;transition:opacity .4s';
+    document.body.appendChild(t);
+    setTimeout(function () { t.style.opacity = '0'; setTimeout(function () { t.remove(); }, 400); }, 4000);
+  }
+
+  function notifyParticipant(displayName) {
+    var name = displayName || 'Someone';
+    var msg = name + ' has joined the room.';
+    showToast('\u{1F464} ' + msg);
+    if (Notification.permission === 'granted') {
+      new Notification('artbackstage | Feedback', { body: msg, icon: 'favicon.svg' });
+    }
+  }
 
   function sanitizeRoom(name) {
     return name.trim().replace(/[^a-zA-Z0-9\-_]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || 'artbackstage-feedback';
@@ -303,6 +323,12 @@
   }
 
   function joinRoom() {
+    if (typeof JitsiMeetExternalAPI === 'undefined') {
+      document.getElementById('vc-container').innerHTML =
+        '<p style="color:#aaa;padding:20px;font-family:sans-serif">The video conference could not be loaded. Please reload the page.</p>';
+      return;
+    }
+
     const raw = document.getElementById('room-input').value;
     const roomName = sanitizeRoom(raw);
     if (!roomName) return;
@@ -318,8 +344,8 @@
     container.classList.add('active');
     container.innerHTML = '';
 
-    api = new JitsiMeetExternalAPI('meet.jit.si', {
-      roomName: roomName,
+    api = new JitsiMeetExternalAPI(JAAS_DOMAIN, {
+      roomName: JAAS_COOKIE + '/' + roomName,
       parentNode: container,
       width: '100%',
       height: 520,
@@ -341,6 +367,10 @@
       },
     });
 
+    api.addEventListener('participantJoined', function (event) {
+      notifyParticipant(event.displayName);
+    });
+
     const shareUrl = `${location.origin}${location.pathname}?room=${encodeURIComponent(roomName)}`;
     const shareInput = document.getElementById('share-url');
     shareInput.value = shareUrl;
@@ -357,6 +387,11 @@
       document.execCommand('copy');
       document.getElementById('copy-status').textContent = 'Link copied.';
     });
+  }
+
+  // Request notification permission up front
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
   }
 
   (function () {

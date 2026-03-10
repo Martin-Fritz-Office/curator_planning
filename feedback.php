@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
+  <script src="https://8x8.vc/vpaas-magic-cookie-217700227dd14fdc85d66af17ebfa727/external_api.js" async></script>
   <style>
     .feedback-grid {
       display: grid;
@@ -265,9 +266,9 @@
           <div class="info-card">
             <h2>Datenschutz &amp; Technik</h2>
             <ul>
-              <li>Videogespräche werden über <strong>Jitsi Meet</strong> (meet.jit.si) abgewickelt – ein freies, quelloffenes Videokonferenz-System.</li>
+              <li>Videogespräche werden über <strong>Jitsi as a Service (JaaS)</strong> von 8×8 abgewickelt – auf Basis des quelloffenen Jitsi-Projekts.</li>
               <li>artbackstage speichert keine Gesprächsinhalte oder Aufzeichnungen.</li>
-              <li>Raumverbindungen laufen direkt über die Jitsi-Server von 8×8, Inc. Es gelten deren <a href="https://jitsi.org/security/" target="_blank" rel="noopener" style="color:var(--accent-dark)">Datenschutzhinweise</a>.</li>
+              <li>Raumverbindungen laufen über das dedizierte artbackstage-Konto bei 8×8, Inc. Es gelten deren <a href="https://jitsi.org/security/" target="_blank" rel="noopener" style="color:var(--accent-dark)">Datenschutzhinweise</a>.</li>
               <li>Wähle einen nicht-erratbaren Raumnamen, um ungewollten Zutritt zu vermeiden.</li>
             </ul>
           </div>
@@ -286,9 +287,28 @@
 
 <?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
 
-<script src="https://meet.jit.si/external_api.js"></script>
 <script>
+  const JAAS_DOMAIN = '8x8.vc';
+  const JAAS_COOKIE = 'vpaas-magic-cookie-217700227dd14fdc85d66af17ebfa727';
+
   let api = null;
+
+  function showToast(msg) {
+    var t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1a1a2e;color:#fff;padding:12px 18px;border-radius:8px;font-size:14px;box-shadow:0 4px 16px rgba(0,0,0,.3);z-index:9999;transition:opacity .4s';
+    document.body.appendChild(t);
+    setTimeout(function () { t.style.opacity = '0'; setTimeout(function () { t.remove(); }, 400); }, 4000);
+  }
+
+  function notifyParticipant(displayName) {
+    var name = displayName || 'Jemand';
+    var msg = name + ' ist dem Raum beigetreten.';
+    showToast('\u{1F464} ' + msg);
+    if (Notification.permission === 'granted') {
+      new Notification('artbackstage | Feedback', { body: msg, icon: 'favicon.svg' });
+    }
+  }
 
   function sanitizeRoom(name) {
     // Jitsi room names: letters, digits, hyphens, no spaces or special chars
@@ -304,6 +324,12 @@
   }
 
   function joinRoom() {
+    if (typeof JitsiMeetExternalAPI === 'undefined') {
+      document.getElementById('vc-container').innerHTML =
+        '<p style="color:#aaa;padding:20px;font-family:sans-serif">Die Videokonferenz konnte nicht geladen werden. Bitte Seite neu laden.</p>';
+      return;
+    }
+
     const raw = document.getElementById('room-input').value;
     const roomName = sanitizeRoom(raw);
     if (!roomName) return;
@@ -320,8 +346,8 @@
     container.classList.add('active');
     container.innerHTML = '';
 
-    api = new JitsiMeetExternalAPI('meet.jit.si', {
-      roomName: roomName,
+    api = new JitsiMeetExternalAPI(JAAS_DOMAIN, {
+      roomName: JAAS_COOKIE + '/' + roomName,
       parentNode: container,
       width: '100%',
       height: 520,
@@ -343,6 +369,10 @@
       },
     });
 
+    api.addEventListener('participantJoined', function (event) {
+      notifyParticipant(event.displayName);
+    });
+
     // Show share link
     const shareUrl = `${location.origin}${location.pathname}?room=${encodeURIComponent(roomName)}`;
     const shareInput = document.getElementById('share-url');
@@ -360,6 +390,11 @@
       document.execCommand('copy');
       document.getElementById('copy-status').textContent = 'Link kopiert.';
     });
+  }
+
+  // Request notification permission up front
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
   }
 
   // Auto-join if ?room= param is present
