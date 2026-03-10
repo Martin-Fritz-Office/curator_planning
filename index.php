@@ -73,6 +73,18 @@
             <p>Soziale Absicherung, Studien und Inforamtionen für Kulturarbeit.</p>
           </span>
         </a>
+
+        <a class="tool-link" href="jitsi_consultation.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <path d="M15 10l4.553-2.276A1 1 0 0 1 21 8.723v6.554a1 1 0 0 1-1.447.894L15 14v-4z"></path><rect x="3" y="7" width="12" height="10" rx="2"></rect>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>artbackstage | Videoberatung</h3>
+            <p>Live-Beratungsraum für Kunst- und Kulturschaffende direkt im Browser.</p>
+          </span>
+        </a>
       </div>
     </main>
   </div>
