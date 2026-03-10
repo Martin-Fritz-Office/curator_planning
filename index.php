@@ -37,7 +37,7 @@
       </div>
 
       <div class="landing-links">
-        <a class="tool-link" href="index_money.php">
+        <a class="tool-link tool-link-geld" href="index_money.php">
           <span class="tool-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img" focusable="false">
               <circle cx="12" cy="12" r="7.8"></circle><path d="M12 7.8v8.4"></path><path d="M8.7 10.2c0-1.1 1.3-2 3.3-2s3.3.9 3.3 2-1.3 2-3.3 2-3.3.9-3.3 2 1.3 2 3.3 2 3.3-.9 3.3-2"></path>
@@ -50,7 +50,7 @@
           </span>
         </a>
 
-        <a class="tool-link" href="index_law.php">
+        <a class="tool-link tool-link-recht" href="index_law.php">
           <span class="tool-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img" focusable="false">
               <path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="M9 13h6"></path><path d="M9 16h4"></path>
@@ -62,7 +62,7 @@
           </span>
         </a>
 
-        <a class="tool-link" href="index_soziales.php">
+        <a class="tool-link tool-link-soziales" href="index_soziales.php">
           <span class="tool-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img" focusable="false">
               <circle cx="12" cy="8.2" r="3"></circle><path d="M5.5 18.8a6.5 6.5 0 0 1 13 0"></path><path d="M12 12.8v5.7"></path>
