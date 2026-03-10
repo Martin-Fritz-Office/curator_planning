@@ -18,7 +18,7 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
 </head>
 <body>
   <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
-  <div class="page landing-page">
+  <div class="page landing-page<?= !empty($landingPage['section_theme']) ? ' theme-'.$e($landingPage['section_theme']) : '' ?>">
     <div class="landing-hero">
       <div class="landing-hero-inner">
         <span class="landing-hero-eyebrow">
@@ -108,7 +108,7 @@ $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
       </div>
       <div class="landing-links">
         <?php foreach ($landingPage['tools'] as $tool): ?>
-          <a class="tool-link<?= !empty($tool['highlight']) ? ' tool-link-highlight' : '' ?>" href="<?= $e($tool['href']) ?>">
+          <a class="tool-link<?= !empty($landingPage['section_theme']) ? ' tool-link-'.$e($landingPage['section_theme']) : '' ?><?= !empty($tool['highlight']) ? ' tool-link-highlight' : '' ?>" href="<?= $e($tool['href']) ?>">
             <span class="tool-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" role="img" focusable="false">
                 <?= $tool['icon'] ?>

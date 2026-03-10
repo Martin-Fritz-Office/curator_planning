@@ -1,6 +1,7 @@
 <?php
 $landingPage = [
   'lang' => 'de',
+  'section_theme' => 'soziales',
   'page_title' => 'artbackstage | Soziales',
   'subtitle' => 'Soziale Absicherung im Kulturbereich: Fokus auf Einkommen, Gender und Teilzeit.',
   'home' => ['href' => 'index.php', 'label' => 'Bereichsauswahl'],
@@ -10,11 +11,11 @@ $landingPage = [
   'situations_title' => 'Direkter Einstieg',
   'situations' => [
     [
-      'title' => 'SVS Selbstcheck: Sozialversicherung für Kunstschaffende',
-      'description' => 'Beantworte sechs Fragen und erhalte eine persönliche Übersicht deiner Versicherungspflicht, Beitragshöhe und möglicher K-SVFG-Zuschüsse.',
-      'icon' => '<path d="M9 12l2 2 4-4"></path><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"></path>',
+      'title' => 'SVS Sozialleistungen für Selbstständige',
+      'description' => 'Interaktive Übersicht der wichtigsten SVS-Leistungen: Krankheit, Mutterschaft, Pension und Unfall – mit direktem Link zur Originalbroschüre und PDF-Download.',
+      'icon' => '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>',
       'tools' => [
-        ['href' => 'svs_kuenstler.php', 'label' => 'Zum SVS Selbstcheck'],
+        ['href' => 'svs_leistungen.php', 'label' => 'SVS Leistungsübersicht (interaktiv + PDF)'],
       ],
     ],
     [
@@ -37,7 +38,7 @@ $landingPage = [
   'section_title' => 'Tools im Bereich Soziales',
   'footer' => 'Die artbackstage Toolsammlung ist in laufender BETA-Entwicklung als Teil des Lehrauftrags "Kunst im Kontext (Recht, Geld und Fairness)" an der Kunstuniversität Linz. Es werden keine personalisierten Daten gespeichert. Teilweise KI generiert. Keine Haftung.',
   'tools' => [
-    ['href' => 'svs_kuenstler.php', 'title' => 'SVS Selbstcheck: Sozialversicherung für Kunstschaffende', 'description' => 'Interaktiver Selbstcheck auf Basis des SVS-Infoblatts 2026: Versicherungspflicht, Beitragshöhe und K-SVFG-Zuschüsse in 6 Schritten.', 'icon' => '<path d="M9 12l2 2 4-4"></path><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"></path>'],
+    ['href' => 'svs_leistungen.php', 'title' => 'SVS Leistungsübersicht: Sozialleistungen für Selbstständige', 'description' => 'Interaktive Übersicht der SVS-Leistungen bei Krankheit, Mutterschaft, Pension und Unfall – mit Originalquelle und PDF-Download (Stand: Jänner 2022).', 'icon' => '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>'],
     ['href' => 'onace_story_table.php', 'title' => 'Branchen-Story: Einkommen, Gender & Teilzeit', 'description' => 'Interaktive ÖNACE-Tabelle zu Einkommen, Frauenanteil und Teilzeitquote inkl. Story für Berufseinsteiger*innen.', 'icon' => '<path d="M4.5 18.5h15"></path><path d="M7.5 15V8"></path><path d="M12 15v-5"></path><path d="M16.5 15V6"></path><circle cx="7.5" cy="6" r="1.1"></circle><circle cx="12" cy="8" r="1.1"></circle><circle cx="16.5" cy="4" r="1.1"></circle>'],
     ['href' => 'gender_report_summary.php', 'title' => 'Gender Report Zusammenfassung 2017–2021', 'description' => 'Zweiseitige Zusammenfassung mit klarer Quellenangabe und Direktlinks zu den offiziellen PDF-Versionen (Deutsch/English).', 'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6A1.5 1.5 0 0 1 7.5 4.5z"></path><path d="M14 4.5V9h4"></path><path d="M9 12h6"></path><path d="M9 15h6"></path>'],
     ['href' => 'jitsi_consultation.php', 'title' => 'Videoberatung', 'description' => 'Live-Beratungsraum für Kunst- und Kulturschaffende direkt im Browser – keine Installation erforderlich.', 'icon' => '<path d="M15 10l4.553-2.276A1 1 0 0 1 21 8.723v6.554a1 1 0 0 1-1.447.894L15 14v-4z"></path><rect x="3" y="7" width="12" height="10" rx="2"></rect>'],

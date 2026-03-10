@@ -625,6 +625,82 @@ textarea:focus{
 }
 .tool-link-highlight:hover{border-color:#d4a45e}
 
+/* ── Section colour themes ── */
+/* Geld – amber/gold */
+.tool-link-geld{
+  background:linear-gradient(to bottom right,#fffbf0,#fff4d6);
+  border-color:#e8c96a;
+}
+.tool-link-geld .tool-icon{
+  background:linear-gradient(145deg,#fff0c0,#ffd970);
+  border-color:#d4a83a;
+  color:#7a4e00;
+}
+.tool-link-geld h3{color:#7a4e00}
+.tool-link-geld:hover{background:linear-gradient(to bottom right,#fff7e0,#ffedb0);border-color:#c8981a}
+
+/* Recht – blue/slate */
+.tool-link-recht{
+  background:linear-gradient(to bottom right,#f0f6ff,#e4effe);
+  border-color:#93b8f5;
+}
+.tool-link-recht .tool-icon{
+  background:linear-gradient(145deg,#dbeafe,#bfdbfe);
+  border-color:#6da5f0;
+  color:#1e40af;
+}
+.tool-link-recht h3{color:#1e3a8a}
+.tool-link-recht:hover{background:linear-gradient(to bottom right,#e6f0ff,#d6e6fd);border-color:#6da5f0}
+
+/* Soziales – lavender/purple */
+.tool-link-soziales{
+  background:linear-gradient(to bottom right,#f6f2ff,#ede8fe);
+  border-color:#c4b0f8;
+}
+.tool-link-soziales .tool-icon{
+  background:linear-gradient(145deg,#ede9fe,#ddd6fe);
+  border-color:#a78bfa;
+  color:#5b21b6;
+}
+.tool-link-soziales h3{color:#4c1d95}
+.tool-link-soziales:hover{background:linear-gradient(to bottom right,#ede8ff,#e0d8fc);border-color:#a78bfa}
+
+/* ── Page-level section themes ── */
+/* Applied to .landing-page.theme-* — colours match the entry card palette */
+
+/* Geld – amber/gold */
+.theme-geld .landing-hero{background:linear-gradient(135deg,#78350f 0%,#92400e 40%,#b45309 70%,#d97706 100%)}
+.theme-geld .landing-hero-dot{background:#fcd34d;box-shadow:0 0 0 3px rgba(252,211,77,.35)}
+.theme-geld .situation-card{border-color:#e8c96a;background:linear-gradient(to bottom right,#fffbf0,#fff8e6)}
+.theme-geld .situation-card:hover{border-color:#c8981a;background:linear-gradient(to bottom right,#fff7e0,#ffedb0)}
+.theme-geld .situation-card h3{color:#7a4e00}
+.theme-geld .situation-icon{background:linear-gradient(145deg,#fff0c0,#ffd970);border-color:#d4a83a;color:#7a4e00}
+.theme-geld .beginner-step{border-color:#e8c96a;background:linear-gradient(to bottom right,#fffbf0,#fff8e6)}
+.theme-geld .beginner-step h3{color:#7a4e00}
+.theme-geld .step-badge{background:#fff0c0;color:#7a4e00}
+
+/* Recht – blue/slate */
+.theme-recht .landing-hero{background:linear-gradient(135deg,#1e3a8a 0%,#1d4ed8 40%,#2563eb 70%,#3b82f6 100%)}
+.theme-recht .landing-hero-dot{background:#93c5fd;box-shadow:0 0 0 3px rgba(147,197,253,.35)}
+.theme-recht .situation-card{border-color:#93b8f5;background:linear-gradient(to bottom right,#f0f6ff,#eaf1fe)}
+.theme-recht .situation-card:hover{border-color:#6da5f0;background:linear-gradient(to bottom right,#e6f0ff,#d6e6fd)}
+.theme-recht .situation-card h3{color:#1e3a8a}
+.theme-recht .situation-icon{background:linear-gradient(145deg,#dbeafe,#bfdbfe);border-color:#6da5f0;color:#1e40af}
+.theme-recht .beginner-step{border-color:#93b8f5;background:linear-gradient(to bottom right,#f0f6ff,#eaf1fe)}
+.theme-recht .beginner-step h3{color:#1e3a8a}
+.theme-recht .step-badge{background:#dbeafe;color:#1e3a8a}
+
+/* Soziales – lavender/purple */
+.theme-soziales .landing-hero{background:linear-gradient(135deg,#4c1d95 0%,#5b21b6 40%,#7c3aed 70%,#8b5cf6 100%)}
+.theme-soziales .landing-hero-dot{background:#c4b5fd;box-shadow:0 0 0 3px rgba(196,181,253,.35)}
+.theme-soziales .situation-card{border-color:#c4b0f8;background:linear-gradient(to bottom right,#f6f2ff,#f0ebfe)}
+.theme-soziales .situation-card:hover{border-color:#a78bfa;background:linear-gradient(to bottom right,#ede8ff,#e0d8fc)}
+.theme-soziales .situation-card h3{color:#4c1d95}
+.theme-soziales .situation-icon{background:linear-gradient(145deg,#ede9fe,#ddd6fe);border-color:#a78bfa;color:#5b21b6}
+.theme-soziales .beginner-step{border-color:#c4b0f8;background:linear-gradient(to bottom right,#f6f2ff,#f0ebfe)}
+.theme-soziales .beginner-step h3{color:#4c1d95}
+.theme-soziales .step-badge{background:#ede9fe;color:#4c1d95}
+
 /* ── Responsive landing ── */
 @media (min-width:720px){
   .landing-links{grid-template-columns:repeat(3,1fr)}

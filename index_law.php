@@ -1,6 +1,7 @@
 <?php
 $landingPage = [
   'lang' => 'de',
+  'section_theme' => 'recht',
   'page_title' => 'artbackstage | Law',
   'subtitle' => 'Urheberrecht verstehen, typische Nutzungssituationen prüfen und zentrale Begriffe mit dem Quiz trainieren.',
   'home' => ['href' => 'index.php', 'label' => 'Bereichsauswahl'],
