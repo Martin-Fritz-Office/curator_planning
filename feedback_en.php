@@ -182,6 +182,43 @@
       text-decoration: none;
       font-weight: 600;
     }
+    .occupancy-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--surface, #fff);
+      border: 1px solid var(--border, #e5e7eb);
+      border-radius: 999px;
+      padding: 5px 14px 5px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--headline, #134d30);
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .occupancy-badge .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #9ca3af;
+      flex-shrink: 0;
+      transition: background .4s;
+    }
+    .occupancy-badge .dot.active {
+      background: #1a9e57;
+      box-shadow: 0 0 0 3px rgba(26,158,87,.2);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(26,158,87,.2); }
+      50%       { box-shadow: 0 0 0 6px rgba(26,158,87,.05); }
+    }
+    .occupancy-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
   </style>
 </head>
 <body data-lang="en">
@@ -205,8 +242,14 @@
         <!-- Left: Video call area -->
         <div class="vc-wrapper">
           <div class="vc-setup">
-            <h2>Join a video room</h2>
-            <p>Enter a room code or create a new room, then click "Join".</p>
+            <div class="occupancy-row">
+              <h2 style="margin:0">Join a video room</h2>
+              <span class="occupancy-badge" id="occupancy-badge" aria-live="polite" aria-label="People in room" hidden>
+                <span class="dot" id="occupancy-dot"></span>
+                <span id="occupancy-label">Connecting…</span>
+              </span>
+            </div>
+            <p style="margin-top:10px">Enter a room code or create a new room, then click "Join".</p>
             <div class="vc-room-row">
               <input
                 type="text"
@@ -310,6 +353,23 @@
     }
   }
 
+  function updateOccupancy(count) {
+    var label = document.getElementById('occupancy-label');
+    var dot   = document.getElementById('occupancy-dot');
+    if (!label || !dot) return;
+    if (count === 0) {
+      label.textContent = 'Nobody in room';
+      dot.classList.remove('active');
+    } else if (count === 1) {
+      label.textContent = '1 person in room';
+      dot.classList.add('active');
+    } else {
+      label.textContent = count + ' people in room';
+      dot.classList.add('active');
+    }
+    document.getElementById('occupancy-badge').setAttribute('aria-label', label.textContent);
+  }
+
   function sanitizeRoom(name) {
     return name.trim().replace(/[^a-zA-Z0-9\-_]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || 'artbackstage-feedback';
   }
@@ -336,6 +396,14 @@
     document.getElementById('room-input').value = roomName;
 
     if (api) { api.dispose(); api = null; }
+
+    // Reset occupancy badge
+    var badge = document.getElementById('occupancy-badge');
+    var occupancyLabel = document.getElementById('occupancy-label');
+    var occupancyDot   = document.getElementById('occupancy-dot');
+    if (badge) { badge.hidden = false; }
+    if (occupancyLabel) { occupancyLabel.textContent = 'Connecting…'; }
+    if (occupancyDot)   { occupancyDot.classList.remove('active'); }
 
     const placeholder = document.getElementById('vc-placeholder');
     if (placeholder) placeholder.remove();
@@ -367,8 +435,27 @@
       },
     });
 
+    var participantCount = 0;
+
+    api.addEventListener('videoConferenceJoined', function () {
+      participantCount = 1;
+      updateOccupancy(participantCount);
+    });
+
     api.addEventListener('participantJoined', function (event) {
+      participantCount += 1;
+      updateOccupancy(participantCount);
       notifyParticipant(event.displayName);
+    });
+
+    api.addEventListener('participantLeft', function () {
+      participantCount = Math.max(0, participantCount - 1);
+      updateOccupancy(participantCount);
+    });
+
+    api.addEventListener('videoConferenceLeft', function () {
+      participantCount = 0;
+      updateOccupancy(participantCount);
     });
 
     const shareUrl = `${location.origin}${location.pathname}?room=${encodeURIComponent(roomName)}`;
