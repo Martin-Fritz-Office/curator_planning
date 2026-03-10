@@ -38,7 +38,7 @@
             <p class="step-badge">Step 1 · Reality check</p>
             <h3>Can I sustain this financially?</h3>
             <p>Start with a quick yearly forecast to see whether your current setup is sustainable.</p>
-            <a class="btn" href="forecast_en_didactic.php">Open the didactic forecast</a>
+            <a class="btn" href="forecast_en.php">Open the annual forecast</a>
           </article>
 
           <article class="beginner-step">

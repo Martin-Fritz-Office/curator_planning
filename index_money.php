@@ -34,7 +34,6 @@ $landingPage = [
       'description' => 'Endlich selbstständig — und schon die erste Frage: Was bin ich eigentlich wert? Diese Tools geben dir eine ehrliche Antwort.',
       'icon' => '<path d="M12 3.8v4.7"></path><path d="M7.1 7.1 4.6 4.6"></path><path d="M16.9 7.1l2.5-2.5"></path><circle cx="12" cy="13" r="5"></circle><path d="M12 11.3v3.1l2 1.2"></path>',
       'tools' => [
-        ['href' => 'forecast_didactic.php', 'label' => 'Jahresprognose (didaktisch)'],
         ['href' => 'forecast.php', 'label' => 'Jahresumsatz- & Gewinnprognose'],
         ['href' => 'hourly_rate.php', 'label' => 'Stundensatz-Rechner'],
       ],
@@ -80,7 +79,6 @@ $landingPage = [
       'title' => 'Erst Überblick schaffen',
       'description' => 'Starte mit einer Jahresprognose und übersetze den Zielwert in einen realistischen Stundensatz.',
       'tools' => [
-        ['href' => 'forecast_didactic.php', 'label' => 'Jahresprognose (didaktisch)'],
         ['href' => 'forecast.php', 'label' => 'Jahresumsatz- & Gewinnprognose'],
         ['href' => 'hourly_rate.php', 'label' => 'Stundensatz-Rechner'],
       ],
@@ -119,11 +117,10 @@ $landingPage = [
     ],
   ],
   'section_title' => 'Alle Rechner im Überblick',
-  'tools_toggle_label' => 'Alle 14 Tools anzeigen',
+  'tools_toggle_label' => 'Alle 13 Tools anzeigen',
   'footer' => 'Die artbackstage Toolsammlung ist in laufender BETA-Entwicklung als Teil des Lehrauftrags "Kunst im Kontext (Recht, Geld und Fairness) an der Kunstuniversität Linz. Verwendet werden unter anderem Materialien der IG Bildende Kunst, der KUPF Oberösterreich und aus dem Fair Pay Prozess der IG Kultur. Es werden keine personalisierten Daten gespeichert. Teilweise KI generiert. Keine Haftung.',
   'tools' => [
     ['href' => 'forecast.php', 'title' => 'Jahresumsatz- & Gewinnprognose', 'description' => 'Vollständige Prognose mit Fragen, Sheet und Diagrammen.', 'icon' => '<path d="M4 19.5h16"></path><path d="M6 16l3.2-3.2 2.7 2.6 5-5"></path><circle cx="17" cy="8" r="1.2"></circle>'],
-    ['href' => 'forecast_didactic.php', 'title' => 'Jahresumsatz- & Gewinnprognose (didaktisch)', 'description' => 'Alternative Oberfläche mit geführter, verständlicher Reihenfolge.', 'icon' => '<rect x="4" y="4" width="16" height="16" rx="2.5"></rect><path d="M8 9.2h8"></path><path d="M8 12h8"></path><path d="M8 14.8h5.2"></path>'],
     ['href' => 'hourly_rate.php', 'title' => 'Stundensatz-Rechner', 'description' => 'Berechne ein tragfähiges Stundenhonorar in 7 Fragen.', 'icon' => '<circle cx="12" cy="12" r="7.5"></circle><path d="M12 8v4.2l3 1.7"></path>'],
     ['href' => 'freelance_services_calculator.php', 'title' => 'Freelance-Service-Rechner', 'description' => 'Leistungen wählen, Stunden kalkulieren und als CSV exportieren.', 'icon' => '<path d="M4.5 6.5h15"></path><path d="M4.5 12h15"></path><path d="M4.5 17.5h9"></path><circle cx="18.5" cy="17.5" r="1.3"></circle>'],
     ['href' => 'yearly_turnover_calculator.php', 'title' => 'Jahresumsatz-Rechner (Zeilenmodell)', 'description' => 'Eigene Leistungen als Zeilen eintragen und jährlichen Gesamtumsatz live berechnen.', 'icon' => '<path d="M5 6.5h14"></path><path d="M5 11h14"></path><path d="M5 15.5h10"></path><path d="M16.5 15.5h2"></path><path d="M16.5 18.5v-6"></path>'],
