@@ -7,7 +7,7 @@
       label: "1) Wurde ein konkretes Angebot gemacht?",
       explanation: "Ein Vertrag setzt ein bestimmtes Angebot voraus, das Vertragspartner, Leistung und wesentliche Bedingungen benennt.",
       legal: "§ 861 ABGB / § 145 BGB",
-      tip: "Ein Angebot muss so bestimmt sein, dass es durch ein einfaches „Ja" angenommen werden kann.",
+      tip: "Ein Angebot muss so bestimmt sein, dass es durch ein einfaches \u201eJa\u201c angenommen werden kann.",
       critical: true,
     },
     {
@@ -77,9 +77,9 @@
     {
       id: "bedingung",
       label: "10) Steht der Vertrag nicht unter einer noch nicht erfüllten aufschiebenden Bedingung?",
-      explanation: "Haben die Parteien die Wirksamkeit von einem zukünftigen ungewissen Ereignis abhängig gemacht (z. B. „Vertrag gilt nur bei Förderzusage"), tritt die Wirkung erst mit Eintritt dieser Bedingung ein.",
+      explanation: "Haben die Parteien die Wirksamkeit von einem zukünftigen ungewissen Ereignis abhängig gemacht (z.\u00a0B. \u201eVertrag gilt nur bei F\u00f6rderzusage\u201c), tritt die Wirkung erst mit Eintritt dieser Bedingung ein.",
       legal: "§ 696 ABGB / § 158 BGB",
-      tip: "Prüfe, ob der Vertrag Formulierungen wie „vorbehaltlich", „sofern", „unter der Bedingung" enthält.",
+      tip: "Pr\u00fcfe, ob der Vertrag Formulierungen wie \u201evorbehaltlich\u201c, \u201esofern\u201c, \u201eunter der Bedingung\u201c enth\u00e4lt.",
       critical: false,
     },
   ];
