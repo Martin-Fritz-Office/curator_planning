@@ -94,14 +94,18 @@
   const compute = () => {
     let yesCount = 0;
     let criticalNo = [];
+    let allNo = [];
     questions.forEach((q, i) => {
       if (state.answers[i] === "yes") {
         yesCount++;
-      } else if (state.answers[i] === "no" && q.critical) {
-        criticalNo.push(q);
+      } else if (state.answers[i] === "no") {
+        allNo.push(q);
+        if (q.critical) {
+          criticalNo.push(q);
+        }
       }
     });
-    return { yesCount, criticalNo };
+    return { yesCount, criticalNo, allNo };
   };
 
   const renderQuestion = (q, index) => {
@@ -135,8 +139,17 @@
     });
   };
 
+  const buildNoList = (noQuestions) =>
+    noQuestions.map((q) =>
+      `<div class="no-detail">
+        <p class="small"><strong>✗ ${q.label}</strong></p>
+        <p class="small muted">${q.explanation}</p>
+        <p class="small muted tip-text">💡 ${q.tip}</p>
+      </div>`
+    ).join("");
+
   const renderResult = () => {
-    const { yesCount, criticalNo } = compute();
+    const { yesCount, criticalNo, allNo } = compute();
     const total = questions.length;
     const unanswered = state.answers.filter((a) => a === null).length;
 
@@ -148,7 +161,8 @@
     } else if (criticalNo.length > 0) {
       verdict = "Kein wirksamer Vertrag";
       verdictClass = "neg";
-      verdictDetail = `Mindestens eine vertragswesentliche Voraussetzung ist nicht erfüllt: <strong>${criticalNo.map((q) => q.id).join(", ")}</strong>. Ein Vertragsschluss ist unter diesen Umständen nicht zustande gekommen oder der Vertrag ist nichtig.`;
+      verdictDetail = `Mindestens eine vertragswesentliche Voraussetzung ist nicht erfüllt. Ein Vertragsschluss ist unter diesen Umständen nicht zustande gekommen oder der Vertrag ist nichtig.<br><br>
+        <strong>Negativ beantwortete Punkte:</strong>${buildNoList(allNo)}`;
     } else if (yesCount === total) {
       verdict = "Vertrag sehr wahrscheinlich wirksam";
       verdictClass = "pos";
@@ -156,15 +170,18 @@
     } else if (yesCount >= 8) {
       verdict = "Vertrag wahrscheinlich wirksam – Einzelfragen prüfen";
       verdictClass = "";
-      verdictDetail = `${total - yesCount} nicht-kritische Punkt(e) wurden mit Nein beantwortet. Der Vertrag ist wahrscheinlich wirksam, die offenen Punkte sollten aber vor Leistungsbeginn geklärt werden.`;
+      verdictDetail = `${total - yesCount} nicht-kritische Punkt(e) wurden mit Nein beantwortet. Der Vertrag ist wahrscheinlich wirksam, die offenen Punkte sollten aber vor Leistungsbeginn geklärt werden.<br><br>
+        <strong>Negativ beantwortete Punkte:</strong>${buildNoList(allNo)}`;
     } else if (yesCount >= 5) {
       verdict = "Erhebliche Zweifel – rechtliche Beratung empfohlen";
       verdictClass = "warn";
-      verdictDetail = `${total - yesCount} Punkt(e) wurden mit Nein beantwortet. Es bestehen deutliche Unsicherheiten über die Wirksamkeit. Eine rechtliche Einschätzung ist dringend anzuraten.`;
+      verdictDetail = `${total - yesCount} Punkt(e) wurden mit Nein beantwortet. Es bestehen deutliche Unsicherheiten über die Wirksamkeit. Eine rechtliche Einschätzung ist dringend anzuraten.<br><br>
+        <strong>Negativ beantwortete Punkte:</strong>${buildNoList(allNo)}`;
     } else {
       verdict = "Schwerwiegende Mängel – kein sicherer Vertragsschluss";
       verdictClass = "neg";
-      verdictDetail = `Nur ${yesCount} von ${total} Voraussetzungen sind erfüllt. Ein wirksamer Vertrag ist unter diesen Umständen sehr unwahrscheinlich. Bitte suche rechtliche Beratung.`;
+      verdictDetail = `Nur ${yesCount} von ${total} Voraussetzungen sind erfüllt. Ein wirksamer Vertrag ist unter diesen Umständen sehr unwahrscheinlich. Bitte suche rechtliche Beratung.<br><br>
+        <strong>Negativ beantwortete Punkte:</strong>${buildNoList(allNo)}`;
     }
 
     const questionSummary = questions.map((q, i) => {
