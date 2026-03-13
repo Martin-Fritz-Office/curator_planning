@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <div class="page">
     <header class="header">
       <div>

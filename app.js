@@ -63,7 +63,7 @@
         { k: "C", label: "überwiegend" },
         { k: "D", label: "ausschließlich" },
       ],
-      hint: "Indikator für Stabilität/Planbarkei.",
+      hint: "Indikator für Stabilität/Planbarkeit.",
     },
     {
       key: "q5",
