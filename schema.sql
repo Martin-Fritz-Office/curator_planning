@@ -17,3 +17,12 @@ CREATE TABLE IF NOT EXISTS survey_submissions (
     INDEX idx_locale_created_at (locale, created_at),
     INDEX idx_available_income (available_income)
 );
+
+CREATE TABLE IF NOT EXISTS faq (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    category VARCHAR(120) NOT NULL DEFAULT '',
+    question TEXT NOT NULL,
+    answer TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_category (category)
+);
