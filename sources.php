@@ -33,8 +33,16 @@
           <h3>Recht &amp; Rechtsgrundlagen</h3>
           <ul>
             <li>
-              <a href="https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10001848" target="_blank" rel="noopener noreferrer">RIS: Urheberrechtsgesetz (UrhG)</a>
-              <div class="source-backlink"><strong>Verwendet in:</strong> <a href="index_law.php">Rechtsüberblick</a>, <a href="law_quiz.php">Rechtsquiz</a></div>
+              <a href="https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10001848" target="_blank" rel="noopener noreferrer">RIS: Urheberrechtsgesetz (UrhG AT)</a>
+              <div class="source-backlink"><strong>Verwendet in:</strong> <a href="index_law.php">Rechtsüberblick</a>, <a href="law_quiz.php">Rechtsquiz</a>, <a href="bildrecht_checklist.php">Bild-Urheberrecht-Checkliste</a></div>
+            </li>
+            <li>
+              <a href="https://www.gesetze-im-internet.de/urhg/" target="_blank" rel="noopener noreferrer">gesetze-im-internet.de: Urheberrechtsgesetz (UrhG DE)</a>
+              <div class="source-backlink"><strong>Verwendet in:</strong> <a href="bildrecht_checklist.php">Bild-Urheberrecht-Checkliste</a></div>
+            </li>
+            <li>
+              <a href="https://www.fedlex.admin.ch/eli/cc/1993/1798_1798_1798/de" target="_blank" rel="noopener noreferrer">fedlex.admin.ch: Urheberrechtsgesetz (URG CH)</a>
+              <div class="source-backlink"><strong>Verwendet in:</strong> <a href="bildrecht_checklist.php">Bild-Urheberrecht-Checkliste</a></div>
             </li>
             <li>
               <a href="https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20009532" target="_blank" rel="noopener noreferrer">RIS: Verwertungsgesellschaftengesetz (VerwGesG)</a>
