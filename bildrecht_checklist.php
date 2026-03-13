@@ -76,9 +76,10 @@ $checklistItems = [
     'title'       => 'Hast du eine ausdrückliche Erlaubnis (Lizenz) der Rechteinhaber:innen eingeholt?',
     'short'       => 'Lizenz / Erlaubnis',
     'result'      => 'frei',
-    'explanation' => 'Wenn keiner der oben genannten Punkte zutrifft, ist eine ausdrückliche Lizenz oder schriftliche Einwilligung der Rechteinhaber:innen erforderlich. In AT und DE ist das Urheberrecht nicht übertragbar, aber Nutzungsrechte können für bestimmte Zwecke, Territorien und Zeiträume eingeräumt werden. Die Lizenz sollte schriftlich und möglichst präzise formuliert sein.',
+    'explanation' => 'Wenn keiner der oben genannten Punkte zutrifft, ist eine ausdrückliche Lizenz oder schriftliche Einwilligung der Rechteinhaber:innen erforderlich. In AT und DE ist das Urheberrecht nicht übertragbar, aber Nutzungsrechte können für bestimmte Zwecke, Territorien und Zeiträume eingeräumt werden. Die Lizenz sollte schriftlich und möglichst präzise formuliert sein. Lizenzen können auch über Verwertungsgesellschaften erworben werden – diese verwalten kollektiv die Rechte vieler Urheber:innen und vergeben Nutzungslizenzen für bestimmte Werkarten (z. B. Bildrechte über Bildrecht GmbH).',
     'legal'       => '§ 24 ff UrhG AT; §§ 31 ff UrhG DE; Art. 16 URG CH (in CH ist eine vollständige Übertragung möglich)',
     'tip'         => 'Bei Stockfoto-Plattformen genau die Lizenzart prüfen (Redaktionell vs. Kommerziell, Reichweite, Territorialität). Im Zweifel gilt: kein Bild ohne klare Lizenz verwenden.',
+    'link'        => ['href' => 'verwertungsgesellschaften_at.php', 'label' => 'Mehr zu Verwertungsgesellschaften in Österreich auf artbackstage'],
   ],
 ];
 
@@ -164,6 +165,9 @@ $resultClasses = [
               <p><?= htmlspecialchars($item['explanation'], ENT_QUOTES, 'UTF-8') ?></p>
               <p><strong>Rechtsgrundlage:</strong> <?= htmlspecialchars($item['legal'], ENT_QUOTES, 'UTF-8') ?></p>
               <p><em>Praxistipp:</em> <?= htmlspecialchars($item['tip'], ENT_QUOTES, 'UTF-8') ?></p>
+              <?php if (!empty($item['link'])): ?>
+                <p><a href="<?= htmlspecialchars($item['link']['href'], ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($item['link']['label'], ENT_QUOTES, 'UTF-8') ?></a></p>
+              <?php endif; ?>
             </details>
           </article>
         <?php endforeach; ?>
