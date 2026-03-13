@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Feedback &amp; Consultation – artbackstage</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
   <script src="https://8x8.vc/vpaas-magic-cookie-217700227dd14fdc85d66af17ebfa727/external_api.js" async></script>
   <style>
@@ -309,10 +306,11 @@
           <div class="info-card">
             <h2>Privacy &amp; Technology</h2>
             <ul>
-              <li>Video calls are powered by <strong>Jitsi as a Service (JaaS)</strong> by 8×8 — based on the open-source Jitsi project.</li>
+              <li>Video calls are powered by <strong>Jitsi as a Service (JaaS)</strong> by <strong>8×8, Inc.</strong> — based on the open-source Jitsi project. 8×8, Inc. is headquartered in the United States.</li>
               <li>artbackstage does not store any call content or recordings.</li>
-              <li>Room connections run through the dedicated artbackstage account at 8×8, Inc. Their <a href="https://jitsi.org/security/" target="_blank" rel="noopener" style="color:var(--accent-dark)">privacy policy</a> applies.</li>
+              <li>By joining a video room, your IP address and connection data are transmitted to 8×8, Inc. The transfer takes place on the basis of the EU–US Data Privacy Framework and Standard Contractual Clauses (Art. 46(2)(c) GDPR). The <a href="https://www.8x8.com/privacy-policy" target="_blank" rel="noopener noreferrer" style="color:var(--accent-dark)">8×8 Privacy Policy</a> applies.</li>
               <li>Choose a non-guessable room name to prevent uninvited guests.</li>
+              <li>Further information: <a href="datenschutz_en.php" style="color:var(--accent-dark)">artbackstage Privacy Policy</a>.</li>
             </ul>
           </div>
 

@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Feedback &amp; Beratung – artbackstage</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
   <script src="https://8x8.vc/vpaas-magic-cookie-217700227dd14fdc85d66af17ebfa727/external_api.js" async></script>
   <style>
@@ -309,10 +306,11 @@
           <div class="info-card">
             <h2>Datenschutz &amp; Technik</h2>
             <ul>
-              <li>Videogespräche werden über <strong>Jitsi as a Service (JaaS)</strong> von 8×8 abgewickelt – auf Basis des quelloffenen Jitsi-Projekts.</li>
+              <li>Videogespräche werden über <strong>Jitsi as a Service (JaaS)</strong> von <strong>8×8, Inc.</strong> abgewickelt – auf Basis des quelloffenen Jitsi-Projekts. 8×8, Inc. hat seinen Sitz in den USA.</li>
               <li>artbackstage speichert keine Gesprächsinhalte oder Aufzeichnungen.</li>
-              <li>Raumverbindungen laufen über das dedizierte artbackstage-Konto bei 8×8, Inc. Es gelten deren <a href="https://jitsi.org/security/" target="_blank" rel="noopener" style="color:var(--accent-dark)">Datenschutzhinweise</a>.</li>
+              <li>Durch den Beitritt zu einem Videoraum werden Ihre IP-Adresse und Verbindungsdaten an 8×8, Inc. übertragen. Die Übertragung erfolgt auf Grundlage des EU–US Data Privacy Frameworks sowie der Standardvertragsklauseln (Art. 46 Abs. 2 lit. c DSGVO). Es gelten die <a href="https://www.8x8.com/privacy-policy" target="_blank" rel="noopener noreferrer" style="color:var(--accent-dark)">Datenschutzbestimmungen von 8×8</a>.</li>
               <li>Wähle einen nicht-erratbaren Raumnamen, um ungewollten Zutritt zu vermeiden.</li>
+              <li>Weitere Informationen: <a href="datenschutz.php" style="color:var(--accent-dark)">Datenschutzerklärung artbackstage</a>.</li>
             </ul>
           </div>
 
