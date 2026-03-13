@@ -12,7 +12,7 @@
   <script defer src="fair_use_questionnaire_en.js"></script>
 </head>
 <body data-lang="en">
-  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <div class="page">
     <header class="header">
       <div>

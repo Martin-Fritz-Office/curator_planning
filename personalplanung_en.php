@@ -12,7 +12,7 @@
   <script defer src="personalplanung_en.js"></script>
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <div class="page planning-wide">
     <header class="header">
       <div>

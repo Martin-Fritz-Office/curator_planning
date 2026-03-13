@@ -13,7 +13,7 @@
   <script defer src="yearly_turnover_calculator.js"></script>
 </head>
 <body data-lang="en">
-  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <div class="page planning-wide freelance-page">
     <header class="header">
       <div>
