@@ -680,6 +680,19 @@ h3.warn{color:var(--warning)}
 .tool-link-soziales h3{color:#4c1d95}
 .tool-link-soziales:hover{background:linear-gradient(to bottom right,#ede8ff,#e0d8fc);border-color:#a78bfa}
 
+/* FAQ – teal/cyan */
+.tool-link-faq{
+  background:linear-gradient(to bottom right,#f0fdfa,#ccfbf1);
+  border-color:#5eead4;
+}
+.tool-link-faq .tool-icon{
+  background:linear-gradient(145deg,#ccfbf1,#99f6e4);
+  border-color:#2dd4bf;
+  color:#0f766e;
+}
+.tool-link-faq h3{color:#0f4c45}
+.tool-link-faq:hover{background:linear-gradient(to bottom right,#ccfbf1,#99f6e4);border-color:#14b8a6}
+
 /* ── Page-level section themes ── */
 /* Applied to .landing-page.theme-* — colours match the entry card palette */
 
