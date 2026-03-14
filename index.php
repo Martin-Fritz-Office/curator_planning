@@ -43,7 +43,6 @@
           <span class="tool-link-content">
             <h3>artbackstage | Geld</h3>
             <p>Finanz-, Angebots- und Fair-Pay-Rechner für die freie Kulturpraxis.</p>
-            <p style="margin-top:6px"><a href="yearly_turnover_calculator.php" style="color:var(--accent-dark);font-weight:600;font-size:13px">Neu: Direkt zum Jahresumsatz-Rechner →</a></p>
           </span>
         </a>
 
