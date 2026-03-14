@@ -70,6 +70,18 @@
             <p>Soziale Absicherung, Studien und Inforamtionen für Kulturarbeit.</p>
           </span>
         </a>
+
+        <a class="tool-link tool-link-faq" href="faq.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <circle cx="12" cy="12" r="8.5"></circle><path d="M12 16.5v.5"></path><path d="M12 13.5c0-1.5 2-2 2-3.5a2 2 0 1 0-4 0"></path>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>artbackstage | FAQ</h3>
+            <p>Häufig gestellte Fragen zu Honorar, Recht und sozialer Absicherung.</p>
+          </span>
+        </a>
       </div>
     </main>
   </div>
