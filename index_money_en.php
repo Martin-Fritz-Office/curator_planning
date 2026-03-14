@@ -1,6 +1,10 @@
 <?php
 $landingPage = [
   'lang' => 'en',
+  'page_title' => 'artbackstage | Money – Financial Planning Tools for Curators',
+  'meta_description' => 'Annual forecast, hourly rate calculator, fair pay tools and more – everything freelance curators need for financial planning and sustainable practice.',
+  'alternate_lang' => 'de',
+  'alternate_url' => 'https://artbackstage.at/index_money.php',
   'subtitle' => 'Know your numbers. Protect your time. Work sustainably.',
   'home' => ['href' => 'index_en.php', 'label' => 'Section selection'],
   'language_switch' => ['href' => 'index_money.php', 'label' => 'Deutsch'],

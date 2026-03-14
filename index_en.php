@@ -3,7 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>artbackstage</title>
+  <?php
+    require_once __DIR__ . '/seo_meta.php';
+    generate_seo_meta([
+      'title' => 'artbackstage – Money, Law & Social Tools for Cultural Practitioners',
+      'description' => 'Choose from three sections: financial planning, copyright basics, and social security for independent artists and curators. Free calculators and checklists.',
+      'lang' => 'en',
+      'og_image' => 'https://artbackstage.at/og-image.png',
+      'alternate_lang' => 'de',
+      'alternate_url' => 'https://artbackstage.at/index.php',
+      'schema' => get_site_schema('artbackstage', 'Money, Law & Social Tools for Cultural Practitioners'),
+    ]);
+  ?>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>

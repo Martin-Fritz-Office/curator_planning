@@ -43,7 +43,18 @@ if (is_file($configPath)) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FAQ – artbackstage answers your questions</title>
+  <?php
+    require_once __DIR__ . '/seo_meta.php';
+    generate_seo_meta([
+      'title' => 'FAQ – Frequently Asked Questions at artbackstage',
+      'description' => 'Answers to common questions about fees, copyright, social security, and fair compensation for cultural practitioners.',
+      'lang' => 'en',
+      'og_image' => 'https://artbackstage.at/og-image.png',
+      'alternate_lang' => 'de',
+      'alternate_url' => 'https://artbackstage.at/faq.php',
+      'schema' => get_site_schema('FAQ', 'Frequently Asked Questions'),
+    ]);
+  ?>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
   <style>

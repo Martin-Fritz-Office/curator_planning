@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /check_hash.php
+Disallow: /submit_survey.php
+Disallow: /income_scenarios.php
+Disallow: /median_available_income.php
+
+Sitemap: https://artbackstage.at/sitemap.xml

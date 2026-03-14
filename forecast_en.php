@@ -1,11 +1,22 @@
 <?php
 // Simple single-file entry point. Works on any basic PHP hosting.
+require_once __DIR__ . '/seo_meta.php';
 ?><!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Annual Revenue & Profit Forecast (Curator)</title>
+  <?php
+    generate_seo_meta([
+      'title' => 'Annual Revenue & Profit Forecast – artbackstage',
+      'description' => 'Calculate your annual revenue and profit as a freelance curator. Free, anonymous, and compare scenarios.',
+      'lang' => 'en',
+      'og_image' => 'https://artbackstage.at/og-image.png',
+      'alternate_lang' => 'de',
+      'alternate_url' => 'https://artbackstage.at/forecast.php',
+      'schema' => get_site_schema('Annual Revenue & Profit Forecast', 'Calculate your annual revenue and profit as a freelance curator'),
+    ]);
+  ?>
   <link rel="stylesheet" href="style.css" />
   <script defer src="chart.umd.min.js"></script>
   <script defer src="calc_core.js"></script>

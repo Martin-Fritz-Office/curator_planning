@@ -43,7 +43,18 @@ if (is_file($configPath)) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FAQ – artbackstage antwortet auf eure Fragen</title>
+  <?php
+    require_once __DIR__ . '/seo_meta.php';
+    generate_seo_meta([
+      'title' => 'FAQ – Häufig gestellte Fragen bei artbackstage',
+      'description' => 'Antworten auf die häufigsten Fragen zu Honorar, Urheberrecht, Sozialversicherung und fairer Bezahlung für Kulturschaffende.',
+      'lang' => 'de',
+      'og_image' => 'https://artbackstage.at/og-image.png',
+      'alternate_lang' => 'en',
+      'alternate_url' => 'https://artbackstage.at/faq_en.php',
+      'schema' => get_site_schema('FAQ', 'Häufig gestellte Fragen'),
+    ]);
+  ?>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
   <style>

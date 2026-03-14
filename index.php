@@ -3,7 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>artbackstage</title>
+  <?php
+    require_once __DIR__ . '/seo_meta.php';
+    generate_seo_meta([
+      'title' => 'artbackstage – Finanz-, Rechts- und Sozial-Tools für Kulturarbeit',
+      'description' => 'Wähle aus drei Bereichen: Finanzen, Urheberrecht und Soziales für freie Kunst- und Kulturpraxis. Kostenlose Rechner und Checklisten für Kuratoren.',
+      'lang' => 'de',
+      'og_image' => 'https://artbackstage.at/og-image.png',
+      'alternate_lang' => 'en',
+      'alternate_url' => 'https://artbackstage.at/index_en.php',
+      'schema' => get_site_schema('artbackstage', 'Finanz-, Rechts- und Sozial-Tools für Kulturarbeit'),
+    ]);
+  ?>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>

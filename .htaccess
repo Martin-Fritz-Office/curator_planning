@@ -1,0 +1,11 @@
+# Enable rewrite engine
+RewriteEngine On
+
+# Rewrite sitemap.xml to sitemap.php
+RewriteRule ^sitemap\.xml$ sitemap.php [QSA,L]
+
+# Add security headers
+Header set X-Content-Type-Options "nosniff"
+Header set X-Frame-Options "SAMEORIGIN"
+Header set X-XSS-Protection "1; mode=block"
+Header set Referrer-Policy "no-referrer-when-downgrade"

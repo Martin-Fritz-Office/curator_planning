@@ -3,13 +3,26 @@ if (!isset($landingPage) || !is_array($landingPage)) {
   throw new RuntimeException('Missing $landingPage configuration.');
 }
 
+require_once __DIR__ . '/seo_meta.php';
+
 $e = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 ?><!doctype html>
 <html lang="<?= $e($landingPage['lang']) ?>">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title><?= $e($landingPage['page_title'] ?? 'artbackstage | Money') ?></title>
+  <?php
+    $seo_config = [
+      'title' => $landingPage['page_title'] ?? 'artbackstage',
+      'description' => $landingPage['meta_description'] ?? '',
+      'lang' => $landingPage['lang'] ?? 'en',
+      'og_image' => 'https://artbackstage.at/og-image.png',
+      'alternate_lang' => $landingPage['alternate_lang'] ?? null,
+      'alternate_url' => $landingPage['alternate_url'] ?? null,
+      'schema' => !empty($landingPage['schema']) ? $landingPage['schema'] : get_site_schema(),
+    ];
+    generate_seo_meta($seo_config);
+  ?>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
