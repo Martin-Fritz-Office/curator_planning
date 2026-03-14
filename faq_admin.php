@@ -9,8 +9,16 @@ session_start();
 $configPath = __DIR__ . '/db_config.php';
 $config     = is_file($configPath) ? require $configPath : null;
 
-$passwordHash = is_array($config) ? trim((string) ($config['admin_password_hash'] ?? '')) : '';
-$isSetup      = ($passwordHash === '');
+// Read the password hash directly from the raw file so PHP's opcode cache
+// cannot serve a stale value after check_hash.php writes a new hash to disk.
+$passwordHash = '';
+if (is_file($configPath)) {
+    $rawCfg = file_get_contents($configPath);
+    if ($rawCfg !== false && preg_match("/'admin_password_hash'\s*=>\s*'([^']*)'/", $rawCfg, $cfgMatch)) {
+        $passwordHash = trim($cfgMatch[1]);
+    }
+}
+$isSetup = ($passwordHash === '');
 
 // ── CSRF helper ───────────────────────────────────────────────────────────────
 
