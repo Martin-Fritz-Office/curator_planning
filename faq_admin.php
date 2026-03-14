@@ -37,7 +37,7 @@ $isLoggedIn = !empty($_SESSION['faq_admin_auth']);
 
 if (isset($_POST['action']) && $_POST['action'] === 'login') {
     csrf_verify();
-    $submitted = (string) ($_POST['password'] ?? '');
+    $submitted = trim((string) ($_POST['password'] ?? ''));
     if (!$isSetup && password_verify($submitted, $passwordHash)) {
         $_SESSION['faq_admin_auth'] = true;
         header('Location: faq_admin.php');
