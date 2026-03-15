@@ -3,17 +3,14 @@
 
   const lang = document.body?.dataset?.lang === "de" ? "de" : "en";
 
-  const state = {
-    step: 0,
-    info: { artist: "", gallery: "", title: "", startDate: "", endDate: "" },
-    answers: Array(8).fill(null),
-  };
+  const esc = (str) => String(str || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 
   const tr = {
     en: {
       stepLabel: "Question", of: "of", infoStep: "Exhibition details",
       result: "Confirmation letter", next: "Next", back: "Back", reset: "Start over",
       copyBtn: "Copy letter text", copied: "Copied!",
+      openQuestion: "unanswered question", openQuestions: "unanswered questions",
       infoLabels: { artist: "Artist name", gallery: "Gallery name", title: "Exhibition title", startDate: "Opening date", endDate: "Closing date" },
       infoHint: "Fill in the details below. These will appear in the generated confirmation letter.",
       letterTitle: "Exhibition Agreement – Confirmation Letter",
@@ -30,8 +27,8 @@
           hint: "The percentage of each sale price that the gallery retains.",
           options: [
             { value: "a", label: "30%", desc: "Artist-favorable rate" },
-            { value: "b", label: "40%", desc: "Reduced Common standard rate" },
-            { value: "c", label: "50%", desc: "Common standard rate Typical for primary galleries" },
+            { value: "b", label: "40%", desc: "Reduced standard rate" },
+            { value: "c", label: "50%", desc: "Common rate for primary galleries" },
           ],
           letter: {
             heading: "1. Gallery Commission",
@@ -158,6 +155,7 @@
       stepLabel: "Frage", of: "von", infoStep: "Ausstellungsdetails",
       result: "Bestätigungsschreiben", next: "Weiter", back: "Zurück", reset: "Von vorne",
       copyBtn: "Text kopieren", copied: "Kopiert!",
+      openQuestion: "offene Frage", openQuestions: "offene Fragen",
       infoLabels: { artist: "Name der Künstlerin / des Künstlers", gallery: "Galeriename", title: "Ausstellungstitel", startDate: "Eröffnungsdatum", endDate: "Schlussdatum" },
       infoHint: "Trage die Angaben ein. Sie erscheinen automatisch im generierten Bestätigungsschreiben.",
       letterTitle: "Ausstellungsvereinbarung – Bestätigungsschreiben",
@@ -174,7 +172,7 @@
           hint: "Der Prozentsatz, den die Galerie von jedem Verkaufspreis einbehält.",
           options: [
             { value: "a", label: "30 %", desc: "Künstlerfreundlicher Satz" },
-            { value: "b", label: "40 %", desc: "Reduzierter Branchenüblicher Standardsatz" },
+            { value: "b", label: "40 %", desc: "Reduzierter branchenüblicher Standardsatz" },
             { value: "c", label: "50 %", desc: "Branchenüblicher Standardsatz bei Primärgalerien" },
           ],
           letter: {
@@ -300,6 +298,12 @@
     },
   }[lang];
 
+  const state = {
+    step: 0,
+    info: { artist: "", gallery: "", title: "", startDate: "", endDate: "" },
+    answers: Array(tr.questions.length).fill(null),
+  };
+
   const stage = document.getElementById("carouselStage");
   const progressLabel = document.getElementById("progressLabel");
   const prevBtn = document.getElementById("prevBtn");
@@ -336,11 +340,10 @@
         </div>
       </article>`;
 
-    stage.querySelector("#infoArtist").addEventListener("input", (e) => { state.info.artist = e.target.value; });
-    stage.querySelector("#infoGallery").addEventListener("input", (e) => { state.info.gallery = e.target.value; });
-    stage.querySelector("#infoTitle").addEventListener("input", (e) => { state.info.title = e.target.value; });
-    stage.querySelector("#infoStart").addEventListener("input", (e) => { state.info.startDate = e.target.value; });
-    stage.querySelector("#infoEnd").addEventListener("input", (e) => { state.info.endDate = e.target.value; });
+    [["#infoArtist", "artist"], ["#infoGallery", "gallery"], ["#infoTitle", "title"],
+     ["#infoStart", "startDate"], ["#infoEnd", "endDate"]].forEach(([id, key]) => {
+      stage.querySelector(id).addEventListener("input", (e) => { state.info[key] = e.target.value; });
+    });
   };
 
   const renderQuestion = (qIndex) => {
@@ -361,10 +364,11 @@
           ${opts}
         </fieldset>
       </article>`;
+    const radioOptions = stage.querySelectorAll(".radio-option");
     stage.querySelectorAll('input[name="answer"]').forEach((input) => {
       input.addEventListener("change", (e) => {
         state.answers[qIndex] = e.target.value;
-        stage.querySelectorAll(".radio-option").forEach((lbl) => {
+        radioOptions.forEach((lbl) => {
           lbl.classList.toggle("selected", lbl.querySelector("input").checked);
         });
       });
@@ -385,7 +389,8 @@
   const renderLetter = () => {
     const unanswered = state.answers.filter((a) => a === null).length;
     if (unanswered > 0) {
-      stage.innerHTML = `<article class="didactic-step"><p class="muted">${tr.unansweredHint} (${unanswered} ${unanswered === 1 ? (lang === "de" ? "offene Frage" : "unanswered question") : (lang === "de" ? "offene Fragen" : "unanswered questions")})</p></article>`;
+      const label = unanswered === 1 ? tr.openQuestion : tr.openQuestions;
+      stage.innerHTML = `<article class="didactic-step"><p class="muted">${tr.unansweredHint} (${unanswered} ${label})</p></article>`;
       return;
     }
     const letterText = buildLetterText();
@@ -408,10 +413,12 @@
       </article>`;
 
     document.getElementById("copyLetterBtn").addEventListener("click", function () {
-      navigator.clipboard.writeText(letterText).then(() => {
-        this.textContent = tr.copied;
-        setTimeout(() => { this.textContent = tr.copyBtn; }, 2000);
-      }).catch(() => {
+      const btn = this;
+      const showCopiedFeedback = () => {
+        btn.textContent = tr.copied;
+        setTimeout(() => { btn.textContent = tr.copyBtn; }, 2000);
+      };
+      navigator.clipboard.writeText(letterText).then(showCopiedFeedback).catch(() => {
         const ta = document.createElement("textarea");
         ta.value = letterText;
         ta.style.position = "fixed";
@@ -420,8 +427,7 @@
         ta.select();
         document.execCommand("copy");
         document.body.removeChild(ta);
-        this.textContent = tr.copied;
-        setTimeout(() => { this.textContent = tr.copyBtn; }, 2000);
+        showCopiedFeedback();
       });
     });
   };
@@ -446,8 +452,6 @@
       renderQuestion(state.step - 1);
     }
   };
-
-  const esc = (str) => String(str || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 
   prevBtn.addEventListener("click", () => { if (state.step > 0) { state.step -= 1; render(); } });
   nextBtn.addEventListener("click", () => { state.step = state.step < totalSteps ? state.step + 1 : 0; render(); });
