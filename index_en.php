@@ -3,17 +3,28 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>artbackstage</title>
+  <?php
+    require_once __DIR__ . '/seo_meta.php';
+    generate_seo_meta([
+      'title' => 'artbackstage – Money, Law & Social Tools for Cultural Practitioners',
+      'description' => 'Choose from three sections: financial planning, copyright basics, and social security for independent artists and curators. Free calculators and checklists.',
+      'lang' => 'en',
+      'og_image' => 'https://artbackstage.at/og-image.png',
+      'alternate_lang' => 'de',
+      'alternate_url' => 'https://artbackstage.at/index.php',
+      'schema' => get_site_schema('artbackstage', 'Money, Law & Social Tools for Cultural Practitioners'),
+    ]);
+  ?>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <div class="page landing-page">
     <header class="header landing-header">
       <div>
         <p class="eyebrow brand-mark">artbackstage</p>
-        <h1>Choose your starting point</h1>
+        <h1>Law, Money, Fairness</h1>
         <p class="muted">Three sections, one toolbox: money, law, and social topics for artistic and cultural practice.</p>
       </div>
       <div class="header-actions">
@@ -61,6 +72,18 @@
           <span class="tool-link-content">
             <h3>artbackstage | Social</h3>
             <p>Overview page with scenario-based guidance on social security, income, and fair-pay planning.</p>
+          </span>
+        </a>
+
+        <a class="tool-link tool-link-faq" href="faq_en.php">
+          <span class="tool-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <circle cx="12" cy="12" r="8.5"></circle><path d="M12 16.5v.5"></path><path d="M12 13.5c0-1.5 2-2 2-3.5a2 2 0 1 0-4 0"></path>
+            </svg>
+          </span>
+          <span class="tool-link-content">
+            <h3>artbackstage | FAQ</h3>
+            <p>Frequently asked questions on fees, law, and social security for cultural practitioners.</p>
           </span>
         </a>
       </div>

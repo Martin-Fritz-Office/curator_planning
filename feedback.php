@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Feedback &amp; Beratung – artbackstage</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
+  <script src="https://8x8.vc/vpaas-magic-cookie-217700227dd14fdc85d66af17ebfa727/external_api.js" async></script>
   <style>
     .feedback-grid {
       display: grid;
@@ -181,6 +179,43 @@
       text-decoration: none;
       font-weight: 600;
     }
+    .occupancy-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--surface, #fff);
+      border: 1px solid var(--border, #e5e7eb);
+      border-radius: 999px;
+      padding: 5px 14px 5px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--headline, #134d30);
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .occupancy-badge .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #9ca3af;
+      flex-shrink: 0;
+      transition: background .4s;
+    }
+    .occupancy-badge .dot.active {
+      background: #1a9e57;
+      box-shadow: 0 0 0 3px rgba(26,158,87,.2);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(26,158,87,.2); }
+      50%       { box-shadow: 0 0 0 6px rgba(26,158,87,.05); }
+    }
+    .occupancy-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
   </style>
 </head>
 <body data-lang="de">
@@ -204,8 +239,14 @@
         <!-- Left: Video call area -->
         <div class="vc-wrapper">
           <div class="vc-setup">
-            <h2>Videoraum beitreten</h2>
-            <p>Raumcode eingeben oder einen neuen Raum erstellen und auf „Beitreten" klicken.</p>
+            <div class="occupancy-row">
+              <h2 style="margin:0">Videoraum beitreten</h2>
+              <span class="occupancy-badge" id="occupancy-badge" aria-live="polite" aria-label="Personen im Raum" hidden>
+                <span class="dot" id="occupancy-dot"></span>
+                <span id="occupancy-label">Verbinde…</span>
+              </span>
+            </div>
+            <p style="margin-top:10px">Raumcode eingeben oder einen neuen Raum erstellen und auf „Beitreten" klicken.</p>
             <div class="vc-room-row">
               <input
                 type="text"
@@ -265,10 +306,11 @@
           <div class="info-card">
             <h2>Datenschutz &amp; Technik</h2>
             <ul>
-              <li>Videogespräche werden über <strong>Jitsi Meet</strong> (meet.jit.si) abgewickelt – ein freies, quelloffenes Videokonferenz-System.</li>
+              <li>Videogespräche werden über <strong>Jitsi as a Service (JaaS)</strong> von <strong>8×8, Inc.</strong> abgewickelt – auf Basis des quelloffenen Jitsi-Projekts. 8×8, Inc. hat seinen Sitz in den USA.</li>
               <li>artbackstage speichert keine Gesprächsinhalte oder Aufzeichnungen.</li>
-              <li>Raumverbindungen laufen direkt über die Jitsi-Server von 8×8, Inc. Es gelten deren <a href="https://jitsi.org/security/" target="_blank" rel="noopener" style="color:var(--accent-dark)">Datenschutzhinweise</a>.</li>
+              <li>Durch den Beitritt zu einem Videoraum werden Ihre IP-Adresse und Verbindungsdaten an 8×8, Inc. übertragen. Die Übertragung erfolgt auf Grundlage des EU–US Data Privacy Frameworks sowie der Standardvertragsklauseln (Art. 46 Abs. 2 lit. c DSGVO). Es gelten die <a href="https://www.8x8.com/privacy-policy" target="_blank" rel="noopener noreferrer" style="color:var(--accent-dark)">Datenschutzbestimmungen von 8×8</a>.</li>
               <li>Wähle einen nicht-erratbaren Raumnamen, um ungewollten Zutritt zu vermeiden.</li>
+              <li>Weitere Informationen: <a href="datenschutz.php" style="color:var(--accent-dark)">Datenschutzerklärung artbackstage</a>.</li>
             </ul>
           </div>
 
@@ -286,9 +328,45 @@
 
 <?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
 
-<script src="https://meet.jit.si/external_api.js"></script>
 <script>
+  const JAAS_DOMAIN = '8x8.vc';
+  const JAAS_COOKIE = 'vpaas-magic-cookie-217700227dd14fdc85d66af17ebfa727';
+
   let api = null;
+
+  function showToast(msg) {
+    var t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1a1a2e;color:#fff;padding:12px 18px;border-radius:8px;font-size:14px;box-shadow:0 4px 16px rgba(0,0,0,.3);z-index:9999;transition:opacity .4s';
+    document.body.appendChild(t);
+    setTimeout(function () { t.style.opacity = '0'; setTimeout(function () { t.remove(); }, 400); }, 4000);
+  }
+
+  function notifyParticipant(displayName) {
+    var name = displayName || 'Jemand';
+    var msg = name + ' ist dem Raum beigetreten.';
+    showToast('\u{1F464} ' + msg);
+    if (Notification.permission === 'granted') {
+      new Notification('artbackstage | Feedback', { body: msg, icon: 'favicon.svg' });
+    }
+  }
+
+  function updateOccupancy(count) {
+    var label = document.getElementById('occupancy-label');
+    var dot   = document.getElementById('occupancy-dot');
+    if (!label || !dot) return;
+    if (count === 0) {
+      label.textContent = 'Niemand im Raum';
+      dot.classList.remove('active');
+    } else if (count === 1) {
+      label.textContent = '1 Person im Raum';
+      dot.classList.add('active');
+    } else {
+      label.textContent = count + ' Personen im Raum';
+      dot.classList.add('active');
+    }
+    document.getElementById('occupancy-badge').setAttribute('aria-label', label.textContent);
+  }
 
   function sanitizeRoom(name) {
     // Jitsi room names: letters, digits, hyphens, no spaces or special chars
@@ -304,6 +382,12 @@
   }
 
   function joinRoom() {
+    if (typeof JitsiMeetExternalAPI === 'undefined') {
+      document.getElementById('vc-container').innerHTML =
+        '<p style="color:#aaa;padding:20px;font-family:sans-serif">Die Videokonferenz konnte nicht geladen werden. Bitte Seite neu laden.</p>';
+      return;
+    }
+
     const raw = document.getElementById('room-input').value;
     const roomName = sanitizeRoom(raw);
     if (!roomName) return;
@@ -313,6 +397,14 @@
     // Destroy previous session if any
     if (api) { api.dispose(); api = null; }
 
+    // Reset occupancy badge
+    var badge = document.getElementById('occupancy-badge');
+    var occupancyLabel = document.getElementById('occupancy-label');
+    var occupancyDot   = document.getElementById('occupancy-dot');
+    if (badge) { badge.hidden = false; }
+    if (occupancyLabel) { occupancyLabel.textContent = 'Verbinde…'; }
+    if (occupancyDot)   { occupancyDot.classList.remove('active'); }
+
     const placeholder = document.getElementById('vc-placeholder');
     if (placeholder) placeholder.remove();
 
@@ -320,8 +412,8 @@
     container.classList.add('active');
     container.innerHTML = '';
 
-    api = new JitsiMeetExternalAPI('meet.jit.si', {
-      roomName: roomName,
+    api = new JitsiMeetExternalAPI(JAAS_DOMAIN, {
+      roomName: JAAS_COOKIE + '/' + roomName,
       parentNode: container,
       width: '100%',
       height: 520,
@@ -343,6 +435,29 @@
       },
     });
 
+    var participantCount = 0;
+
+    api.addEventListener('videoConferenceJoined', function () {
+      participantCount = 1;
+      updateOccupancy(participantCount);
+    });
+
+    api.addEventListener('participantJoined', function (event) {
+      participantCount += 1;
+      updateOccupancy(participantCount);
+      notifyParticipant(event.displayName);
+    });
+
+    api.addEventListener('participantLeft', function () {
+      participantCount = Math.max(0, participantCount - 1);
+      updateOccupancy(participantCount);
+    });
+
+    api.addEventListener('videoConferenceLeft', function () {
+      participantCount = 0;
+      updateOccupancy(participantCount);
+    });
+
     // Show share link
     const shareUrl = `${location.origin}${location.pathname}?room=${encodeURIComponent(roomName)}`;
     const shareInput = document.getElementById('share-url');
@@ -360,6 +475,11 @@
       document.execCommand('copy');
       document.getElementById('copy-status').textContent = 'Link kopiert.';
     });
+  }
+
+  // Request notification permission up front
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
   }
 
   // Auto-join if ?room= param is present

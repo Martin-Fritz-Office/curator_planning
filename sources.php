@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>artbackstage | Quellen</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -33,8 +30,16 @@
           <h3>Recht &amp; Rechtsgrundlagen</h3>
           <ul>
             <li>
-              <a href="https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10001848" target="_blank" rel="noopener noreferrer">RIS: Urheberrechtsgesetz (UrhG)</a>
-              <div class="source-backlink"><strong>Verwendet in:</strong> <a href="index_law.php">Rechtsüberblick</a>, <a href="law_quiz.php">Rechtsquiz</a></div>
+              <a href="https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10001848" target="_blank" rel="noopener noreferrer">RIS: Urheberrechtsgesetz (UrhG AT)</a>
+              <div class="source-backlink"><strong>Verwendet in:</strong> <a href="index_law.php">Rechtsüberblick</a>, <a href="law_quiz.php">Rechtsquiz</a>, <a href="bildrecht_checklist.php">Bild-Urheberrecht-Checkliste</a></div>
+            </li>
+            <li>
+              <a href="https://www.gesetze-im-internet.de/urhg/" target="_blank" rel="noopener noreferrer">gesetze-im-internet.de: Urheberrechtsgesetz (UrhG DE)</a>
+              <div class="source-backlink"><strong>Verwendet in:</strong> <a href="bildrecht_checklist.php">Bild-Urheberrecht-Checkliste</a></div>
+            </li>
+            <li>
+              <a href="https://www.fedlex.admin.ch/eli/cc/1993/1798_1798_1798/de" target="_blank" rel="noopener noreferrer">fedlex.admin.ch: Urheberrechtsgesetz (URG CH)</a>
+              <div class="source-backlink"><strong>Verwendet in:</strong> <a href="bildrecht_checklist.php">Bild-Urheberrecht-Checkliste</a></div>
             </li>
             <li>
               <a href="https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20009532" target="_blank" rel="noopener noreferrer">RIS: Verwertungsgesellschaftengesetz (VerwGesG)</a>
@@ -61,17 +66,17 @@
         </section>
 
         <section>
-          <h3>Fair pay, fee guidance &amp; calculators</h3>
+          <h3>Faire Bezahlung, Honorarrichtlinien &amp; Rechner</h3>
           <ul>
-            <li><a href="https://igbildendekunst.at/infomaterial/honorare/" target="_blank" rel="noopener noreferrer">IG Bildende Kunst: Honorare</a><div class="source-backlink"><strong>Verwendet in:</strong> <a href="honorarium_questionnaire.php">Honorarium questionnaire</a></div></li>
-            <li><a href="https://kupf.at/fairpayrechner/" target="_blank" rel="noopener noreferrer">KUPF: Fair Pay Rechner</a><div class="source-backlink"><strong>Verwendet in:</strong> <a href="personalplanung.php">Personal planning</a></div></li>
-            <li><a href="https://igkultur.at/service/verein/gehaltsschema-und-honorarrichtlinien-fuer-kulturarbeit" target="_blank" rel="noopener noreferrer">IG Kultur: Gehaltsschema &amp; Honorarrichtlinien</a><div class="source-backlink"><strong>Verwendet in:</strong> <a href="personalplanung.php">Personal planning</a></div></li>
-            <li><a href="https://igkultur.at/sites/default/files/posts/downloads/2025-10-07/TKI-Honorarspiegel_2026_mit-Erlaeuterungen.pdf" target="_blank" rel="noopener noreferrer">TKI Honorarspiegel</a><div class="source-backlink"><strong>Verwendet in:</strong> <a href="freelance_services_calculator.php">Freelance services calculator</a></div></li>
+            <li><a href="https://igbildendekunst.at/infomaterial/honorare/" target="_blank" rel="noopener noreferrer">IG Bildende Kunst: Honorare</a><div class="source-backlink"><strong>Verwendet in:</strong> <a href="honorarium_questionnaire.php">Honorarfragebogen</a></div></li>
+            <li><a href="https://kupf.at/fairpayrechner/" target="_blank" rel="noopener noreferrer">KUPF: Fair Pay Rechner</a><div class="source-backlink"><strong>Verwendet in:</strong> <a href="personalplanung.php">Personalplanung</a></div></li>
+            <li><a href="https://igkultur.at/service/verein/gehaltsschema-und-honorarrichtlinien-fuer-kulturarbeit" target="_blank" rel="noopener noreferrer">IG Kultur: Gehaltsschema &amp; Honorarrichtlinien</a><div class="source-backlink"><strong>Verwendet in:</strong> <a href="personalplanung.php">Personalplanung</a></div></li>
+            <li><a href="https://igkultur.at/sites/default/files/posts/downloads/2025-10-07/TKI-Honorarspiegel_2026_mit-Erlaeuterungen.pdf" target="_blank" rel="noopener noreferrer">TKI Honorarspiegel</a><div class="source-backlink"><strong>Verwendet in:</strong> <a href="freelance_services_calculator.php">Freelance-Leistungsrechner</a></div></li>
           </ul>
         </section>
 
         <section>
-          <h3>Gender report</h3>
+          <h3>Genderbericht</h3>
           <ul>
             <li><a href="https://www.bmwkms.gv.at/dam/jcr:edd38dda-d743-49cc-95a0-552139f7eb25/Gender_Report_im_Bereich_Kunst_und_Kultur_2017-2021.pdf" target="_blank" rel="noopener noreferrer">BMWKMS: Gender Report im Bereich Kunst und Kultur 2017–2021 (DE)</a><div class="source-backlink"><strong>Verwendet in:</strong> <a href="gender_report_summary.php">Gender report summary (DE)</a>, <a href="gender_report_summary_en.php">Gender report summary (EN)</a></div></li>
             <li><a href="https://www.bmwkms.gv.at/dam/jcr:a9e39f2f-2879-4651-8d05-b8ea0b6f0c2d/Summary_Gender_Report_in_the_Fields_of_Arts_and_Culture_english.pdf" target="_blank" rel="noopener noreferrer">BMWKMS: Summary Gender Report in the Fields of Arts and Culture (EN)</a><div class="source-backlink"><strong>Verwendet in:</strong> <a href="gender_report_summary.php">Gender report summary (DE)</a>, <a href="gender_report_summary_en.php">Gender report summary (EN)</a></div></li>
@@ -79,7 +84,7 @@
         </section>
 
         <section>
-          <h3>Salary &amp; fee research references (data explorer)</h3>
+          <h3>Gehalts- &amp; Honorarrecherche (Daten-Explorer)</h3>
           <ul>
             <li><a href="https://www.aam-us.org/professional-networks/salary-survey/" target="_blank" rel="noopener noreferrer">AAM salary survey</a><div class="source-backlink"><strong>Verwendet in:</strong> <a href="salary_data.php">Gehaltsdaten-Explorer</a></div></li>
             <li><a href="https://www.museumsassociation.org/jobs/" target="_blank" rel="noopener noreferrer">Museums Association jobs</a><div class="source-backlink"><strong>Verwendet in:</strong> <a href="salary_data.php">Gehaltsdaten-Explorer</a></div></li>

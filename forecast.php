@@ -1,14 +1,22 @@
 <?php
 // Simple single-file entry point. Works on any basic PHP hosting.
+require_once __DIR__ . '/seo_meta.php';
 ?><!doctype html>
 <html lang="de">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Jahresumsatz- & Gewinnprognose (Curator)</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <?php
+    generate_seo_meta([
+      'title' => 'Jahresumsatz- & Gewinnprognose – artbackstage',
+      'description' => 'Berechne deinen Jahresumsatz und Gewinn als freier Kurator. Kostenlos, anonym und mit Szenario-Vergleich.',
+      'lang' => 'de',
+      'og_image' => 'https://artbackstage.at/og-image.png',
+      'alternate_lang' => 'en',
+      'alternate_url' => 'https://artbackstage.at/forecast_en.php',
+      'schema' => get_site_schema('Jahresumsatz- & Gewinnprognose', 'Berechne deinen Jahresumsatz als freier Kurator'),
+    ]);
+  ?>
   <link rel="stylesheet" href="style.css" />
   <script defer src="chart.umd.min.js"></script>
   <script defer src="calc_core.js"></script>

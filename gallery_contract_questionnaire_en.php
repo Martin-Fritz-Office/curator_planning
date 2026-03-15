@@ -4,31 +4,31 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>artbackstage | Honorarium Questionnaire</title>
+  <title>artbackstage | Gallery Exhibition Contract Questionnaire</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="fair_use_questionnaire_en.js"></script>
+  <script defer src="gallery_contract_questionnaire.js"></script>
 </head>
 <body data-lang="en">
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <div class="page">
     <header class="header">
       <div>
-        <h1>Honorarium questionnaire for fair pay</h1>
-        <p class="muted">Guided questions based on the 2026 guideline to estimate a fair artist fee.</p>
+        <h1>Gallery Exhibition Contract Questionnaire</h1>
+        <p class="muted">8 multiple-choice questions on the key terms of a gallery exhibition contract – produces a ready-to-use confirmation letter.</p>
       </div>
       <div class="header-actions">
         <a class="btn btn-outline" href="index_money_en.php">Home</a>
-        <a class="btn btn-outline" href="honorarium_questionnaire.php">Deutsch</a>
+        <a class="btn btn-outline" href="gallery_contract_questionnaire.php">Deutsch</a>
       </div>
     </header>
 
     <main id="main-content" class="card tutorial-card">
       <div class="card-head">
-        <h2>Questionnaire: Fair honorarium estimate</h2>
+        <h2>Exhibition agreement – step by step</h2>
       </div>
       <div class="card-body">
         <div class="carousel-progress">
-          <span id="progressLabel" class="pill">Question 1 of 8</span>
+          <span id="progressLabel" class="pill">Exhibition details</span>
         </div>
 
         <section class="carousel-stage" id="carouselStage" aria-live="polite"></section>
@@ -40,6 +40,6 @@
       </div>
     </main>
   </div>
-<?php require_once __DIR__ . '/site_footer.php'; render_site_footer(); ?>
+<?php require_once __DIR__ . '/site_footer.php'; render_site_footer('en'); ?>
 </body>
 </html>

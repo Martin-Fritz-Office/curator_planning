@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>artbackstage | Sources</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <div class="page">
     <header class="header">
       <div>
@@ -33,8 +30,16 @@
           <h3>Law &amp; legal frameworks</h3>
           <ul>
             <li>
-              <a href="https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10001848" target="_blank" rel="noopener noreferrer">RIS: Urheberrechtsgesetz (UrhG)</a>
-              <div class="source-backlink"><strong>Used in:</strong> <a href="index_law.php">Law overview</a>, <a href="law_quiz.php">Law quiz</a></div>
+              <a href="https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10001848" target="_blank" rel="noopener noreferrer">RIS: Urheberrechtsgesetz (UrhG AT)</a>
+              <div class="source-backlink"><strong>Used in:</strong> <a href="index_law.php">Law overview</a>, <a href="law_quiz.php">Law quiz</a>, <a href="bildrecht_checklist.php">Image copyright checklist</a></div>
+            </li>
+            <li>
+              <a href="https://www.gesetze-im-internet.de/urhg/" target="_blank" rel="noopener noreferrer">gesetze-im-internet.de: Urheberrechtsgesetz (UrhG DE)</a>
+              <div class="source-backlink"><strong>Used in:</strong> <a href="bildrecht_checklist.php">Image copyright checklist</a></div>
+            </li>
+            <li>
+              <a href="https://www.fedlex.admin.ch/eli/cc/1993/1798_1798_1798/de" target="_blank" rel="noopener noreferrer">fedlex.admin.ch: Urheberrechtsgesetz (URG CH)</a>
+              <div class="source-backlink"><strong>Used in:</strong> <a href="bildrecht_checklist.php">Image copyright checklist</a></div>
             </li>
             <li>
               <a href="https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20009532" target="_blank" rel="noopener noreferrer">RIS: Verwertungsgesellschaftengesetz (VerwGesG)</a>

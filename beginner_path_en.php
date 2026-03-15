@@ -6,13 +6,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Beginner Path | artbackstage Money</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <div class="page landing-page">
     <header class="header landing-header">
       <div>
@@ -38,7 +35,7 @@
             <p class="step-badge">Step 1 · Reality check</p>
             <h3>Can I sustain this financially?</h3>
             <p>Start with a quick yearly forecast to see whether your current setup is sustainable.</p>
-            <a class="btn" href="forecast_en_didactic.php">Open the didactic forecast</a>
+            <a class="btn" href="forecast_en.php">Open the annual forecast</a>
           </article>
 
           <article class="beginner-step">

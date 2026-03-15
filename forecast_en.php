@@ -1,21 +1,29 @@
 <?php
 // Simple single-file entry point. Works on any basic PHP hosting.
+require_once __DIR__ . '/seo_meta.php';
 ?><!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Annual Revenue & Profit Forecast (Curator)</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+  <?php
+    generate_seo_meta([
+      'title' => 'Annual Revenue & Profit Forecast – artbackstage',
+      'description' => 'Calculate your annual revenue and profit as a freelance curator. Free, anonymous, and compare scenarios.',
+      'lang' => 'en',
+      'og_image' => 'https://artbackstage.at/og-image.png',
+      'alternate_lang' => 'de',
+      'alternate_url' => 'https://artbackstage.at/forecast.php',
+      'schema' => get_site_schema('Annual Revenue & Profit Forecast', 'Calculate your annual revenue and profit as a freelance curator'),
+    ]);
+  ?>
   <link rel="stylesheet" href="style.css" />
   <script defer src="chart.umd.min.js"></script>
   <script defer src="calc_core.js"></script>
   <script defer src="app_en.js"></script>
 </head>
 <body>
-  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <div class="page">
     <header class="header">
       <div>

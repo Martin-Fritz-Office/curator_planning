@@ -6,4 +6,9 @@ return [
     'database' => 'curator_planning',
     'user' => 'curator_user',
     'password' => 'replace-with-strong-password',
+
+    // Admin password for faq_admin.php
+    // Generate with: php -r "echo password_hash('your-password', PASSWORD_DEFAULT);"
+    // Then paste the resulting hash string here.
+    'admin_password_hash' => '',
 ];

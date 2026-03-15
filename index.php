@@ -3,11 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>artbackstage</title>
+  <?php
+    require_once __DIR__ . '/seo_meta.php';
+    generate_seo_meta([
+      'title' => 'artbackstage – Finanz-, Rechts- und Sozial-Tools für Kulturarbeit',
+      'description' => 'Wähle aus drei Bereichen: Finanzen, Urheberrecht und Soziales für freie Kunst- und Kulturpraxis. Kostenlose Rechner und Checklisten für Kuratoren.',
+      'lang' => 'de',
+      'og_image' => 'https://artbackstage.at/og-image.png',
+      'alternate_lang' => 'en',
+      'alternate_url' => 'https://artbackstage.at/index_en.php',
+      'schema' => get_site_schema('artbackstage', 'Finanz-, Rechts- und Sozial-Tools für Kulturarbeit'),
+    ]);
+  ?>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -21,7 +29,7 @@
           <span class="landing-hero-dot" aria-hidden="true"></span>
           artbackstage · BETA
         </span>
-        <h1>Wähle deinen&nbsp;Einstieg</h1>
+        <h1>Recht, Geld, Soziales</h1>
         <p>Drei Bereiche, ein Werkzeugkasten: Finanzen, Urheberrecht und Soziales für Kunst- und Kulturpraxis.</p>
         <div class="landing-hero-actions">
           <a class="btn btn-hero-ghost" href="index_en.php" lang="en">English version</a>
@@ -46,7 +54,6 @@
           <span class="tool-link-content">
             <h3>artbackstage | Geld</h3>
             <p>Finanz-, Angebots- und Fair-Pay-Rechner für die freie Kulturpraxis.</p>
-            <p style="margin-top:6px"><a href="yearly_turnover_calculator.php" style="color:var(--accent-dark);font-weight:600;font-size:13px">Neu: Direkt zum Jahresumsatz-Rechner →</a></p>
           </span>
         </a>
 
@@ -74,15 +81,15 @@
           </span>
         </a>
 
-        <a class="tool-link" href="jitsi_consultation.php">
+        <a class="tool-link tool-link-faq" href="faq.php">
           <span class="tool-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" role="img" focusable="false">
-              <path d="M15 10l4.553-2.276A1 1 0 0 1 21 8.723v6.554a1 1 0 0 1-1.447.894L15 14v-4z"></path><rect x="3" y="7" width="12" height="10" rx="2"></rect>
+              <circle cx="12" cy="12" r="8.5"></circle><path d="M12 16.5v.5"></path><path d="M12 13.5c0-1.5 2-2 2-3.5a2 2 0 1 0-4 0"></path>
             </svg>
           </span>
           <span class="tool-link-content">
-            <h3>artbackstage | Videoberatung</h3>
-            <p>Live-Beratungsraum für Kunst- und Kulturschaffende direkt im Browser.</p>
+            <h3>artbackstage | FAQ</h3>
+            <p>Häufig gestellte Fragen zu Honorar, Recht und sozialer Absicherung.</p>
           </span>
         </a>
       </div>
