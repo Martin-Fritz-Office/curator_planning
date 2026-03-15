@@ -29,7 +29,7 @@
           <span class="landing-hero-dot" aria-hidden="true"></span>
           artbackstage · BETA
         </span>
-        <h1>Wähle deinen&nbsp;Einstieg</h1>
+        <h1>Recht, Geld, Soziales</h1>
         <p>Drei Bereiche, ein Werkzeugkasten: Finanzen, Urheberrecht und Soziales für Kunst- und Kulturpraxis.</p>
         <div class="landing-hero-actions">
           <a class="btn btn-hero-ghost" href="index_en.php" lang="en">English version</a>
