@@ -1417,11 +1417,11 @@ h3.warn{color:var(--warning)}
 .letter-output p:last-child{margin-bottom:0}
 
 /* ═══════════════════════════════════════════
-   ANIMATED BIRD — hero decoration
+   ANIMATED SATELLITE & ANTENNA — hero decoration
 ═══════════════════════════════════════════ */
 
 /* Container – floats in the hero, pointer-events off so it doesn't block clicks */
-.hero-bird{
+.hero-space{
   position:absolute;
   top:0;left:0;right:0;bottom:0;
   pointer-events:none;
@@ -1429,79 +1429,49 @@ h3.warn{color:var(--warning)}
   border-radius:inherit;
 }
 
-/* Each bird element */
-.hero-bird-svg{
+/* Each element */
+.hero-sat-svg{
   position:absolute;
   opacity:.55;
 }
 
-/* Large swallow – drifts left-to-right with gentle arc */
-.hero-bird-svg--main{
-  width:52px;
+/* Satellite – drifts across the hero with gentle arc */
+.hero-sat-svg--satellite{
+  width:72px;
   color:#3d7a58;
   opacity:.45;
-  animation:bird-drift 14s ease-in-out infinite;
-  top:28%;
+  animation:sat-orbit 18s ease-in-out infinite;
+  top:22%;
 }
 
-/* Small companion – slightly ahead, faster */
-.hero-bird-svg--small{
-  width:28px;
+/* Parabolic antenna – anchored bottom-right, pointing up-left toward satellite */
+.hero-sat-svg--antenna{
+  width:52px;
   color:#5a9a76;
-  opacity:.35;
-  animation:bird-drift-small 11s ease-in-out infinite;
-  animation-delay:-4s;
-  top:18%;
+  opacity:.40;
+  bottom:6%;
+  right:6%;
+  animation:antenna-pulse 4s ease-in-out infinite;
 }
 
-/* Wing flap – rotates each wing path independently */
-@keyframes wing-flap{
-  0%,100%{ transform:scaleY(1) }
-  25%    { transform:scaleY(.35) }
-  50%    { transform:scaleY(1) }
-  75%    { transform:scaleY(.5) }
-}
-
-.hero-bird-svg .wing-top{
-  transform-origin:50% 70%;
-  animation:wing-flap 1.6s ease-in-out infinite;
-}
-.hero-bird-svg--small .wing-top{
-  animation-duration:1.2s;
-  animation-delay:-.3s;
-}
-.hero-bird-svg .wing-bottom{
-  transform-origin:50% 30%;
-  animation:wing-flap 1.6s ease-in-out infinite;
-  animation-delay:.8s;
-}
-.hero-bird-svg--small .wing-bottom{
-  animation-duration:1.2s;
-  animation-delay:.3s;
-}
-
-/* Translate animations – move across hero with a gentle sine-wave vertical */
-@keyframes bird-drift{
-  0%  { transform:translate(-80px, 0px) }
-  20% { transform:translate(calc(20vw - 80px), -14px) }
-  50% { transform:translate(calc(50vw - 80px),   8px) }
-  80% { transform:translate(calc(80vw - 80px), -10px) }
+/* Slow satellite panel shimmer */
+@keyframes sat-orbit{
+  0%  { transform:translate(-90px, 0px) }
+  20% { transform:translate(calc(20vw - 90px), -12px) }
+  50% { transform:translate(calc(50vw - 90px),   6px) }
+  80% { transform:translate(calc(80vw - 90px),  -8px) }
   100%{ transform:translate(calc(100vw + 20px),  0px) }
 }
 
-@keyframes bird-drift-small{
-  0%  { transform:translate(-50px, 0px) }
-  25% { transform:translate(calc(25vw - 50px), -10px) }
-  55% { transform:translate(calc(55vw - 50px),   6px) }
-  80% { transform:translate(calc(80vw - 50px),  -8px) }
-  100%{ transform:translate(calc(100vw + 10px),  0px) }
+/* Subtle opacity pulse on the antenna (signal receiving) */
+@keyframes antenna-pulse{
+  0%,100%{ opacity:.40 }
+  50%    { opacity:.60 }
 }
 
-/* Reduce motion: freeze birds in place */
+/* Reduce motion: freeze in place */
 @media (prefers-reduced-motion:reduce){
-  .hero-bird-svg{animation:none}
-  .hero-bird-svg .wing-top,
-  .hero-bird-svg .wing-bottom{animation:none}
-  .hero-bird-svg--main { transform:translate(45%, 0) }
-  .hero-bird-svg--small{ transform:translate(30%, 0) }
+  .hero-sat-svg{animation:none}
+  .hero-sat-svg--satellite{ transform:translate(40%, 0) }
+  .hero-sat-svg--antenna  { opacity:.40 }
 }

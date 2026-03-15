@@ -24,26 +24,39 @@
 
     <!-- Hero -->
     <div class="landing-hero">
-      <!-- Animated birds -->
-      <div class="hero-bird" aria-hidden="true">
-        <!-- Main swallow -->
-        <svg class="hero-bird-svg hero-bird-svg--main" viewBox="0 0 60 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- upper wings -->
-          <path class="wing-top" d="M30 14 C24 8, 14 5, 2 9 C10 11, 17 13, 22 14 C17 12, 10 9, 2 9" fill="currentColor"/>
-          <path class="wing-top" d="M30 14 C36 8, 46 5, 58 9 C50 11, 43 13, 38 14 C43 12, 50 9, 58 9" fill="currentColor"/>
-          <!-- body -->
-          <ellipse cx="30" cy="14.5" rx="4" ry="2.5" fill="currentColor"/>
-          <!-- tail fork -->
-          <path class="wing-bottom" d="M27 16 C24 20, 20 24, 16 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-          <path class="wing-bottom" d="M33 16 C36 20, 40 24, 44 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <!-- Animated satellite & parabolic antenna -->
+      <div class="hero-space" aria-hidden="true">
+        <!-- Orbiting satellite -->
+        <svg class="hero-sat-svg hero-sat-svg--satellite" viewBox="0 0 80 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Left solar panel -->
+          <rect x="0" y="9" width="24" height="12" rx="2" fill="currentColor" opacity=".75"/>
+          <line x1="8" y1="9" x2="8" y2="21" stroke="white" stroke-width=".8" opacity=".4"/>
+          <line x1="16" y1="9" x2="16" y2="21" stroke="white" stroke-width=".8" opacity=".4"/>
+          <line x1="0" y1="15" x2="24" y2="15" stroke="white" stroke-width=".8" opacity=".4"/>
+          <!-- Body -->
+          <rect x="26" y="5" width="28" height="20" rx="3" fill="currentColor"/>
+          <!-- Right solar panel -->
+          <rect x="56" y="9" width="24" height="12" rx="2" fill="currentColor" opacity=".75"/>
+          <line x1="64" y1="9" x2="64" y2="21" stroke="white" stroke-width=".8" opacity=".4"/>
+          <line x1="72" y1="9" x2="72" y2="21" stroke="white" stroke-width=".8" opacity=".4"/>
+          <line x1="56" y1="15" x2="80" y2="15" stroke="white" stroke-width=".8" opacity=".4"/>
+          <!-- Small dish antenna on body -->
+          <line x1="40" y1="0" x2="40" y2="5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="40" cy="0" r="2" fill="currentColor"/>
         </svg>
-        <!-- Small companion bird -->
-        <svg class="hero-bird-svg hero-bird-svg--small" viewBox="0 0 60 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path class="wing-top" d="M30 14 C24 8, 14 5, 2 9 C10 11, 17 13, 22 14 C17 12, 10 9, 2 9" fill="currentColor"/>
-          <path class="wing-top" d="M30 14 C36 8, 46 5, 58 9 C50 11, 43 13, 38 14 C43 12, 50 9, 58 9" fill="currentColor"/>
-          <ellipse cx="30" cy="14.5" rx="4" ry="2.5" fill="currentColor"/>
-          <path class="wing-bottom" d="M27 16 C24 20, 20 24, 16 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-          <path class="wing-bottom" d="M33 16 C36 20, 40 24, 44 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        <!-- Parabolic ground antenna -->
+        <svg class="hero-sat-svg hero-sat-svg--antenna" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Dish (parabola opening upper-left, aimed at satellite) -->
+          <path d="M6 44 Q2 18 28 8" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <!-- Dish rim -->
+          <line x1="6" y1="44" x2="28" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".5"/>
+          <!-- Feed arm to focal point -->
+          <line x1="17" y1="26" x2="28" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="28" cy="14" r="2.5" fill="currentColor"/>
+          <!-- Stand pole -->
+          <line x1="17" y1="26" x2="17" y2="54" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Base -->
+          <line x1="7" y1="56" x2="27" y2="56" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
         </svg>
       </div>
       <div class="landing-hero-inner">
