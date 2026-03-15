@@ -24,6 +24,28 @@
 
     <!-- Hero -->
     <div class="landing-hero">
+      <!-- Animated birds -->
+      <div class="hero-bird" aria-hidden="true">
+        <!-- Main swallow -->
+        <svg class="hero-bird-svg hero-bird-svg--main" viewBox="0 0 60 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- upper wings -->
+          <path class="wing-top" d="M30 14 C24 8, 14 5, 2 9 C10 11, 17 13, 22 14 C17 12, 10 9, 2 9" fill="currentColor"/>
+          <path class="wing-top" d="M30 14 C36 8, 46 5, 58 9 C50 11, 43 13, 38 14 C43 12, 50 9, 58 9" fill="currentColor"/>
+          <!-- body -->
+          <ellipse cx="30" cy="14.5" rx="4" ry="2.5" fill="currentColor"/>
+          <!-- tail fork -->
+          <path class="wing-bottom" d="M27 16 C24 20, 20 24, 16 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path class="wing-bottom" d="M33 16 C36 20, 40 24, 44 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        </svg>
+        <!-- Small companion bird -->
+        <svg class="hero-bird-svg hero-bird-svg--small" viewBox="0 0 60 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="wing-top" d="M30 14 C24 8, 14 5, 2 9 C10 11, 17 13, 22 14 C17 12, 10 9, 2 9" fill="currentColor"/>
+          <path class="wing-top" d="M30 14 C36 8, 46 5, 58 9 C50 11, 43 13, 38 14 C43 12, 50 9, 58 9" fill="currentColor"/>
+          <ellipse cx="30" cy="14.5" rx="4" ry="2.5" fill="currentColor"/>
+          <path class="wing-bottom" d="M27 16 C24 20, 20 24, 16 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path class="wing-bottom" d="M33 16 C36 20, 40 24, 44 28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
       <div class="landing-hero-inner">
         <span class="landing-hero-eyebrow">
           <span class="landing-hero-dot" aria-hidden="true"></span>
