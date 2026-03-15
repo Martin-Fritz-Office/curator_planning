@@ -24,7 +24,7 @@
     <header class="header landing-header">
       <div>
         <p class="eyebrow brand-mark">artbackstage</p>
-        <h1>Choose your starting point</h1>
+        <h1>Law, Money, Fairness</h1>
         <p class="muted">Three sections, one toolbox: money, law, and social topics for artistic and cultural practice.</p>
       </div>
       <div class="header-actions">
