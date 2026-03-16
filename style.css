@@ -703,6 +703,19 @@ h3.warn{color:var(--warning)}
 .tool-link-soziales h3{color:#6a3a9a}
 .tool-link-soziales:hover{background:linear-gradient(135deg,#f2eafc,#ece0f8);border-color:#a870e0;transform:translateY(-3px);box-shadow:0 8px 22px rgba(160,100,220,.15)}
 
+/* Organisation – soft teal (light) */
+.tool-link-organisation{
+  background:linear-gradient(135deg,#f0fdfb,#e8faf7);
+  border:1.5px solid #a8dcd5;
+}
+.tool-link-organisation .tool-icon{
+  background:linear-gradient(135deg,#4fb3a3,#2d9985);
+  border-color:#3da892;
+  color:#fff;
+}
+.tool-link-organisation h3{color:#1a5f4f}
+.tool-link-organisation:hover{background:linear-gradient(135deg,#e8faf7,#daf7f1);border-color:#4fb3a3;transform:translateY(-3px);box-shadow:0 8px 22px rgba(80,180,160,.15)}
+
 /* FAQ – soft blush rose (light) */
 .tool-link-faq{
   background:linear-gradient(135deg,#fef5f8,#fdeef4);
@@ -751,6 +764,17 @@ h3.warn{color:var(--warning)}
 .theme-soziales .beginner-step{border:1.5px solid #c4a8e4;background:linear-gradient(135deg,#f8f0fe,#f2eafc)}
 .theme-soziales .beginner-step h3{color:#6a3a9a}
 .theme-soziales .step-badge{background:linear-gradient(135deg,#a870e0,#8a50c8);color:#fff;font-weight:700}
+
+/* Organisation – teal */
+.theme-organisation .landing-hero{background:linear-gradient(160deg,#f0fdfb 0%,#e8faf7 45%,#daf7f1 100%);border:1px solid #a8dcd5}
+.theme-organisation .landing-hero-dot{background:#4fb3a3;box-shadow:0 0 0 3px rgba(80,180,160,.25), 0 0 8px rgba(80,180,160,.4)}
+.theme-organisation .situation-card{border:1.5px solid #a8dcd5;background:linear-gradient(135deg,#f0fdfb,#e8faf7)}
+.theme-organisation .situation-card:hover{border-color:#4fb3a3;background:linear-gradient(135deg,#e8faf7,#daf7f1);transform:translateY(-2px);box-shadow:0 8px 22px rgba(80,180,160,.15)}
+.theme-organisation .situation-card h3{color:#1a5f4f}
+.theme-organisation .situation-icon{background:linear-gradient(135deg,#4fb3a3,#2d9985);color:#fff}
+.theme-organisation .beginner-step{border:1.5px solid #a8dcd5;background:linear-gradient(135deg,#f0fdfb,#e8faf7)}
+.theme-organisation .beginner-step h3{color:#1a5f4f}
+.theme-organisation .step-badge{background:linear-gradient(135deg,#4fb3a3,#2d9985);color:#fff;font-weight:700}
 
 /* ── Responsive landing ── */
 @media (min-width:720px){
