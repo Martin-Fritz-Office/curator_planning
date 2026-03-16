@@ -1,6 +1,6 @@
 <?php
-$page_title = "50 Tipps für Vereinsorganisation";
-$page_description = "50 Empfehlungen für Vereinsvorstände - Zusammengestellt aus Prüfberichten des Stadtrechnungshofes Wien und des Kontrollamts Wien";
+$page_title = "100 Tipps für Vereinsorganisation";
+$page_description = "100 Empfehlungen für Vereinsvorstände - Zusammengestellt aus Prüfberichten des Stadtrechnungshofes Wien und des Kontrollamts Wien";
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -311,15 +311,23 @@ $page_description = "50 Empfehlungen für Vereinsvorstände - Zusammengestellt a
                     <h3>Nach Kategorie filtern</h3>
                     <div class="filter-buttons">
                         <button class="filter-btn" data-category-filter="Governance & Statuten">Governance & Statuten</button>
-                        <button class="filter-btn" data-category-filter="Geschäftsordnung">Geschäftsordnung</button>
-                        <button class="filter-btn" data-category-filter="Dokumentation & Protokolle">Dokumentation & Protokolle</button>
-                        <button class="filter-btn" data-category-filter="Generalversammlung">Generalversammlung</button>
+                        <button class="filter-btn" data-category-filter="Generalversammlung & Protokolle">Generalversammlung & Protokolle</button>
+                        <button class="filter-btn" data-category-filter="Vorstand & Vertretung">Vorstand & Vertretung</button>
+                        <button class="filter-btn" data-category-filter="Internes Kontrollsystem">Internes Kontrollsystem</button>
+                        <button class="filter-btn" data-category-filter="In-sich-Geschäfte">In-sich-Geschäfte</button>
                         <button class="filter-btn" data-category-filter="Rechnungsprüfung">Rechnungsprüfung</button>
-                        <button class="filter-btn" data-category-filter="Vieraugenprinzip & Zeichnung">Vieraugenprinzip & Zeichnung</button>
-                        <button class="filter-btn" data-category-filter="Vertretungsregelungen">Vertretungsregelungen</button>
-                        <button class="filter-btn" data-category-filter="Entgelte & Interessenkonflikte">Entgelte & Interessenkonflikte</button>
-                        <button class="filter-btn" data-category-filter="Vereinsvermögen & Inventar">Vereinsvermögen & Inventar</button>
-                        <button class="filter-btn" data-category-filter="Finanzgebarung & Förderungen">Finanzgebarung & Förderungen</button>
+                        <button class="filter-btn" data-category-filter="Buchführung & Jahresabschluss">Buchführung & Jahresabschluss</button>
+                        <button class="filter-btn" data-category-filter="Kassaführung">Kassaführung</button>
+                        <button class="filter-btn" data-category-filter="Honorarnoten & Belege">Honorarnoten & Belege</button>
+                        <button class="filter-btn" data-category-filter="Beschaffung & Vergabe">Beschaffung & Vergabe</button>
+                        <button class="filter-btn" data-category-filter="Förderungsabwicklung">Förderungsabwicklung</button>
+                        <button class="filter-btn" data-category-filter="Mitgliedschaft & Beiträge">Mitgliedschaft & Beiträge</button>
+                        <button class="filter-btn" data-category-filter="Personalangelegenheiten">Personalangelegenheiten</button>
+                        <button class="filter-btn" data-category-filter="Vermögen & Veranlagung">Vermögen & Veranlagung</button>
+                        <button class="filter-btn" data-category-filter="Kooperationen">Kooperationen</button>
+                        <button class="filter-btn" data-category-filter="Vertragsmanagement">Vertragsmanagement</button>
+                        <button class="filter-btn" data-category-filter="Inventar & Anlagevermögen">Inventar & Anlagevermögen</button>
+                        <button class="filter-btn" data-category-filter="Transparenz & Öffentlichkeit">Transparenz & Öffentlichkeit</button>
                     </div>
                     <button class="reset-btn" id="reset-filters">🔄 Filter zurücksetzen</button>
                 </div>
@@ -327,7 +335,7 @@ $page_description = "50 Empfehlungen für Vereinsvorstände - Zusammengestellt a
         </div>
 
         <div class="results-header">
-            <span id="results-count">50 Tipps gefunden</span>
+            <span id="results-count">100 Tipps gefunden</span>
         </div>
 
         <div class="content-section">
