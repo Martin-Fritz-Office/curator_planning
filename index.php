@@ -112,7 +112,7 @@
           </span>
           <span class="tool-link-content">
             <h3>artbackstage | Soziales</h3>
-            <p>Soziale Absicherung, Studien und Inforamtionen für Kulturarbeit.</p>
+            <p>Soziale Absicherung, Studien und Informationen für Kulturarbeit.</p>
           </span>
         </a>
 
@@ -124,7 +124,7 @@
           </span>
           <span class="tool-link-content">
             <h3>artbackstage | Organisation</h3>
-            <p>50 Tipps für Vereinsvorstände und Organisationsmanagement.</p>
+            <p>100 Tipps für Vereinsmanagement.</p>
           </span>
         </a>
 
