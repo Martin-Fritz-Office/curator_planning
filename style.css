@@ -1069,6 +1069,63 @@ h3.warn{color:var(--warning)}
 .side-by-side-table td.sbs-pos{color:var(--accent);font-weight:700}
 .side-by-side-table td.sbs-neg{color:var(--danger);font-weight:700}
 
+/* ── Contract clause explainer ── */
+.clause-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;margin-bottom:4px}
+.clause-legend-item{display:flex;align-items:center;gap:7px}
+.clause-legend-swatch{display:inline-block;width:20px;height:13px;border-radius:3px;border-bottom:2px solid}
+.clause-legend-swatch--info{background:#eaf5ef;border-color:var(--accent)}
+.clause-legend-swatch--warning{background:#fff8e1;border-color:#c47a00}
+.clause-legend-swatch--danger{background:var(--danger-bg);border-color:var(--danger)}
+.contract-doc{
+  background:#fff;border:1px solid var(--border);border-radius:8px;
+  padding:32px;font-size:14px;line-height:1.85;max-width:740px;
+  font-family:Georgia,'Times New Roman',serif;
+}
+@media(max-width:600px){.contract-doc{padding:18px 14px}}
+.contract-doc h2{font-size:15px;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px;font-family:inherit}
+.contract-subtitle{text-align:center;font-size:12px;color:var(--muted);margin-bottom:20px;font-style:italic}
+.contract-parties{border:1px solid var(--border);border-radius:6px;padding:12px 16px;margin-bottom:24px;font-size:13px;line-height:1.7;background:var(--surface-soft);font-family:system-ui,sans-serif}
+.contract-parties p{margin:0}
+.contract-section{margin-bottom:18px}
+.contract-section h3{font-size:13px;font-weight:700;margin-bottom:3px;font-family:system-ui,sans-serif;color:var(--headline)}
+.contract-signatures{margin-top:32px;padding-top:20px;border-top:1px solid var(--border)}
+.contract-sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:16px}
+.contract-sig-line{border-bottom:1px solid var(--headline);height:32px;margin-bottom:4px}
+.clause{cursor:pointer;border-radius:2px;padding:1px 3px;transition:filter .12s}
+.clause:focus{outline:2px solid var(--accent);outline-offset:2px}
+.clause--info{background:#eaf5ef;border-bottom:2px solid var(--accent)}
+.clause--warning{background:#fff8e1;border-bottom:2px solid #c47a00}
+.clause--danger{background:var(--danger-bg);border-bottom:2px solid var(--danger)}
+.clause:hover,.clause:focus{filter:brightness(.91)}
+.clause-tip{
+  position:fixed;z-index:900;background:#fff;
+  border:1px solid var(--border);border-radius:10px;
+  box-shadow:0 6px 28px rgba(0,0,0,.15);padding:14px 16px;
+  font-size:13px;line-height:1.65;font-family:system-ui,sans-serif;
+}
+.clause-tip__close{position:absolute;top:8px;right:10px;background:none;border:none;cursor:pointer;font-size:18px;line-height:1;color:var(--muted);padding:2px 5px;border-radius:4px}
+.clause-tip__close:hover{background:var(--surface-soft);color:var(--headline)}
+.clause-tip__header{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-right:24px}
+.clause-tip__badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap;flex-shrink:0}
+.clause-tip__badge--info{background:var(--accent-light);color:var(--accent-dark)}
+.clause-tip__badge--warning{background:#fff3cd;color:#7a5100}
+.clause-tip__badge--danger{background:var(--danger-bg);color:var(--danger)}
+.clause-tip__title{font-size:13px;font-weight:700;color:var(--headline)}
+.clause-tip__body{margin:0 0 6px}
+.clause-tip__section{background:var(--surface-soft);border-radius:5px;padding:8px 10px;margin-top:6px;font-size:12px;color:var(--muted)}
+.clause-tip__section strong{color:var(--headline)}
+.clause-tip__better em{color:var(--accent-dark);font-style:normal}
+.clause-index{display:flex;flex-direction:column;gap:12px}
+.clause-index-item{border-radius:8px;padding:14px 16px;border-left:4px solid;font-size:13px;line-height:1.65}
+.clause-index-item--info{border-color:var(--accent);background:#f3faf6}
+.clause-index-item--warning{border-color:#c47a00;background:#fffbf0}
+.clause-index-item--danger{border-color:var(--danger);background:var(--danger-bg)}
+.clause-index-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.clause-index-explain{margin:0 0 4px}
+.clause-index-meta{margin:4px 0 0;font-size:12px;color:var(--muted)}
+.clause-index-meta strong{color:var(--headline)}
+.clause-index-better em{color:var(--accent-dark);font-style:normal}
+
 /* ── Law module ── */
 .law-page{max-width:980px}
 .law-quiz{display:grid;gap:14px}
