@@ -39,6 +39,14 @@ $landingPage = [
       ],
     ],
     [
+      'title' => 'Ich will verstehen, was typische Vertragsklauseln bedeuten',
+      'description' => 'Du hast einen Vertrag erhalten und willst einzelne Formulierungen in Alltagssprache erklärt bekommen – mit Hinweisen, was kritisch ist und wie bessere Alternativen aussehen.',
+      'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><circle cx="12" cy="14" r="1"></circle><path d="M12 11v0"></path>',
+      'tools' => [
+        ['href' => 'contract_clause_explainer.php', 'label' => 'Vertragsklausel-Erklärer (fiktiver Mustervertrag)'],
+      ],
+    ],
+    [
       'title' => 'Ich stelle Werke in einer Galerie aus und brauche eine schriftliche Vereinbarung',
       'description' => 'Du willst die wichtigsten Konditionen eines Ausstellungsvertrags mit einer Galerie schriftlich festhalten – z. B. Laufzeit, Provision, Transport und Haftung.',
       'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="M9.2 15 11.3 17.1 15.1 13.1"></path>',
@@ -110,6 +118,7 @@ $landingPage = [
     ['href' => 'vgg_quiz.php', 'title' => 'Verwertungsgesellschaftengesetz-Quiz', 'description' => 'Lernquiz analog zum UrhG-Format mit Fokus auf kollektive Rechtewahrnehmung und Transparenz.', 'highlight' => false, 'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="M9.3 12.2h5.4"></path><path d="M12 9.5v5.4"></path>'],
     ['href' => 'bildrecht_checklist.php', 'title' => 'Bild-Urheberrecht: 10-Punkte-Checkliste', 'description' => 'Schritt-für-Schritt-Prüfung, ob ein Bild frei nutzbar ist: Gemeinfreiheit, Panoramafreiheit, Zitatrecht, Lizenz u. v. m. (AT/DE/CH).', 'highlight' => true, 'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="M9.2 15 11.3 17.1 15.1 13.1"></path>'],
     ['href' => 'gallery_contract_questionnaire.php', 'title' => 'Galerievertrag-Fragebogen', 'description' => '8 Multiple-Choice-Fragen zu den wichtigsten Konditionen eines Ausstellungsvertrags – erstellt ein fertiges Bestätigungsschreiben.', 'highlight' => true, 'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><path d="M9.2 15 11.3 17.1 15.1 13.1"></path>'],
+    ['href' => 'contract_clause_explainer.php', 'title' => 'Vertragsklausel-Erklärer', 'description' => 'Fiktiver Kuratorinnen-Vertrag mit 11 kommentierten Klauseln. Hover oder Klick zeigt Erklärung, Risiken und bessere Formulierungen.', 'highlight' => true, 'icon' => '<path d="M8 4.5h6l4 4V19a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 19V6a1.5 1.5 0 0 1 1.5-1.5z"></path><path d="M14 4.5V9h4"></path><circle cx="12" cy="14" r="1"></circle>'],
   ],
 ];
 
