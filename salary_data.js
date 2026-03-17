@@ -9,6 +9,7 @@
     count: document.getElementById('salaryCount'),
     table: document.getElementById('salaryTableBody'),
     pyramid: document.getElementById('salaryPyramid'),
+    inflation: document.getElementById('salaryInflation'),
   };
 
   if (!nodes.table) return;
@@ -27,6 +28,26 @@
     };
 
   const EUR = (n) => new Intl.NumberFormat(lang === 'de' ? 'de-DE' : 'en-US', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(Number(n) || 0);
+
+  // Approx. cumulative Austrian CPI 2023 → 2026 (~3.8% + ~3.0% + ~2.5%)
+  const CPI_FACTOR = 1.096;
+
+  function isInflationOn() {
+    return nodes.inflation ? nodes.inflation.checked : false;
+  }
+
+  function applyCPI(n) {
+    return isInflationOn() ? Math.round(n * CPI_FACTOR) : n;
+  }
+
+  function formatRange(rangeStr) {
+    const { min, max } = rangeFrom(rangeStr);
+    if (!min && !max) return rangeStr || '–';
+    if (isInflationOn()) {
+      return `${EUR(Math.round(min * CPI_FACTOR))}–${EUR(Math.round(max * CPI_FACTOR))}`;
+    }
+    return rangeStr;
+  }
 
   function parseCSV(text) {
     const rows = [];
@@ -112,9 +133,9 @@
           <td><strong>${r.job_title}</strong></td>
           <td>${r.category}</td>
           <td>${r.typical_contract}</td>
-          <td>${r.gross_salary_eur_per_year_range}</td>
-          <td>${r.freelance_day_rate_eur_range}</td>
-          <td>${r.project_fee_eur_range}</td>
+          <td>${formatRange(r.gross_salary_eur_per_year_range)}</td>
+          <td>${formatRange(r.freelance_day_rate_eur_range)}</td>
+          <td>${formatRange(r.project_fee_eur_range)}</td>
           <td class="sources-cell">${links}</td>
         </tr>
       `;
@@ -125,16 +146,18 @@
     const sorted = [...rows]
       .sort((a, b) => rangeFrom(b.gross_salary_eur_per_year_range).min - rangeFrom(a.gross_salary_eur_per_year_range).min);
     const top = sorted.slice(0, 12);
-    const maxMinSalary = rangeFrom(top[0]?.gross_salary_eur_per_year_range || 0).min || 1;
+    const maxMinSalary = applyCPI(rangeFrom(top[0]?.gross_salary_eur_per_year_range || 0).min) || 1;
 
     nodes.pyramid.innerHTML = top.map((r, idx) => {
       const salaryRange = rangeFrom(r.gross_salary_eur_per_year_range);
-      const width = Math.max(24, Math.round((salaryRange.min / maxMinSalary) * 100));
+      const adjMin = applyCPI(salaryRange.min);
+      const adjMax = applyCPI(salaryRange.max);
+      const width = Math.max(24, Math.round((adjMin / maxMinSalary) * 100));
       return `
         <div class="pyramid-row" style="width:${width}%">
           <span class="pyramid-rank">${idx + 1}</span>
           <span class="pyramid-title">${r.job_title}</span>
-          <span class="pyramid-salary">${EUR(salaryRange.min)}–${EUR(salaryRange.max)}</span>
+          <span class="pyramid-salary">${EUR(adjMin)}–${EUR(adjMax)}</span>
         </div>
       `;
     }).join('');
@@ -157,7 +180,7 @@
         return (!q || haystack.includes(q))
           && (!category || r.category === category)
           && (!contract || r.typical_contract === contract)
-          && (rangeFrom(r.gross_salary_eur_per_year_range).max >= min);
+          && (applyCPI(rangeFrom(r.gross_salary_eur_per_year_range).max) >= min);
       });
 
       nodes.count.textContent = `${filtered.length} ${copy.matchingRoles}`;
@@ -169,6 +192,10 @@
       el.addEventListener('input', apply);
       el.addEventListener('change', apply);
     });
+
+    if (nodes.inflation) {
+      nodes.inflation.addEventListener('change', apply);
+    }
 
     apply();
   }

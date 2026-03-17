@@ -1047,6 +1047,28 @@ h3.warn{color:var(--warning)}
 .pyramid-title{flex:1;font-size:12px;font-weight:600}
 .pyramid-salary{font-size:12px;color:#1c3a4c;font-weight:700}
 
+/* ── CPI inflation toggle ── */
+.q-inline{display:flex;flex-direction:row;align-items:center;gap:8px;cursor:pointer}
+.q-inline input[type="checkbox"]{width:auto;margin:0}
+.cpi-badge{
+  display:inline-block;
+  font-size:11px;font-weight:600;
+  padding:1px 6px;border-radius:999px;
+  background:var(--surface-tinted);
+  color:var(--muted);
+  border:1px solid var(--border);
+}
+
+/* ── Side-by-side scenario comparison ── */
+.side-by-side-table{width:100%;border-collapse:collapse;font-size:13px}
+.side-by-side-table th,
+.side-by-side-table td{border:1px solid var(--border);padding:7px 10px;text-align:left;white-space:nowrap}
+.side-by-side-table th{background:var(--surface-soft);font-weight:700;position:sticky;top:0;z-index:1}
+.side-by-side-table tbody tr:nth-child(even){background:var(--surface-tinted)}
+.side-by-side-table td:first-child{white-space:normal;max-width:260px;font-size:12px;color:var(--muted)}
+.side-by-side-table td.sbs-pos{color:var(--accent);font-weight:700}
+.side-by-side-table td.sbs-neg{color:var(--danger);font-weight:700}
+
 /* ── Law module ── */
 .law-page{max-width:980px}
 .law-quiz{display:grid;gap:14px}

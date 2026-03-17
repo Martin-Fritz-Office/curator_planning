@@ -44,6 +44,10 @@
               <span>Minimum top salary (€ / year)</span>
               <input id="salaryMin" type="number" min="0" step="5000" value="0" />
             </label>
+            <label class="q q-inline">
+              <input id="salaryInflation" type="checkbox" />
+              <span>Show 2026 prices <span class="cpi-badge">+~10% CPI since 2023</span></span>
+            </label>
           </div>
           <p id="salaryCount" class="small muted"></p>
         </div>

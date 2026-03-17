@@ -251,6 +251,9 @@
   const clearCompareBtn = document.getElementById("clearCompareBtn");
   const compareTableBodyEl = document.getElementById("compareTableBody");
   const compareEmptyEl = document.getElementById("compareEmpty");
+  const sideBySideCardEl = document.getElementById("sideBySideCard");
+  const sideBySideTitleEl = document.getElementById("sideBySideTitle");
+  const sideBySideBodyEl = document.getElementById("sideBySideBody");
   const typologyLabelEl = document.getElementById("typologyLabel");
   const medianAvailableIncomeEl = document.getElementById("medianAvailableIncome");
 
@@ -280,6 +283,79 @@
       name: rawScenario.name || `Szenario ${rawScenario.id}`,
       calc: c,
     };
+  }
+
+  function escapeHtml(str) {
+    return String(str || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function renderSideBySide() {
+    if (!sideBySideCardEl || !sideBySideBodyEl) return;
+
+    const selectedIds = compareScenarioListEl
+      ? Array.from(compareScenarioListEl.selectedOptions).map((opt) => opt.value).filter(Boolean)
+      : [];
+
+    if (selectedIds.length === 0 || selectedIds.length > 2) {
+      sideBySideCardEl.hidden = true;
+      return;
+    }
+
+    const current = calcAll(answers);
+    let scenA, scenB;
+
+    if (selectedIds.length === 1) {
+      scenA = { name: "Aktueller Entwurf", lines: buildPrognosisLines(current) };
+      const found = scenariosCache.find((item) => item.id === selectedIds[0]);
+      if (!found) { sideBySideCardEl.hidden = true; return; }
+      scenB = { name: found.name, lines: buildPrognosisLines(found.calc) };
+    } else {
+      const foundA = scenariosCache.find((item) => item.id === selectedIds[0]);
+      const foundB = scenariosCache.find((item) => item.id === selectedIds[1]);
+      if (!foundA || !foundB) { sideBySideCardEl.hidden = true; return; }
+      scenA = { name: foundA.name, lines: buildPrognosisLines(foundA.calc) };
+      scenB = { name: foundB.name, lines: buildPrognosisLines(foundB.calc) };
+    }
+
+    if (sideBySideTitleEl) {
+      sideBySideTitleEl.textContent = `${scenA.name} vs. ${scenB.name}`;
+    }
+
+    const rows = scenA.lines.map((lineA, i) => {
+      const lineB = scenB.lines[i];
+      const delta = (lineB ? lineB.value : 0) - lineA.value;
+      const deltaFmt = delta === 0
+        ? `±${EUR(0)}`
+        : `${delta > 0 ? "+" : "−"}${EUR(Math.abs(delta))}`;
+      const deltaClass = delta > 0 ? "sbs-pos" : delta < 0 ? "sbs-neg" : "";
+      return `<tr>
+        <td>${escapeHtml(lineA.label)}</td>
+        <td>${escapeHtml(lineA.formatted)}</td>
+        <td>${escapeHtml(lineB ? lineB.formatted : "–")}</td>
+        <td class="${deltaClass}">${deltaFmt}</td>
+      </tr>`;
+    }).join("");
+
+    sideBySideBodyEl.innerHTML = `
+      <div class="table-wrap">
+        <table class="side-by-side-table">
+          <thead>
+            <tr>
+              <th>Kennzahl</th>
+              <th>${escapeHtml(scenA.name)}</th>
+              <th>${escapeHtml(scenB.name)}</th>
+              <th>Δ</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+
+    sideBySideCardEl.hidden = false;
   }
 
   function renderScenarioComparison() {
@@ -334,6 +410,8 @@
 
       compareTableBodyEl.appendChild(tr);
     }
+
+    renderSideBySide();
   }
 
   async function loadMedianAvailableIncome() {

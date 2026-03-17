@@ -119,6 +119,13 @@ require_once __DIR__ . '/seo_meta.php';
           </div>
         </section>
 
+        <section class="card" id="sideBySideCard" hidden>
+          <div class="card-head">
+            <h2>Detailvergleich: <span id="sideBySideTitle" class="muted"></span></h2>
+          </div>
+          <div class="card-body" id="sideBySideBody"></div>
+        </section>
+
         <section class="grid2">
           <section class="card">
             <div class="card-head">
