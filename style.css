@@ -1578,3 +1578,100 @@ h3.warn{color:var(--warning)}
   .hero-sat-svg--satellite{ transform:translate(40%, 0) }
   .hero-sat-svg--antenna  { opacity:.40 }
 }
+
+/* ═══════════════════════════════════════════
+   FLOATING PICTOGRAMS — hero decoration
+   Geld · Recht · Soziales · Organisation
+═══════════════════════════════════════════ */
+
+.hero-picto{
+  position:absolute;
+  pointer-events:none;
+}
+.hero-picto svg{
+  display:block;
+  fill:none;
+  stroke:currentColor;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* Geld – amber/gold, top-right */
+.hero-picto--geld{
+  width:62px;
+  right:9%;
+  top:14%;
+  color:#e8a020;
+  opacity:.22;
+  animation:picto-float-1 12s ease-in-out infinite;
+  animation-delay:0s;
+}
+
+/* Recht – sky blue, bottom-left */
+.hero-picto--recht{
+  width:58px;
+  left:6%;
+  bottom:16%;
+  color:#4280c0;
+  opacity:.20;
+  animation:picto-float-2 15s ease-in-out infinite;
+  animation-delay:-5s;
+}
+
+/* Soziales – lavender, top-left */
+.hero-picto--soziales{
+  width:54px;
+  left:16%;
+  top:18%;
+  color:#8a50c8;
+  opacity:.18;
+  animation:picto-float-3 10s ease-in-out infinite;
+  animation-delay:-3s;
+}
+
+/* Organisation – teal, bottom-right-center */
+.hero-picto--organisation{
+  width:58px;
+  right:24%;
+  bottom:10%;
+  color:#2d9985;
+  opacity:.20;
+  animation:picto-float-4 13s ease-in-out infinite;
+  animation-delay:-8s;
+}
+
+@keyframes picto-float-1{
+  0%,100%{ transform:translateY(0px) rotate(0deg) }
+  35%    { transform:translateY(-16px) rotate(2.5deg) }
+  65%    { transform:translateY(-7px) rotate(-1deg) }
+}
+
+@keyframes picto-float-2{
+  0%,100%{ transform:translateY(0px) rotate(0deg) }
+  25%    { transform:translateY(-12px) rotate(-2deg) }
+  70%    { transform:translateY(-20px) rotate(1.5deg) }
+}
+
+@keyframes picto-float-3{
+  0%,100%{ transform:translateY(0px) rotate(0deg) }
+  40%    { transform:translateY(-14px) rotate(1deg) }
+  75%    { transform:translateY(-5px) rotate(-1.5deg) }
+}
+
+@keyframes picto-float-4{
+  0%,100%{ transform:translateY(0px) rotate(0deg) }
+  33%    { transform:translateY(-18px) rotate(3deg) }
+  66%    { transform:translateY(-9px) rotate(-2deg) }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .hero-picto{ animation:none !important }
+}
+
+/* Smaller/hidden on very small screens so they don't crowd the text */
+@media (max-width:480px){
+  .hero-picto--soziales,
+  .hero-picto--recht{ display:none }
+  .hero-picto--geld  { width:44px; opacity:.15 }
+  .hero-picto--organisation{ width:44px; opacity:.15 }
+}

@@ -58,6 +58,52 @@
           <!-- Base -->
           <line x1="7" y1="56" x2="27" y2="56" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
         </svg>
+
+        <!-- Geld – coin with euro symbol -->
+        <svg class="hero-picto hero-picto--geld" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="24" cy="24" r="20" stroke-width="2.5"/>
+          <circle cx="24" cy="24" r="15.5" stroke-width="1" opacity=".4"/>
+          <path d="M29 15.5c-2.8-2-7-1.5-9 2s-2 9 0 11.5 6.2 3.5 9 2" stroke-width="2.5"/>
+          <line x1="16.5" y1="22" x2="26.5" y2="22" stroke-width="2" />
+          <line x1="16.5" y1="26" x2="26.5" y2="26" stroke-width="2" />
+        </svg>
+
+        <!-- Recht – scales of justice -->
+        <svg class="hero-picto hero-picto--recht" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="24" y1="9" x2="24" y2="44" stroke-width="2.5"/>
+          <line x1="16" y1="44" x2="32" y2="44" stroke-width="2.5"/>
+          <circle cx="24" cy="9" r="2.5" fill="currentColor" stroke="none"/>
+          <line x1="8" y1="17" x2="40" y2="17" stroke-width="2"/>
+          <line x1="11" y1="17" x2="9" y2="28" stroke-width="1.5"/>
+          <line x1="11" y1="17" x2="17" y2="28" stroke-width="1.5"/>
+          <path d="M7 28 Q14 33 20 28" stroke-width="2"/>
+          <line x1="37" y1="17" x2="35" y2="28" stroke-width="1.5"/>
+          <line x1="37" y1="17" x2="41" y2="28" stroke-width="1.5"/>
+          <path d="M33 28 Q37 34 43 28" stroke-width="2"/>
+        </svg>
+
+        <!-- Soziales – two people, side by side -->
+        <svg class="hero-picto hero-picto--soziales" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="15" cy="13" r="5" stroke-width="2"/>
+          <path d="M6 38c0-5.5 4-9 9-9s9 3.5 9 9" stroke-width="2"/>
+          <circle cx="33" cy="13" r="5" stroke-width="2"/>
+          <path d="M24 38c0-5.5 4-9 9-9s9 3.5 9 9" stroke-width="2"/>
+          <path d="M20 20 Q24 17.5 28 20" stroke-width="1.5"/>
+        </svg>
+
+        <!-- Organisation – org chart -->
+        <svg class="hero-picto hero-picto--organisation" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="17" y="3" width="14" height="10" rx="2.5" stroke-width="2"/>
+          <line x1="24" y1="13" x2="24" y2="20" stroke-width="2"/>
+          <line x1="9" y1="20" x2="39" y2="20" stroke-width="2"/>
+          <line x1="9" y1="20" x2="9" y2="27" stroke-width="2"/>
+          <rect x="3" y="27" width="12" height="10" rx="2.5" stroke-width="2"/>
+          <line x1="24" y1="20" x2="24" y2="27" stroke-width="2"/>
+          <rect x="18" y="27" width="12" height="10" rx="2.5" stroke-width="2"/>
+          <line x1="39" y1="20" x2="39" y2="27" stroke-width="2"/>
+          <rect x="33" y="27" width="12" height="10" rx="2.5" stroke-width="2"/>
+        </svg>
+
       </div>
       <div class="landing-hero-inner">
         <span class="landing-hero-eyebrow">
