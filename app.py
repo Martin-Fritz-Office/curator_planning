@@ -31,6 +31,8 @@ $$;
 
 import os
 import traceback
+from concurrent.futures import ThreadPoolExecutor
+import concurrent.futures
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -78,13 +80,20 @@ def ask():
         question_embedding = embedding_response.data[0].embedding
 
         # Step 2: Search Supabase for similar recommendations
-        search_result = supabase.rpc(
-            "match_empfehlungen",
-            {
-                "query_embedding": question_embedding,
-                "match_count": 5
-            }
-        ).execute()
+        try:
+            with ThreadPoolExecutor(max_workers=1) as executor:
+                future = executor.submit(lambda: supabase.rpc(
+                    "match_empfehlungen",
+                    {
+                        "query_embedding": question_embedding,
+                        "match_count": 3
+                    }
+                ).execute())
+                search_result = future.result(timeout=25)
+        except concurrent.futures.TimeoutError:
+            return jsonify({
+                "error": "Die Suche hat zu lange gedauert. Bitte versuchen Sie es später erneut."
+            }), 504
 
         if not search_result.data:
             return jsonify({
