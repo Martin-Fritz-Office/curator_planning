@@ -61,47 +61,71 @@
 
         <!-- Geld – coin with euro symbol -->
         <svg class="hero-picto hero-picto--geld" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="24" cy="24" r="20" stroke-width="2.5"/>
-          <circle cx="24" cy="24" r="15.5" stroke-width="1" opacity=".4"/>
-          <path d="M29 15.5c-2.8-2-7-1.5-9 2s-2 9 0 11.5 6.2 3.5 9 2" stroke-width="2.5"/>
-          <line x1="16.5" y1="22" x2="26.5" y2="22" stroke-width="2" />
-          <line x1="16.5" y1="26" x2="26.5" y2="26" stroke-width="2" />
+          <!-- Coin outer ring -->
+          <circle cx="24" cy="24" r="19" stroke-width="2.5"/>
+          <!-- € arc – C-shape opening to the right, large arc counterclockwise -->
+          <path d="M30 17 A10 10 0 1 0 30 31" stroke-width="2.5"/>
+          <!-- € horizontal bars -->
+          <line x1="11" y1="21.5" x2="26" y2="21.5" stroke-width="2.2"/>
+          <line x1="11" y1="26.5" x2="26" y2="26.5" stroke-width="2.2"/>
         </svg>
 
         <!-- Recht – scales of justice -->
         <svg class="hero-picto hero-picto--recht" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <line x1="24" y1="9" x2="24" y2="44" stroke-width="2.5"/>
-          <line x1="16" y1="44" x2="32" y2="44" stroke-width="2.5"/>
-          <circle cx="24" cy="9" r="2.5" fill="currentColor" stroke="none"/>
-          <line x1="8" y1="17" x2="40" y2="17" stroke-width="2"/>
-          <line x1="11" y1="17" x2="9" y2="28" stroke-width="1.5"/>
-          <line x1="11" y1="17" x2="17" y2="28" stroke-width="1.5"/>
-          <path d="M7 28 Q14 33 20 28" stroke-width="2"/>
-          <line x1="37" y1="17" x2="35" y2="28" stroke-width="1.5"/>
-          <line x1="37" y1="17" x2="41" y2="28" stroke-width="1.5"/>
-          <path d="M33 28 Q37 34 43 28" stroke-width="2"/>
+          <!-- Center pillar -->
+          <line x1="24" y1="8" x2="24" y2="44" stroke-width="2.5"/>
+          <!-- Base -->
+          <line x1="14" y1="44" x2="34" y2="44" stroke-width="3"/>
+          <!-- Pivot ornament (filled) -->
+          <circle cx="24" cy="10" r="3" style="fill:currentColor;stroke:none"/>
+          <!-- Beam -->
+          <line x1="7" y1="18" x2="41" y2="18" stroke-width="2.2"/>
+          <!-- Left pan strings -->
+          <line x1="11" y1="18" x2="9" y2="29" stroke-width="1.8"/>
+          <line x1="11" y1="18" x2="17" y2="29" stroke-width="1.8"/>
+          <!-- Left pan bowl -->
+          <path d="M7 29 Q13 36 19 29" stroke-width="2.2"/>
+          <!-- Right pan strings -->
+          <line x1="37" y1="18" x2="35" y2="29" stroke-width="1.8"/>
+          <line x1="37" y1="18" x2="41" y2="29" stroke-width="1.8"/>
+          <!-- Right pan bowl -->
+          <path d="M33 29 Q39 36 45 29" stroke-width="2.2"/>
         </svg>
 
-        <!-- Soziales – two people, side by side -->
+        <!-- Soziales – two people side by side -->
         <svg class="hero-picto hero-picto--soziales" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="15" cy="13" r="5" stroke-width="2"/>
-          <path d="M6 38c0-5.5 4-9 9-9s9 3.5 9 9" stroke-width="2"/>
-          <circle cx="33" cy="13" r="5" stroke-width="2"/>
-          <path d="M24 38c0-5.5 4-9 9-9s9 3.5 9 9" stroke-width="2"/>
-          <path d="M20 20 Q24 17.5 28 20" stroke-width="1.5"/>
+          <!-- Left head -->
+          <circle cx="14" cy="12" r="5.5" stroke-width="2.2"/>
+          <!-- Left body arc -->
+          <path d="M4 39 C4 30 24 30 24 39" stroke-width="2.2"/>
+          <!-- Right head -->
+          <circle cx="34" cy="12" r="5.5" stroke-width="2.2"/>
+          <!-- Right body arc -->
+          <path d="M24 39 C24 30 44 30 44 39" stroke-width="2.2"/>
+          <!-- Connection arc between the two people -->
+          <path d="M19 19 Q24 15 29 19" stroke-width="2"/>
         </svg>
 
-        <!-- Organisation – org chart -->
+        <!-- Organisation – org chart (1 top → 3 bottom) -->
         <svg class="hero-picto hero-picto--organisation" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="17" y="3" width="14" height="10" rx="2.5" stroke-width="2"/>
-          <line x1="24" y1="13" x2="24" y2="20" stroke-width="2"/>
-          <line x1="9" y1="20" x2="39" y2="20" stroke-width="2"/>
-          <line x1="9" y1="20" x2="9" y2="27" stroke-width="2"/>
-          <rect x="3" y="27" width="12" height="10" rx="2.5" stroke-width="2"/>
-          <line x1="24" y1="20" x2="24" y2="27" stroke-width="2"/>
-          <rect x="18" y="27" width="12" height="10" rx="2.5" stroke-width="2"/>
-          <line x1="39" y1="20" x2="39" y2="27" stroke-width="2"/>
-          <rect x="33" y="27" width="12" height="10" rx="2.5" stroke-width="2"/>
+          <!-- Top box -->
+          <rect x="16" y="2" width="16" height="11" rx="2.5" stroke-width="2.2"/>
+          <!-- Stem from top box -->
+          <line x1="24" y1="13" x2="24" y2="21" stroke-width="2.2"/>
+          <!-- Horizontal branch -->
+          <line x1="9" y1="21" x2="39" y2="21" stroke-width="2.2"/>
+          <!-- Left branch down -->
+          <line x1="9" y1="21" x2="9" y2="28" stroke-width="2.2"/>
+          <!-- Left box -->
+          <rect x="3" y="28" width="12" height="11" rx="2.5" stroke-width="2"/>
+          <!-- Center branch down -->
+          <line x1="24" y1="21" x2="24" y2="28" stroke-width="2.2"/>
+          <!-- Center box -->
+          <rect x="18" y="28" width="12" height="11" rx="2.5" stroke-width="2"/>
+          <!-- Right branch down -->
+          <line x1="39" y1="21" x2="39" y2="28" stroke-width="2.2"/>
+          <!-- Right box -->
+          <rect x="33" y="28" width="12" height="11" rx="2.5" stroke-width="2"/>
         </svg>
 
       </div>

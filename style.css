@@ -1587,8 +1587,6 @@ h3.warn{color:var(--warning)}
 .hero-picto{
   position:absolute;
   pointer-events:none;
-}
-.hero-picto svg{
   display:block;
   fill:none;
   stroke:currentColor;
