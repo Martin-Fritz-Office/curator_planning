@@ -161,5 +161,11 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/health", methods=["GET", "HEAD"])
+def health():
+    """Health check endpoint"""
+    return jsonify({"status": "healthy"}), 200
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
