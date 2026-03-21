@@ -2,8 +2,8 @@
 $landingPage = [
   'lang' => 'de',
   'section_theme' => 'geld',
-  'page_title' => 'artbackstage | Geld – Finanz-Rechner für Kuratoren',
-  'meta_description' => 'Jahresprognose, Stundensatz-Rechner, Honorar-Fragebogen und mehr – alles was freie Kuratoren für finanzielle Planung brauchen.',
+  'page_title' => 'artbackstage | Geld – Finanz-Rechner',
+  'meta_description' => 'Jahresprognose, Stundensatz-Rechner, Honorar-Fragebogen und mehr.',
   'alternate_lang' => 'en',
   'alternate_url' => 'https://artbackstage.at/index_money_en.php',
   'subtitle' => 'Kenne deine Zahlen.',
