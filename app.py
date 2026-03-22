@@ -38,7 +38,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 import concurrent.futures
 from urllib.parse import quote
-from flask import Flask, request, jsonify, Response
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -109,9 +109,9 @@ except Exception as e:
 @app.route("/ask", methods=["POST"])
 def ask():
     """
-    POST /ask endpoint with streaming responses
+    POST /ask endpoint
     Request body: {"question": "user question in German", "expertise_level": "beginner" or "expert"}
-    Response: Server-Sent Events stream with chunks of the answer, followed by sources
+    Response: JSON object with answer, summary, and sources
     """
     # Check if required clients are initialized
     if not openai_client or not anthropic_client or not supabase:
@@ -157,11 +157,11 @@ def ask():
             }), 504
 
         if not search_result.data:
-            return Response(
-                'data: {"type": "answer", "content": "Es wurden keine passenden Empfehlungen gefunden."}\n'
-                'data: {"type": "end", "sources": []}\n\n',
-                mimetype="text/event-stream"
-            )
+            return jsonify({
+                "answer": "Es wurden keine passenden Empfehlungen gefunden.",
+                "summary": "Es wurden keine passenden Empfehlungen gefunden.",
+                "sources": []
+            })
 
         # Step 3: Prepare context from search results
         recommendations = search_result.data
@@ -175,60 +175,51 @@ def ask():
         # Step 4: Build expertise-specific system prompt
         expertise_prompt = _get_expertise_prompt(expertise_level, question, context)
 
-        # Step 5: Stream Claude's response
-        def generate():
-            try:
-                with anthropic_client.messages.stream(
-                    model="claude-sonnet-4-20250514",
-                    max_tokens=1024,
-                    messages=[
-                        {
-                            "role": "user",
-                            "content": expertise_prompt
-                        }
-                    ]
-                ) as stream:
-                    for text in stream.text_stream:
-                        # Send text chunks as SSE
-                        yield f'data: {{"type": "chunk", "content": {_json_escape(text)}}}\n\n'
-
-                # Step 6: Format and send sources after answer completes
-                sources = []
-                for rec in recommendations:
-                    quelldatei = rec.get("Quelldatei") or rec.get("quelldatei", "")
-                    source_item = {
-                        "empfehlung": rec["Empfehlung"],
-                        "quelldatei": quelldatei,
-                        "adressiert_an": rec["Adressiert an"],
-                        "similarity": round(rec["similarity"], 4)
+        # Step 5: Get Claude's response
+        try:
+            response = anthropic_client.messages.create(
+                model="claude-sonnet-4-20250514",
+                max_tokens=1024,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": expertise_prompt
                     }
-                    # Add search link if quelldatei is available
-                    if quelldatei:
-                        source_item["search_link"] = f"https://www.google.com/search?q={quote(quelldatei)}"
-                    sources.append(source_item)
+                ]
+            )
 
-                # Send sources as final event
-                import json
-                sources_json = json.dumps(sources)
-                yield f'data: {{"type": "end", "sources": {sources_json}}}\n\n'
+            answer = response.content[0].text
 
-            except Exception as e:
-                traceback.print_exc()
-                yield f'data: {{"type": "error", "content": "Fehler bei der Antwortgenerierung: {str(e)}"}}\n\n'
+            # Step 6: Format and return sources
+            sources = []
+            for rec in recommendations:
+                quelldatei = rec.get("Quelldatei") or rec.get("quelldatei", "")
+                source_item = {
+                    "empfehlung": rec["Empfehlung"],
+                    "quelldatei": quelldatei,
+                    "adressiert_an": rec["Adressiert an"],
+                    "similarity": round(rec["similarity"], 4)
+                }
+                # Add search link if quelldatei is available
+                if quelldatei:
+                    source_item["search_link"] = f"https://www.google.com/search?q={quote(quelldatei)}"
+                sources.append(source_item)
 
-        return Response(generate(), mimetype="text/event-stream")
+            return jsonify({
+                "answer": answer,
+                "summary": _generate_summary(answer),
+                "sources": sources
+            })
+
+        except Exception as e:
+            traceback.print_exc()
+            return jsonify({"error": f"Fehler bei der Antwortgenerierung: {str(e)}"}), 500
 
     except ValueError as e:
         return jsonify({"error": f"Invalid request: {str(e)}"}), 400
     except Exception as e:
         traceback.print_exc()
         return jsonify({"error": f"Server error: {str(e)}"}), 500
-
-
-def _json_escape(text):
-    """Escape text for safe JSON embedding in SSE"""
-    import json
-    return json.dumps(text)
 
 
 def _get_expertise_prompt(expertise_level, question, context):
