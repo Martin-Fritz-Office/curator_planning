@@ -33,10 +33,12 @@ $$;
 
 import os
 import traceback
+import hashlib
+import time
 from concurrent.futures import ThreadPoolExecutor
 import concurrent.futures
 from urllib.parse import quote
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -49,6 +51,36 @@ load_dotenv()
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)
+
+
+# Embedding cache with TTL (10 minutes)
+class EmbeddingCache:
+    def __init__(self, ttl_seconds=600):
+        self.cache = {}
+        self.ttl = ttl_seconds
+
+    def get_key(self, text):
+        """Generate cache key from text"""
+        return hashlib.sha256(text.encode()).hexdigest()
+
+    def get(self, text):
+        """Get cached embedding if valid"""
+        key = self.get_key(text)
+        if key in self.cache:
+            embedding, timestamp = self.cache[key]
+            if time.time() - timestamp < self.ttl:
+                return embedding
+            else:
+                del self.cache[key]
+        return None
+
+    def set(self, text, embedding):
+        """Cache embedding with timestamp"""
+        key = self.get_key(text)
+        self.cache[key] = (embedding, time.time())
+
+
+embedding_cache = EmbeddingCache(ttl_seconds=600)
 
 # Initialize API clients with lazy initialization for Supabase
 try:
@@ -77,9 +109,9 @@ except Exception as e:
 @app.route("/ask", methods=["POST"])
 def ask():
     """
-    POST /ask endpoint
+    POST /ask endpoint with streaming responses
     Request body: {"question": "user question in German", "expertise_level": "beginner" or "expert"}
-    Response: {"answer": "Claude's response", "summary": "flexible-length overview", "sources": [...]}
+    Response: Server-Sent Events stream with chunks of the answer, followed by sources
     """
     # Check if required clients are initialized
     if not openai_client or not anthropic_client or not supabase:
@@ -98,12 +130,15 @@ def ask():
         if expertise_level not in ["beginner", "expert"]:
             expertise_level = "beginner"
 
-        # Step 1: Create embedding from question using OpenAI
-        embedding_response = openai_client.embeddings.create(
-            model="text-embedding-3-small",
-            input=question
-        )
-        question_embedding = embedding_response.data[0].embedding
+        # Step 1: Get or create embedding (with caching)
+        question_embedding = embedding_cache.get(question)
+        if question_embedding is None:
+            embedding_response = openai_client.embeddings.create(
+                model="text-embedding-3-small",
+                input=question
+            )
+            question_embedding = embedding_response.data[0].embedding
+            embedding_cache.set(question, question_embedding)
 
         # Step 2: Search Supabase for similar recommendations
         try:
@@ -122,11 +157,11 @@ def ask():
             }), 504
 
         if not search_result.data:
-            return jsonify({
-                "answer": "Es wurden keine passenden Empfehlungen gefunden.",
-                "summary": "Keine relevanten Empfehlungen gefunden.",
-                "sources": []
-            }), 200
+            return Response(
+                'data: {"type": "answer", "content": "Es wurden keine passenden Empfehlungen gefunden."}\n'
+                'data: {"type": "end", "sources": []}\n\n',
+                mimetype="text/event-stream"
+            )
 
         # Step 3: Prepare context from search results
         recommendations = search_result.data
@@ -140,49 +175,60 @@ def ask():
         # Step 4: Build expertise-specific system prompt
         expertise_prompt = _get_expertise_prompt(expertise_level, question, context)
 
-        # Step 5: Get Claude's response
-        message = anthropic_client.messages.create(
-            model="claude-sonnet-4-20250514",
-            max_tokens=1024,
-            messages=[
-                {
-                    "role": "user",
-                    "content": expertise_prompt
-                }
-            ]
-        )
+        # Step 5: Stream Claude's response
+        def generate():
+            try:
+                with anthropic_client.messages.stream(
+                    model="claude-sonnet-4-20250514",
+                    max_tokens=1024,
+                    messages=[
+                        {
+                            "role": "user",
+                            "content": expertise_prompt
+                        }
+                    ]
+                ) as stream:
+                    for text in stream.text_stream:
+                        # Send text chunks as SSE
+                        yield f'data: {{"type": "chunk", "content": {_json_escape(text)}}}\n\n'
 
-        answer = message.content[0].text
+                # Step 6: Format and send sources after answer completes
+                sources = []
+                for rec in recommendations:
+                    quelldatei = rec.get("Quelldatei") or rec.get("quelldatei", "")
+                    source_item = {
+                        "empfehlung": rec["Empfehlung"],
+                        "quelldatei": quelldatei,
+                        "adressiert_an": rec["Adressiert an"],
+                        "similarity": round(rec["similarity"], 4)
+                    }
+                    # Add search link if quelldatei is available
+                    if quelldatei:
+                        source_item["search_link"] = f"https://www.google.com/search?q={quote(quelldatei)}"
+                    sources.append(source_item)
 
-        # Step 6: Generate 500-character summary
-        summary = _generate_summary(answer)
+                # Send sources as final event
+                import json
+                sources_json = json.dumps(sources)
+                yield f'data: {{"type": "end", "sources": {sources_json}}}\n\n'
 
-        # Step 7: Format sources
-        sources = []
-        for rec in recommendations:
-            quelldatei = rec.get("Quelldatei") or rec.get("quelldatei", "")
-            source_item = {
-                "empfehlung": rec["Empfehlung"],
-                "quelldatei": quelldatei,
-                "adressiert_an": rec["Adressiert an"],
-                "similarity": round(rec["similarity"], 4)
-            }
-            # Add search link if quelldatei is available
-            if quelldatei:
-                source_item["search_link"] = f"https://www.google.com/search?q={quote(quelldatei)}"
-            sources.append(source_item)
+            except Exception as e:
+                traceback.print_exc()
+                yield f'data: {{"type": "error", "content": "Fehler bei der Antwortgenerierung: {str(e)}"}}\n\n'
 
-        return jsonify({
-            "answer": answer,
-            "summary": summary,
-            "sources": sources
-        }), 200
+        return Response(generate(), mimetype="text/event-stream")
 
     except ValueError as e:
         return jsonify({"error": f"Invalid request: {str(e)}"}), 400
     except Exception as e:
         traceback.print_exc()
         return jsonify({"error": f"Server error: {str(e)}"}), 500
+
+
+def _json_escape(text):
+    """Escape text for safe JSON embedding in SSE"""
+    import json
+    return json.dumps(text)
 
 
 def _get_expertise_prompt(expertise_level, question, context):
