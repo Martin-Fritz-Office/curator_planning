@@ -86,7 +86,7 @@ def ask():
                     "match_empfehlungen",
                     {
                         "query_embedding": question_embedding,
-                        "match_count": 3
+                        "match_count": 10
                     }
                 ).execute())
                 search_result = future.result(timeout=25)
