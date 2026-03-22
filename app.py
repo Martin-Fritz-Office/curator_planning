@@ -50,15 +50,28 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-# Initialize API clients
-openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-anthropic_client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+# Initialize API clients with lazy initialization for Supabase
+try:
+    openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+except Exception as e:
+    print(f"Warning: OpenAI client initialization failed: {e}")
+    openai_client = None
 
-# Initialize Supabase client
-supabase: Client = create_client(
-    os.getenv("SUPABASE_URL"),
-    os.getenv("SUPABASE_KEY")
-)
+try:
+    anthropic_client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+except Exception as e:
+    print(f"Warning: Anthropic client initialization failed: {e}")
+    anthropic_client = None
+
+# Initialize Supabase client with error handling
+supabase: Client = None
+try:
+    supabase = create_client(
+        os.getenv("SUPABASE_URL"),
+        os.getenv("SUPABASE_KEY")
+    )
+except Exception as e:
+    print(f"Warning: Supabase client initialization failed: {e}")
 
 
 @app.route("/ask", methods=["POST"])
@@ -68,6 +81,10 @@ def ask():
     Request body: {"question": "user question in German", "expertise_level": "beginner" or "expert"}
     Response: {"answer": "Claude's response", "summary": "flexible-length overview", "sources": [...]}
     """
+    # Check if required clients are initialized
+    if not openai_client or not anthropic_client or not supabase:
+        return jsonify({"error": "Service unavailable: API clients not initialized"}), 503
+
     try:
         data = request.json
         if not data or "question" not in data:
@@ -201,7 +218,12 @@ def index():
 @app.route("/health", methods=["GET", "HEAD"])
 def health():
     """Health check endpoint"""
-    return jsonify({"status": "healthy"}), 200
+    return jsonify({
+        "status": "healthy",
+        "openai_ready": openai_client is not None,
+        "anthropic_ready": anthropic_client is not None,
+        "supabase_ready": supabase is not None
+    }), 200
 
 
 if __name__ == "__main__":
