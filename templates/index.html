@@ -496,13 +496,14 @@
                         <div class="source-meta">
                             <div class="source-meta-item">
                                 <span class="source-meta-label">Quelldatei</span>
-                                <span class="source-meta-value">${source.quelldatei || '–'}</span>
+                                <span class="source-meta-value">${source.quelldatei || 'N/A'}</span>
                             </div>
                             <div class="source-meta-item">
                                 <span class="source-meta-label">Adressiert an</span>
                                 <span class="source-meta-value">${source.adressiert_an}</span>
                             </div>
                         </div>
+                        ${source.search_link ? `<a href="${source.search_link}" target="_blank" style="color: #667eea; text-decoration: none; font-size: 13px;">🔗 In Google suchen</a>` : ''}
                         <span class="similarity-badge">Ähnlichkeit: ${(source.similarity * 100).toFixed(1)}%</span>
                         ${source.search_link ? `<div style="margin-top:10px;"><a href="${source.search_link}" target="_blank" rel="noopener noreferrer" style="color:#667eea;font-size:13px;text-decoration:none;">🔍 Suche nach Quelldatei</a></div>` : ''}
                     `;
