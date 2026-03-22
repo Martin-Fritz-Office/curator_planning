@@ -61,7 +61,7 @@ def ask():
     """
     POST /ask endpoint
     Request body: {"question": "user question in German", "expertise_level": "beginner" or "expert"}
-    Response: {"answer": "Claude's response", "summary": "500 char overview", "sources": [...]}
+    Response: {"answer": "Claude's response", "summary": "flexible-length overview", "sources": [...]}
     """
     try:
         data = request.json
@@ -177,23 +177,8 @@ Antworte NUR basierend auf den oben genannten Empfehlungen. Wenn keine der Empfe
 
 
 def _generate_summary(answer):
-    """Generate a 500-character summary of the answer"""
-    # Remove extra whitespace
-    clean_answer = " ".join(answer.split())
-
-    # If answer is already shorter than 500 chars, return it
-    if len(clean_answer) <= 500:
-        return clean_answer
-
-    # Truncate to 500 chars and ensure it ends at a word boundary
-    summary = clean_answer[:500]
-
-    # Find the last space and truncate there
-    last_space = summary.rfind(" ")
-    if last_space > 400:  # Ensure we don't lose too much
-        summary = summary[:last_space]
-
-    return summary.rstrip() + "…"
+    """Return the answer as the summary without truncation for flexible length"""
+    return answer
 
 
 @app.route("/", methods=["GET"])
