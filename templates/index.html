@@ -491,14 +491,15 @@
                         <div class="source-title">${index + 1}. ${source.empfehlung}</div>
                         <div class="source-meta">
                             <div class="source-meta-item">
-                                <span class="source-meta-label">Ordner</span>
-                                <span class="source-meta-value">${source.unterordner}</span>
+                                <span class="source-meta-label">Quelldatei</span>
+                                <span class="source-meta-value">${source.quelldatei || 'N/A'}</span>
                             </div>
                             <div class="source-meta-item">
                                 <span class="source-meta-label">Adressiert an</span>
                                 <span class="source-meta-value">${source.adressiert_an}</span>
                             </div>
                         </div>
+                        ${source.search_link ? `<a href="${source.search_link}" target="_blank" style="color: #667eea; text-decoration: none; font-size: 13px;">🔗 In Google suchen</a>` : ''}
                         <span class="similarity-badge">Ähnlichkeit: ${(source.similarity * 100).toFixed(1)}%</span>
                     `;
                     sourcesEl.appendChild(card);
