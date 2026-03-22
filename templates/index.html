@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empfehlungen des Stadtrechngshofs - Semantische Suche</title>
+    <title>Empfehlungen des Stadtrechnungshofs - Semantische Suche</title>
     <style>
         * {
             margin: 0;
@@ -358,7 +358,7 @@
         <div class="header">
             <a href="https://artbackstage.info/index_organisation.php" class="back-link">← Zurück zu artbackstage | Organisation</a>
             <h1>🔍 Prüfungsempfehlungen Suche</h1>
-            <p>Durchsuche 22.000 Auditing-Empfehlungen mit semantischer Suche und Claude AI</p>
+            <p>Durchsuche 22.000 Empfehlungen des Wiener Stadtrechnungshofs seit 2017</p>
         </div>
 
         <div class="content">
@@ -487,6 +487,10 @@
                 data.sources.forEach((source, index) => {
                     const card = document.createElement('div');
                     card.className = 'source-card';
+                    const searchLinkHtml = source.search_link
+                        ? `<a href="${source.search_link}" target="_blank" rel="noopener noreferrer" style="color:#667eea;font-size:13px;">🔍 Google-Suche: ${source.quelldatei}</a>`
+                        : (source.quelldatei ? `<span style="font-size:13px;color:#555;">📄 ${source.quelldatei}</span>` : '');
+
                     card.innerHTML = `
                         <div class="source-title">${index + 1}. ${source.empfehlung}</div>
                         <div class="source-meta">
@@ -501,6 +505,7 @@
                         </div>
                         ${source.search_link ? `<a href="${source.search_link}" target="_blank" style="color: #667eea; text-decoration: none; font-size: 13px;">🔗 In Google suchen</a>` : ''}
                         <span class="similarity-badge">Ähnlichkeit: ${(source.similarity * 100).toFixed(1)}%</span>
+                        ${source.search_link ? `<div style="margin-top:10px;"><a href="${source.search_link}" target="_blank" rel="noopener noreferrer" style="color:#667eea;font-size:13px;text-decoration:none;">🔍 Suche nach Quelldatei</a></div>` : ''}
                     `;
                     sourcesEl.appendChild(card);
                 });
