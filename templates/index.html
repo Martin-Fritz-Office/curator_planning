@@ -242,6 +242,22 @@
             margin-top: 8px;
         }
 
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 15px;
+            padding: 8px 0;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
         @media (max-width: 600px) {
             .header {
                 padding: 30px 20px;
@@ -276,6 +292,7 @@
 <body>
     <div class="container">
         <div class="header">
+            <a href="https://artbackstage.info/index_organisation.php" class="back-link">← Zurück zu artbackstage | Organisation</a>
             <h1>🔍 Prüfungsempfehlungen Suche</h1>
             <p>Durchsuche 22.000 Auditing-Empfehlungen mit semantischer Suche und Claude AI</p>
         </div>
