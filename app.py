@@ -206,7 +206,6 @@ def ask():
                 sources.append(source_item)
 
             return jsonify({
-                "answer": answer,
                 "summary": _generate_summary(answer),
                 "sources": sources
             })
