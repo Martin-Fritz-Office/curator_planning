@@ -206,6 +206,7 @@ def ask():
                 sources.append(source_item)
 
             return jsonify({
+                "zentrale_aussage": _generate_zentrale_aussage(answer),
                 "summary": _generate_summary(answer),
                 "sources": sources
             })
@@ -237,6 +238,30 @@ Antworte NUR basierend auf den oben genannten Empfehlungen. Wenn keine der Empfe
         return base_instruction + """\n\nDer Benutzer ist ein Experte. Antworte auf detaillierte, technische Weise. Nutze Fachbegriffe und gehe in die Tiefe. Diskutiere auch mögliche Variationen, Ausnahmen und Best Practices."""
     else:  # beginner
         return base_instruction + """\n\nDer Benutzer ist Anfänger und kennt sich mit diesem Thema nicht gut aus. Verwende einfache, verständliche Sprache. Erkläre Fachbegriffe. Konzentriere dich auf die wichtigsten praktischen Punkte."""
+
+
+def _generate_zentrale_aussage(answer):
+    """Generate a poignant, serious one-sentence central statement from the answer"""
+    try:
+        response = anthropic_client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=150,
+            messages=[
+                {
+                    "role": "user",
+                    "content": f"""Basierend auf dieser Antwort, generiere eine einzige ernsthafte und prägnante "Zentrale Aussage" - einen Kernsatz, der die wichtigste Erkenntnis oder Empfehlung zusammenfasst. Die Aussage soll kurz, prägnant und nachdenklich stimmend sein.
+
+Antwort:
+{answer}
+
+Antworte NUR mit der einen Zentrale Aussage, ohne weitere Erklärungen."""
+                }
+            ]
+        )
+        return response.content[0].text.strip()
+    except Exception as e:
+        # Fallback to first sentence if generation fails
+        return answer.split('.')[0] + '.' if '.' in answer else answer[:100]
 
 
 def _generate_summary(answer):
