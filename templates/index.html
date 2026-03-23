@@ -58,8 +58,8 @@
                 </div>
 
                 <div class="answer-box">
-                    <h2>Detaillierte Antwort</h2>
-                    <p id="answer"></p>
+                    <h2>💡 Zentrale Aussage</h2>
+                    <p id="zentraleAussage"></p>
                 </div>
 
                 <div class="sources-section">
@@ -77,7 +77,7 @@
         const error = document.getElementById('error');
         const result = document.getElementById('result');
         const summaryEl = document.getElementById('summary');
-        const answerEl = document.getElementById('answer');
+        const zentraleAussageEl = document.getElementById('zentraleAussage');
         const sourcesEl = document.getElementById('sources');
 
         function getExpertiseLevel() {
@@ -136,8 +136,8 @@
         }
 
         function displayResults(data) {
-            summaryEl.textContent = data.summary || data.answer;
-            answerEl.textContent = data.answer;
+            summaryEl.textContent = data.summary || '';
+            zentraleAussageEl.textContent = data.zentrale_aussage || '';
 
             sourcesEl.innerHTML = '';
             if (data.sources && data.sources.length > 0) {
