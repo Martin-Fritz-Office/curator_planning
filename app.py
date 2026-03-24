@@ -1,9 +1,10 @@
 """
 Semantic Search Web App with Claude AI
-Searches 22,000 auditing recommendations from Supabase using semantic search.
+Searches auditing recommendations from Supabase using semantic search.
 
-SQL Function to create in Supabase before running this app:
+SQL Functions to create in Supabase before running this app:
 
+-- Search only STRH (Stadtrechnungshof)
 CREATE OR REPLACE FUNCTION match_empfehlungen(
   query_embedding vector(1536),
   match_count int default 5
@@ -25,6 +26,64 @@ LANGUAGE sql AS $$
     "quelldatei",
     1 - (embedding <=> query_embedding) AS similarity
   FROM "STRH"
+  WHERE embedding IS NOT NULL
+  ORDER BY embedding <=> query_embedding
+  LIMIT match_count;
+$$;
+
+-- Search only BRH (Bundesrechnungshof)
+CREATE OR REPLACE FUNCTION match_brh(
+  query_embedding vector(1536),
+  match_count int default 5
+)
+RETURNS TABLE(
+  id bigint,
+  "Empfehlung" text,
+  "Unterordner" text,
+  "Adressiert an" text,
+  "quelldatei" text,
+  similarity float
+)
+LANGUAGE sql AS $$
+  SELECT
+    id,
+    "Empfehlung",
+    "Unterordner",
+    "Adressiert an",
+    "quelldatei",
+    1 - (embedding <=> query_embedding) AS similarity
+  FROM "BRH"
+  WHERE embedding IS NOT NULL
+  ORDER BY embedding <=> query_embedding
+  LIMIT match_count;
+$$;
+
+-- Search both STRH and BRH
+CREATE OR REPLACE FUNCTION match_all_empfehlungen(
+  query_embedding vector(1536),
+  match_count int default 5
+)
+RETURNS TABLE(
+  id bigint,
+  "Empfehlung" text,
+  "Unterordner" text,
+  "Adressiert an" text,
+  "quelldatei" text,
+  similarity float
+)
+LANGUAGE sql AS $$
+  SELECT
+    id,
+    "Empfehlung",
+    "Unterordner",
+    "Adressiert an",
+    "quelldatei",
+    1 - (embedding <=> query_embedding) AS similarity
+  FROM (
+    SELECT id, "Empfehlung", "Unterordner", "Adressiert an", "quelldatei", embedding FROM "STRH"
+    UNION ALL
+    SELECT id, "Empfehlung", "Unterordner", "Adressiert an", "quelldatei", embedding FROM "BRH"
+  ) AS combined
   WHERE embedding IS NOT NULL
   ORDER BY embedding <=> query_embedding
   LIMIT match_count;
@@ -110,7 +169,11 @@ except Exception as e:
 def ask():
     """
     POST /ask endpoint
-    Request body: {"question": "user question in German", "expertise_level": "beginner" or "expert"}
+    Request body: {
+        "question": "user question in German",
+        "expertise_level": "beginner" or "expert",
+        "search_source": "strh" (default), "brh", or "all"
+    }
     Response: JSON object with answer, summary, and sources
     """
     # Check if required clients are initialized
@@ -130,6 +193,10 @@ def ask():
         if expertise_level not in ["beginner", "expert"]:
             expertise_level = "beginner"
 
+        search_source = data.get("search_source", "strh").lower()
+        if search_source not in ["strh", "brh", "all"]:
+            search_source = "strh"
+
         # Step 1: Get or create embedding (with caching)
         question_embedding = embedding_cache.get(question)
         if question_embedding is None:
@@ -141,10 +208,17 @@ def ask():
             embedding_cache.set(question, question_embedding)
 
         # Step 2: Search Supabase for similar recommendations
+        # Select appropriate RPC function based on search_source
+        rpc_function = "match_empfehlungen"  # default: STRH
+        if search_source == "brh":
+            rpc_function = "match_brh"
+        elif search_source == "all":
+            rpc_function = "match_all_empfehlungen"
+
         try:
             with ThreadPoolExecutor(max_workers=1) as executor:
                 future = executor.submit(lambda: supabase.rpc(
-                    "match_empfehlungen",
+                    rpc_function,
                     {
                         "query_embedding": question_embedding,
                         "match_count": 10
