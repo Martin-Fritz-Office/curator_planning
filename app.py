@@ -447,7 +447,14 @@ Antworte NUR mit dem JSON Array, ohne zusätzliche Erklärungen."""
             print("Error: Claude returned empty response")
             return []
 
-        # Extract JSON from response
+        # Extract JSON from response (handle markdown code blocks)
+        if response_text.startswith("```"):
+            # Remove markdown code block wrapper
+            response_text = response_text.split("```")[1]
+            if response_text.startswith("json"):
+                response_text = response_text[4:]
+            response_text = response_text.strip()
+
         themes = json.loads(response_text)
         return themes[:50]  # Limit to top 50
     except Exception as e:
@@ -494,6 +501,15 @@ Antworte NUR mit dem JSON Objekt, ohne zusätzliche Erklärungen."""
         )
 
         response_text = response.content[0].text.strip()
+
+        # Extract JSON from response (handle markdown code blocks)
+        if response_text.startswith("```"):
+            # Remove markdown code block wrapper
+            response_text = response_text.split("```")[1]
+            if response_text.startswith("json"):
+                response_text = response_text[4:]
+            response_text = response_text.strip()
+
         return json.loads(response_text)
     except Exception as e:
         print(f"Error generating theme questions: {e}")
