@@ -94,6 +94,7 @@ import os
 import traceback
 import hashlib
 import time
+import json
 from concurrent.futures import ThreadPoolExecutor
 import concurrent.futures
 from urllib.parse import quote
@@ -103,6 +104,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from anthropic import Anthropic
 from supabase import create_client, Client
+from collections import Counter
 
 # Load environment variables
 load_dotenv()
@@ -140,6 +142,28 @@ class EmbeddingCache:
 
 
 embedding_cache = EmbeddingCache(ttl_seconds=600)
+
+# Theme cache with longer TTL (24 hours)
+class ThemeCache:
+    def __init__(self, ttl_seconds=86400):
+        self.cache = {}
+        self.ttl = ttl_seconds
+
+    def get(self, key):
+        """Get cached theme data if valid"""
+        if key in self.cache:
+            data, timestamp = self.cache[key]
+            if time.time() - timestamp < self.ttl:
+                return data
+            else:
+                del self.cache[key]
+        return None
+
+    def set(self, key, data):
+        """Cache theme data with timestamp"""
+        self.cache[key] = (data, time.time())
+
+theme_cache = ThemeCache(ttl_seconds=86400)
 
 # Initialize API clients with lazy initialization for Supabase
 try:
@@ -359,6 +383,228 @@ def health():
         "anthropic_ready": anthropic_client is not None,
         "supabase_ready": supabase is not None
     }), 200
+
+
+def _fetch_all_recommendations(source="strh", limit=5000):
+    """Fetch all recommendations from Supabase"""
+    try:
+        if source == "strh":
+            response = supabase.table("STRH").select("Empfehlung,Unterordner,Adressiert an,quelldatei").limit(limit).execute()
+        elif source == "brh":
+            response = supabase.table("BRH").select("Empfehlung,Unterordner,Adressiert an,quelldatei").limit(limit).execute()
+        else:  # all
+            strh_data = supabase.table("STRH").select("Empfehlung,Unterordner,Adressiert an,quelldatei").limit(limit).execute()
+            brh_data = supabase.table("BRH").select("Empfehlung,Unterordner,Adressiert an,quelldatei").limit(limit).execute()
+            response = type('obj', (object,), {'data': (strh_data.data or []) + (brh_data.data or [])})()
+
+        return response.data or []
+    except Exception as e:
+        print(f"Error fetching recommendations: {e}")
+        return []
+
+
+def _extract_themes(recommendations):
+    """Extract top 100 themes from recommendations using Claude"""
+    if not recommendations:
+        return []
+
+    # Sample up to 500 recommendations for analysis
+    sample_size = min(500, len(recommendations))
+    sample = recommendations[:sample_size]
+
+    # Prepare context for Claude
+    recommendation_text = "\n".join([
+        f"- {rec.get('Empfehlung', '')} (Bereich: {rec.get('Unterordner', '')})"
+        for rec in sample
+    ])
+
+    try:
+        response = anthropic_client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=2000,
+            messages=[
+                {
+                    "role": "user",
+                    "content": f"""Analysiere die folgenden {len(sample)} Empfehlungen und extrahiere die TOP 100 THEMEN/KATEGORIEN, die am häufigsten vorkommen.
+
+Empfehlungen:
+{recommendation_text}
+
+Antworte mit einem JSON Array mit max. 100 Objekten im Format:
+[
+  {{
+    "id": 1,
+    "theme": "Themaname (auf Deutsch)",
+    "description": "Kurze Beschreibung des Themas",
+    "frequency": "Häufigkeit (häufig/sehr häufig/regelmäßig)"
+  }}
+]
+
+Antworte NUR mit dem JSON Array, ohne zusätzliche Erklärungen."""
+                }
+            ]
+        )
+
+        response_text = response.content[0].text.strip()
+        # Extract JSON from response
+        themes = json.loads(response_text)
+        return themes[:100]  # Limit to top 100
+    except Exception as e:
+        print(f"Error extracting themes: {e}")
+        return []
+
+
+def _generate_theme_questions(theme_name, theme_description):
+    """Generate preconfigured questions and checklist items for a theme"""
+    try:
+        response = anthropic_client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=1500,
+            messages=[
+                {
+                    "role": "user",
+                    "content": f"""Generiere für das folgende Thema aus Prüfungsempfehlungen:
+
+Thema: {theme_name}
+Beschreibung: {theme_description}
+
+Erstelle:
+1. 5 relevante Fragen, die ein Benutzer stellen könnte
+2. 5 praktische Checklist-Items, die überprüft werden sollten
+
+Antworte mit einem JSON Objekt im Format:
+{{
+  "questions": [
+    "Frage 1",
+    "Frage 2",
+    ...
+  ],
+  "checklist": [
+    "Checklist Item 1",
+    "Checklist Item 2",
+    ...
+  ]
+}}
+
+Antworte NUR mit dem JSON Objekt, ohne zusätzliche Erklärungen."""
+                }
+            ]
+        )
+
+        response_text = response.content[0].text.strip()
+        return json.loads(response_text)
+    except Exception as e:
+        print(f"Error generating theme questions: {e}")
+        return {"questions": [], "checklist": []}
+
+
+@app.route("/themes", methods=["GET"])
+def themes():
+    """
+    GET /themes endpoint
+    Returns top 100 themes from recommendations with caching
+    Query params:
+    - source: "strh" (default), "brh", or "all"
+    """
+    if not supabase or not anthropic_client:
+        return jsonify({"error": "Service unavailable: API clients not initialized"}), 503
+
+    try:
+        source = request.args.get("source", "strh").lower()
+        if source not in ["strh", "brh", "all"]:
+            source = "strh"
+
+        cache_key = f"themes_{source}"
+
+        # Check cache first
+        cached_themes = theme_cache.get(cache_key)
+        if cached_themes:
+            return jsonify({
+                "themes": cached_themes,
+                "cached": True,
+                "source": source
+            })
+
+        # Fetch recommendations
+        recommendations = _fetch_all_recommendations(source)
+        if not recommendations:
+            return jsonify({
+                "error": "Keine Empfehlungen gefunden"
+            }), 404
+
+        # Extract themes
+        themes_list = _extract_themes(recommendations)
+
+        if not themes_list:
+            return jsonify({
+                "error": "Themenerkennung fehlgeschlagen"
+            }), 500
+
+        # Cache the result
+        theme_cache.set(cache_key, themes_list)
+
+        return jsonify({
+            "themes": themes_list,
+            "cached": False,
+            "source": source,
+            "total_recommendations": len(recommendations)
+        })
+
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": f"Server error: {str(e)}"}), 500
+
+
+@app.route("/theme-questions", methods=["POST"])
+def theme_questions():
+    """
+    POST /theme-questions endpoint
+    Generates questions and checklist for a specific theme
+    Request body: {
+        "theme_name": "string",
+        "theme_description": "string",
+        "expertise_level": "beginner" or "expert" (optional)
+    }
+    """
+    if not anthropic_client:
+        return jsonify({"error": "Service unavailable: AI client not initialized"}), 503
+
+    try:
+        data = request.json
+        if not data or "theme_name" not in data:
+            return jsonify({"error": "Missing 'theme_name' field"}), 400
+
+        theme_name = data["theme_name"].strip()
+        theme_description = data.get("theme_description", "").strip()
+        expertise_level = data.get("expertise_level", "beginner").lower()
+
+        if not theme_name:
+            return jsonify({"error": "Theme name cannot be empty"}), 400
+
+        if expertise_level not in ["beginner", "expert"]:
+            expertise_level = "beginner"
+
+        # Generate questions and checklist
+        content = _generate_theme_questions(theme_name, theme_description)
+
+        # Enhance content based on expertise level
+        if expertise_level == "expert":
+            content["expertise_note"] = "Fortgeschrittene Perspektive - Diese Fragen und Checklisten sind auf tiefgehendes Verständnis ausgerichtet."
+        else:
+            content["expertise_note"] = "Anfänger-freundlich - Diese Fragen und Checklisten sind leicht verständlich und praktisch."
+
+        return jsonify({
+            "theme_name": theme_name,
+            "theme_description": theme_description,
+            "expertise_level": expertise_level,
+            "content": content
+        })
+
+    except ValueError as e:
+        return jsonify({"error": f"Invalid request: {str(e)}"}), 400
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": f"Server error: {str(e)}"}), 500
 
 
 if __name__ == "__main__":

@@ -1986,3 +1986,195 @@ button:disabled {
         grid-template-columns:1fr;
     }
 }
+
+/* Themes Section Styles */
+.themes-section {
+    margin: 40px 0;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.themes-section h2 {
+    font-size: 24px;
+    color: #1a1a1a;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.themes-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.themes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.theme-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #f9fafb 100%);
+    border: 1px solid #e8ebf0;
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.theme-card:hover {
+    border-color: #667eea;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.12);
+    transform: translateY(-2px);
+}
+
+.theme-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    gap: 10px;
+}
+
+.theme-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+    flex: 1;
+}
+
+.theme-frequency {
+    display: inline-block;
+    background: #667eea;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.theme-description {
+    font-size: 14px;
+    color: #666;
+    margin: 12px 0 20px 0;
+    line-height: 1.5;
+}
+
+.theme-expand-btn {
+    width: 100%;
+    padding: 12px 16px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.theme-expand-btn:hover {
+    background: #5568d3;
+}
+
+.theme-questions-container {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e8ebf0;
+}
+
+.theme-loading {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.theme-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.theme-questions h4,
+.theme-checklist h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 12px 0;
+}
+
+.theme-questions ul,
+.theme-checklist ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.theme-question {
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    background: white;
+    border: 1px solid #e8ebf0;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-question:hover {
+    border-color: #667eea;
+    background: #f5f7ff;
+    color: #667eea;
+}
+
+.theme-checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: #333;
+}
+
+.theme-checklist-item input[type="checkbox"] {
+    margin-top: 4px;
+    cursor: pointer;
+    accent-color: #667eea;
+}
+
+.theme-checklist-item label {
+    cursor: pointer;
+    flex: 1;
+    line-height: 1.4;
+}
+
+.theme-checklist-item input[type="checkbox"]:checked + label {
+    color: #999;
+    text-decoration: line-through;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .themes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .theme-content {
+        grid-template-columns: 1fr;
+    }
+
+    .theme-card {
+        padding: 16px;
+    }
+
+    .theme-card h3 {
+        font-size: 16px;
+    }
+}
