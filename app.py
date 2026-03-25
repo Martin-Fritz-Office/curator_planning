@@ -432,22 +432,80 @@ def _parse_json_response(response_text):
         # Attempt 2: Extract just the JSON array/object part (remove any text before/after)
         for start_char, end_char in [('[', ']'), ('{', '}')]:
             try:
-                start_idx = response_text.rfind(start_char)
-                end_idx = response_text.rfind(end_char)
-                if start_idx != -1 and end_idx != -1 and start_idx < end_idx:
-                    extracted = response_text[start_idx:end_idx+1]
-                    repair_attempts.append((f"extraction of {start_char}...{end_char}", extracted))
+                start_idx = response_text.find(start_char)
+                if start_char == '[':
+                    # For arrays, find matching closing bracket
+                    brace_count = 0
+                    for i in range(start_idx, len(response_text)):
+                        if response_text[i] == '{':
+                            brace_count += 1
+                        elif response_text[i] == '}':
+                            brace_count -= 1
+                        elif response_text[i] == ']' and brace_count == 0:
+                            extracted = response_text[start_idx:i+1]
+                            repair_attempts.append((f"array extraction with brace matching", extracted))
+                            break
             except:
                 pass
 
+        # Attempt 3: Find complete JSON objects and reconstruct array
+        try:
+            start_idx = response_text.find('[')
+            if start_idx != -1:
+                # Try to find complete objects {..} within the array
+                objects = []
+                i = start_idx + 1
+                obj_start = -1
+                brace_depth = 0
+                in_string = False
+                escape_next = False
+
+                while i < len(response_text):
+                    char = response_text[i]
+
+                    if escape_next:
+                        escape_next = False
+                    elif char == '\\':
+                        escape_next = True
+                    elif char == '"' and not escape_next:
+                        in_string = not in_string
+                    elif not in_string:
+                        if char == '{':
+                            if brace_depth == 0:
+                                obj_start = i
+                            brace_depth += 1
+                        elif char == '}':
+                            brace_depth -= 1
+                            if brace_depth == 0 and obj_start != -1:
+                                obj_text = response_text[obj_start:i+1]
+                                try:
+                                    obj = json.loads(obj_text)
+                                    objects.append(obj)
+                                except:
+                                    pass
+                                obj_start = -1
+
+                    i += 1
+
+                if objects:
+                    repair_attempts.append((f"complete object extraction ({len(objects)} objects found)", objects))
+        except Exception as e:
+            print(f"Object extraction attempt failed: {e}")
+
         # Try each repair strategy
-        for strategy_name, repaired_text in repair_attempts:
+        for strategy_name, repaired_item in repair_attempts:
             try:
-                result = json.loads(repaired_text)
+                if isinstance(repaired_item, list):
+                    # Already parsed as objects
+                    return repaired_item
+                result = json.loads(repaired_item)
                 print(f"JSON repair succeeded using strategy: {strategy_name}")
                 return result
             except json.JSONDecodeError as repair_error:
                 print(f"Strategy '{strategy_name}' failed: {repair_error}")
+                continue
+            except Exception as repair_error:
+                print(f"Strategy '{strategy_name}' failed with exception: {repair_error}")
                 continue
 
         # All repairs failed
