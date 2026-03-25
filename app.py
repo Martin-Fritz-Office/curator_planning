@@ -95,8 +95,6 @@ import traceback
 import hashlib
 import time
 import json
-from concurrent.futures import ThreadPoolExecutor
-import concurrent.futures
 from urllib.parse import quote
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -240,16 +238,15 @@ def ask():
             rpc_function = "match_all_empfehlungen"
 
         try:
-            with ThreadPoolExecutor(max_workers=1) as executor:
-                future = executor.submit(lambda: supabase.rpc(
-                    rpc_function,
-                    {
-                        "query_embedding": question_embedding,
-                        "match_count": 10
-                    }
-                ).execute())
-                search_result = future.result(timeout=25)
-        except concurrent.futures.TimeoutError:
+            search_result = supabase.rpc(
+                rpc_function,
+                {
+                    "query_embedding": question_embedding,
+                    "match_count": 10
+                }
+            ).execute()
+        except Exception as e:
+            print(f"Search error: {e}")
             return jsonify({
                 "error": "Die Suche hat zu lange gedauert. Bitte versuchen Sie es später erneut."
             }), 504
@@ -385,7 +382,7 @@ def health():
     }), 200
 
 
-def _fetch_all_recommendations(source="strh", limit=5000):
+def _fetch_all_recommendations(source="strh", limit=500):
     """Fetch all recommendations from Supabase"""
     try:
         if source == "strh":
@@ -408,7 +405,7 @@ def _extract_themes(recommendations):
     if not recommendations:
         return []
 
-    # Sample up to 100 recommendations for analysis (reduced from 500 to avoid timeouts)
+    # Sample up to 100 recommendations for analysis
     sample_size = min(100, len(recommendations))
     sample = recommendations[:sample_size]
 
@@ -419,14 +416,13 @@ def _extract_themes(recommendations):
     ])
 
     try:
-        with ThreadPoolExecutor(max_workers=1) as executor:
-            future = executor.submit(lambda: anthropic_client.messages.create(
-                model="claude-sonnet-4-6",
-                max_tokens=2000,
-                messages=[
-                    {
-                        "role": "user",
-                        "content": f"""Analysiere die folgenden {len(sample)} Empfehlungen und extrahiere die TOP 50 THEMEN/KATEGORIEN, die am häufigsten vorkommen.
+        response = anthropic_client.messages.create(
+            model="claude-sonnet-4-6",
+            max_tokens=2000,
+            messages=[
+                {
+                    "role": "user",
+                    "content": f"""Analysiere die folgenden {len(sample)} Empfehlungen und extrahiere die TOP 50 THEMEN/KATEGORIEN, die am häufigsten vorkommen.
 
 Empfehlungen:
 {recommendation_text}
@@ -442,20 +438,21 @@ Antworte mit einem JSON Array mit max. 50 Objekten im Format:
 ]
 
 Antworte NUR mit dem JSON Array, ohne zusätzliche Erklärungen."""
-                    }
-                ]
-            ))
-            response = future.result(timeout=30)
+                }
+            ]
+        )
 
         response_text = response.content[0].text.strip()
+        if not response_text:
+            print("Error: Claude returned empty response")
+            return []
+
         # Extract JSON from response
         themes = json.loads(response_text)
         return themes[:50]  # Limit to top 50
-    except concurrent.futures.TimeoutError:
-        print("Timeout: Theme extraction took too long")
-        return []
     except Exception as e:
         print(f"Error extracting themes: {e}")
+        traceback.print_exc()
         return []
 
 
