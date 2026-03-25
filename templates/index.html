@@ -63,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="themes-section" id="themesSection">
+            <div class="themes-section" id="themesSection" style="display: none;">
                 <h2>🎯 Empfohlene Themen</h2>
                 <div class="themes-loading" id="themesLoading">
                     <div class="spinner"></div>
@@ -216,6 +216,7 @@
                 }
 
                 const data = await response.json();
+                themesSection.style.display = 'block';
                 displayThemes(data.themes);
             } catch (err) {
                 console.error('Error loading themes:', err);
