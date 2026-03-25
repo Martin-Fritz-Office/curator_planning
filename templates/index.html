@@ -63,6 +63,15 @@
                 </div>
             </div>
 
+            <div class="themes-section" id="themesSection">
+                <h2>🎯 Empfohlene Themen</h2>
+                <div class="themes-loading" id="themesLoading">
+                    <div class="spinner"></div>
+                    <p>Lade empfohlene Themen...</p>
+                </div>
+                <div id="themesContainer" class="themes-grid"></div>
+            </div>
+
             <div class="error" id="error"></div>
             <div class="loading" id="loading">
                 <div class="spinner"></div>
@@ -97,6 +106,9 @@
         const summaryEl = document.getElementById('summary');
         const zentraleAussageEl = document.getElementById('zentraleAussage');
         const sourcesEl = document.getElementById('sources');
+        const themesSection = document.getElementById('themesSection');
+        const themesContainer = document.getElementById('themesContainer');
+        const themesLoading = document.getElementById('themesLoading');
 
         function getExpertiseLevel() {
             const selected = document.querySelector('input[name="expertise"]:checked');
@@ -194,6 +206,129 @@
             result.classList.add('show');
         }
 
+        async function loadThemes() {
+            try {
+                const source = getSearchSource();
+                const response = await fetch(`/themes?source=${source}`);
+
+                if (!response.ok) {
+                    throw new Error('Fehler beim Laden der Themen');
+                }
+
+                const data = await response.json();
+                displayThemes(data.themes);
+            } catch (err) {
+                console.error('Error loading themes:', err);
+                themesSection.style.display = 'none';
+            } finally {
+                themesLoading.style.display = 'none';
+            }
+        }
+
+        function displayThemes(themes) {
+            themesContainer.innerHTML = '';
+
+            themes.slice(0, 12).forEach((theme) => {
+                const card = document.createElement('div');
+                card.className = 'theme-card';
+                card.innerHTML = `
+                    <div class="theme-card-header">
+                        <h3>${theme.theme}</h3>
+                        <span class="theme-frequency">${theme.frequency}</span>
+                    </div>
+                    <p class="theme-description">${theme.description}</p>
+                    <button class="theme-expand-btn" data-theme-id="${theme.id}">
+                        Fragen & Checkliste anzeigen
+                    </button>
+                    <div class="theme-questions-container" id="questions-${theme.id}" style="display: none;">
+                        <div class="theme-loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                `;
+
+                card.querySelector('.theme-expand-btn').addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    const container = document.getElementById(`questions-${theme.id}`);
+                    const btn = e.target;
+
+                    if (container.style.display === 'none') {
+                        container.style.display = 'block';
+                        if (!container.dataset.loaded) {
+                            await loadThemeQuestions(theme, container);
+                        }
+                        btn.textContent = 'Verbergen';
+                    } else {
+                        container.style.display = 'none';
+                        btn.textContent = 'Fragen & Checkliste anzeigen';
+                    }
+                });
+
+                themesContainer.appendChild(card);
+            });
+        }
+
+        async function loadThemeQuestions(theme, container) {
+            try {
+                const response = await fetch('/theme-questions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        theme_name: theme.theme,
+                        theme_description: theme.description,
+                        expertise_level: getExpertiseLevel()
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Fehler beim Laden der Fragen');
+                }
+
+                const data = await response.json();
+                displayThemeContent(container, data.content);
+                container.dataset.loaded = 'true';
+            } catch (err) {
+                console.error('Error loading theme questions:', err);
+                container.innerHTML = '<p style="color:red;">Fehler beim Laden der Fragen</p>';
+            }
+        }
+
+        function displayThemeContent(container, content) {
+            const questionsHtml = content.questions.map(q =>
+                `<li class="theme-question" onclick="searchQuestion('${q.replace(/'/g, "\\'")}')">
+                    ${q}
+                </li>`
+            ).join('');
+
+            const checklistHtml = content.checklist.map(item =>
+                `<li class="theme-checklist-item">
+                    <input type="checkbox" id="check-${Math.random()}">
+                    <label>${item}</label>
+                </li>`
+            ).join('');
+
+            container.innerHTML = `
+                <div class="theme-content">
+                    <div class="theme-questions">
+                        <h4>💭 Häufig gestellte Fragen</h4>
+                        <ul>${questionsHtml}</ul>
+                    </div>
+                    <div class="theme-checklist">
+                        <h4>✓ Checkliste</h4>
+                        <ul>${checklistHtml}</ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        function searchQuestion(q) {
+            question.value = q;
+            question.focus();
+            search();
+        }
+
         // Allow Enter key to search
         question.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
@@ -201,8 +336,19 @@
             }
         });
 
-        // Focus input on load
-        question.focus();
+        // Load themes on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            question.focus();
+            loadThemes();
+        });
+
+        // Reload themes when search source changes
+        document.querySelectorAll('input[name="search-source"]').forEach(radio => {
+            radio.addEventListener('change', () => {
+                themesLoading.style.display = 'flex';
+                loadThemes();
+            });
+        });
     </script>
 </body>
 </html>
