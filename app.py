@@ -389,12 +389,12 @@ def _fetch_all_recommendations(source="strh", limit=5000):
     """Fetch all recommendations from Supabase"""
     try:
         if source == "strh":
-            response = supabase.table("STRH").select("Empfehlung,Unterordner,Adressiert an,quelldatei").limit(limit).execute()
+            response = supabase.table("STRH").select("Empfehlung,Unterordner,Adressiert an,Quelldatei").limit(limit).execute()
         elif source == "brh":
-            response = supabase.table("BRH").select("Empfehlung,Unterordner,Adressiert an,quelldatei").limit(limit).execute()
+            response = supabase.table("BRH").select("Empfehlung,Unterordner,Adressiert an,Quelldatei").limit(limit).execute()
         else:  # all
-            strh_data = supabase.table("STRH").select("Empfehlung,Unterordner,Adressiert an,quelldatei").limit(limit).execute()
-            brh_data = supabase.table("BRH").select("Empfehlung,Unterordner,Adressiert an,quelldatei").limit(limit).execute()
+            strh_data = supabase.table("STRH").select("Empfehlung,Unterordner,Adressiert an,Quelldatei").limit(limit).execute()
+            brh_data = supabase.table("BRH").select("Empfehlung,Unterordner,Adressiert an,Quelldatei").limit(limit).execute()
             response = type('obj', (object,), {'data': (strh_data.data or []) + (brh_data.data or [])})()
 
         return response.data or []
