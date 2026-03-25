@@ -418,21 +418,41 @@ def _parse_json_response(response_text):
         print(f"Initial JSON parse failed: {e}")
         print(f"Attempting to repair JSON...")
 
-        # Try to fix common JSON issues
-        try:
-            # Remove any trailing comma before closing bracket/brace
-            repaired = response_text.rstrip()
-            if repaired.endswith(',]'):
-                repaired = repaired[:-2] + ']'
-            if repaired.endswith(',}'):
-                repaired = repaired[:-2] + '}'
+        # Try multiple repair strategies
+        repair_attempts = []
 
-            # Try parsing the repaired version
-            return json.loads(repaired)
-        except json.JSONDecodeError:
-            # If repair didn't work, return empty list
-            print(f"JSON repair failed. Response text (first 500 chars): {response_text[:500]}")
-            return None
+        # Attempt 1: Remove trailing commas
+        repaired = response_text.rstrip()
+        if repaired.endswith(',]'):
+            repaired = repaired[:-2] + ']'
+        if repaired.endswith(',}'):
+            repaired = repaired[:-2] + '}'
+        repair_attempts.append(("trailing comma removal", repaired))
+
+        # Attempt 2: Extract just the JSON array/object part (remove any text before/after)
+        for start_char, end_char in [('[', ']'), ('{', '}')]:
+            try:
+                start_idx = response_text.rfind(start_char)
+                end_idx = response_text.rfind(end_char)
+                if start_idx != -1 and end_idx != -1 and start_idx < end_idx:
+                    extracted = response_text[start_idx:end_idx+1]
+                    repair_attempts.append((f"extraction of {start_char}...{end_char}", extracted))
+            except:
+                pass
+
+        # Try each repair strategy
+        for strategy_name, repaired_text in repair_attempts:
+            try:
+                result = json.loads(repaired_text)
+                print(f"JSON repair succeeded using strategy: {strategy_name}")
+                return result
+            except json.JSONDecodeError as repair_error:
+                print(f"Strategy '{strategy_name}' failed: {repair_error}")
+                continue
+
+        # All repairs failed
+        print(f"JSON repair failed completely. Response text (first 500 chars): {response_text[:500]}")
+        return None
 
 
 def _extract_themes(recommendations):
