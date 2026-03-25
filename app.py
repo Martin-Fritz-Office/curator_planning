@@ -408,8 +408,8 @@ def _extract_themes(recommendations):
     if not recommendations:
         return []
 
-    # Sample up to 500 recommendations for analysis
-    sample_size = min(500, len(recommendations))
+    # Sample up to 100 recommendations for analysis (reduced from 500 to avoid timeouts)
+    sample_size = min(100, len(recommendations))
     sample = recommendations[:sample_size]
 
     # Prepare context for Claude
@@ -419,18 +419,19 @@ def _extract_themes(recommendations):
     ])
 
     try:
-        response = anthropic_client.messages.create(
-            model="claude-sonnet-4-6",
-            max_tokens=2000,
-            messages=[
-                {
-                    "role": "user",
-                    "content": f"""Analysiere die folgenden {len(sample)} Empfehlungen und extrahiere die TOP 100 THEMEN/KATEGORIEN, die am häufigsten vorkommen.
+        with ThreadPoolExecutor(max_workers=1) as executor:
+            future = executor.submit(lambda: anthropic_client.messages.create(
+                model="claude-sonnet-4-6",
+                max_tokens=2000,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": f"""Analysiere die folgenden {len(sample)} Empfehlungen und extrahiere die TOP 50 THEMEN/KATEGORIEN, die am häufigsten vorkommen.
 
 Empfehlungen:
 {recommendation_text}
 
-Antworte mit einem JSON Array mit max. 100 Objekten im Format:
+Antworte mit einem JSON Array mit max. 50 Objekten im Format:
 [
   {{
     "id": 1,
@@ -441,14 +442,18 @@ Antworte mit einem JSON Array mit max. 100 Objekten im Format:
 ]
 
 Antworte NUR mit dem JSON Array, ohne zusätzliche Erklärungen."""
-                }
-            ]
-        )
+                    }
+                ]
+            ))
+            response = future.result(timeout=30)
 
         response_text = response.content[0].text.strip()
         # Extract JSON from response
         themes = json.loads(response_text)
-        return themes[:100]  # Limit to top 100
+        return themes[:50]  # Limit to top 50
+    except concurrent.futures.TimeoutError:
+        print("Timeout: Theme extraction took too long")
+        return []
     except Exception as e:
         print(f"Error extracting themes: {e}")
         return []
