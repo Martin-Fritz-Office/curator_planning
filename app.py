@@ -276,7 +276,7 @@ def ask():
         # Step 5: Get Claude's response
         try:
             response = anthropic_client.messages.create(
-                model="claude-sonnet-4-20250514",
+                model="claude-sonnet-4-6",
                 max_tokens=1024,
                 messages=[
                     {
@@ -342,7 +342,7 @@ def _generate_zentrale_aussage(answer):
     """Generate a poignant, serious one-sentence central statement from the answer"""
     try:
         response = anthropic_client.messages.create(
-            model="claude-sonnet-4-20250514",
+            model="claude-sonnet-4-6",
             max_tokens=150,
             messages=[
                 {
@@ -420,7 +420,7 @@ def _extract_themes(recommendations):
 
     try:
         response = anthropic_client.messages.create(
-            model="claude-sonnet-4-20250514",
+            model="claude-sonnet-4-6",
             max_tokens=2000,
             messages=[
                 {
@@ -458,7 +458,7 @@ def _generate_theme_questions(theme_name, theme_description):
     """Generate preconfigured questions and checklist items for a theme"""
     try:
         response = anthropic_client.messages.create(
-            model="claude-sonnet-4-20250514",
+            model="claude-sonnet-4-6",
             max_tokens=1500,
             messages=[
                 {
