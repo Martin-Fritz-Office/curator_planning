@@ -162,6 +162,7 @@ class ThemeCache:
         self.cache[key] = (data, time.time())
 
 theme_cache = ThemeCache(ttl_seconds=86400)
+related_theme_cache = ThemeCache(ttl_seconds=3600)  # 1h TTL for query-specific themes
 
 # Initialize API clients with lazy initialization for Supabase
 try:
@@ -577,6 +578,70 @@ Antworte NUR mit dem JSON Array, ohne zusätzliche Erklärungen."""
         return []
 
 
+def _rerank_themes_for_query(themes, query, top_n=8):
+    """Re-rank cached themes by relevance to a search query using Claude"""
+    if not themes or not query:
+        return themes[:top_n]
+
+    themes_text = "\n".join([
+        f"{i+1}. {t['theme']}: {t['description']}"
+        for i, t in enumerate(themes)
+    ])
+
+    try:
+        response = anthropic_client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=400,
+            messages=[
+                {
+                    "role": "user",
+                    "content": f"""Du bekommst eine Suchanfrage und eine Liste von Themen aus Prüfungsempfehlungen.
+Wähle die {top_n} Themen aus, die am relevantesten für die Suchanfrage sind.
+
+Suchanfrage: "{query}"
+
+Themen:
+{themes_text}
+
+Antworte NUR mit einem JSON Array der Nummern der relevantesten Themen, z.B.: [3, 7, 1, 12, 5, 8, 2, 9]
+Genau {top_n} Nummern, sortiert nach Relevanz (relevantestes zuerst)."""
+                }
+            ],
+            timeout=20.0
+        )
+
+        response_text = response.content[0].text.strip()
+        if response_text.startswith("```"):
+            response_text = response_text.split("```")[1]
+            if response_text.startswith("json"):
+                response_text = response_text[4:]
+            response_text = response_text.strip()
+
+        indices = _parse_json_response(response_text)
+        if not isinstance(indices, list):
+            return themes[:top_n]
+
+        result = []
+        seen = set()
+        for idx in indices:
+            i = int(idx) - 1
+            if 0 <= i < len(themes) and i not in seen:
+                result.append(themes[i])
+                seen.add(i)
+
+        # Fill up to top_n if Claude returned fewer
+        for i, t in enumerate(themes):
+            if len(result) >= top_n:
+                break
+            if i not in seen:
+                result.append(t)
+
+        return result[:top_n]
+    except Exception as e:
+        print(f"Error reranking themes: {e}")
+        return themes[:top_n]
+
+
 def _generate_theme_questions(theme_name, theme_description):
     """Generate preconfigured questions and checklist items for a theme"""
     try:
@@ -648,40 +713,50 @@ def themes():
         if source not in ["strh", "brh", "all"]:
             source = "strh"
 
-        cache_key = f"themes_{source}"
+        query = request.args.get("query", "").strip()
 
-        # Check cache first
-        cached_themes = theme_cache.get(cache_key)
-        if cached_themes:
+        base_cache_key = f"themes_{source}"
+
+        # Always ensure the base theme list is available (cached)
+        base_themes = theme_cache.get(base_cache_key)
+        if not base_themes:
+            recommendations = _fetch_all_recommendations(source)
+            if not recommendations:
+                return jsonify({"error": "Keine Empfehlungen gefunden"}), 404
+
+            base_themes = _extract_themes(recommendations)
+            if not base_themes:
+                return jsonify({"error": "Themenerkennung fehlgeschlagen"}), 500
+
+            theme_cache.set(base_cache_key, base_themes)
+
+        # If a query is provided, rerank themes by relevance
+        if query:
+            query_cache_key = f"related_{source}_{query[:100]}"
+            cached_related = related_theme_cache.get(query_cache_key)
+            if cached_related:
+                return jsonify({
+                    "themes": cached_related,
+                    "cached": True,
+                    "source": source,
+                    "query": query,
+                    "related": True
+                })
+
+            related = _rerank_themes_for_query(base_themes, query)
+            related_theme_cache.set(query_cache_key, related)
             return jsonify({
-                "themes": cached_themes,
-                "cached": True,
-                "source": source
+                "themes": related,
+                "cached": False,
+                "source": source,
+                "query": query,
+                "related": True
             })
 
-        # Fetch recommendations
-        recommendations = _fetch_all_recommendations(source)
-        if not recommendations:
-            return jsonify({
-                "error": "Keine Empfehlungen gefunden"
-            }), 404
-
-        # Extract themes
-        themes_list = _extract_themes(recommendations)
-
-        if not themes_list:
-            return jsonify({
-                "error": "Themenerkennung fehlgeschlagen"
-            }), 500
-
-        # Cache the result
-        theme_cache.set(cache_key, themes_list)
-
         return jsonify({
-            "themes": themes_list,
-            "cached": False,
-            "source": source,
-            "total_recommendations": len(recommendations)
+            "themes": base_themes,
+            "cached": True,
+            "source": source
         })
 
     except Exception as e:

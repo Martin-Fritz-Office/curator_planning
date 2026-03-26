@@ -87,7 +87,7 @@
             </div>
 
             <div class="themes-section" id="themesSection" style="display: none;">
-                <h2>🎯 Empfohlene Themen</h2>
+                <h2 id="themesHeading">🎯 Empfohlene Themen</h2>
                 <div class="themes-loading" id="themesLoading">
                     <div class="spinner"></div>
                     <p>Lade empfohlene Themen...</p>
@@ -109,6 +109,7 @@
         const themesSection = document.getElementById('themesSection');
         const themesContainer = document.getElementById('themesContainer');
         const themesLoading = document.getElementById('themesLoading');
+        const themesHeading = document.getElementById('themesHeading');
 
         function getExpertiseLevel() {
             const selected = document.querySelector('input[name="expertise"]:checked');
@@ -163,6 +164,8 @@
 
                 const data = await response.json();
                 displayResults(data);
+                themesLoading.style.display = 'flex';
+                loadThemes(q);
             } catch (err) {
                 showError('Fehler: ' + err.message);
             } finally {
@@ -206,10 +209,13 @@
             result.classList.add('show');
         }
 
-        async function loadThemes() {
+        async function loadThemes(query = '') {
             try {
                 const source = getSearchSource();
-                const response = await fetch(`/themes?source=${source}`);
+                const url = query
+                    ? `/themes?source=${source}&query=${encodeURIComponent(query)}`
+                    : `/themes?source=${source}`;
+                const response = await fetch(url);
 
                 if (!response.ok) {
                     throw new Error('Fehler beim Laden der Themen');
@@ -217,6 +223,11 @@
 
                 const data = await response.json();
                 themesSection.style.display = 'block';
+                if (data.related && data.query) {
+                    themesHeading.textContent = `🔗 Verwandte Themen: „${data.query}"`;
+                } else {
+                    themesHeading.textContent = '🎯 Empfohlene Themen';
+                }
                 displayThemes(data.themes);
             } catch (err) {
                 console.error('Error loading themes:', err);
