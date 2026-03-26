@@ -277,7 +277,7 @@ def ask():
         try:
             response = anthropic_client.messages.create(
                 model="claude-sonnet-4-6",
-                max_tokens=1024,
+                max_tokens=1500,
                 messages=[
                     {
                         "role": "user",
@@ -287,7 +287,8 @@ def ask():
                 timeout=90.0
             )
 
-            answer = response.content[0].text
+            raw_answer = response.content[0].text
+            zentrale_aussage, answer = _parse_answer_sections(raw_answer)
 
             # Step 6: Format and return sources
             sources = []
@@ -305,8 +306,8 @@ def ask():
                 sources.append(source_item)
 
             return jsonify({
-                "zentrale_aussage": _generate_zentrale_aussage(answer),
-                "summary": _generate_summary(answer),
+                "zentrale_aussage": zentrale_aussage,
+                "summary": answer,
                 "sources": sources
             })
 
@@ -327,6 +328,13 @@ def ask():
 
 def _get_expertise_prompt(expertise_level, question, context):
     """Build expertise-specific system prompt"""
+    format_instruction = """
+
+Formatiere deine Antwort exakt so:
+ZENTRALE AUSSAGE: [Ein einziger prägnanter Kernsatz, der die wichtigste Erkenntnis zusammenfasst]
+
+ANTWORT: [Deine ausführliche Antwort hier]"""
+
     base_instruction = f"""Du bist ein hilfreicher Assistent für Prüfungsempfehlungen.
 
 Benutzer-Frage: {question}
@@ -338,40 +346,29 @@ Basierend auf den folgenden Empfehlungen aus der Datenbank, bitte antworte klar 
 Antworte NUR basierend auf den oben genannten Empfehlungen. Wenn keine der Empfehlungen relevant ist, teile dies mit."""
 
     if expertise_level == "expert":
-        return base_instruction + """\n\nDer Benutzer ist ein Experte. Antworte auf detaillierte, technische Weise. Nutze Fachbegriffe und gehe in die Tiefe. Diskutiere auch mögliche Variationen, Ausnahmen und Best Practices."""
+        return base_instruction + """\n\nDer Benutzer ist ein Experte. Antworte auf detaillierte, technische Weise. Nutze Fachbegriffe und gehe in die Tiefe. Diskutiere auch mögliche Variationen, Ausnahmen und Best Practices.""" + format_instruction
     else:  # beginner
-        return base_instruction + """\n\nDer Benutzer ist Anfänger und kennt sich mit diesem Thema nicht gut aus. Verwende einfache, verständliche Sprache. Erkläre Fachbegriffe. Konzentriere dich auf die wichtigsten praktischen Punkte."""
+        return base_instruction + """\n\nDer Benutzer ist Anfänger und kennt sich mit diesem Thema nicht gut aus. Verwende einfache, verständliche Sprache. Erkläre Fachbegriffe. Konzentriere dich auf die wichtigsten praktischen Punkte.""" + format_instruction
 
 
-def _generate_zentrale_aussage(answer):
-    """Generate a poignant, serious one-sentence central statement from the answer"""
-    try:
-        response = anthropic_client.messages.create(
-            model="claude-sonnet-4-6",
-            max_tokens=150,
-            messages=[
-                {
-                    "role": "user",
-                    "content": f"""Basierend auf dieser Antwort, generiere eine einzige ernsthafte und prägnante "Zentrale Aussage" - einen Kernsatz, der die wichtigste Erkenntnis oder Empfehlung zusammenfasst. Die Aussage soll kurz, prägnant und nachdenklich stimmend sein.
+def _parse_answer_sections(raw_answer):
+    """Parse structured Claude response into zentrale_aussage and answer sections"""
+    zentrale_aussage = ""
+    answer = raw_answer
 
-Antwort:
-{answer}
+    if "ZENTRALE AUSSAGE:" in raw_answer and "ANTWORT:" in raw_answer:
+        parts = raw_answer.split("ANTWORT:", 1)
+        answer = parts[1].strip()
+        za_part = parts[0].replace("ZENTRALE AUSSAGE:", "").strip()
+        zentrale_aussage = za_part
+    elif "ZENTRALE AUSSAGE:" in raw_answer:
+        zentrale_aussage = raw_answer.replace("ZENTRALE AUSSAGE:", "").strip()
+        answer = raw_answer
+    else:
+        # Fallback: use first sentence as zentrale_aussage
+        zentrale_aussage = answer.split('.')[0] + '.' if '.' in answer else answer[:150]
 
-Antworte NUR mit der einen Zentrale Aussage, ohne weitere Erklärungen."""
-                }
-            ],
-            timeout=60.0
-        )
-        return response.content[0].text.strip()
-    except Exception as e:
-        # Fallback to first sentence if generation fails
-        print(f"Warning: Failed to generate zentrale_aussage: {e}")
-        return answer.split('.')[0] + '.' if '.' in answer else answer[:100]
-
-
-def _generate_summary(answer):
-    """Return the answer as the summary without truncation for flexible length"""
-    return answer
+    return zentrale_aussage, answer
 
 
 @app.route("/", methods=["GET"])
