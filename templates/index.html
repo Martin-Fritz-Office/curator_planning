@@ -52,6 +52,20 @@
                     </div>
                 </div>
 
+                <div class="model-selector">
+                    <label>KI-Modell:</label>
+                    <div class="model-options">
+                        <label class="radio-label">
+                            <input type="radio" name="model" value="haiku" checked>
+                            <span>Schnell (Haiku)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="model" value="sonnet">
+                            <span>Präzise (Sonnet)</span>
+                        </label>
+                    </div>
+                </div>
+
                 <div class="search-box">
                     <input
                         type="text"
@@ -121,6 +135,11 @@
             return selected ? selected.value : 'strh';
         }
 
+        function getModel() {
+            const selected = document.querySelector('input[name="model"]:checked');
+            return selected ? selected.value : 'haiku';
+        }
+
         function showError(msg) {
             error.textContent = msg;
             error.classList.add('show');
@@ -142,18 +161,20 @@
             hideError();
             loading.classList.add('show');
             result.classList.remove('show');
+            summaryEl.textContent = '';
+            zentraleAussageEl.textContent = '';
+            sourcesEl.innerHTML = '';
             searchBtn.disabled = true;
 
             try {
                 const response = await fetch('/ask', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
                         question: q,
                         expertise_level: getExpertiseLevel(),
-                        search_source: getSearchSource()
+                        search_source: getSearchSource(),
+                        model: getModel()
                     })
                 });
 
@@ -162,10 +183,47 @@
                     throw new Error(errorData.error || 'Fehler bei der Suche');
                 }
 
-                const data = await response.json();
-                displayResults(data);
-                themesLoading.style.display = 'flex';
-                loadThemes(q);
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let sseBuffer = '';
+                let resultShown = false;
+
+                while (true) {
+                    const {done, value} = await reader.read();
+                    if (done) break;
+
+                    sseBuffer += decoder.decode(value, {stream: true});
+                    const lines = sseBuffer.split('\n');
+                    sseBuffer = lines.pop();
+
+                    for (const line of lines) {
+                        if (!line.startsWith('data: ')) continue;
+                        const event = JSON.parse(line.slice(6));
+
+                        if (event.type === 'sources') {
+                            displaySources(event.sources);
+                            if (!resultShown) {
+                                loading.classList.remove('show');
+                                result.classList.add('show');
+                                resultShown = true;
+                            }
+                        } else if (event.type === 'zentrale_aussage') {
+                            zentraleAussageEl.textContent = event.text;
+                            if (!resultShown) {
+                                loading.classList.remove('show');
+                                result.classList.add('show');
+                                resultShown = true;
+                            }
+                        } else if (event.type === 'text') {
+                            summaryEl.textContent += event.text;
+                        } else if (event.type === 'error') {
+                            throw new Error(event.error);
+                        } else if (event.type === 'done') {
+                            themesLoading.style.display = 'flex';
+                            loadThemes(q);
+                        }
+                    }
+                }
             } catch (err) {
                 showError('Fehler: ' + err.message);
             } finally {
@@ -174,13 +232,10 @@
             }
         }
 
-        function displayResults(data) {
-            summaryEl.textContent = data.summary || '';
-            zentraleAussageEl.textContent = data.zentrale_aussage || '';
-
+        function displaySources(sources) {
             sourcesEl.innerHTML = '';
-            if (data.sources && data.sources.length > 0) {
-                data.sources.forEach((source, index) => {
+            if (sources && sources.length > 0) {
+                sources.forEach((source, index) => {
                     const card = document.createElement('div');
                     card.className = 'source-card';
                     const searchLinkHtml = source.search_link
@@ -205,7 +260,12 @@
                     sourcesEl.appendChild(card);
                 });
             }
+        }
 
+        function displayResults(data) {
+            summaryEl.textContent = data.summary || '';
+            zentraleAussageEl.textContent = data.zentrale_aussage || '';
+            displaySources(data.sources);
             result.classList.add('show');
         }
 
