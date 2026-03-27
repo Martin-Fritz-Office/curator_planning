@@ -105,6 +105,7 @@ from openai import OpenAI
 from anthropic import Anthropic
 from supabase import create_client, Client
 from collections import Counter, defaultdict
+import uuid
 
 # Load environment variables
 load_dotenv()
@@ -128,6 +129,19 @@ CORS(app, resources={
     r"/health": {"origins": allowed_origins}
 }, supports_credentials=True)
 
+# Request ID generation
+def generate_request_id():
+    """Generate unique request ID for tracking"""
+    return str(uuid.uuid4())
+
+
+# Inject request ID into request context
+@app.before_request
+def before_request():
+    """Add request ID to all requests for tracking"""
+    request.request_id = generate_request_id()
+
+
 # Security headers
 @app.after_request
 def set_security_headers(response):
@@ -137,6 +151,9 @@ def set_security_headers(response):
     response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
     response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains; preload'
     response.headers['Content-Security-Policy'] = "default-src 'self'"
+    # Add request ID to response headers for tracking
+    if hasattr(request, 'request_id'):
+        response.headers['X-Request-ID'] = request.request_id
     return response
 
 
@@ -258,27 +275,65 @@ def ask():
     }
     Response: text/event-stream with typed SSE events
     """
+    # Get request ID for tracking
+    request_id = getattr(request, 'request_id', None)
+
     # Rate limiting
     client_ip = request.remote_addr
     if not ask_limiter.is_allowed(client_ip):
-        logger.warning(f"Rate limit exceeded for IP: {client_ip}")
-        return jsonify({"error": "Too many requests. Please try again later."}), 429
+        logger.warning(f"Rate limit exceeded for IP: {client_ip}", extra={"request_id": request_id})
+        return jsonify({
+            "error": {
+                "message": "Too many requests. Please try again later.",
+                "code": 429,
+                "request_id": request_id,
+                "timestamp": datetime.utcnow().isoformat() + "Z"
+            }
+        }), 429
 
     if not openai_client or not anthropic_client or not supabase:
-        logger.error("API clients not initialized")
-        return jsonify({"error": "Service unavailable"}), 503
+        logger.error("API clients not initialized", extra={"request_id": request_id})
+        return jsonify({
+            "error": {
+                "message": "Service temporarily unavailable",
+                "code": 503,
+                "request_id": request_id,
+                "timestamp": datetime.utcnow().isoformat() + "Z"
+            }
+        }), 503
 
     data = request.json
     if not data or "question" not in data:
-        return jsonify({"error": "Invalid request"}), 400
+        return jsonify({
+            "error": {
+                "message": "Invalid request: missing 'question' field",
+                "code": 400,
+                "request_id": request_id,
+                "timestamp": datetime.utcnow().isoformat() + "Z"
+            }
+        }), 400
 
-    question = data["question"].strip()
+    question = data["question"].strip() if isinstance(data.get("question"), str) else ""
     if not question:
-        return jsonify({"error": "Invalid request"}), 400
+        return jsonify({
+            "error": {
+                "message": "Question cannot be empty",
+                "code": 400,
+                "request_id": request_id,
+                "timestamp": datetime.utcnow().isoformat() + "Z"
+            }
+        }), 400
 
     # Limit question length to prevent abuse
     if len(question) > 5000:
-        return jsonify({"error": "Invalid request"}), 400
+        return jsonify({
+            "error": {
+                "message": "Question too long (maximum 5000 characters)",
+                "code": 400,
+                "request_id": request_id,
+                "timestamp": datetime.utcnow().isoformat() + "Z"
+            }
+        }), 400
 
     expertise_level = data.get("expertise_level", "beginner").lower()
     if expertise_level not in ["beginner", "expert"]:
@@ -316,12 +371,24 @@ def ask():
                     {"query_embedding": question_embedding, "match_count": 5}
                 ).execute()
             except Exception as e:
+                error_details = {
+                    'type': 'error',
+                    'error': 'Die Suche hat zu lange gedauert. Bitte versuchen Sie es später erneut.',
+                    'request_id': request_id,
+                    'timestamp': datetime.utcnow().isoformat() + 'Z'
+                }
                 print(f"Search error: {e}")
-                yield f"data: {json.dumps({'type': 'error', 'error': 'Die Suche hat zu lange gedauert. Bitte versuchen Sie es später erneut.'})}\n\n"
+                yield f"data: {json.dumps(error_details)}\n\n"
                 return
 
             if not search_result.data:
-                yield f"data: {json.dumps({'type': 'error', 'error': 'Es wurden keine passenden Empfehlungen gefunden.'})}\n\n"
+                error_details = {
+                    'type': 'error',
+                    'error': 'Es wurden keine passenden Empfehlungen gefunden.',
+                    'request_id': request_id,
+                    'timestamp': datetime.utcnow().isoformat() + 'Z'
+                }
+                yield f"data: {json.dumps(error_details)}\n\n"
                 return
 
             recommendations = search_result.data
@@ -450,13 +517,30 @@ def index():
 
 @app.route("/health", methods=["GET", "HEAD"])
 def health():
-    """Health check endpoint"""
-    return jsonify({
-        "status": "healthy",
-        "openai_ready": openai_client is not None,
-        "anthropic_ready": anthropic_client is not None,
-        "supabase_ready": supabase is not None
-    }), 200
+    """Health check endpoint - returns status of all services"""
+    services_ready = {
+        "openai": openai_client is not None,
+        "anthropic": anthropic_client is not None,
+        "supabase": supabase is not None
+    }
+
+    # Overall status is healthy only if all services are ready
+    all_ready = all(services_ready.values())
+    status = "healthy" if all_ready else "degraded"
+
+    response_data = {
+        "status": status,
+        "services": services_ready,
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "version": "1.0.0"
+    }
+
+    http_status = 200 if all_ready else 503
+
+    if hasattr(request, 'request_id'):
+        response_data["request_id"] = request.request_id
+
+    return jsonify(response_data), http_status
 
 
 def _fetch_all_recommendations(source="strh", limit=500):
@@ -770,12 +854,22 @@ Antworte NUR mit dem JSON Objekt, ohne zusätzliche Erklärungen."""
 def themes():
     """
     GET /themes endpoint
-    Returns top 100 themes from recommendations with caching
+    Returns top themes from recommendations with caching
     Query params:
     - source: "strh" (default), "brh", or "all"
+    - query: optional search query to get related themes
     """
+    request_id = getattr(request, 'request_id', None)
+
     if not supabase or not anthropic_client:
-        return jsonify({"error": "Service unavailable: API clients not initialized"}), 503
+        return jsonify({
+            "error": {
+                "message": "Service temporarily unavailable",
+                "code": 503,
+                "request_id": request_id,
+                "timestamp": datetime.utcnow().isoformat() + "Z"
+            }
+        }), 503
 
     try:
         source = request.args.get("source", "strh").lower()
@@ -791,11 +885,25 @@ def themes():
         if not base_themes:
             recommendations = _fetch_all_recommendations(source)
             if not recommendations:
-                return jsonify({"error": "Keine Empfehlungen gefunden"}), 404
+                return jsonify({
+                    "error": {
+                        "message": "No recommendations found for the selected source",
+                        "code": 404,
+                        "request_id": request_id,
+                        "timestamp": datetime.utcnow().isoformat() + "Z"
+                    }
+                }), 404
 
             base_themes = _extract_themes(recommendations)
             if not base_themes:
-                return jsonify({"error": "Themenerkennung fehlgeschlagen"}), 500
+                return jsonify({
+                    "error": {
+                        "message": "Failed to extract themes from recommendations",
+                        "code": 500,
+                        "request_id": request_id,
+                        "timestamp": datetime.utcnow().isoformat() + "Z"
+                    }
+                }), 500
 
             theme_cache.set(base_cache_key, base_themes)
 
@@ -829,11 +937,19 @@ def themes():
         })
 
     except Exception as e:
-        logger.error(f"Error in themes endpoint: {str(e)}", exc_info=True)
+        logger.error(f"Error in themes endpoint: {str(e)}", exc_info=True, extra={"request_id": request_id})
         error_msg = str(e).lower()
-        if "timeout" in error_msg or "read timed out" in error_msg:
-            return jsonify({"error": "Die Themenerkennung hat zu lange gedauert. Bitte versuchen Sie es später erneut."}), 504
-        return jsonify({"error": "An error occurred while processing your request"}), 500
+        error_code = 504 if "timeout" in error_msg or "read timed out" in error_msg else 500
+        error_message = "Request timed out. Please try again." if error_code == 504 else "An error occurred while processing your request"
+
+        return jsonify({
+            "error": {
+                "message": error_message,
+                "code": error_code,
+                "request_id": request_id,
+                "timestamp": datetime.utcnow().isoformat() + "Z"
+            }
+        }), error_code
 
 
 @app.route("/theme-questions", methods=["POST"])
@@ -847,20 +963,43 @@ def theme_questions():
         "expertise_level": "beginner" or "expert" (optional)
     }
     """
+    request_id = getattr(request, 'request_id', None)
+
     if not anthropic_client:
-        return jsonify({"error": "Service unavailable: AI client not initialized"}), 503
+        return jsonify({
+            "error": {
+                "message": "Service temporarily unavailable",
+                "code": 503,
+                "request_id": request_id,
+                "timestamp": datetime.utcnow().isoformat() + "Z"
+            }
+        }), 503
 
     try:
         data = request.json
         if not data or "theme_name" not in data:
-            return jsonify({"error": "Missing 'theme_name' field"}), 400
+            return jsonify({
+                "error": {
+                    "message": "Missing required field: 'theme_name'",
+                    "code": 400,
+                    "request_id": request_id,
+                    "timestamp": datetime.utcnow().isoformat() + "Z"
+                }
+            }), 400
 
-        theme_name = data["theme_name"].strip()
-        theme_description = data.get("theme_description", "").strip()
+        theme_name = data["theme_name"].strip() if isinstance(data.get("theme_name"), str) else ""
+        theme_description = data.get("theme_description", "").strip() if isinstance(data.get("theme_description"), str) else ""
         expertise_level = data.get("expertise_level", "beginner").lower()
 
         if not theme_name:
-            return jsonify({"error": "Theme name cannot be empty"}), 400
+            return jsonify({
+                "error": {
+                    "message": "Theme name cannot be empty",
+                    "code": 400,
+                    "request_id": request_id,
+                    "timestamp": datetime.utcnow().isoformat() + "Z"
+                }
+            }), 400
 
         if expertise_level not in ["beginner", "expert"]:
             expertise_level = "beginner"
@@ -882,13 +1021,28 @@ def theme_questions():
         })
 
     except ValueError as e:
-        return jsonify({"error": "Invalid request"}), 400
+        return jsonify({
+            "error": {
+                "message": "Invalid request parameters",
+                "code": 400,
+                "request_id": request_id,
+                "timestamp": datetime.utcnow().isoformat() + "Z"
+            }
+        }), 400
     except Exception as e:
-        logger.error(f"Error in theme-questions endpoint: {str(e)}", exc_info=True)
+        logger.error(f"Error in theme-questions endpoint: {str(e)}", exc_info=True, extra={"request_id": request_id})
         error_msg = str(e).lower()
-        if "timeout" in error_msg or "read timed out" in error_msg:
-            return jsonify({"error": "Die Generierung hat zu lange gedauert. Bitte versuchen Sie es später erneut."}), 504
-        return jsonify({"error": "An error occurred while processing your request"}), 500
+        error_code = 504 if "timeout" in error_msg or "read timed out" in error_msg else 500
+        error_message = "Request timed out. Please try again." if error_code == 504 else "An error occurred while processing your request"
+
+        return jsonify({
+            "error": {
+                "message": error_message,
+                "code": error_code,
+                "request_id": request_id,
+                "timestamp": datetime.utcnow().isoformat() + "Z"
+            }
+        }), error_code
 
 
 if __name__ == "__main__":
