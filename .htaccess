@@ -30,7 +30,7 @@ Header set Content-Security-Policy "default-src 'self'; script-src 'self' https:
 Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
 
 # ────────────────────────────────────────────────────────────────────────────
-# DISABLE DEBUG FILES
+# DISABLE DEBUG FILES & SOURCE CODE
 # ────────────────────────────────────────────────────────────────────────────
 
 # Deny access to debug/config files
@@ -42,7 +42,23 @@ Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment
     Deny from all
 </Files>
 
-<FilesMatch "\.(env|example)$">
+# Block all Python files from being served
+<FilesMatch "\.py$">
+    Deny from all
+</FilesMatch>
+
+# Block environment and config files
+<FilesMatch "\.(env|example|local)$">
+    Deny from all
+</FilesMatch>
+
+# Block source control and build files
+<FilesMatch "\.(git|gitignore|md|json|lock)$|^(composer\.|package\.|webpack\.|tsconfig\.)">
+    Deny from all
+</FilesMatch>
+
+# Block common backup/temp files
+<FilesMatch "\.(bak|tmp|swp|swo|~)$">
     Deny from all
 </FilesMatch>
 

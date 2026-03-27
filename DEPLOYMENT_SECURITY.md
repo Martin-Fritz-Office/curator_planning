@@ -32,6 +32,9 @@ This guide covers security configurations required before deploying artbackstage
 
 ### 3. File Permissions ✓
 ```bash
+# For web root directory (/var/www/html)
+chmod 750 /var/www/html               # Owner rwx, group rx, others nothing
+
 # Restrict access to sensitive files
 chmod 600 db_config.php              # Owner read/write only
 chmod 600 .env                        # Owner read/write only
@@ -41,6 +44,13 @@ chmod 644 .htaccess                   # Owner read/write, others read
 chmod 644 *.php
 chmod 644 *.js
 chmod 644 *.css
+
+# For Flask app directory (/opt/artbackstage)
+chmod 750 /opt/artbackstage           # Owner rwx, group rx, others nothing
+chmod 750 /opt/artbackstage/artbackstage
+chmod 600 /opt/artbackstage/artbackstage/app.py
+chmod 600 /opt/artbackstage/artbackstage/.env
+chmod 640 /opt/artbackstage/artbackstage/requirements.txt
 ```
 
 ### 4. Web Server Configuration ✓
@@ -107,11 +117,55 @@ The following security measures are already configured:
 - ✅ Secure error handling (no stack traces in production)
 - ✅ Production mode logging
 
+**CRITICAL: Deployment Location**
+```
+❌ DO NOT deploy app.py in /var/www/html (web root)
+❌ DO NOT deploy app.py anywhere publicly accessible
+✅ Deploy app.py in /opt/artbackstage or /home/appuser/artbackstage
+✅ app.py runs as a service on internal port (e.g., 5000)
+✅ Apache/Nginx reverse-proxies requests to Flask
+```
+
 **Running in production:**
 ```bash
-FLASK_ENV=production python app.py
-# OR use Gunicorn:
-gunicorn -w 4 -b 0.0.0.0:5000 --timeout 120 app:app
+# Configure as systemd service (preferred)
+# /etc/systemd/system/artbackstage.service
+[Service]
+WorkingDirectory=/opt/artbackstage
+ExecStart=/usr/bin/python3 -m gunicorn -w 4 -b 127.0.0.1:5000 app:app
+Environment="FLASK_ENV=production"
+
+# Start service
+systemctl start artbackstage
+systemctl enable artbackstage
+
+# Or run directly with Gunicorn:
+cd /opt/artbackstage
+FLASK_ENV=production gunicorn -w 4 -b 127.0.0.1:5000 --timeout 120 app:app
+```
+
+**Apache Reverse Proxy Configuration:**
+```apache
+<VirtualHost *:443>
+    ServerName yourdomain.com
+
+    # Proxy Flask API calls to internal Flask server
+    ProxyPreserveHost On
+    ProxyPass /ask http://127.0.0.1:5000/ask
+    ProxyPassReverse /ask http://127.0.0.1:5000/ask
+
+    ProxyPass /themes http://127.0.0.1:5000/themes
+    ProxyPassReverse /themes http://127.0.0.1:5000/themes
+
+    ProxyPass /theme-questions http://127.0.0.1:5000/theme-questions
+    ProxyPassReverse /theme-questions http://127.0.0.1:5000/theme-questions
+
+    ProxyPass /health http://127.0.0.1:5000/health
+    ProxyPassReverse /health http://127.0.0.1:5000/health
+
+    # Serve PHP/static files from /var/www/html
+    DocumentRoot /var/www/html
+</VirtualHost>
 ```
 
 ### 7. PHP Application Security ✓
@@ -192,14 +246,32 @@ useradd -m -s /bin/bash artbackstage
 ```
 
 ### Step 2: Deploy Code
+
+**IMPORTANT:** app.py should NOT be in the web root directory. It must be deployed outside the publicly accessible directory.
+
 ```bash
-cd /var/www
+# Recommended directory structure:
+# /var/www/artbackstage/                (NOT web root - private)
+#   └─ app.py                            (Flask app - NOT accessible)
+#   └─ requirements.txt
+# /var/www/html/                        (Web root - public)
+#   └─ index.php
+#   └─ .htaccess
+#   └─ ... other PHP files
+
+# Deploy Flask app OUTSIDE web root
+mkdir -p /opt/artbackstage
+cd /opt/artbackstage
 git clone https://github.com/martin-fritz-office/artbackstage.git
 cd artbackstage
 git checkout main  # or your release branch
 
 # Install Python dependencies
 pip install -r requirements.txt
+
+# Deploy PHP files to web root
+cp -r *.php *.js *.css favicon.svg /var/www/html/
+cp .htaccess /var/www/html/.htaccess
 ```
 
 ### Step 3: Configure Environment
