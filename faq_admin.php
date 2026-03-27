@@ -12,6 +12,47 @@ $config     = is_file($configPath) ? require $configPath : null;
 $passwordHash = is_array($config) ? trim((string) ($config['admin_password_hash'] ?? '')) : '';
 $isSetup      = ($passwordHash === '');
 
+// ── Brute-force protection ────────────────────────────────────────────────────
+
+function check_login_rate_limit(): bool
+{
+    $max_attempts = 5;
+    $lockout_minutes = 15;
+
+    if (empty($_SESSION['login_attempts'])) {
+        $_SESSION['login_attempts'] = [];
+    }
+
+    $now = time();
+    $cutoff = $now - ($lockout_minutes * 60);
+
+    // Clean old attempts
+    $_SESSION['login_attempts'] = array_filter(
+        $_SESSION['login_attempts'],
+        fn($timestamp) => $timestamp > $cutoff
+    );
+
+    // Check if locked out
+    if (count($_SESSION['login_attempts']) >= $max_attempts) {
+        return false;
+    }
+
+    return true;
+}
+
+function record_failed_login(): void
+{
+    if (empty($_SESSION['login_attempts'])) {
+        $_SESSION['login_attempts'] = [];
+    }
+    $_SESSION['login_attempts'][] = time();
+}
+
+function clear_login_attempts(): void
+{
+    $_SESSION['login_attempts'] = [];
+}
+
 // ── CSRF helper ───────────────────────────────────────────────────────────────
 
 function csrf_token(): string
@@ -34,16 +75,24 @@ function csrf_verify(): void
 // ── Auth ──────────────────────────────────────────────────────────────────────
 
 $isLoggedIn = !empty($_SESSION['faq_admin_auth']);
+$loginError = null;
 
 if (isset($_POST['action']) && $_POST['action'] === 'login') {
     csrf_verify();
-    $submitted = trim((string) ($_POST['password'] ?? ''));
-    if (!$isSetup && password_verify($submitted, $passwordHash)) {
-        $_SESSION['faq_admin_auth'] = true;
-        header('Location: faq_admin.php');
-        exit;
+
+    if (!check_login_rate_limit()) {
+        $loginError = 'Zu viele fehlgeschlagene Anmeldeversuche. Bitte versuchen Sie es in 15 Minuten erneut.';
+    } else {
+        $submitted = trim((string) ($_POST['password'] ?? ''));
+        if (!$isSetup && password_verify($submitted, $passwordHash)) {
+            clear_login_attempts();
+            $_SESSION['faq_admin_auth'] = true;
+            header('Location: faq_admin.php');
+            exit;
+        }
+        record_failed_login();
+        $loginError = 'Falsches Passwort. Bitte erneut versuchen.';
     }
-    $loginError = 'Falsches Passwort. Bitte erneut versuchen.';
 }
 
 if (isset($_POST['action']) && $_POST['action'] === 'logout') {

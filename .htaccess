@@ -4,8 +4,79 @@ RewriteEngine On
 # Rewrite sitemap.xml to sitemap.php
 RewriteRule ^sitemap\.xml$ sitemap.php [QSA,L]
 
-# Add security headers
+# ────────────────────────────────────────────────────────────────────────────
+# SECURITY HEADERS
+# ────────────────────────────────────────────────────────────────────────────
+
+# Prevent MIME type sniffing
 Header set X-Content-Type-Options "nosniff"
-Header set X-Frame-Options "SAMEORIGIN"
+
+# Prevent clickjacking attacks
+Header set X-Frame-Options "DENY"
+
+# Legacy XSS protection
 Header set X-XSS-Protection "1; mode=block"
-Header set Referrer-Policy "no-referrer-when-downgrade"
+
+# Referrer policy - don't send referrer to cross-origin requests
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+# HSTS - Enforce HTTPS for 1 year
+Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+# Content Security Policy - restrict resource loading
+Header set Content-Security-Policy "default-src 'self'; script-src 'self' https://8x8.vc https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.openai.com https://api.anthropic.com https://*.supabase.co; frame-src 'self' https://8x8.vc"
+
+# Permissions policy - restrict browser features
+Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+# ────────────────────────────────────────────────────────────────────────────
+# DISABLE DEBUG FILES & SOURCE CODE
+# ────────────────────────────────────────────────────────────────────────────
+
+# Deny access to debug/config files
+<Files "check_hash.php">
+    Deny from all
+</Files>
+
+<Files "db_config.php">
+    Deny from all
+</Files>
+
+# Block all Python files from being served
+<FilesMatch "\.py$">
+    Deny from all
+</FilesMatch>
+
+# Block environment and config files
+<FilesMatch "\.(env|example|local)$">
+    Deny from all
+</FilesMatch>
+
+# Block source control and build files
+<FilesMatch "\.(git|gitignore|md|json|lock)$|^(composer\.|package\.|webpack\.|tsconfig\.)">
+    Deny from all
+</FilesMatch>
+
+# Block common backup/temp files
+<FilesMatch "\.(bak|tmp|swp|swo|~)$">
+    Deny from all
+</FilesMatch>
+
+# ────────────────────────────────────────────────────────────────────────────
+# PREVENT DIRECTORY LISTING
+# ────────────────────────────────────────────────────────────────────────────
+
+Options -Indexes
+
+# ────────────────────────────────────────────────────────────────────────────
+# DISABLE DANGEROUS PHP FEATURES
+# ────────────────────────────────────────────────────────────────────────────
+
+<IfModule mod_php.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+    php_value error_log /var/log/php-errors.log
+
+    # Disable dangerous functions
+    php_value disable_functions "exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,show_source"
+</IfModule>

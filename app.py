@@ -95,22 +95,78 @@ import traceback
 import hashlib
 import time
 import json
+import logging
 from urllib.parse import quote
+from datetime import datetime, timedelta
 from flask import Flask, request, jsonify, Response, stream_with_context
 from flask_cors import CORS
 from dotenv import load_dotenv
 from openai import OpenAI
 from anthropic import Anthropic
 from supabase import create_client, Client
-from collections import Counter
+from collections import Counter, defaultdict
 
 # Load environment variables
 load_dotenv()
 
+# Configure logging for production
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)
 
+# Configure CORS with domain restrictions
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
+CORS(app, resources={
+    r"/ask": {"origins": allowed_origins},
+    r"/themes": {"origins": allowed_origins},
+    r"/theme-questions": {"origins": allowed_origins},
+    r"/health": {"origins": allowed_origins}
+}, supports_credentials=True)
+
+# Security headers
+@app.after_request
+def set_security_headers(response):
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'DENY'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains; preload'
+    response.headers['Content-Security-Policy'] = "default-src 'self'"
+    return response
+
+
+# Rate limiting
+class RateLimiter:
+    def __init__(self, max_requests=10, window_seconds=60):
+        self.max_requests = max_requests
+        self.window_seconds = window_seconds
+        self.requests = defaultdict(list)
+
+    def is_allowed(self, identifier):
+        """Check if request is allowed, clean old entries"""
+        now = datetime.now()
+        cutoff = now - timedelta(seconds=self.window_seconds)
+
+        # Clean old requests
+        self.requests[identifier] = [
+            req_time for req_time in self.requests[identifier]
+            if req_time > cutoff
+        ]
+
+        # Check limit
+        if len(self.requests[identifier]) >= self.max_requests:
+            return False
+
+        self.requests[identifier].append(now)
+        return True
+
+# Rate limiter: max 10 requests per IP per 60 seconds for /ask endpoint
+ask_limiter = RateLimiter(max_requests=10, window_seconds=60)
 
 # Embedding cache with TTL (10 minutes)
 class EmbeddingCache:
@@ -202,16 +258,27 @@ def ask():
     }
     Response: text/event-stream with typed SSE events
     """
+    # Rate limiting
+    client_ip = request.remote_addr
+    if not ask_limiter.is_allowed(client_ip):
+        logger.warning(f"Rate limit exceeded for IP: {client_ip}")
+        return jsonify({"error": "Too many requests. Please try again later."}), 429
+
     if not openai_client or not anthropic_client or not supabase:
-        return jsonify({"error": "Service unavailable: API clients not initialized"}), 503
+        logger.error("API clients not initialized")
+        return jsonify({"error": "Service unavailable"}), 503
 
     data = request.json
     if not data or "question" not in data:
-        return jsonify({"error": "Missing 'question' field"}), 400
+        return jsonify({"error": "Invalid request"}), 400
 
     question = data["question"].strip()
     if not question:
-        return jsonify({"error": "Question cannot be empty"}), 400
+        return jsonify({"error": "Invalid request"}), 400
+
+    # Limit question length to prevent abuse
+    if len(question) > 5000:
+        return jsonify({"error": "Invalid request"}), 400
 
     expertise_level = data.get("expertise_level", "beginner").lower()
     if expertise_level not in ["beginner", "expert"]:
@@ -319,8 +386,8 @@ def ask():
             yield f"data: {json.dumps({'type': 'done'})}\n\n"
 
         except Exception as e:
-            traceback.print_exc()
-            yield f"data: {json.dumps({'type': 'error', 'error': str(e)})}\n\n"
+            logger.error(f"Error in ask endpoint: {str(e)}", exc_info=True)
+            yield f"data: {json.dumps({'type': 'error', 'error': 'An error occurred while processing your request'})}\n\n"
 
     return Response(
         stream_with_context(generate()),
@@ -762,11 +829,11 @@ def themes():
         })
 
     except Exception as e:
-        traceback.print_exc()
+        logger.error(f"Error in themes endpoint: {str(e)}", exc_info=True)
         error_msg = str(e).lower()
         if "timeout" in error_msg or "read timed out" in error_msg:
             return jsonify({"error": "Die Themenerkennung hat zu lange gedauert. Bitte versuchen Sie es später erneut."}), 504
-        return jsonify({"error": f"Server error: {str(e)}"}), 500
+        return jsonify({"error": "An error occurred while processing your request"}), 500
 
 
 @app.route("/theme-questions", methods=["POST"])
@@ -815,15 +882,22 @@ def theme_questions():
         })
 
     except ValueError as e:
-        return jsonify({"error": f"Invalid request: {str(e)}"}), 400
+        return jsonify({"error": "Invalid request"}), 400
     except Exception as e:
-        traceback.print_exc()
+        logger.error(f"Error in theme-questions endpoint: {str(e)}", exc_info=True)
         error_msg = str(e).lower()
         if "timeout" in error_msg or "read timed out" in error_msg:
             return jsonify({"error": "Die Generierung hat zu lange gedauert. Bitte versuchen Sie es später erneut."}), 504
-        return jsonify({"error": f"Server error: {str(e)}"}), 500
+        return jsonify({"error": "An error occurred while processing your request"}), 500
 
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
-    app.run(debug=False, host="0.0.0.0", port=port)
+    debug_mode = os.getenv("FLASK_ENV", "production") == "development"
+
+    # Ensure production defaults
+    if not debug_mode:
+        app.config['PROPAGATE_EXCEPTIONS'] = False
+        app.config['TRAP_HTTP_EXCEPTIONS'] = False
+
+    app.run(debug=debug_mode, host="0.0.0.0", port=port)
