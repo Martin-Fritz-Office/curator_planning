@@ -1,14 +1,29 @@
 <?php
 
-return [
-    'host' => '127.0.0.1',
-    'port' => 3306,
-    'database' => 'curator_planning',
-    'user' => 'curator_user',
-    'password' => 'replace-with-strong-password',
+/**
+ * Database Configuration
+ *
+ * SECURITY NOTE: This file should be excluded from version control.
+ * It's listed in .gitignore and should NEVER be committed.
+ *
+ * Best practices:
+ * 1. Use environment variables for sensitive data (DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD)
+ * 2. In production, load these from your hosting environment's secrets manager
+ * 3. Each service should have minimal database permissions (no DROP/ALTER on main tables)
+ */
 
-    // Admin password for faq_admin.php
-    // Generate with: php -r "echo password_hash('your-password', PASSWORD_DEFAULT);"
-    // Then paste the resulting hash string here.
-    'admin_password_hash' => '',
+return [
+    // Database credentials - preferably from environment variables
+    'host' => getenv('DB_HOST') ?: '127.0.0.1',
+    'port' => (int) (getenv('DB_PORT') ?: 3306),
+    'database' => getenv('DB_NAME') ?: 'curator_planning',
+    'user' => getenv('DB_USER') ?: 'curator_user',
+    'password' => getenv('DB_PASSWORD') ?: '', // MUST be set in production
+
+    // Admin password hash for faq_admin.php
+    // IMPORTANT: Generate a strong hash with the command below and store it in DB_ADMIN_PASSWORD env var
+    // php -r "echo password_hash('your-strong-password', PASSWORD_DEFAULT);"
+    // Then set: export DB_ADMIN_PASSWORD="<the-generated-hash>"
+    // For production, use your hosting provider's secrets management system
+    'admin_password_hash' => getenv('DB_ADMIN_PASSWORD') ?: '',
 ];
