@@ -474,7 +474,10 @@ def ask():
                     "similarity": round(rec["similarity"], 4)
                 }
                 if quelldatei:
-                    source_item["search_link"] = f"https://www.google.com/search?q={quote(quelldatei)}"
+                    if search_source == "brh":
+                        source_item["search_link"] = f"https://www.google.com/search?q=Rechnungshof%20and%20{quote(quelldatei)}"
+                    else:
+                        source_item["search_link"] = f"https://www.google.com/search?q={quote(quelldatei)}"
                 sources.append(source_item)
 
             yield f"data: {json.dumps({'type': 'sources', 'sources': sources})}\n\n"
