@@ -691,6 +691,44 @@ def _parse_json_response(response_text):
         return None
 
 
+def _extract_themes_fallback(recommendations):
+    """Fallback theme extraction from recommendations without Claude"""
+    if not recommendations:
+        return []
+
+    # Count themes by "Unterordner" (subfolder/category)
+    theme_counter = Counter()
+    theme_descriptions = {}
+
+    for rec in recommendations:
+        theme = rec.get('Unterordner', 'Sonstiges')
+        if theme:
+            theme_counter[theme] += 1
+            # Store first recommendation as description if not already set
+            if theme not in theme_descriptions:
+                theme_descriptions[theme] = rec.get('Empfehlung', '')[:100]
+
+    # Convert to themes list
+    themes = []
+    for theme_id, (theme_name, count) in enumerate(theme_counter.most_common(50), 1):
+        # Determine frequency label
+        if count > 20:
+            frequency = "sehr häufig"
+        elif count > 10:
+            frequency = "häufig"
+        else:
+            frequency = "regelmäßig"
+
+        themes.append({
+            "id": theme_id,
+            "theme": theme_name,
+            "description": theme_descriptions.get(theme_name, f"{count} Empfehlungen in dieser Kategorie"),
+            "frequency": frequency
+        })
+
+    return themes[:50]
+
+
 def _extract_themes(recommendations):
     """Extract top 100 themes from recommendations using Claude"""
     if not recommendations:
@@ -737,7 +775,7 @@ Antworte NUR mit dem JSON Array, ohne zusätzliche Erklärungen."""
         response_text = response.content[0].text.strip()
         if not response_text:
             print("Error: Claude returned empty response")
-            return []
+            return _extract_themes_fallback(recommendations)
 
         # Extract JSON from response (handle markdown code blocks)
         if response_text.startswith("```"):
@@ -749,13 +787,15 @@ Antworte NUR mit dem JSON Array, ohne zusätzliche Erklärungen."""
 
         themes = _parse_json_response(response_text)
         if themes is None:
-            return []
+            return _extract_themes_fallback(recommendations)
 
-        return themes[:50] if isinstance(themes, list) else []
+        return themes[:50] if isinstance(themes, list) else _extract_themes_fallback(recommendations)
     except Exception as e:
+        logger.error(f"Error extracting themes with Claude: {str(e)}", exc_info=True)
         print(f"Error extracting themes: {e}")
         traceback.print_exc()
-        return []
+        # Fall back to simple theme extraction
+        return _extract_themes_fallback(recommendations)
 
 
 def _rerank_themes_for_query(themes, query, top_n=8):
@@ -822,6 +862,26 @@ Genau {top_n} Nummern, sortiert nach Relevanz (relevantestes zuerst)."""
         return themes[:top_n]
 
 
+def _generate_theme_questions_fallback(theme_name, theme_description):
+    """Fallback: Generate generic questions and checklist for a theme when Claude unavailable"""
+    return {
+        "questions": [
+            f"Was sind die Hauptrisiken bezüglich {theme_name}?",
+            f"Wie können wir {theme_name} in unserer Organisation verbessern?",
+            f"Welche Best Practices gibt es für {theme_name}?",
+            f"Wie überprüfen wir die Compliance bei {theme_name}?",
+            f"Welche Ressourcen werden für {theme_name} benötigt?"
+        ],
+        "checklist": [
+            f"Überprüfung: Ist eine klare {theme_name}-Richtlinie dokumentiert?",
+            f"Überprüfung: Werden regelmäßig {theme_name}-Audits durchgeführt?",
+            f"Überprüfung: Ist Personal für {theme_name} geschult?",
+            f"Überprüfung: Gibt es ein Monitoring-System für {theme_name}?",
+            f"Überprüfung: Werden Verbesserungen bei {theme_name} durchgeführt?"
+        ]
+    }
+
+
 def _generate_theme_questions(theme_name, theme_description):
     """Generate preconfigured questions and checklist items for a theme"""
     try:
@@ -871,10 +931,12 @@ Antworte NUR mit dem JSON Objekt, ohne zusätzliche Erklärungen."""
             response_text = response_text.strip()
 
         result = _parse_json_response(response_text)
-        return result if isinstance(result, dict) else {"questions": [], "checklist": []}
+        return result if isinstance(result, dict) else _generate_theme_questions_fallback(theme_name, theme_description)
     except Exception as e:
+        logger.error(f"Error generating theme questions: {str(e)}", exc_info=True)
         print(f"Error generating theme questions: {e}")
-        return {"questions": [], "checklist": []}
+        # Fall back to generic questions
+        return _generate_theme_questions_fallback(theme_name, theme_description)
 
 
 @app.route("/themes", methods=["GET"])
@@ -922,17 +984,19 @@ def themes():
                 }), 404
 
             base_themes = _extract_themes(recommendations)
-            if not base_themes:
+            # If theme extraction fails completely, we'll still cache empty list
+            # but the fallback in _extract_themes should prevent this
+            if base_themes:
+                theme_cache.set(base_cache_key, base_themes)
+            else:
+                logger.warning(f"No themes extracted for source: {source}", extra={"request_id": request_id})
+                # Return empty themes list rather than 500 error
                 return jsonify({
-                    "error": {
-                        "message": "Failed to extract themes from recommendations",
-                        "code": 500,
-                        "request_id": request_id,
-                        "timestamp": datetime.utcnow().isoformat() + "Z"
-                    }
-                }), 500
-
-            theme_cache.set(base_cache_key, base_themes)
+                    "themes": [],
+                    "cached": False,
+                    "source": source,
+                    "message": "No themes available at this time"
+                })
 
         # If a query is provided, rerank themes by relevance
         if query:
