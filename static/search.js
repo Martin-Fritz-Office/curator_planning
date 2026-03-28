@@ -254,8 +254,8 @@ async function loadThemeQuestions(theme, container) {
 }
 
 function displayThemeContent(container, content) {
-    const questionsHtml = content.questions.map(q =>
-        `<li class="theme-question" onclick="searchQuestion('${q.replace(/'/g, "\\'")}')">
+    const questionsHtml = content.questions.map((q, idx) =>
+        `<li class="theme-question" data-question-index="${idx}">
             ${q}
         </li>`
     ).join('');
@@ -279,6 +279,13 @@ function displayThemeContent(container, content) {
             </div>
         </div>
     `;
+
+    // Add event listeners to questions
+    container.querySelectorAll('.theme-question').forEach((li, idx) => {
+        li.addEventListener('click', () => {
+            searchQuestion(content.questions[idx]);
+        });
+    });
 }
 
 function searchQuestion(q) {
