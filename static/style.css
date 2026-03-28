@@ -1985,6 +1985,32 @@ button:disabled {
     display:block;
 }
 
+.themes-loading.show {
+    display:flex;
+}
+
+.themes-loading {
+    display:none;
+}
+
+.search-link {
+    color:#667eea;
+    font-size:13px;
+}
+
+.source-filename {
+    font-size:13px;
+    color:#555;
+}
+
+.theme-questions-container.hidden {
+    display:none;
+}
+
+.theme-error {
+    color:red;
+}
+
 @media (max-width:600px) {
     .search-box {
         flex-direction:column;

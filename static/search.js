@@ -105,7 +105,7 @@ async function search() {
                 } else if (event.type === 'error') {
                     throw new Error(event.error);
                 } else if (event.type === 'done') {
-                    themesLoading.style.display = 'flex';
+                    themesLoading.classList.add('show');
                     loadThemes(q);
                 }
             }
@@ -125,8 +125,8 @@ function displaySources(sources) {
             const card = document.createElement('div');
             card.className = 'source-card';
             const searchLinkHtml = source.search_link
-                ? `<a href="${source.search_link}" target="_blank" rel="noopener noreferrer" style="color:#667eea;font-size:13px;">🔍 Google-Suche: ${source.quelldatei}</a>`
-                : (source.quelldatei ? `<span style="font-size:13px;color:#555;">📄 ${source.quelldatei}</span>` : '');
+                ? `<a href="${source.search_link}" target="_blank" rel="noopener noreferrer" class="search-link">🔍 Google-Suche: ${source.quelldatei}</a>`
+                : (source.quelldatei ? `<span class="source-filename">📄 ${source.quelldatei}</span>` : '');
 
             card.innerHTML = `
                 <div class="source-title">${index + 1}. ${source.empfehlung}</div>
@@ -168,7 +168,7 @@ async function loadThemes(query = '') {
         }
 
         const data = await response.json();
-        themesSection.style.display = 'block';
+        themesSection.classList.add('show');
         if (data.related && data.query) {
             themesHeading.textContent = `🔗 Verwandte Themen: „${data.query}"`;
         } else {
@@ -177,9 +177,9 @@ async function loadThemes(query = '') {
         displayThemes(data.themes);
     } catch (err) {
         console.error('Error loading themes:', err);
-        themesSection.style.display = 'none';
+        themesSection.classList.remove('show');
     } finally {
-        themesLoading.style.display = 'none';
+        themesLoading.classList.remove('show');
     }
 }
 
@@ -198,7 +198,7 @@ function displayThemes(themes) {
             <button class="theme-expand-btn" data-theme-id="${theme.id}">
                 Fragen & Checkliste anzeigen
             </button>
-            <div class="theme-questions-container" id="questions-${theme.id}" style="display: none;">
+            <div class="theme-questions-container hidden" id="questions-${theme.id}">
                 <div class="theme-loading">
                     <div class="spinner"></div>
                 </div>
@@ -210,14 +210,14 @@ function displayThemes(themes) {
             const container = document.getElementById(`questions-${theme.id}`);
             const btn = e.target;
 
-            if (container.style.display === 'none') {
-                container.style.display = 'block';
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
                 if (!container.dataset.loaded) {
                     await loadThemeQuestions(theme, container);
                 }
                 btn.textContent = 'Verbergen';
             } else {
-                container.style.display = 'none';
+                container.classList.add('hidden');
                 btn.textContent = 'Fragen & Checkliste anzeigen';
             }
         });
@@ -249,7 +249,7 @@ async function loadThemeQuestions(theme, container) {
         container.dataset.loaded = 'true';
     } catch (err) {
         console.error('Error loading theme questions:', err);
-        container.innerHTML = '<p style="color:red;">Fehler beim Laden der Fragen</p>';
+        container.innerHTML = '<p class="theme-error">Fehler beim Laden der Fragen</p>';
     }
 }
 
@@ -303,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Reload themes when search source changes
 document.querySelectorAll('input[name="search-source"]').forEach(radio => {
     radio.addEventListener('change', () => {
-        themesLoading.style.display = 'flex';
+        themesLoading.classList.add('show');
         loadThemes();
     });
 });
