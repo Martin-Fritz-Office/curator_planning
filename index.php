@@ -6,8 +6,8 @@
   <?php
     require_once __DIR__ . '/seo_meta.php';
     generate_seo_meta([
-      'title' => 'artbackstage – Finanz-, Rechts- und Sozial-Tools für Kulturarbeit',
-      'description' => 'Wähle aus drei Bereichen: Finanzen, Urheberrecht und Soziales für freie Kunst- und Kulturpraxis. Kostenlose Rechner und Checklisten für Kuratoren.',
+      'title' => 'artbackstage – Tools für Kulturarbeit',
+      'description' => 'Wähle aus den Bereichen: Geld, Recht, Organisation und Soziales. Rechner, Checklisten, Tools und Informationen.',
       'lang' => 'de',
       'og_image' => 'https://artbackstage.at/og-image.png',
       'alternate_lang' => 'en',
@@ -135,7 +135,7 @@
           artbackstage · BETA
         </span>
         <h1>Recht, Geld, Soziales, Organisation</h1>
-        <p>Drei Bereiche, ein Werkzeugkasten: Finanzen, Urheberrecht und Soziales für Kunst- und Kulturpraxis.</p>
+        <p>Finanzen, Recht, Organisation in der Kunst- und Kulturpraxis.</p>
         <div class="landing-hero-actions">
           <a class="btn btn-hero-ghost" href="index_en.php" lang="en">English version</a>
         </div>
@@ -158,7 +158,7 @@
           </span>
           <span class="tool-link-content">
             <h3>artbackstage | Geld</h3>
-            <p>Finanz-, Angebots- und Fair-Pay-Rechner für die freie Kulturpraxis.</p>
+            <p>Finanz-, Angebots- und Fair-Pay-Rechner für Kulturpraxis.</p>
           </span>
         </a>
 
@@ -194,7 +194,7 @@
           </span>
           <span class="tool-link-content">
             <h3>artbackstage | Organisation</h3>
-            <p>Vereinsmanagement, Governance und Prüfungsvorbereitung.</p>
+            <p>Vereinsmanagement, Governance, Compliance und Rechnungsprüfung.</p>
           </span>
         </a>
 
@@ -205,8 +205,8 @@
             </svg>
           </span>
           <span class="tool-link-content">
-            <h3>artbackstage | FAQ</h3>
-            <p>Häufig gestellte Fragen zu Honorar, Recht und sozialer Absicherung.</p>
+            <h3>artbackstage | FAQ Kunst</h3>
+            <p>Wir beantworten häufig gestellte Fragen zum Kunstbetrieb.</p>
           </span>
         </a>
       </div>
