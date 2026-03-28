@@ -994,14 +994,14 @@
 
   // -------------------- reset --------------------
   resetBtn.addEventListener("click", () => {
-    answers = { ...DEFAULT };
-    employmentNetIncome = DEFAULT_EMPLOYMENT_NET;
-    householdPersons = DEFAULT_HOUSEHOLD_PERSONS;
+    answers = {};
+    employmentNetIncome = 0;
+    householdPersons = 0;
     selectedScenarioId = "";
     // update selects
     document.querySelectorAll("select[data-key]").forEach((sel) => {
       const key = sel.getAttribute("data-key");
-      sel.value = answers[key];
+      sel.value = answers[key] || "";
     });
     const employmentInput = document.getElementById("employmentNetIncome");
     if (employmentInput) employmentInput.value = String(employmentNetIncome);
