@@ -13,7 +13,7 @@ RETURNS TABLE(
   id bigint,
   "Empfehlung" text,
   "Adressiert an" text,
-  "quelldatei" text,
+  "Quelldatei" text,
   similarity float
 )
 LANGUAGE sql AS $$
@@ -21,7 +21,7 @@ LANGUAGE sql AS $$
     id,
     "Empfehlung",
     "Adressiert an",
-    "quelldatei",
+    "Quelldatei",
     1 - (embedding <=> query_embedding) AS similarity
   FROM "STRH"
   WHERE embedding IS NOT NULL
@@ -38,7 +38,7 @@ RETURNS TABLE(
   id bigint,
   "Empfehlung" text,
   "Adressiert an" text,
-  "quelldatei" text,
+  "Quelldatei" text,
   similarity float
 )
 LANGUAGE sql AS $$
@@ -46,7 +46,7 @@ LANGUAGE sql AS $$
     id,
     "Empfehlung",
     "Adressiert an",
-    "quelldatei",
+    "Quelldatei",
     1 - (embedding <=> query_embedding) AS similarity
   FROM "BRH"
   WHERE embedding IS NOT NULL
@@ -63,7 +63,7 @@ RETURNS TABLE(
   id bigint,
   "Empfehlung" text,
   "Adressiert an" text,
-  "quelldatei" text,
+  "Quelldatei" text,
   similarity float
 )
 LANGUAGE sql AS $$
@@ -71,12 +71,12 @@ LANGUAGE sql AS $$
     id,
     "Empfehlung",
     "Adressiert an",
-    "quelldatei",
+    "Quelldatei",
     1 - (embedding <=> query_embedding) AS similarity
   FROM (
-    SELECT id, "Empfehlung", "Adressiert an", "quelldatei", embedding FROM "STRH"
+    SELECT id, "Empfehlung", "Adressiert an", "Quelldatei", embedding FROM "STRH"
     UNION ALL
-    SELECT id, "Empfehlung", "Adressiert an", "quelldatei", embedding FROM "BRH"
+    SELECT id, "Empfehlung", "Adressiert an", "Quelldatei", embedding FROM "BRH"
   ) AS combined
   WHERE embedding IS NOT NULL
   ORDER BY embedding <=> query_embedding
