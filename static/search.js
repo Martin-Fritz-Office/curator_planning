@@ -294,6 +294,9 @@ function searchQuestion(q) {
     search();
 }
 
+// Handle search button click
+searchBtn.addEventListener('click', search);
+
 // Allow Enter key to search
 question.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
