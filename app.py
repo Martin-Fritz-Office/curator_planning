@@ -96,6 +96,8 @@ import hashlib
 import time
 import json
 import logging
+import signal
+import threading
 from urllib.parse import quote
 from datetime import datetime, timedelta
 from flask import Flask, request, jsonify, Response, stream_with_context
@@ -264,6 +266,30 @@ except Exception as e:
     print(f"Warning: Supabase client initialization failed: {e}")
 
 
+def supabase_rpc_with_timeout(rpc_function, params, timeout_seconds=15):
+    """Execute Supabase RPC call with timeout"""
+    result_container = [None]
+    exception_container = [None]
+
+    def execute_rpc():
+        try:
+            result_container[0] = supabase.rpc(rpc_function, params).execute()
+        except Exception as e:
+            exception_container[0] = e
+
+    thread = threading.Thread(target=execute_rpc, daemon=True)
+    thread.start()
+    thread.join(timeout=timeout_seconds)
+
+    if thread.is_alive():
+        raise TimeoutError(f"Supabase RPC call '{rpc_function}' timed out after {timeout_seconds} seconds")
+
+    if exception_container[0]:
+        raise exception_container[0]
+
+    return result_container[0]
+
+
 @app.route("/ask", methods=["POST"])
 def ask():
     """
@@ -366,10 +392,11 @@ def ask():
                 rpc_function = "match_all_empfehlungen"
 
             try:
-                search_result = supabase.rpc(
+                search_result = supabase_rpc_with_timeout(
                     rpc_function,
-                    {"query_embedding": question_embedding, "match_count": 5}
-                ).execute()
+                    {"query_embedding": question_embedding, "match_count": 5},
+                    timeout_seconds=15
+                )
             except Exception as e:
                 error_details = {
                     'type': 'error',
